@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Системы Счисления</string>
+    <string name="dec">Десятичная (10)</string>
+    <string name="bin">Двоичная (2)</string>
+    <string name="oct">Восьмеричная (8)</string>
+    <string name="hex">Шестнадцатеричная (16)</string>
+    <string name="freeValue">Свободное значение (n)</string>
+    <string name="limitIsExceeded">Превышен лимит</string>
+    <string name="night_mode">Ночной Режим</string>
+    <string name="Converter">Конвертер</string>
+    <string name="Calculator">Калькулятор</string>
+    <string name="result">Результат</string>
+    <string name="number_2">Число 2</string>
+    <string name="number_1">Число 1</string>
+    <string name="decision">Решение</string>
+    <string name="invalid_value">Недопустимое значение</string>
+</resources>
