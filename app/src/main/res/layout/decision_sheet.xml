@@ -55,17 +55,65 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_round_compare_arrows_24px" />
 
-            <TextView
-                android:id="@+id/tv1"
-                android:layout_width="match_parent"
+            <HorizontalScrollView
+                android:id="@+id/hsv"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="10 -> 2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/revertButton" />
+                app:layout_constraintTop_toBottomOf="@+id/revertButton">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/decision_number_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="100"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/convert_number_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10"
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/decision_number_1"
+                        app:layout_constraintStart_toEndOf="@+id/decision_number_1" />
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="="
+                        app:layout_constraintStart_toEndOf="@id/convert_number_1"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/decision_number_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="1100100"
+                        app:layout_constraintStart_toEndOf="@+id/textView8"
+                        app:layout_constraintTop_toTopOf="@+id/textView8" />
+
+                    <TextView
+                        android:id="@+id/convert_number_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/number_2"
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/decision_number_2"
+                        app:layout_constraintStart_toEndOf="@+id/decision_number_2" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </HorizontalScrollView>
 
             <HorizontalScrollView
                 android:id="@+id/hsv1"
@@ -73,7 +121,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv1">
+                app:layout_constraintTop_toBottomOf="@+id/hsv">
 
                 <LinearLayout
                     android:id="@+id/decisionCardView1"
@@ -82,7 +130,31 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:orientation="horizontal"
-                    android:padding="2dp">
+                    android:padding="8dp"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp">
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <HorizontalScrollView
+                android:id="@+id/hsv2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hsv1">
+
+                <LinearLayout
+                    android:id="@+id/decisionCardView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="horizontal"
+                    android:padding="8dp"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp">
 
                 </LinearLayout>
             </HorizontalScrollView>

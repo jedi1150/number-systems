@@ -3,7 +3,6 @@ package ru.sandello.binaryconverter
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
-import android.text.Html
 import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -17,6 +16,9 @@ import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.decision_sheet.*
 import kotlinx.android.synthetic.main.fragment_converter.*
 import kotlinx.android.synthetic.main.div_layout.view.*
+import kotlinx.android.synthetic.main.multiply_layout.view.*
+import kotlinx.android.synthetic.main.multiply_layout2.view.*
+import java.math.BigInteger
 
 
 @Suppress("DEPRECATION")
@@ -183,7 +185,6 @@ class ConverterFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                tv1.text = spinner4.selectedItem.toString() + " -> " + spinner5.selectedItem.toString()
                 if (editText10.text.toString() != "") parseRepeat()
             }
         }
@@ -192,7 +193,6 @@ class ConverterFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                tv1.text = spinner4.selectedItem.toString() + " -> " + spinner5.selectedItem.toString()
                 if (editText10.text.toString() != "") parseRepeat()
             }
         }
@@ -222,53 +222,78 @@ class ConverterFragment : Fragment() {
 
     @ExperimentalUnsignedTypes
     @SuppressLint("SetTextI18n", "InflateParams")
-    fun parseRepeat() =
-            try {
-                errorNull()
-                cleared = false
+    private fun parseRepeat() {
+        try {
+            errorNull()
+            cleared = false
 
-                var a: String
-                var i = 0
-                var stringOriginal = editText10.text.toString().toULong(10).toString(spinner4.selectedItem.toString().toInt()).toInt()
 
-                decisionCardView1.removeAllViews()
+            var a: String
+            var b = ""
+            var i = 0
+            var stringOriginal = editText10.text.toString().toULong(10).toString(spinner4.selectedItem.toString().toInt()).toBigInteger()
 
-                if (spinner4.selectedItem.toString().toInt() > spinner5.selectedItem.toString().toInt())
-                    while (stringOriginal >= 1)
-                    {
-                        a = (stringOriginal % spinner5.selectedItem.toString().toInt()).toString()
-                        val vi = layoutInflater.inflate(R.layout.div_layout, null, false)
-                        vi.textView1.text = stringOriginal.toString()
-                        vi.textView2.text = spinner5.selectedItem.toString()
-                        vi.textView3.text = (stringOriginal / spinner5.selectedItem.toString().toInt()).toString()
-                        vi.textView4.text = "-" + ((stringOriginal / spinner5.selectedItem.toString().toInt()) * spinner5.selectedItem.toString().toInt()).toString()
-                        vi.textView5.text = a
+            decisionCardView1.removeAllViews()
+            decisionCardView2.removeAllViews()
 
-                        decisionCardView1.addView(vi, i)
-                        vi.id = i
-                        i++
-                        stringOriginal /= spinner5.selectedItem.toString().toInt()
-                    }
-                if (spinner4.selectedItem.toString().toInt() < spinner5.selectedItem.toString().toInt())
-                {
-                    while (i < stringOriginal.toString().length) {
+            if (spinner4.selectedItem.toString().toInt() > spinner5.selectedItem.toString().toInt())
+                while (stringOriginal >= 1.toBigInteger()) {
+                    a = (stringOriginal % spinner5.selectedItem.toString().toBigInteger()).toString()
+                    val vi = layoutInflater.inflate(R.layout.div_layout, null, false)
+                    vi.textView1.text = stringOriginal.toString()
+                    vi.textView2.text = spinner5.selectedItem.toString()
+                    vi.textView3.text = (stringOriginal / spinner5.selectedItem.toString().toBigInteger()).toString()
+                    vi.textView4.text = "-" + ((stringOriginal / spinner5.selectedItem.toString().toBigInteger()) * spinner5.selectedItem.toString().toBigInteger()).toString()
+                    vi.textView5.text = a
+                    b += a
+
+                    decisionCardView1.addView(vi, i)
+//                        vi.id = i
+                    i++
+                    stringOriginal /= spinner5.selectedItem.toString().toBigInteger()
+                }
+            if (spinner4.selectedItem.toString().toInt() < spinner5.selectedItem.toString().toInt()) {
+                var iLast = stringOriginal.toString().length
+                while (i < stringOriginal.toString().length) {
+                    iLast--
+
 //                        Log.d("test228", stringOriginal.toString().subSequence(0, stringOriginal.toString().length)[i].toString())
-                        i++
+                    val vi = layoutInflater.inflate(R.layout.multiply_layout, null, false)
+                    vi.decision_multiply_textView.text = spinner4.selectedItem.toString()
+                    vi.decision_multiply_textView1.text = iLast.toString()
+                    vi.decision_multiply_textView2.text = stringOriginal.toString().reversed()[iLast].toString()
+
+                    val vi2 = layoutInflater.inflate(R.layout.multiply_layout2, null, false)
+                    vi2.decision_multiply2_textView1.text = ((spinner4.selectedItem.toString().toBigInteger().pow(iLast).toString().toBigInteger() * stringOriginal.toString().reversed()[iLast].toString().toBigInteger()).toString())
+                    if (i == stringOriginal.toString().length - 1) {
+                        vi.decision_multiply_plus.text = ""
+                        vi2.decision_multiply2_plus.text = ""
+
                     }
-                    val tv = TextView(context)
-                    tv.text = stringOriginal.toString() + spinner4.selectedItem.toString().substring(0) + " " +
-                            "-> " + stringOriginal.toString().toInt(spinner4.selectedItem.toString().toInt()).toString(10) + Html.fromHtml("<sup><small>${spinner5.selectedItem}</small></sup> ")
-                    decisionCardView1.addView(tv)
-                }
-                else
-                {
+                    decisionCardView1.addView(vi)
+                    decisionCardView2.addView(vi2)
+                    i++
 
                 }
+//                    val tv = TextView(context)
+
+                b = stringOriginal.toString().toULong(spinner4.selectedItem.toString().toInt()).toString(10).reversed()
+//                    decisionCardView1.addView(tv)
+            } else {
 
             }
-            catch (e: Exception){
-                Log.d("test228", e.toString())
-            }
+
+            decision_number_1.text = editText10.text.toString().toULong(10).toString(spinner4.selectedItem.toString().toInt())
+            convert_number_1.text = spinner4.selectedItem.toString()
+            decision_number_2.text = b.reversed()
+            convert_number_2.text = spinner5.selectedItem.toString()
+        } catch (e: Exception) {
+            Log.d("test228", e.toString())
+            Log.d("test228", e.stackTrace[0].toString())
+            Toast.makeText(context, e.stackTrace[0].lineNumber.toString(), Toast.LENGTH_LONG).show()
+
+        }
+    }
 
     private fun clearConverter(editfield: View?)
     {
