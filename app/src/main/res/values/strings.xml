@@ -1,19 +1,26 @@
 <resources>
-    <string name="app_name">Numeral System</string>
+    <string name="app_name">Number Systems</string>
     <string name="dec">Decimal (10)</string>
     <string name="bin">Binary (2)</string>
     <string name="oct">Octal (8)</string>
     <string name="hex">Hexadecimal (16)</string>
-    <string name="freeValue">Free value (n)</string>
+    <string name="freeValue">Base (n)</string>
     <string name="limitIsExceeded">Limit is exceeded</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="night_mode">Night Mode</string>
     <string name="Converter">Converter</string>
     <string name="Calculator">Calculator</string>
     <string name="result">Result</string>
-    <string name="number_2">Number 2</string>
-    <string name="number_1">Number 1</string>
-    <string name="decision">Decision</string>
+    <string name="operand_2">Operand 2</string>
+    <string name="operand_1">Operand 1</string>
+    <string name="explanation">Explanation</string>
     <string name="invalid_value">Invalid value</string>
+    <string name="step_1">Convert to decimal number system</string>
+    <string name="step_2">Perform the division column</string>
+    <string name="step_3">Write the result in reverse order</string>
+
+    <string-array name="themeNames">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>Black</item>
+    </string-array>
 </resources>

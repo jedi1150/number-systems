@@ -34,13 +34,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:digits="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnoprstuvwxyz"
-                    android:hint="@string/number_1"
+                    android:hint="@string/operand_1"
                     android:imeOptions="actionDone|flagNoFullscreen"
-                    android:inputType="none|textCapCharacters|textNoSuggestions"
                     android:importantForAutofill="no"
                     android:includeFontPadding="true"
+                    android:inputType="textNoSuggestions"
                     android:paddingEnd="90dp"
                     android:singleLine="true"
+                    android:textAllCaps="true"
                     tools:ignore="RtlSymmetry" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,7 +82,8 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:checked="true"
-                        android:text="+" />
+                        android:text="+"
+                        android:textSize="18sp" />
 
                     <RadioButton
                         android:id="@+id/radioButtonMinus"
@@ -90,7 +92,8 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:layout_weight="0"
-                        android:text="-" />
+                        android:text="−"
+                        android:textSize="18sp" />
 
                     <RadioButton
                         android:id="@+id/radioButtonMult"
@@ -99,7 +102,8 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:layout_weight="0"
-                        android:text="*" />
+                        android:text="×"
+                        android:textSize="18sp" />
 
                     <RadioButton
                         android:id="@+id/radioButtonDiv"
@@ -108,7 +112,8 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:layout_weight="0"
-                        android:text="/" />
+                        android:text="÷"
+                        android:textSize="18sp" />
                 </RadioGroup>
             </LinearLayout>
 
@@ -130,13 +135,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:digits="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnoprstuvwxyz"
-                    android:hint="@string/number_2"
+                    android:hint="@string/operand_2"
                     android:imeOptions="actionDone|flagNoFullscreen"
-                    android:inputType="none|textCapCharacters|textNoSuggestions"
-                    android:importantForAutofill="no"
                     android:includeFontPadding="true"
+                    android:inputType="textNoSuggestions"
                     android:paddingEnd="90dp"
                     android:singleLine="true"
+                    android:textAllCaps="true"
                     tools:ignore="RtlSymmetry" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -169,13 +174,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/result"
+                    android:digits="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnoprstuvwxyz"
                     android:imeOptions="actionDone|flagNoFullscreen"
-                    android:inputType="none"
                     android:paddingEnd="90dp"
                     android:selectAllOnFocus="true"
                     android:singleLine="true"
+                    android:textAllCaps="true"
                     android:textIsSelectable="true"
-                    tools:ignore="RtlSymmetry" />
+                    tools:ignore="RtlSymmetry"
+                    android:inputType="textNoSuggestions" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatSpinner
@@ -188,22 +195,6 @@
                 app:layout_constraintBottom_toBottomOf="@+id/textInputLayoutResult"
                 app:layout_constraintEnd_toEndOf="@+id/textInputLayoutResult"
                 app:layout_constraintTop_toTopOf="@+id/textInputLayoutResult" />
-
-            <Button
-                android:id="@+id/buttonDecision"
-                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/decision"
-                android:textSize="18sp"
-                android:visibility="gone"
-                app:icon="@drawable/ic_medical_result"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutResult" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

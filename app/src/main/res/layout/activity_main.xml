@@ -7,14 +7,14 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:visibility="gone"
+            android:visibility="visible"
             ads:layout_scrollFlags="scroll|enterAlways"
             ads:title="@string/app_name" />
 
@@ -25,8 +25,14 @@
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabs"
+                style="@style/Widget.MaterialComponents.TabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimaryDark"
+                ads:tabIconTint="@color/custom_tab_textcolors"
+                ads:tabIndicatorFullWidth="false"
+                ads:tabInlineLabel="false"
+                ads:tabTextColor="@color/custom_tab_textcolors">
 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tabItem"
@@ -46,11 +52,30 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         ads:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
 
     </androidx.core.widget.NestedScrollView>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/explanationFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="8dp"
+        android:importantForAutofill="no"
+        android:nestedScrollingEnabled="false"
+        android:src="@drawable/ic_outline_assignment_24px"
+        android:visibility="invisible"
+        ads:backgroundTint="?android:attr/colorBackground"
+        ads:layout_constraintBottom_toTopOf="@id/converterFab"
+        ads:layout_constraintEnd_toEndOf="@id/converterFab"
+        ads:layout_constraintStart_toStartOf="@id/converterFab"
+        ads:rippleColor="?attr/colorAccent"
+        tools:ignore="RtlHardcoded,UnusedAttribute" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/converterFab"
@@ -64,11 +89,43 @@
         android:src="@drawable/ic_round_close_24px"
         android:visibility="invisible"
         ads:backgroundTint="#fff"
-        ads:fabSize="normal"
         ads:layout_constraintBottom_toBottomOf="parent"
         ads:layout_constraintEnd_toEndOf="parent"
-        ads:useCompatPadding="false"
+        ads:rippleColor="@color/clearColor"
         tools:ignore="RtlHardcoded,UnusedAttribute" />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="20dp"
+        ads:backgroundTint="#fff"
+        ads:layout_constraintBottom_toBottomOf="@+id/nestedScrollView"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="@+id/nestedScrollView"
+        ads:layout_constraintTop_toTopOf="@+id/nestedScrollView">
+
+        <View
+            android:id="@+id/main_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            android:background="#aa000000"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/explanation_include"
+            layout="@layout/explanation_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="-16dp"
+            android:visibility="gone"
+            ads:layout_constraintBottom_toBottomOf="parent"
+            ads:layout_constraintEnd_toEndOf="parent"
+            ads:layout_constraintStart_toStartOf="parent"
+            ads:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/calculatorFab"
@@ -82,8 +139,9 @@
         android:src="@drawable/ic_round_close_24px"
         android:visibility="invisible"
         ads:backgroundTint="#fff"
-        ads:fabSize="normal"
         ads:layout_constraintBottom_toBottomOf="parent"
         ads:layout_constraintEnd_toEndOf="parent"
+        ads:rippleColor="@color/clearColor"
         tools:ignore="RtlHardcoded,UnusedAttribute" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

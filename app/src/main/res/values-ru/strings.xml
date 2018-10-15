@@ -5,14 +5,17 @@
     <string name="bin">Двоичная (2)</string>
     <string name="oct">Восьмеричная (8)</string>
     <string name="hex">Шестнадцатеричная (16)</string>
-    <string name="freeValue">Свободное значение (n)</string>
+    <string name="freeValue">Основание (n)</string>
     <string name="limitIsExceeded">Превышен лимит</string>
     <string name="night_mode">Ночной Режим</string>
     <string name="Converter">Конвертер</string>
     <string name="Calculator">Калькулятор</string>
     <string name="result">Результат</string>
-    <string name="number_2">Число 2</string>
-    <string name="number_1">Число 1</string>
-    <string name="decision">Решение</string>
+    <string name="operand_2">Операнд 2</string>
+    <string name="operand_1">Операнд 1</string>
+    <string name="explanation">Решение</string>
     <string name="invalid_value">Недопустимое значение</string>
+    <string name="step_1">Конвертируем в десятичную систему счисления</string>
+    <string name="step_2">Выполняем деление столбиком</string>
+    <string name="step_3">Полученный результат записать в обратной последовательности</string>
 </resources>
