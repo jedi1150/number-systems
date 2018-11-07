@@ -1,46 +1,34 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="LightTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:textColorPrimaryInverse">@android:color/primary_text_light</item>
-        <item name="android:textColorPrimary">@android:color/primary_text_light</item>
+        <item name="android:textColorPrimaryInverse">#202125</item>
+        <item name="android:textColorPrimary">#202125</item>
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="colorPrimaryDark">#fff</item>
-        <item name="colorPrimary">#fff</item>
-        <item name="android:statusBarColor">#fff</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorSecondary">#fff</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">#FFF</item>
         <item name="iconColor">#202125</item>
         <item name="iconColorDisabled">#757575</item>
         <item name="tabSelected">@color/colorPrimary</item>
+        <item name="android:fontFamily">@font/open_sans_semibold</item>
     </style>
 
-
-    <style name="DarkTheme" parent="ThemeOverlay.MaterialComponents.Dark">
-        <item name="android:textColorPrimaryInverse">@android:color/primary_text_dark</item>
+    <style name="DarkTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:textColorPrimaryInverse">#bdbdbd</item>
         <item name="android:textColorPrimary">#bdbdbd</item>
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="colorPrimaryDark">#202125</item>
-        <item name="colorPrimary">#202125</item>
-        <item name="android:statusBarColor">#202125</item>
+        <item name="colorPrimary">#bdbdbd</item>
+        <item name="colorSecondary">#202125</item>
+        <item name="android:color">@color/colorPrimary</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">#202125</item>
         <item name="iconColor">#bdbdbd</item>
         <item name="iconColorDisabled">#757575</item>
-        <item name="android:colorControlHighlight">@color/colorPrimary</item>
-        <item name="colorControlActivated">@color/colorPrimary</item>
         <item name="tabSelected">@color/colorPrimary</item>
-    </style>
-
-
-    <style name="BlackTheme" parent="ThemeOverlay.MaterialComponents.Dark">
-        <item name="android:textColorPrimaryInverse">@android:color/primary_text_dark</item>
-        <item name="android:textColorPrimary">#bdbdbd</item>
-        <item name="colorAccent">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">#000</item>
-        <item name="colorPrimary">#000</item>
-        <item name="android:statusBarColor">#000</item>
-        <item name="iconColor">#bdbdbd</item>
-        <item name="iconColorDisabled">#757575</item>
-        <item name="android:colorControlHighlight">@color/colorPrimary</item>
-        <item name="colorControlActivated">@color/colorPrimary</item>
-        <item name="tabSelected">@color/colorPrimary</item>
+        <item name="android:fontFamily">@font/open_sans_semibold</item>
     </style>
 
 </resources>

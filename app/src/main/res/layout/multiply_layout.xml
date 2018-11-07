@@ -11,6 +11,7 @@
         android:layout_marginStart="2dp"
         android:layout_marginTop="8dp"
         android:text="@string/operand_1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="index"
-        android:textSize="10sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintStart_toEndOf="@+id/explanation_multiply_textView"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,6 +31,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
         android:text="*"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toBottomOf="@+id/explanation_multiply_textView"
         app:layout_constraintStart_toEndOf="@+id/explanation_multiply_textView1"
         app:layout_constraintTop_toTopOf="@+id/explanation_multiply_textView" />
 
@@ -39,6 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:text="@string/operand_2"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toEndOf="@+id/explanation_multiply_multy"
         app:layout_constraintTop_toTopOf="@+id/explanation_multiply_multy" />
 
@@ -48,6 +52,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:text="+"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toBottomOf="@+id/explanation_multiply_textView2"
         app:layout_constraintStart_toEndOf="@+id/explanation_multiply_textView2"
         app:layout_constraintTop_toTopOf="@+id/explanation_multiply_textView2" />
 

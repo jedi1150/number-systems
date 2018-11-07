@@ -18,4 +18,5 @@
     <string name="step_1">Конвертируем в десятичную систему счисления</string>
     <string name="step_2">Выполняем деление столбиком</string>
     <string name="step_3">Полученный результат записать в обратной последовательности</string>
+    <string name="available_characters_for_input">Доступные символы для ввода</string>
 </resources>

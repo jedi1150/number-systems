@@ -1,14 +1,12 @@
 package ru.sandello.binaryconverter
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.text.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.EditText
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_main.view.*
@@ -16,25 +14,11 @@ import kotlinx.android.synthetic.main.fragment_calculator.*
 import kotlinx.android.synthetic.main.fragment_calculator.view.*
 
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-
 @ExperimentalUnsignedTypes
 class CalculatorFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
-    private var a = 0.toULong()
-    private var b = 0.toULong()
-    private var c = 0.toULong()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var a = 0.toBigInteger()
+    private var b = 0.toBigInteger()
+    private var c = 0.toBigInteger()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -44,6 +28,19 @@ class CalculatorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        view.rootView.explanation_fab.hide()
+        view.rootView.clearFab.hide()
+        view.rootView.main_overlay.visibility = View.GONE
+
+        if (editTextResult.text.toString() != "") view.rootView.clearFab.hide()
+
+        view.rootView.clearFab.setOnClickListener {
+            editTextVal1.setText("")
+            editTextVal2.setText("")
+            editTextResult.setText("")
+            it.clearFab.hide()
+        }
+
         val listCustomBin = arrayOf(2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36)
         val aa = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, listCustomBin)
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -51,36 +48,21 @@ class CalculatorFragment : Fragment() {
         spinner2!!.adapter = aa
         spinner3!!.adapter = aa
 
-        val calculatorSave = context!!.getSharedPreferences("calculator", Context.MODE_PRIVATE)
-        editTextVal1.setText(calculatorSave.getString("calculator1", ""))
-        editTextVal2.setText(calculatorSave.getString("calculator2", ""))
-        radioGroup.check(calculatorSave.getInt("switch", radioButtonPlus.id))
-        spinner.setSelection(aa.getPosition(calculatorSave.getInt("spinner1", 10)))
-        spinner2.setSelection(aa.getPosition(calculatorSave.getInt("spinner2", 2)))
-        spinner3.setSelection(aa.getPosition(calculatorSave.getInt("spinner3", 10)))
+
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
 
+            @SuppressLint("SetTextI18n")
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (editTextVal1.text.toString() != "")
                 try {
-                    a = editTextVal1.text.toString().toULong(spinner.selectedItem.toString().toInt())
-                    if (radioButtonPlus.isChecked) {
-                        c = (a + b)
-                    }
-                    if (radioButtonMinus.isChecked) {
-                        c = (a - b)
-                    }
-                    if (radioButtonMult.isChecked) {
-                        c = (a * b)
-                    }
-                    if (radioButtonDiv.isChecked && b != 0.toULong()) {
-                        c = (a / b)
-                    }
+                    a = editTextVal1.text.toString().toBigInteger(spinner.selectedItem.toString().toInt())
+                    if (radioButtonPlus.isChecked) c = (a + b)
+                    if (radioButtonMinus.isChecked) c = (a - b)
+                    if (radioButtonMult.isChecked) c = (a * b)
+                    if (radioButtonDiv.isChecked && b != 0.toBigInteger()) c = (a / b)
                     editTextResult.setText(c.toString(spinner3.selectedItem.toString().toInt()))
-                    view?.rootView?.calculatorFab?.show()
-                    clearedCalc = false
                     errorNull()
                 }
                 catch (e: Exception){
@@ -92,25 +74,16 @@ class CalculatorFragment : Fragment() {
         spinner2.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
 
+            @SuppressLint("SetTextI18n")
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (editTextVal2.text.toString() != "")
                 try {
-                    b = editTextVal2.text.toString().toULong(spinner2.selectedItem.toString().toInt())
-                    if (radioButtonPlus.isChecked) {
-                        c = (a + b)
-                    }
-                    if (radioButtonMinus.isChecked) {
-                        c = (a - b)
-                    }
-                    if (radioButtonMult.isChecked) {
-                        c = (a * b)
-                    }
-                    if (radioButtonDiv.isChecked && b != 0.toULong()) {
-                        c = (a / b)
-                    }
+                    b = editTextVal2.text.toString().toBigInteger(spinner2.selectedItem.toString().toInt())
+                    if (radioButtonPlus.isChecked) c = (a + b)
+                    if (radioButtonMinus.isChecked) c = (a - b)
+                    if (radioButtonMult.isChecked) c = (a * b)
+                    if (radioButtonDiv.isChecked && b != 0.toBigInteger()) c = (a / b)
                     editTextResult.setText(c.toString(spinner3.selectedItem.toString().toInt()))
-                    view?.rootView?.calculatorFab?.show()
-                    clearedCalc = false
                     errorNull()
                 }
                 catch (e: Exception){
@@ -123,24 +96,15 @@ class CalculatorFragment : Fragment() {
         spinner3.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
 
+            @SuppressLint("SetTextI18n")
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (editTextResult.text.toString() != "")
                 try {
-                    if (radioButtonPlus.isChecked) {
-                        c = (a + b)
-                    }
-                    if (radioButtonMinus.isChecked) {
-                        c = (a - b)
-                    }
-                    if (radioButtonMult.isChecked) {
-                        c = (a * b)
-                    }
-                    if (radioButtonDiv.isChecked && b != 0.toULong()) {
-                        c = (a / b)
-                    }
+                    if (radioButtonPlus.isChecked) c = (a + b)
+                    if (radioButtonMinus.isChecked) c = (a - b)
+                    if (radioButtonMult.isChecked) c = (a * b)
+                    if (radioButtonDiv.isChecked && b != 0.toBigInteger()) c = (a / b)
                     editTextResult.setText(c.toString(spinner3.selectedItem.toString().toInt()))
-                    view?.rootView?.calculatorFab?.show()
-                    clearedCalc = false
                     errorNull()
                 }
                 catch (e: Exception){
@@ -149,47 +113,75 @@ class CalculatorFragment : Fragment() {
             }
         }
 
-
-        view.rootView.calculatorFab.setOnClickListener {
-            clearCalculator(it)
-        }
-
-        editTextVal1.addTextChangedListener(object : TextWatcher {
+        editTextVal1.addTextChangedListener(object : TextWatcher{
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (editTextVal1.hasFocus()) {
-                    if (s.toString() != "")
-                    {
-                        calculate(s.toString(), editTextVal1, textInputLayoutCustom1)
+                var allowVal = ""
+                val sym = arrayOf(0,1,2,3,4,5,6,7,8,9,"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
+                for (i in 0 until spinner.selectedItem.toString().toInt())
+                    allowVal += sym[i]
+                if (editTextVal1.hasFocus()) { //Если фокус на editTextVal1
+                    if (s.toString() != "") { //если текст не равен нулю
+                        var str = ""
+                        for (i in 0 until s!!.length) //ищем символ "-"
+                            if (i == 0 && s[0].toString() == "-")
+                                str += s[i]
+                            else if (s != "" && s[i].toString() != "-")
+                                str += s[i]
+
+                        if (str == "-") {
+                            if (str.length > 1)
+                                when { str != "" -> calculate(str, editTextVal1, textInputLayoutCustom1, allowVal) }
+                        }
+                        else {
+                            when {
+                                str != "" -> calculate(str, editTextVal1, textInputLayoutCustom1, allowVal)
+                                str == "" -> editTextVal1.setText("")
+                            }
+                        }
                     }
-                    if (s.toString() == "" && !clearedCalc)
-                        a = 0.toULong(); calculate("", editTextVal2, textInputLayoutCustom2)
-                    if (s.toString() == "0")
-                    {
-                        view.rootView.editTextVal1.text = null
-                    }
+                    if (s.toString() == "")
+                        calculate("0", editTextVal1, textInputLayoutCustom1, allowVal)
                 }
-                if (editTextVal1.text.toString() == "" && editTextVal2.text.toString() == "") view.rootView?.converterFab?.hide()
             }
         })
+
 
         editTextVal2.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                var allowVal = ""
+                val sym = arrayOf(0,1,2,3,4,5,6,7,8,9,"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
+                for (i in 0 until spinner2.selectedItem.toString().toInt())
+                    allowVal += sym[i]
                 if (editTextVal2.hasFocus()) {
                     if (s.toString() != "") {
-                        calculate(s.toString(), editTextVal2, textInputLayoutCustom2)
+                        var str = ""
+
+                        for (i in 0 until s!!.length)
+                            if (i == 0 && s[i].toString() == "-")
+                                str += s[i]
+                            else if (s != "" && s[i].toString() != "-")
+                                str += s[i]
+
+                        if (str == "-") {
+                            if (str.length > 1)
+                                when {
+                                    str != "" -> calculate(str, editTextVal2, textInputLayoutCustom2, allowVal)
+                                }
+                        }
+                        else {
+                            when {
+                                str != "" -> calculate(str, editTextVal2, textInputLayoutCustom2, allowVal)
+                                str == "" -> editTextVal2.setText("")
+                            }
+                        }
                     }
-                    if (s.toString() == "" && !clearedCalc)
-                        b = 0.toULong(); calculate("", editTextVal2, textInputLayoutCustom2)
-                    if (s.toString() == "0")
-                    {
-                        view.rootView.editTextVal1.text = null
-                    }
+                    if (s.toString() == "")
+                        calculate("0", editTextVal2, textInputLayoutCustom2, allowVal)
                 }
-                if (editTextVal1.text.toString() == "" && editTextVal2.text.toString() == "") view.rootView?.calculatorFab?.hide()
             }
         })
 
@@ -198,87 +190,59 @@ class CalculatorFragment : Fragment() {
         }
     }
 
-    fun calculate(string: String, editField: View?, editLayout: TextInputLayout?)
-    {
+
+    @SuppressLint("SetTextI18n")
+    fun calculate(string: String, editField: View?, editLayout: TextInputLayout?, allowVal: String) {
         try {
-            if (editField?.resources?.getResourceEntryName(editField.id) == "editTextVal1" && string != "") a = string.toULong(spinner.selectedItem.toString().toInt())
-            if (editField?.resources?.getResourceEntryName(editField.id) == "editTextVal2" && string != "") b = string.toULong(spinner2.selectedItem.toString().toInt())
-                if (radioButtonPlus.isChecked) {
-                    c = (a + b)
-                }
-                if (radioButtonMinus.isChecked) {
-                    c = (a - b)
-                }
-                if (radioButtonMult.isChecked) {
-                    c = (a * b)
-                }
-                if (radioButtonDiv.isChecked && b != 0.toULong()) {
-                    c = (a / b)
-                }
-            editTextResult.setText(c.toString(spinner3.selectedItem.toString().toInt()))
-            view?.rootView?.calculatorFab?.show()
-            clearedCalc = false
+            view!!.rootView.clearFab.show()
+            if (editField?.resources?.getResourceEntryName(editField.id) == "editTextVal1" && string != "") a = string.toBigInteger(spinner.selectedItem.toString().toInt())
+            if (editField?.resources?.getResourceEntryName(editField.id) == "editTextVal2" && string != "") b = string.toBigInteger(spinner2.selectedItem.toString().toInt())
+            if (radioButtonPlus.isChecked) c = (a + b)
+            if (radioButtonMinus.isChecked) c = (a - b)
+            if (radioButtonMult.isChecked) c = (a * b)
+            if (radioButtonDiv.isChecked && b != 0.toBigInteger()) c = (a / b)
+            editTextResult.setText(c.toString(spinner3.selectedItem.toString().toInt()).toUpperCase())
             errorNull()
-        }
-        catch (e: Exception){
-            val editText: EditText = editField as EditText
-            editText.setText(editText.text.toString().substring(0, editText.text.toString().length - 1))
-            editText.setSelection(editText.text.toString().length)
-            editLayout?.error = getString(ru.sandello.binaryconverter.R.string.limitIsExceeded)
+        } catch (e: Exception) {
+            editLayout?.error = getString(R.string.available_characters_for_input) + ": $allowVal"
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun calculateRadio()
     {
         try {
-            if (radioButtonPlus.isChecked) {
-                c = (a + b)
-            }
-            if (radioButtonMinus.isChecked) {
-                c = (a - b)
-            }
-            if (radioButtonMult.isChecked) {
-                c = (a * b)
-            }
-            if (radioButtonDiv.isChecked && b != 0.toULong()) {
-                c = (a / b)
-            }
-            editTextResult.setText(c.toString())
+            view!!.rootView.clearFab.show()
+            if (radioButtonPlus.isChecked) c = (a + b)
+            if (radioButtonMinus.isChecked) c = (a - b)
+            if (radioButtonMult.isChecked) c = (a * b)
+            if (radioButtonDiv.isChecked && b != 0.toBigInteger()) c = (a / b)
+            editTextResult.setText(c.toString(spinner3.selectedItem.toString().toInt()).toUpperCase())
             errorNull()
         }
         catch (e: Exception){ }
     }
 
-    private fun clearCalculator(editField: View?)
-    {
-        if (!clearedCalc) {
-            clearedCalc = true
-            if (editField?.resources?.getResourceEntryName(editField.id) != "editTextVal1") editTextVal1.setText("")
-            if (editField?.resources?.getResourceEntryName(editField.id) != "editTextVal2") editTextVal2.setText("")
-            if (editField?.resources?.getResourceEntryName(editField.id) != "editTextResult") editTextResult.setText("0")
-            a = 0.toULong()
-            b = 0.toULong()
-            c = 0.toULong()
-        }
-        errorNull()
-        view?.rootView?.calculatorFab?.hide()
-    }
-
     private fun errorNull()
     {
-        textInputLayoutCustom1.error = null
-        textInputLayoutCustom2.error = null
-        textInputLayoutResult.error = null
+        view!!.rootView.textInputLayoutCustom1.error = null
+        view!!.rootView.textInputLayoutCustom2.error = null
+        view!!.rootView.textInputLayoutResult.error = null
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (editTextVal1.text.toString() != "" && view!!.rootView.tabs.getTabAt(1)!!.isSelected) {
-//            view!!.rootView.explanationFab.hide()
-//            view!!.rootView.converterFab.hide()
-//            view!!.rootView.calculatorFab.show()
-//            view!!.rootView.tabs.getTabAt(1)!!.select()
-        }
+    @SuppressLint("SetTextI18n")
+    override fun onStart() {
+        super.onStart()
+        val calculatorSave = context!!.getSharedPreferences("calculator", Context.MODE_PRIVATE)
+        editTextVal1.setText(calculatorSave.getString("calculator1", ""))
+        editTextVal2.setText(calculatorSave.getString("calculator2", ""))
+        radioGroup.check(calculatorSave.getInt("switch", radioButtonPlus.id))
+        val listCustomBin = arrayOf(2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36)
+        val aa = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, listCustomBin)
+        spinner.setSelection(aa.getPosition(calculatorSave.getInt("spinner1", 10)))
+        spinner2.setSelection(aa.getPosition(calculatorSave.getInt("spinner2", 2)))
+        spinner3.setSelection(aa.getPosition(calculatorSave.getInt("spinner3", 10)))
+        errorNull()
     }
 
     override fun onPause() {

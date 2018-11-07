@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:ads="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clipToPadding="true"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true"
     tools:context=".ConverterFragment">
 
-    <ScrollView
-        android:id="@+id/sv1"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:animateLayoutChanges="true"
-        android:animationCache="true"
-        android:clickable="false"
-        ads:layout_constraintBottom_toBottomOf="parent"
-        ads:layout_constraintEnd_toEndOf="parent"
-        ads:layout_constraintStart_toStartOf="parent"
-        ads:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:isScrollContainer="true"
+        android:nestedScrollingEnabled="true"
+        android:overScrollMode="always">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="138dp">
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:paddingBottom="72dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout10"
@@ -32,22 +33,25 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                ads:errorEnabled="true"
-                ads:hintAnimationEnabled="true"
+                android:hint="@string/dec"
+                app:errorEnabled="true"
+                app:hintAnimationEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editText10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:digits="0123456789"
-                    android:hint="@string/dec"
+                    android:freezesText="true"
                     android:imeOptions="actionDone|flagNoFullscreen"
-                    android:importantForAutofill="no"
                     android:inputType="textNoSuggestions|numberDecimal"
-                    android:singleLine="true" />
+                    android:digits="0123456789"
+                    android:maxLength="50"
+                    android:saveEnabled="false"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -57,22 +61,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                ads:errorEnabled="true"
-                ads:hintAnimationEnabled="true"
-                ads:layout_constraintEnd_toEndOf="parent"
-                ads:layout_constraintStart_toStartOf="parent"
-                ads:layout_constraintTop_toBottomOf="@+id/textInputLayout10">
+                android:hint="@string/bin"
+                app:errorEnabled="true"
+                app:hintAnimationEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout10">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editText2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:digits="01"
-                    android:hint="@string/bin"
                     android:imeOptions="actionDone|flagNoFullscreen"
-                    android:importantForAutofill="no"
+                    android:digits="01"
                     android:inputType="textNoSuggestions|numberDecimal"
-                    android:singleLine="true" />
+                    android:maxLength="50"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -82,22 +87,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                ads:errorEnabled="true"
-                ads:hintAnimationEnabled="true"
-                ads:layout_constraintEnd_toEndOf="parent"
-                ads:layout_constraintStart_toStartOf="parent"
+                android:hint="@string/oct"
+                app:errorEnabled="true"
+                app:hintAnimationEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editText8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:digits="01234567"
-                    android:hint="@string/oct"
                     android:imeOptions="actionDone|flagNoFullscreen"
-                    android:importantForAutofill="no"
+                    android:digits="01234567"
                     android:inputType="textNoSuggestions|numberDecimal"
-                    android:singleLine="true" />
+                    android:maxLength="50"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -107,25 +113,25 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                ads:errorEnabled="true"
-                ads:hintAnimationEnabled="true"
-                ads:layout_constraintEnd_toEndOf="parent"
-                ads:layout_constraintStart_toStartOf="parent"
-                ads:layout_constraintTop_toBottomOf="@+id/textInputLayout8">
+                android:hint="@string/hex"
+                app:errorEnabled="true"
+                app:hintAnimationEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout8">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editText16"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:capitalize="characters"
-                    android:digits="0123456789ABCDEFabcdef"
-                    android:hint="@string/hex"
                     android:imeOptions="actionDone|flagNoFullscreen"
-                    android:importantForAutofill="no"
                     android:inputType="textNoSuggestions|textVisiblePassword"
+                    android:digits="0123456789abcdefABCDEF"
+                    android:maxLength="50"
                     android:singleLine="true"
-                    android:textAllCaps="true" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayoutCustom"
@@ -134,38 +140,58 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                ads:errorEnabled="true"
-                ads:hintAnimationEnabled="true"
-                ads:layout_constraintEnd_toEndOf="parent"
-                ads:layout_constraintStart_toStartOf="parent"
-                ads:layout_constraintTop_toBottomOf="@id/textInputLayout16">
+                android:hint="@string/freeValue"
+                app:errorEnabled="true"
+                app:hintAnimationEnabled="true"
+                app:layout_constraintEnd_toStartOf="@+id/textInputLayout5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayout16">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editTextCustom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:digits="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnoprstuvwxyz"
-                    android:hint="@string/freeValue"
                     android:imeOptions="actionDone|flagNoFullscreen"
-                    android:importantForAutofill="no"
+                    android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                     android:inputType="textNoSuggestions"
-                    android:paddingEnd="100dp"
+                    android:maxLength="50"
                     android:singleLine="true"
-                    android:textAllCaps="false" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout5"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textInputLayoutCustom">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:maxLength="50"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/spinnerValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="12dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="4dp"
                 android:dropDownWidth="100dp"
-                ads:layout_constraintBottom_toBottomOf="@+id/textInputLayoutCustom"
-                ads:layout_constraintEnd_toEndOf="@+id/textInputLayoutCustom"
-                ads:layout_constraintTop_toTopOf="@+id/textInputLayoutCustom" />
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textInputLayout5"
+                app:layout_constraintEnd_toEndOf="@+id/textInputLayout5"
+                app:layout_constraintStart_toStartOf="@+id/textInputLayout5"
+                app:layout_constraintTop_toTopOf="@+id/textInputLayout5" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
 
-</FrameLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</androidx.core.widget.NestedScrollView>

@@ -23,4 +23,7 @@
         <item>Dark</item>
         <item>Black</item>
     </string-array>
+    <string name="available_characters_for_input">Available characters for input</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
 </resources>

@@ -1,147 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ads="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainCon"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:visibility="visible"
-            ads:layout_scrollFlags="scroll|enterAlways"
-            ads:title="@string/app_name" />
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabs"
-                style="@style/Widget.MaterialComponents.TabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/colorPrimaryDark"
-                ads:tabIconTint="@color/custom_tab_textcolors"
-                ads:tabIndicatorFullWidth="false"
-                ads:tabInlineLabel="false"
-                ads:tabTextColor="@color/custom_tab_textcolors">
-
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tabItem"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/Converter" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tabItem2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/Calculator" />
-            </com.google.android.material.tabs.TabLayout>
-
-        </androidx.viewpager.widget.ViewPager>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        ads:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
-
-    </androidx.core.widget.NestedScrollView>
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/explanationFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_marginBottom="8dp"
-        android:importantForAutofill="no"
-        android:nestedScrollingEnabled="false"
-        android:src="@drawable/ic_outline_assignment_24px"
-        android:visibility="invisible"
-        ads:backgroundTint="?android:attr/colorBackground"
-        ads:layout_constraintBottom_toTopOf="@id/converterFab"
-        ads:layout_constraintEnd_toEndOf="@id/converterFab"
-        ads:layout_constraintStart_toStartOf="@id/converterFab"
-        ads:rippleColor="?attr/colorAccent"
-        tools:ignore="RtlHardcoded,UnusedAttribute" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/converterFab"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:importantForAutofill="no"
-        android:nestedScrollingEnabled="false"
-        android:src="@drawable/ic_round_close_24px"
-        android:visibility="invisible"
-        ads:backgroundTint="#fff"
-        ads:layout_constraintBottom_toBottomOf="parent"
-        ads:layout_constraintEnd_toEndOf="parent"
-        ads:rippleColor="@color/clearColor"
-        tools:ignore="RtlHardcoded,UnusedAttribute" />
+    android:layout_height="match_parent"
+    android:background="?attr/colorPrimaryDark"
+    android:fitsSystemWindows="false">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/cl1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="20dp"
-        ads:backgroundTint="#fff"
-        ads:layout_constraintBottom_toBottomOf="@+id/nestedScrollView"
-        ads:layout_constraintEnd_toEndOf="parent"
-        ads:layout_constraintStart_toStartOf="@+id/nestedScrollView"
-        ads:layout_constraintTop_toTopOf="@+id/nestedScrollView">
+        android:fitsSystemWindows="true">
 
-        <View
-            android:id="@+id/main_overlay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:alpha="0"
-            android:background="#aa000000"
-            android:visibility="gone" />
 
-        <include
-            android:id="@+id/explanation_include"
-            layout="@layout/explanation_sheet"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="-16dp"
-            android:visibility="gone"
-            ads:layout_constraintBottom_toBottomOf="parent"
-            ads:layout_constraintEnd_toEndOf="parent"
-            ads:layout_constraintStart_toStartOf="parent"
-            ads:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            android:orientation="vertical">
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimaryDark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <fragment
+                android:id="@+id/nav_host_fragment"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:defaultNavHost="true"
+                app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                app:layout_constraintVertical_bias="0.0"
+                app:navGraph="@navigation/nav_host" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/clearFab"
+                style="@style/Widget.MaterialComponents.FloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/ic_round_close_24px"
+                android:visibility="visible"
+                app:backgroundTint="#fff"
+                app:fabSize="normal"
+                app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:rippleColor="@color/design_default_color_error"
+                app:useCompatPadding="false" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/explanation_fab"
+                style="@style/Widget.MaterialComponents.FloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:src="@drawable/ic_outline_receipt_24px"
+                app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:rippleColor="?attr/colorPrimaryDark" />
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_nav"
+                style="@style/Widget.MaterialComponents.BottomNavigationView"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="?attr/colorPrimaryDark"
+                android:fitsSystemWindows="false"
+                app:elevation="24dp"
+                app:itemIconTint="@color/custom_tab_textcolors"
+                app:itemTextColor="@color/custom_tab_textcolors"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:menu="@menu/bottom_menu" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/calculatorFab"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:importantForAutofill="no"
-        android:nestedScrollingEnabled="false"
-        android:src="@drawable/ic_round_close_24px"
-        android:visibility="invisible"
-        ads:backgroundTint="#fff"
-        ads:layout_constraintBottom_toBottomOf="parent"
-        ads:layout_constraintEnd_toEndOf="parent"
-        ads:rippleColor="@color/clearColor"
-        tools:ignore="RtlHardcoded,UnusedAttribute" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:id="@+id/main_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        android:background="#aa000000"
+        android:clickable="false"
+        android:fitsSystemWindows="true"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/bottom_sheet"
+        layout="@layout/fragment_explanation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="-72dp" />
+
+    <!--<include-->
+    <!--android:id="@+id/explanation_include"-->
+    <!--layout="@layout/explanation_sheet"/>-->
+    <!--&lt;!&ndash;android:layout_marginBottom="-16dp" &ndash;&gt;-->
+    <!--&lt;!&ndash;/>&ndash;&gt;-->
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

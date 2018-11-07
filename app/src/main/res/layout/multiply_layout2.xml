@@ -11,6 +11,7 @@
         android:layout_marginStart="2dp"
         android:layout_marginTop="8dp"
         android:text="@string/operand_1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:text="+"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toEndOf="@+id/explanation_multiply2_textView1"
         app:layout_constraintTop_toTopOf="@+id/explanation_multiply2_textView1" />
 

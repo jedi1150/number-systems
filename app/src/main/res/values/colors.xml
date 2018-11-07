@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="colorPrimary">#5F96E4</color>
     <color name="tabBackground">#fff</color>
-    <color name="clearColor">#e53935</color>
     <color name="colorHighlight">#FFFFFF</color>
-    <color name="tilColor">?attr/til_color</color>
+    <color name="mtrl_textinput_default_box_stroke_color" tools:ignore="PrivateResource">#757575</color>
 </resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/destination_converter"
+        android:icon="@drawable/ic_rotate_anim"
+        android:title="@string/Converter" />
+    <item
+        android:id="@+id/destination_calculator"
+        android:icon="@drawable/ic_calculator_anim"
+        android:title="@string/Calculator" />
+</menu>
