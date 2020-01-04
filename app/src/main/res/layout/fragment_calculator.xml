@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="true"
     android:fillViewport="true"
-    android:fitsSystemWindows="true"
+    android:fitsSystemWindows="false"
     tools:context=".CalculatorFragment">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -15,16 +14,15 @@
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         android:isScrollContainer="true"
-        android:nestedScrollingEnabled="true"
-        android:overScrollMode="always">
+        android:nestedScrollingEnabled="false"
+        android:overScrollMode="always"
+        android:paddingBottom="144dp">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
-            android:animationCache="true"
-            android:paddingBottom="72dp">
+            android:fitsSystemWindows="true">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayoutCustom1"
@@ -34,10 +32,9 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:animateLayoutChanges="true"
-                android:animationCache="true"
                 android:hint="@string/operand_1"
                 app:errorEnabled="true"
+                app:hintAnimationEnabled="true"
                 app:layout_constraintEnd_toStartOf="@+id/textInputLayout4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -46,14 +43,12 @@
                     android:id="@+id/editTextVal1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:digits="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnoprstuvwxyz-"
+                    android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ."
                     android:imeOptions="actionDone|flagNoFullscreen"
-                    android:importantForAutofill="no"
-                    android:includeFontPadding="true"
-                    android:inputType="textNoSuggestions|textCapSentences|textCapWords|textCapCharacters"
-                    android:maxLength="50"
+                    android:inputType="textNoSuggestions"
+                    android:maxLength="100"
                     android:singleLine="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     tools:ignore="RtlSymmetry" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -70,7 +65,7 @@
                 <androidx.appcompat.widget.AppCompatEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatSpinner
@@ -80,6 +75,8 @@
                 android:layout_marginTop="4dp"
                 android:dropDownWidth="100dp"
                 android:paddingStart="4dp"
+                android:popupBackground="?attr/colorPrimaryDark"
+                android:popupTheme="@style/Widget.MaterialComponents.PopupMenu"
                 app:layout_constraintBottom_toBottomOf="@+id/textInputLayout4"
                 app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
                 app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
@@ -113,8 +110,7 @@
                         android:layout_marginEnd="8dp"
                         android:checked="false"
                         android:text="+"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        app:useMaterialThemeColors="false" />
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
                     <RadioButton
                         android:id="@+id/radioButtonMinus"
@@ -125,8 +121,7 @@
                         android:layout_weight="0"
                         android:checked="false"
                         android:text="−"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        app:useMaterialThemeColors="false" />
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
                     <RadioButton
                         android:id="@+id/radioButtonMult"
@@ -137,8 +132,7 @@
                         android:layout_weight="0"
                         android:checked="false"
                         android:text="×"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        app:useMaterialThemeColors="false" />
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
                     <RadioButton
                         android:id="@+id/radioButtonDiv"
@@ -149,8 +143,7 @@
                         android:layout_weight="0"
                         android:checked="false"
                         android:text="÷"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        app:useMaterialThemeColors="false" />
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
                 </RadioGroup>
             </LinearLayout>
 
@@ -175,13 +168,12 @@
                     android:id="@+id/editTextVal2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:digits="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnoprstuvwxyz-"
+                    android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ."
                     android:imeOptions="actionDone|flagNoFullscreen"
-                    android:includeFontPadding="true"
-                    android:inputType="textNoSuggestions|textCapSentences|textCapWords|textCapCharacters"
-                    android:maxLength="50"
+                    android:inputType="textNoSuggestions"
+                    android:maxLength="100"
                     android:singleLine="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     tools:ignore="RtlSymmetry" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -197,7 +189,7 @@
                 <androidx.appcompat.widget.AppCompatEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatSpinner
@@ -207,6 +199,8 @@
                 android:layout_marginTop="4dp"
                 android:dropDownWidth="100dp"
                 android:paddingStart="4dp"
+                android:popupBackground="?attr/colorPrimaryDark"
+                android:popupTheme="@style/Widget.MaterialComponents.PopupMenu"
                 app:layout_constraintBottom_toBottomOf="@+id/textInputLayout3"
                 app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
                 app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
@@ -234,10 +228,10 @@
                     android:imeOptions="actionDone|flagNoFullscreen"
                     android:includeFontPadding="true"
                     android:inputType="textNoSuggestions|textCapSentences|textCapWords|textCapCharacters"
-                    android:maxLength="50"
+                    android:maxLength="100"
                     android:selectAllOnFocus="true"
                     android:singleLine="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     android:textIsSelectable="true"
                     tools:ignore="RtlSymmetry" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -254,7 +248,7 @@
                 <androidx.appcompat.widget.AppCompatEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatSpinner
@@ -264,6 +258,8 @@
                 android:layout_marginTop="4dp"
                 android:dropDownWidth="100dp"
                 android:paddingStart="4dp"
+                android:popupBackground="?attr/colorPrimaryDark"
+                android:popupTheme="@style/Widget.MaterialComponents.PopupMenu"
                 app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
                 app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
                 app:layout_constraintStart_toStartOf="@+id/textInputLayout"

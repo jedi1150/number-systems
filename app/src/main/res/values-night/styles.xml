@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/colorDark</item>
+        <item name="android:textColorPrimaryInverse">@color/grayLight</item>
+        <item name="android:textColorPrimary">@color/colorLight</item>
+        <item name="android:textColorSecondary">@color/colorLight</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorDark</item>
+        <item name="colorSurface">@color/colorDark</item>
+        <item name="elevationOverlayColor">@color/colorDark</item>
+        <item name="colorPrimary">@color/colorLight</item>
+        <item name="colorSecondary">@color/colorDark</item>
+        <item name="colorPrimaryFAB">@color/grayDark</item>
+        <item name="colorInverseIcon">@color/grayLight</item>
+        <item name="iconColor">@color/colorLight</item>
+        <item name="iconColorDisabled">@color/disabled</item>
+        <item name="tabSelected">@color/colorPrimary</item>
+        <item name="dividerColor">@color/grayDark</item>
+        <item name="colorBottomNavigation">#E6202125</item>
+        <item name="android:statusBarColor">#B3202125</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.MyApp.SmallComponent
+        </item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MyApp.MediumComponent
+        </item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.MyApp.LargeComponent
+        </item>
+        <item name="popupMenuStyle">@style/ShapeAppearance.MyApp.LargeComponent</item>
+        <item name="actionOverflowMenuStyle">@style/ShapeAppearance.MyApp.LargeComponent</item>
+    </style>
+
+
+</resources>

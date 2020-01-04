@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="true"
     android:fillViewport="true"
-    android:fitsSystemWindows="true"
+    android:fitsSystemWindows="false"
     tools:context=".ConverterFragment">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -15,20 +14,20 @@
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         android:isScrollContainer="true"
-        android:nestedScrollingEnabled="true"
-        android:overScrollMode="always">
+        android:nestedScrollingEnabled="false"
+        android:overScrollMode="always"
+        android:paddingBottom="144dp">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
-            android:paddingBottom="72dp">
+            android:fitsSystemWindows="true">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout10"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
@@ -40,24 +39,24 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editText10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:digits="0123456789."
                     android:freezesText="true"
                     android:imeOptions="actionDone|flagNoFullscreen"
                     android:inputType="textNoSuggestions|numberDecimal"
-                    android:digits="0123456789"
-                    android:maxLength="50"
+                    android:maxLength="100"
                     android:saveEnabled="false"
                     android:singleLine="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout2"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
@@ -72,18 +71,18 @@
                     android:id="@+id/editText2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:digits="01."
                     android:imeOptions="actionDone|flagNoFullscreen"
-                    android:digits="01"
                     android:inputType="textNoSuggestions|numberDecimal"
-                    android:maxLength="50"
+                    android:maxLength="100"
                     android:singleLine="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout8"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
@@ -98,18 +97,18 @@
                     android:id="@+id/editText8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:digits="01234567."
                     android:imeOptions="actionDone|flagNoFullscreen"
-                    android:digits="01234567"
                     android:inputType="textNoSuggestions|numberDecimal"
-                    android:maxLength="50"
+                    android:maxLength="100"
                     android:singleLine="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout16"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
@@ -124,12 +123,12 @@
                     android:id="@+id/editText16"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:digits="0123456789abcdefABCDEF."
                     android:imeOptions="actionDone|flagNoFullscreen"
                     android:inputType="textNoSuggestions|textVisiblePassword"
-                    android:digits="0123456789abcdefABCDEF"
-                    android:maxLength="50"
+                    android:maxLength="100"
                     android:singleLine="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -151,12 +150,12 @@
                     android:id="@+id/editTextCustom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ."
                     android:imeOptions="actionDone|flagNoFullscreen"
-                    android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                     android:inputType="textNoSuggestions"
-                    android:maxLength="50"
+                    android:maxLength="100"
                     android:singleLine="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -169,22 +168,25 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textInputLayoutCustom">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <androidx.appcompat.widget.AppCompatEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="0dp"
-                    android:maxLength="50"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:maxLength="100"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <androidx.appcompat.widget.AppCompatSpinner
+            <Spinner
                 android:id="@+id/spinnerValue"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="4dp"
                 android:dropDownWidth="100dp"
+                android:longClickable="false"
+                android:nestedScrollingEnabled="false"
                 android:paddingStart="4dp"
                 android:paddingEnd="4dp"
+                android:popupBackground="?attr/colorPrimaryDark"
                 app:layout_constraintBottom_toBottomOf="@+id/textInputLayout5"
                 app:layout_constraintEnd_toEndOf="@+id/textInputLayout5"
                 app:layout_constraintStart_toStartOf="@+id/textInputLayout5"

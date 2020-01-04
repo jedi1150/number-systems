@@ -2,108 +2,101 @@ package ru.sandello.binaryconverter
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
-import android.view.Menu
+import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.updatePadding
 import androidx.navigation.NavController
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.activity_main.*
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import kotlinx.android.synthetic.main.fragment_explanation.*
 
-
-var cleared: Boolean = true
+var fractionCount = 12
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
 
-private var themeMode = "Light"
-
     @SuppressLint("CommitTransaction")
     @ExperimentalUnsignedTypes
     public override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme()
         super.onCreate(savedInstanceState)
-        setContentView(ru.sandello.binaryconverter.R.layout.activity_main)
+        setNightMode()
+        setContentView(R.layout.activity_main)
 
-        val listTheme = resources.getStringArray(R.array.themeNames)
-
-        toolbar.setOnMenuItemClickListener { item ->
-            var i = 0
-            when (item!!.itemId) {
-                R.id.nightButton -> {
-                    when (themeMode)
-                    {
-                        "Light" -> i = 1
-                        "Dark" -> i = 2
-                    }
-                    val sharedPref = getSharedPreferences("theme", Context.MODE_PRIVATE)
-                    val editor = sharedPref.edit()
-                    editor.putString("theme", listTheme[i]).apply()
-
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finishFromChild(MainActivity())
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                    true
-                }
-                else -> {
-                    false
-                }
-            }
+        main_container.setOnApplyWindowInsetsListener { _, insets ->
+            bottom_navigation.updatePadding(bottom = insets.systemWindowInsetBottom, right = insets.systemWindowInsetRight, left = insets.systemWindowInsetLeft)
+            fab_group.updatePadding(right = insets.systemWindowInsetRight, left = insets.systemWindowInsetLeft)
+            insets
         }
-        toolbar.inflateMenu(R.menu.menu)
+
+        val themePref = getSharedPreferences("decLength", Context.MODE_PRIVATE)
+        fractionCount = themePref.getInt("decLength", 12)
 
         val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         setupBottomNavMenu(navController)
-
-        bottom_nav.setOnNavigationItemReselectedListener {  }
-
-        main_overlay.setOnClickListener {
-            val bottomS = BottomSheetBehavior.from(cardViewSheet)
-            bottomS.state = BottomSheetBehavior.STATE_HIDDEN
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.label.toString() == "Settings") {
+                clear_fab.hide()
+                explanation_fab.hide()
+            }
+            if (destination.label.toString() == "Calculator") {
+                explanation_fab.hide()
+            }
         }
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
+        bottom_navigation.setOnNavigationItemReselectedListener { }
 
-    override fun onBackPressed() {
-        val bottomS = BottomSheetBehavior.from(cardViewSheet)
-        if (bottomS.state == BottomSheetBehavior.STATE_HIDDEN) {
-            finish()
-            moveTaskToBack(false)
-        }
-        if (bottomS.state != BottomSheetBehavior.STATE_HIDDEN) {
-            bottomS.state = BottomSheetBehavior.STATE_HIDDEN
+        val nightModeSwitched = getSharedPreferences("nightMode", Context.MODE_PRIVATE)
+        val nightModeEditor = nightModeSwitched.edit()
+        if (nightModeSwitched.getBoolean("nightModeSwitched", false)) {
+            navController.navigate(R.id.destination_settings)
+            nightModeEditor.putBoolean("nightModeSwitched", false).apply()
         }
     }
 
     private fun setupBottomNavMenu(navController: NavController) {
-        bottom_nav?.let {
+        bottom_navigation?.let {
             NavigationUI.setupWithNavController(it, navController)
         }
     }
 
-    override fun onSupportNavigateUp()
-            = findNavController(R.id.nav_host_fragment).navigateUp()
+    override fun onSupportNavigateUp() = findNavController(R.id.nav_host_fragment).navigateUp()
 
 
-    @SuppressLint("ResourceType")
-    private fun setTheme()
-    {
-        val themePref = getSharedPreferences("theme", Context.MODE_PRIVATE)
-        if (themePref.getString("theme", "Light") == "Dark") {
-            super.setTheme(R.style.DarkTheme)
-            themeMode = "Dark"
+    @SuppressLint("ResourceType", "InlinedApi") //Переключение ночного режима, при запуске приложения
+    private fun setNightMode() {
+        val isNightMode = this.resources.configuration.uiMode
+                .and(Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+        Log.d("themeMode", isNightMode.toString())
+        window.decorView.systemUiVisibility = (
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                )
+        if (!isNightMode) {
+                window.decorView.systemUiVisibility = (
+                                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                                or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+                                xor View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        )
         }
-        if (themePref.getString("theme", "Light") == "Light") {
-            super.setTheme(R.style.LightTheme)
-            themeMode = "Light"
+        val nightModePref = getSharedPreferences("nightMode", Context.MODE_PRIVATE)
+        if (nightModePref.getInt("nightMode", 2) == 1) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
+        }
+        if (nightModePref.getInt("nightMode", 2) == 0) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
+        }
+
+        if (nightModePref.getInt("nightMode", 2) == 2) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
         }
     }
+
+
 }

@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/destination_converter"
         android:icon="@drawable/ic_rotate_anim"
-        android:title="@string/Converter" />
+        android:title="@string/Converter"
+        android:enabled="true"
+        app:showAsAction="always" />
     <item
         android:id="@+id/destination_calculator"
         android:icon="@drawable/ic_calculator_anim"
-        android:title="@string/Calculator" />
+        android:title="@string/Calculator"
+        android:enabled="true"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/destination_settings"
+        android:icon="@drawable/ic_outline_settings_24px"
+        android:title="@string/settings"
+        android:enabled="true"
+        app:showAsAction="ifRoom" />
 </menu>

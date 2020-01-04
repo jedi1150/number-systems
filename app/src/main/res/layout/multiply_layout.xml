@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
@@ -9,18 +10,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
-        android:layout_marginTop="8dp"
         android:text="@string/operand_1"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        app:layout_constraintStart_toEndOf="@+id/explanation_multiply_multy"
+        app:layout_constraintTop_toTopOf="@+id/explanation_multiply_textView2" />
 
     <TextView
         android:id="@+id/explanation_multiply_textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="index"
+        android:text="@string/index"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintStart_toEndOf="@+id/explanation_multiply_textView"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,32 +28,35 @@
         android:id="@+id/explanation_multiply_multy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:text="*"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintBottom_toBottomOf="@+id/explanation_multiply_textView"
-        app:layout_constraintStart_toEndOf="@+id/explanation_multiply_textView1"
-        app:layout_constraintTop_toTopOf="@+id/explanation_multiply_textView" />
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/multiply_symb"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/explanation_multiply_textView2"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/explanation_multiply_textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/operand_2"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintStart_toEndOf="@+id/explanation_multiply_multy"
-        app:layout_constraintTop_toTopOf="@+id/explanation_multiply_multy" />
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/explanation_multiply_plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:text="+"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:text="@string/plus_symb"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         app:layout_constraintBottom_toBottomOf="@+id/explanation_multiply_textView2"
-        app:layout_constraintStart_toEndOf="@+id/explanation_multiply_textView2"
+        app:layout_constraintStart_toEndOf="@+id/explanation_multiply_textView1"
         app:layout_constraintTop_toTopOf="@+id/explanation_multiply_textView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

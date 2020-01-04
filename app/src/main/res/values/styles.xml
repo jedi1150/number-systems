@@ -1,34 +1,49 @@
-<resources>
-
-    <style name="LightTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:textColorPrimaryInverse">#202125</item>
-        <item name="android:textColorPrimary">#202125</item>
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:textColorPrimaryInverse">@color/colorDark</item>
+        <item name="android:textColorPrimary">@color/grayDark</item>
+        <item name="android:textColorSecondary">@color/midGray</item>
         <item name="colorAccent">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">#fff</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorSurface">@color/white</item>
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorSecondary">#fff</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">#FFF</item>
-        <item name="iconColor">#202125</item>
-        <item name="iconColorDisabled">#757575</item>
+        <item name="elevationOverlayColor">@color/white</item>
+        <item name="colorSecondary">@color/white</item>
+        <item name="colorPrimaryFAB">@color/white</item>
+        <item name="colorInverseIcon">@color/colorDark</item>
+        <item name="iconColor">@color/grayDark</item>
+        <item name="iconColorDisabled">@color/disabled</item>
         <item name="tabSelected">@color/colorPrimary</item>
-        <item name="android:fontFamily">@font/open_sans_semibold</item>
+        <item name="dividerColor">@color/grayLight</item>
+        <item name="colorBottomNavigation">#E6FFFFFF</item>
+        <item name="android:statusBarColor">#B3FFFFFF</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.MyApp.SmallComponent
+        </item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MyApp.MediumComponent
+        </item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.MyApp.LargeComponent
+        </item>
+        <item name="popupMenuStyle">@style/ShapeAppearance.MyApp.LargeComponent</item>
+        <item name="actionOverflowMenuStyle">@style/ShapeAppearance.MyApp.LargeComponent</item>
     </style>
 
-    <style name="DarkTheme" parent="Theme.MaterialComponents.NoActionBar">
-        <item name="android:textColorPrimaryInverse">#bdbdbd</item>
-        <item name="android:textColorPrimary">#bdbdbd</item>
-        <item name="colorAccent">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">#202125</item>
-        <item name="colorPrimary">#bdbdbd</item>
-        <item name="colorSecondary">#202125</item>
-        <item name="android:color">@color/colorPrimary</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">#202125</item>
-        <item name="iconColor">#bdbdbd</item>
-        <item name="iconColorDisabled">#757575</item>
-        <item name="tabSelected">@color/colorPrimary</item>
-        <item name="android:fontFamily">@font/open_sans_semibold</item>
+    <style name="ShapeAppearance.MyApp.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
     </style>
+
+    <style name="ShapeAppearance.MyApp.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="ShapeAppearance.MyApp.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
 
 </resources>
