@@ -4,10 +4,10 @@ apply plugin: 'kotlin-android-extensions'
 android {
     signingConfigs {
         config {
-            keyAlias 'Sandello'
-            keyPassword 'santand2012aT'
-            storeFile file('/Users/jedi1150/Documents/BinConverter/KeyStore.jks')
-            storePassword 'santand2012aT'
+            keyAlias ''
+            keyPassword ''
+            storeFile file('')
+            storePassword ''
         }
     }
     repositories {
@@ -50,17 +50,4 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.2.0-rc04'
     implementation 'androidx.navigation:navigation-ui-ktx:2.2.0-rc04'
     implementation 'com.google.android.material:material:1.2.0-alpha03'
-
-
-//    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.61'
-//    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0'
-//    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0'
-//    implementation 'com.google.android.material:material:1.2.0-alpha03'
-//    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-//    implementation 'androidx.appcompat:appcompat:1.2.0-alpha01'
-//    implementation 'androidx.appcompat:appcompat-resources:1.2.0-alpha01'
-//    implementation 'androidx.navigation:navigation-fragment:2.2.0-rc04'
-//    implementation 'androidx.navigation:navigation-ui:2.2.0-rc04'
-//    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.0-rc04'
-//    implementation 'androidx.navigation:navigation-ui-ktx:2.2.0-rc04'
 }
