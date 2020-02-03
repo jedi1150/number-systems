@@ -35,8 +35,36 @@
                 android:text="@string/chooseTheme"
                 android:textAlignment="textStart"
                 android:textColor="?android:attr/textColorPrimary"
-                app:icon="@drawable/ic_round_brightness_4_24px"
+                app:icon="@drawable/brightness"
                 app:iconTint="?attr/iconColor"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/settingsComma"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Comma: 12"
+                android:textAlignment="textStart"
+                android:textColor="?android:attr/textColorPrimary"
+                app:icon="@drawable/linear"
+                app:iconTint="?attr/iconColor" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/settingsTranslate"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Help with Translate"
+                android:textAlignment="textStart"
+                android:textColor="?android:attr/textColorPrimary"
+                app:icon="@drawable/translate"
+                app:iconTint="?attr/iconColor" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/settingsGitHub"
@@ -50,20 +78,6 @@
                 android:textAlignment="textStart"
                 android:textColor="?android:attr/textColorPrimary"
                 app:icon="@drawable/github"
-                app:iconTint="?attr/iconColor" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/settingsComma"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="Comma: 12"
-                android:textAlignment="textStart"
-                android:textColor="?android:attr/textColorPrimary"
-                app:icon="@drawable/round_linear_scale_24px"
                 app:iconTint="?attr/iconColor" />
 
 <!--            <TextView-->
@@ -126,7 +140,7 @@
 <!--                android:layout_marginStart="8dp"-->
 <!--                android:layout_marginEnd="8dp"-->
 <!--                android:layout_marginBottom="8dp"-->
-<!--                android:src="@drawable/round_linear_scale_24px"-->
+<!--                android:src="@drawable/linear"-->
 <!--                app:layout_constraintBottom_toBottomOf="@+id/ll1"-->
 <!--                app:layout_constraintEnd_toStartOf="@+id/guideline5"-->
 <!--                app:layout_constraintStart_toStartOf="@+id/guideline4"-->
@@ -138,7 +152,7 @@
 <!--                android:layout_height="wrap_content"-->
 <!--                android:layout_marginStart="8dp"-->
 <!--                android:layout_marginEnd="8dp"-->
-<!--                android:src="@drawable/ic_round_brightness_4_24px"-->
+<!--                android:src="@drawable/brightness"-->
 <!--                app:layout_constraintBottom_toBottomOf="@+id/theme_switch"-->
 <!--                app:layout_constraintEnd_toStartOf="@+id/guideline5"-->
 <!--                app:layout_constraintStart_toStartOf="@+id/guideline4"-->

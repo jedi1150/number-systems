@@ -75,7 +75,7 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@id/divider6"
-            app:srcCompat="@drawable/ic_compare_anim"
+            app:srcCompat="@drawable/compare"
             tools:ignore="ContentDescription" />
 
         <View

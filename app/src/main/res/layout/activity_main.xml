@@ -37,7 +37,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             app:backgroundTint="?attr/colorPrimaryFAB"
-            app:icon="@drawable/ic_round_close_24px"
+            app:icon="@drawable/close"
             app:iconTint="?attr/colorInverseIcon"
             app:rippleColor="@color/design_default_color_error" />
 
@@ -51,7 +51,7 @@
             android:backgroundTint="@color/colorPrimary"
             android:text="@string/explanation"
             android:textColor="@color/white"
-            app:icon="@drawable/ic_outline_receipt_24px"
+            app:icon="@drawable/explanation"
             app:iconTint="@color/white"
             app:rippleColor="?attr/colorPrimaryDark" />
 

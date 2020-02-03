@@ -91,28 +91,32 @@
                 app:singleSelection="true">
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/togglePlus"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="+" />
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/toggleMinus"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-" />
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/toggleMult"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="*" />
+                    android:text="×" />
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/toggleDiv"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="/" />
+                    android:text="÷" />
 
             </com.google.android.material.button.MaterialButtonToggleGroup>
 

@@ -35,7 +35,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/resultConvertNumber1"
         app:layout_constraintTop_toTopOf="@+id/textResultExplanation1"
-        app:srcCompat="@drawable/ic_round_arrow_right_alt_24px" />
+        app:srcCompat="@drawable/arrow_right" />
 
     <TextView
         android:id="@+id/textResultExplanation2"
