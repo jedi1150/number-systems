@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,12 +14,14 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.fragment_settings.*
 
+
 class SettingsFragment : Fragment() {
 
     private val nightModePref by lazy { context!!.getSharedPreferences("nightMode", Context.MODE_PRIVATE) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+//        return binding.getRoot()
         return inflater.inflate(R.layout.fragment_settings, container, false)
     }
 
@@ -61,21 +64,22 @@ class SettingsFragment : Fragment() {
         }
 
         settingsComma.setOnClickListener {
-            var items = arrayOf("12", "13", "14", "15")
+            val items = arrayOf("12", "13", "14", "15", "16", "17", "18", "19", "20")
+            val sharedPref = context!!.getSharedPreferences("decLength", Context.MODE_PRIVATE)
+            val editor = sharedPref.edit()
             MaterialAlertDialogBuilder(this.context)
                     .setTitle(getString(R.string.decLengthText))
-                    .setSingleChoiceItems(items, nightModePref.getInt("decLength", 2)) { dialogInterface, i ->
-                        when (i) {
-                            0 -> setTheme(AppCompatDelegate.MODE_NIGHT_NO, 0)
-                            1 -> setTheme(AppCompatDelegate.MODE_NIGHT_YES, 1)
-                            2 -> setTheme(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY, 2)
-                        }
-                        dialogInterface.cancel()
+                    .setSingleChoiceItems(items, items.indexOf(sharedPref.getInt("decLength", 12).toString())) { dialogInterface, i ->
+                        editor.putInt("decLength", items[i].toInt()).apply()
+                        fractionCount = items[i].toInt()
+                        Log.d("length", "$fractionCount")
+                        dialogInterface.dismiss()
                     }
                     .setNegativeButton(getString(R.string.cancel)) { dialogInterface, _ -> dialogInterface.cancel() }
                     .show()
         }
     }
+
 
 //        seekBarComma.value = (fractionCount).toFloat()
 //        seekBarComma.addOnChangeListener { slider, value, fromUser ->
