@@ -59,6 +59,24 @@ class SettingsFragment : Fragment() {
                         .show()
             }
         }
+
+        settingsComma.setOnClickListener {
+            var items = arrayOf("12", "13", "14", "15")
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                MaterialAlertDialogBuilder(this.context)
+                        .setTitle(getString(R.string.decLengthText))
+                        .setSingleChoiceItems(items, nightModePref.getInt("decLength", 2)) { dialogInterface, i ->
+                            when (i) {
+                                0 -> setTheme(AppCompatDelegate.MODE_NIGHT_NO, 0)
+                                1 -> setTheme(AppCompatDelegate.MODE_NIGHT_YES, 1)
+                                2 -> setTheme(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY, 2)
+                            }
+                            dialogInterface.cancel()
+                        }
+                        .setNegativeButton(getString(R.string.cancel)) { dialogInterface, _ -> dialogInterface.cancel() }
+                        .show()
+            }
+        }
     }
 
 //        seekBarComma.value = (fractionCount).toFloat()

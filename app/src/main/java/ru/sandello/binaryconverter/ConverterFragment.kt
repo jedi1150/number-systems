@@ -229,7 +229,7 @@ class ConverterFragment : Fragment() {
                     val buf = bottomSheetInternal!!.rootView.spinner4.selectedItemPosition
                     bottomSheetInternal!!.rootView.spinner4.setSelection(bottomSheetInternal!!.rootView.spinner5.selectedItemPosition)
                     bottomSheetInternal!!.rootView.spinner5.setSelection(buf)
-                    bottomSheetInternal!!.rootView.revertButton.setImageResource(R.drawable.ic_compare_anim)
+                    bottomSheetInternal!!.rootView.revertButton.setImageResource(R.drawable.compare)
                     spinnerEditor.putInt("SpinnerFrom", bottomSheetInternal!!.rootView.spinner4.selectedItem.toString().toInt()).apply()
                     spinnerEditor.putInt("SpinnerTo", bottomSheetInternal!!.rootView.spinner5.selectedItem.toString().toInt()).apply()
                     (bottomSheetInternal!!.rootView.revertButton.drawable as Animatable).start()

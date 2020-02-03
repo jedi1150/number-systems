@@ -61,10 +61,10 @@ class CalculatorFragment : Fragment() {
                 if (editTextVal1?.text.toString() != "")
                     try {
                         a = ConvertTo().main(editTextVal1.text.toString(), spinner.selectedItem.toString().toInt(), 10).toBigDecimal()
-//                        if (radioButtonPlus.isChecked) c = (a + b)
-//                        if (radioButtonMinus.isChecked) c = (a - b)
-//                        if (radioButtonMult.isChecked) c = (a * b)
-//                        if (radioButtonDiv.isChecked && b != 0.toBigDecimal()) c = String.format("%.${fractionCount}f", a.divide(b)).toBigDecimal()
+                        if (togglePlus.isChecked) c = (a + b)
+                        if (toggleMinus.isChecked) c = (a - b)
+                        if (toggleMult.isChecked) c = (a * b)
+                        if (toggleDiv.isChecked && b != 0.toBigDecimal()) c = String.format("%.${fractionCount}f", a.divide(b)).toBigDecimal()
                         editTextResult.setText(ConvertTo().main(c.toString(), 10, spinner3.selectedItem.toString().toInt()))
                         errorNull()
                     } catch (e: Exception) {
@@ -81,10 +81,10 @@ class CalculatorFragment : Fragment() {
                 if (editTextVal2?.text.toString() != "")
                     try {
                         b = ConvertTo().main(editTextVal2.text.toString(), spinner2.selectedItem.toString().toInt(), 10).toBigDecimal()
-//                        if (radioButtonPlus.isChecked) c = (a + b)
-//                        if (radioButtonMinus.isChecked) c = (a - b)
-//                        if (radioButtonMult.isChecked) c = (a * b)
-//                        if (radioButtonDiv.isChecked && b != 0.toBigDecimal()) c = a.divide(b, fractionCount, RoundingMode.HALF_UP)
+                        if (togglePlus.isChecked) c = (a + b)
+                        if (toggleMinus.isChecked) c = (a - b)
+                        if (toggleMult.isChecked) c = (a * b)
+                        if (toggleDiv.isChecked && b != 0.toBigDecimal()) c = a.divide(b, fractionCount, RoundingMode.HALF_UP)
                         editTextResult.setText(ConvertTo().main(c.toString(), 10, spinner3.selectedItem.toString().toInt()))
                         errorNull()
                     } catch (e: Exception) {
@@ -101,10 +101,10 @@ class CalculatorFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (editTextResult?.text.toString() != "")
                     try {
-//                        if (radioButtonPlus.isChecked) c = (a + b)
-//                        if (radioButtonMinus.isChecked) c = (a - b)
-//                        if (radioButtonMult.isChecked) c = (a * b)
-//                        if (radioButtonDiv.isChecked && b != 0.toBigDecimal()) c = a.divide(b, fractionCount, RoundingMode.HALF_UP)
+                        if (togglePlus.isChecked) c = (a + b)
+                        if (toggleMinus.isChecked) c = (a - b)
+                        if (toggleMult.isChecked) c = (a * b)
+                        if (toggleDiv.isChecked && b != 0.toBigDecimal()) c = a.divide(b, fractionCount, RoundingMode.HALF_UP)
                         editTextResult.setText(ConvertTo().main(c.toString(), 10, spinner3.selectedItem.toString().toInt()))
                         errorNull()
                     } catch (e: Exception) {
@@ -185,9 +185,9 @@ class CalculatorFragment : Fragment() {
             }
         })
 
-//        radioGroup.setOnCheckedChangeListener { _, _ ->
-//            calculateRadio()
-//        }
+        toggleGroup.addOnButtonCheckedListener { group, checkedId, isChecked ->
+            calculateToggle()
+        }
     }
 
 
@@ -197,33 +197,35 @@ class CalculatorFragment : Fragment() {
             checkClear()
             if (editField?.resources?.getResourceEntryName(editField.id) == "editTextVal1" && string != "") a = ConvertTo().main(string, spinner.selectedItem.toString().toInt(), 10).toBigDecimal()
             if (editField?.resources?.getResourceEntryName(editField.id) == "editTextVal2" && string != "") b = ConvertTo().main(string, spinner2.selectedItem.toString().toInt(), 10).toBigDecimal()
-//            if (radioButtonPlus.isChecked) c = (a + b)
-//            if (radioButtonMinus.isChecked) c = (a - b)
-//            if (radioButtonMult.isChecked) c = (a * b)
-//            if (radioButtonDiv.isChecked && b != 0.toBigDecimal()) c = a.divide(b, fractionCount, RoundingMode.HALF_UP)
+            if (togglePlus.isChecked) c = (a + b)
+            if (toggleMinus.isChecked) c = (a - b)
+            if (toggleMult.isChecked) c = (a * b)
+            if (toggleDiv.isChecked && b != 0.toBigDecimal()) c = a.divide(b, fractionCount, RoundingMode.HALF_UP)
             if (editTextVal1.text.toString() != "" && editTextVal2.text.toString() != "")
                 editTextResult.setText(ConvertTo().main(c.toString(), 10, spinner3.selectedItem.toString().toInt()))
             else
                 editTextResult.setText("")
             errorNull()
+            save()
         } catch (e: Exception) {
             editLayout?.error = getString(R.string.available_characters_for_input) + ": $allowVal"
         }
     }
 
     @SuppressLint("SetTextI18n", "DefaultLocale")
-    private fun calculateRadio() {
+    private fun calculateToggle() {
         try {
             checkClear()
-//            if (radioButtonPlus.isChecked) c = (a + b)
-//            if (radioButtonMinus.isChecked) c = (a - b)
-//            if (radioButtonMult.isChecked) c = (a * b)
-//            if (radioButtonDiv.isChecked && b != 0.toBigDecimal()) c = a.divide(b, fractionCount, RoundingMode.HALF_UP)
+            if (togglePlus.isChecked) c = (a + b)
+            if (toggleMinus.isChecked) c = (a - b)
+            if (toggleMult.isChecked) c = (a * b)
+            if (toggleDiv.isChecked && b != 0.toBigDecimal()) c = a.divide(b, fractionCount, RoundingMode.HALF_UP)
             if (editTextVal1.text.toString() != "" && editTextVal2.text.toString() != "")
                 editTextResult.setText(ConvertTo().main(c.toString(), 10, spinner3.selectedItem.toString().toInt()))
             else
                 editTextResult.setText("")
             errorNull()
+            save()
         } catch (e: Exception) {
         }
     }
@@ -249,13 +251,11 @@ class CalculatorFragment : Fragment() {
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    override fun onStart() {
-        super.onStart()
+    private fun  load() {
         val calculatorSave = context!!.getSharedPreferences("calculator", Context.MODE_PRIVATE)
         editTextVal1.setText(calculatorSave.getString("calculator1", ""))
         editTextVal2.setText(calculatorSave.getString("calculator2", ""))
-//        radioGroup.check(calculatorSave.getInt("switch", radioButtonPlus.id))
+        toggleGroup.check(calculatorSave.getInt("toggle", togglePlus.id))
         val listCustomBin = arrayOf(2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36)
         val aa = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, listCustomBin)
         spinner.setSelection(aa.getPosition(calculatorSave.getInt("spinner1", 10)))
@@ -263,15 +263,25 @@ class CalculatorFragment : Fragment() {
         spinner3.setSelection(aa.getPosition(calculatorSave.getInt("spinner3", 10)))
     }
 
-    override fun onPause() {
-        super.onPause()
+    private fun save() {
         val sharedPref = context!!.getSharedPreferences("calculator", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
         editor.putString("calculator1", editTextVal1.text.toString()).apply()
         editor.putString("calculator2", editTextVal2.text.toString()).apply()
-//        editor.putInt("switch", radioGroup.checkedRadioButtonId).apply()
+        editor.putInt("toggle", toggleGroup.checkedButtonId).apply()
         editor.putInt("spinner1", spinner.selectedItem.toString().toInt()).apply()
         editor.putInt("spinner2", spinner2.selectedItem.toString().toInt()).apply()
         editor.putInt("spinner3", spinner3.selectedItem.toString().toInt()).apply()
+    }
+
+    @SuppressLint("SetTextI18n")
+    override fun onStart() {
+        super.onStart()
+        load()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        save()
     }
 }
