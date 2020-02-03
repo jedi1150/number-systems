@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="themeColor">
+        <attr name="iconColor" format="color" />
+        <attr name="iconColorDisabled" format="color" />
+        <attr name="tabSelected" format="color" />
+        <attr name="til_color" format="color" />
+        <attr name="dividerColor" format="color" />
+        <attr name="colorBottomNavigation" format="color" />
+        <attr name="colorPrimaryDark" format="color" />
+        <attr name="colorPrimaryFAB" format="color" />
+        <attr name="colorInverseIcon" format="color" />
+    </declare-styleable>
+</resources>
