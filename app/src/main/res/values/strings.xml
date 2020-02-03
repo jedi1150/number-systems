@@ -26,6 +26,7 @@
     <string name="addDecimal">Add the integers and fractional parts</string>
     <string name="light">Light</string>
     <string name="dark">Dark</string>
+    <string name="battery_saver">Set by Battery Saver</string>
     <string name="system_default">System default</string>
     <string name="chooseTheme">Theme</string>
     <string name="cancel">Cancel</string>

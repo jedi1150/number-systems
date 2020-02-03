@@ -3,7 +3,6 @@ package ru.sandello.binaryconverter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Animatable
-import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -30,7 +29,6 @@ import kotlinx.android.synthetic.main.multiply_layout4.view.*
 import kotlinx.coroutines.*
 import java.math.BigDecimal
 import java.math.RoundingMode
-import android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 import com.google.android.material.bottomsheet.BottomSheetBehavior.*
 import kotlin.math.pow
 
@@ -138,7 +136,7 @@ class ConverterFragment : Fragment() {
                     if (s.toString() != "" && !s!!.endsWith("."))
                         parse(s.toString(), editText2, textInputLayout2, 2, spinnerValue.selectedItem.toString().toInt(), allowVal)
                 if (s.toString() == "" && !cleared)
-                        clearConverter(editText10)
+                    clearConverter(editText10)
             }
         })
 
@@ -154,7 +152,7 @@ class ConverterFragment : Fragment() {
                     if (s.toString() != "" && !s!!.endsWith("."))
                         parse(s.toString(), editText8, textInputLayout8, 8, spinnerValue.selectedItem.toString().toInt(), allowVal)
                 if (s.toString() == "" && !cleared)
-                        clearConverter(editText10)
+                    clearConverter(editText10)
             }
         })
 
@@ -166,11 +164,11 @@ class ConverterFragment : Fragment() {
                 var allowVal = ""
                 for (i in 0 until 16)
                     allowVal += sym[i]
-                if (editText16.hasFocus())
+                if (editText16!!.hasFocus())
                     if (s.toString() != "" && !s!!.endsWith(".") && editText16.hasFocus())
                         parse(s.toString(), editText16, textInputLayout16, 16, spinnerValue.selectedItem.toString().toInt(), allowVal)
                 if (s.toString() == "" && !cleared)
-                        clearConverter(editText10)
+                    clearConverter(editText10)
             }
         })
 
@@ -182,7 +180,7 @@ class ConverterFragment : Fragment() {
                 var allowVal = ""
                 for (i in 0 until spinnerValue.selectedItem.toString().toInt())
                     allowVal += sym[i]
-                editTextCustom.hasFocus()
+                editTextCustom!!.hasFocus()
                 if (s.toString() != "" && !s!!.endsWith(".") && editTextCustom.hasFocus())
                     parse(s.toString(), editTextCustom, textInputLayoutCustom, spinnerValue.selectedItem.toString().toInt(), null, allowVal)
                 if (s.toString() == "" && !cleared)
@@ -191,7 +189,7 @@ class ConverterFragment : Fragment() {
         })
 
         view.rootView.explanation_fab.setOnClickListener {
-            if (editText10.text.toString().isNotEmpty()) {
+            if (editText10!!.text.toString().isNotEmpty()) {
                 try {
                     val job = GlobalScope.launch(Dispatchers.Main) {
                         async {
@@ -218,6 +216,7 @@ class ConverterFragment : Fragment() {
                     }
                     job.start()
                 } catch (e: Exception) {
+                    bottomSheetDialog.behavior.state = STATE_HIDDEN
                 }
             }
         }
@@ -237,12 +236,12 @@ class ConverterFragment : Fragment() {
                     delay(300)
                 }.join()
                 async {
-                    if (editText10.text.toString() != "")
-                        try {
+                    try {
+                        if (editText10.text.toString() != "")
                             parseRepeat()
-                        } catch (e: Exception) {
-                            bottomSheetDialog.behavior.state = STATE_HIDDEN
-                        }
+                    } catch (e: Exception) {
+                        bottomSheetDialog.behavior.state = STATE_HIDDEN
+                    }
                 }.join()
                 async {
                     delay(1)
@@ -630,16 +629,14 @@ class ConverterFragment : Fragment() {
         textInputLayoutCustom?.error = null
     }
 
-    private fun checkClear()
-    {
+    private fun checkClear() {
         if (editText10.text.toString() != "" || editText2.text.toString() != "" || editText8.text.toString() != "" || editText16.text.toString() != "" || editTextCustom.text.toString() != "") {
             view!!.rootView.clear_fab.show()
             if (editText10.text.toString() != "1")
                 view!!.rootView.explanation_fab.show()
             else
                 view!!.rootView.explanation_fab.show()
-        }
-        else {
+        } else {
             view!!.rootView.clear_fab.hide()
             view!!.rootView.explanation_fab.hide()
             editText10.setText("")

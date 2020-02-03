@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
+
     <style name="Theme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowBackground">@color/white</item>
         <item name="android:textColorPrimaryInverse">@color/colorDark</item>
@@ -9,6 +10,7 @@
         <item name="colorPrimaryDark">@color/white</item>
         <item name="colorSurface">@color/white</item>
         <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorOnSurface">@color/grayDark</item>
         <item name="elevationOverlayColor">@color/white</item>
         <item name="colorSecondary">@color/white</item>
         <item name="colorPrimaryFAB">@color/white</item>
@@ -18,7 +20,7 @@
         <item name="tabSelected">@color/colorPrimary</item>
         <item name="dividerColor">@color/grayLight</item>
         <item name="colorBottomNavigation">#E6FFFFFF</item>
-        <item name="android:statusBarColor">#B3FFFFFF</item>
+        <item name="android:statusBarColor">#E6FFFFFF</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.MyApp.SmallComponent
         </item>
@@ -44,6 +46,4 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">8dp</item>
     </style>
-
-
 </resources>

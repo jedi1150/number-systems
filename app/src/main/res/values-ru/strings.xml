@@ -18,7 +18,7 @@
     <string name="step_3">Полученный результат записать в обратной последовательности</string>
     <string name="available_characters_for_input">Доступные символы для ввода</string>
     <string name="settings">Настройки</string>
-    <string name="step_4" translatable="false">Дробная часть числа находится умножением на основание новой</string>
+    <string name="step_4">Дробная часть числа находится умножением на основание новой</string>
     <string name="decLengthText">Количество знаков после запятой</string>
     <string name="resultOfTranslate">Результат перевода</string>
     <string name="addDecimal">Складываем целую и дробные части</string>
@@ -27,4 +27,5 @@
     <string name="chooseTheme">Тема</string>
     <string name="cancel">Отмена</string>
     <string name="system_default">Как в системе</string>
+    <string name="battery_saver">Устанавливается режимом энергосбережения</string>
 </resources>

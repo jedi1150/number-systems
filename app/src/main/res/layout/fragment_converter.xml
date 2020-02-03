@@ -18,7 +18,6 @@
         android:overScrollMode="always"
         android:paddingBottom="144dp">
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -176,7 +175,7 @@
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Spinner
+            <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/spinnerValue"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -186,7 +185,6 @@
                 android:nestedScrollingEnabled="false"
                 android:paddingStart="4dp"
                 android:paddingEnd="4dp"
-                android:popupBackground="?attr/colorPrimaryDark"
                 app:layout_constraintBottom_toBottomOf="@+id/textInputLayout5"
                 app:layout_constraintEnd_toEndOf="@+id/textInputLayout5"
                 app:layout_constraintStart_toStartOf="@+id/textInputLayout5"

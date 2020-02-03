@@ -3,6 +3,7 @@ package ru.sandello.binaryconverter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -76,11 +77,11 @@ class MainActivity : AppCompatActivity() {
                 View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 )
         if (!isNightMode) {
-                window.decorView.systemUiVisibility = (
-                                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                                or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-                                xor View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        )
+            window.decorView.systemUiVisibility = (
+                    View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                            or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+                            xor View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    )
         }
         val nightModePref = getSharedPreferences("nightMode", Context.MODE_PRIVATE)
         if (nightModePref.getInt("nightMode", 2) == 1) {
@@ -93,8 +94,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (nightModePref.getInt("nightMode", 2) == 2) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
+                delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            }
         }
     }
 
