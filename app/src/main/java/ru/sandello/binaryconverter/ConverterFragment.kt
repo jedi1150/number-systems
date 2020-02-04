@@ -6,15 +6,18 @@ import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetBehavior.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.textfield.TextInputLayout
-import kotlinx.android.synthetic.main.activity_main.view.clear_fab
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.answer_layout.view.*
 import kotlinx.android.synthetic.main.div_layout.view.*
@@ -29,8 +32,8 @@ import kotlinx.android.synthetic.main.multiply_layout4.view.*
 import kotlinx.coroutines.*
 import java.math.BigDecimal
 import java.math.RoundingMode
-import com.google.android.material.bottomsheet.BottomSheetBehavior.*
 import kotlin.math.pow
+
 
 var cleared = false
 
@@ -75,9 +78,27 @@ class ConverterFragment : Fragment() {
         }
 
         val listCustomBin = arrayOf(3, 4, 5, 6, 7, 9, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36)
-        val aa = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, listCustomBin)
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerValue.adapter = aa
+//        val aa = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, listCustomBin)
+//        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        val adapter = ArrayAdapter(
+                context!!,
+                R.layout.dropdown_menu_popup_item,
+                listCustomBin)
+
+        filled_exposed_dropdown.setAdapter(adapter)
+        filled_exposed_dropdown.setSelection(adapter.getPosition(3))
+        filled_exposed_dropdown.setText(listCustomBin[0].toString())
+        filled_exposed_dropdown.setOnItemClickListener { parent, view, position, id ->
+            try {
+                editTextCustom.setText(ConvertTo().main(editText10.text.toString(), 10, listCustomBin[position]))
+                errorNull()
+            } catch (e: Exception) {
+                if (editTextCustom?.text.toString() != "")
+                    textInputLayoutCustom?.error = getString(R.string.invalid_value)
+            }
+        }
+        /*spinnerValue.adapter = aa
         spinnerValue?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 return
@@ -92,7 +113,7 @@ class ConverterFragment : Fragment() {
                         textInputLayoutCustom?.error = getString(R.string.invalid_value)
                 }
             }
-        }
+        }*/
 
         val spinnerSharedPref = context!!.getSharedPreferences("spinner", Context.MODE_PRIVATE)
         val spinnerEditor = spinnerSharedPref.edit()
@@ -117,7 +138,7 @@ class ConverterFragment : Fragment() {
                     allowVal += sym[i]
                 if (editText10.hasFocus()) {
                     if (s.toString() != "" && !s!!.endsWith("."))
-                        parse(s.toString(), editText10, textInputLayout10, 10, spinnerValue.selectedItem.toString().toInt(), allowVal)
+                        parse(s.toString(), editText10, textInputLayout10, 10, filled_exposed_dropdown.text.toString().toInt(), allowVal)
                     if (s.toString() == "" && !cleared)
                         clearConverter(editText10)
                 }
@@ -134,7 +155,7 @@ class ConverterFragment : Fragment() {
                     allowVal += sym[i]
                 if (editText2.hasFocus())
                     if (s.toString() != "" && !s!!.endsWith("."))
-                        parse(s.toString(), editText2, textInputLayout2, 2, spinnerValue.selectedItem.toString().toInt(), allowVal)
+                        parse(s.toString(), editText2, textInputLayout2, 2, filled_exposed_dropdown.text.toString().toInt(), allowVal)
                 if (s.toString() == "" && !cleared)
                     clearConverter(editText10)
             }
@@ -150,7 +171,7 @@ class ConverterFragment : Fragment() {
                     allowVal += sym[i]
                 if (editText8.hasFocus())
                     if (s.toString() != "" && !s!!.endsWith("."))
-                        parse(s.toString(), editText8, textInputLayout8, 8, spinnerValue.selectedItem.toString().toInt(), allowVal)
+                        parse(s.toString(), editText8, textInputLayout8, 8, filled_exposed_dropdown.text.toString().toInt(), allowVal)
                 if (s.toString() == "" && !cleared)
                     clearConverter(editText10)
             }
@@ -166,7 +187,7 @@ class ConverterFragment : Fragment() {
                     allowVal += sym[i]
                 if (editText16!!.hasFocus())
                     if (s.toString() != "" && !s!!.endsWith(".") && editText16.hasFocus())
-                        parse(s.toString(), editText16, textInputLayout16, 16, spinnerValue.selectedItem.toString().toInt(), allowVal)
+                        parse(s.toString(), editText16, textInputLayout16, 16, filled_exposed_dropdown.text.toString().toInt(), allowVal)
                 if (s.toString() == "" && !cleared)
                     clearConverter(editText10)
             }
@@ -178,11 +199,11 @@ class ConverterFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var allowVal = ""
-                for (i in 0 until spinnerValue.selectedItem.toString().toInt())
+                for (i in 0 until filled_exposed_dropdown.text.toString().toInt())
                     allowVal += sym[i]
                 editTextCustom!!.hasFocus()
                 if (s.toString() != "" && !s!!.endsWith(".") && editTextCustom.hasFocus())
-                    parse(s.toString(), editTextCustom, textInputLayoutCustom, spinnerValue.selectedItem.toString().toInt(), null, allowVal)
+                    parse(s.toString(), editTextCustom, textInputLayoutCustom, filled_exposed_dropdown.text.toString().toInt(), null, allowVal)
                 if (s.toString() == "" && !cleared)
                     clearConverter(editText10)
             }
@@ -652,10 +673,20 @@ class ConverterFragment : Fragment() {
         val converterSave = context!!.getSharedPreferences("converter", Context.MODE_PRIVATE)
         editText10.setText(converterSave.getString("converter10", ""))
         val listCustomBin = arrayOf(3, 4, 5, 6, 7, 9, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36)
-        val aa = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, listCustomBin)
-        spinnerValue.setSelection(aa.getPosition(converterSave.getInt("converterSpinner", 3)))
+//        val aa = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, listCustomBin)
+//        spinnerValue.setSelection(aa.getPosition(converterSave.getInt("converterSpinner", 3)))
+//        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        val adapter = ArrayAdapter(
+                context!!,
+                R.layout.dropdown_menu_popup_item,
+                listCustomBin)
+
+        filled_exposed_dropdown.setAdapter(adapter)
+//        filled_exposed_dropdown.setText(converterSave.getInt("converterSpinner", 3))
+        filled_exposed_dropdown.setSelection(adapter.getPosition(converterSave.getInt("converterSpinner", 3)))
         if (editText10.text.toString() != "")
-            parse(converterSave.getString("converter10", "")!!, view!!.rootView.editText10, view!!.rootView.textInputLayout10, 10, view!!.rootView.spinnerValue.selectedItem.toString().toInt(), "0123456789")
+            parse(converterSave.getString("converter10", "")!!, view!!.rootView.editText10, view!!.rootView.textInputLayout10, 10, filled_exposed_dropdown.text.toString().toInt(), "0123456789")
         checkClear()
     }
 
@@ -664,6 +695,6 @@ class ConverterFragment : Fragment() {
         val sharedPref = context!!.getSharedPreferences("converter", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
         editor.putString("converter10", editText10.text.toString()).apply()
-        editor.putInt("converterSpinner", spinnerValue.selectedItem.toString().toInt()).apply()
+        editor.putInt("converterSpinner", filled_exposed_dropdown.text.toString().toInt()).apply()
     }
 }

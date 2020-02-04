@@ -160,35 +160,37 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout5"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textInputLayoutCustom">
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <com.google.android.material.textview.MaterialAutoCompleteTextView
+                    android:id="@+id/filled_exposed_dropdown"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="0dp"
+                    android:editable="false"
                     android:maxLength="100"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/spinnerValue"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="4dp"
-                android:dropDownWidth="100dp"
-                android:longClickable="false"
-                android:nestedScrollingEnabled="false"
-                android:paddingStart="4dp"
-                android:paddingEnd="4dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textInputLayout5"
-                app:layout_constraintEnd_toEndOf="@+id/textInputLayout5"
-                app:layout_constraintStart_toStartOf="@+id/textInputLayout5"
-                app:layout_constraintTop_toTopOf="@+id/textInputLayout5" />
+<!--            <androidx.appcompat.widget.AppCompatSpinner-->
+<!--                android:id="@+id/spinnerValue"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_marginTop="4dp"-->
+<!--                android:dropDownWidth="100dp"-->
+<!--                android:longClickable="false"-->
+<!--                android:nestedScrollingEnabled="false"-->
+<!--                android:paddingStart="4dp"-->
+<!--                android:paddingEnd="4dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/textInputLayout5"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/textInputLayout5"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/textInputLayout5"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/textInputLayout5" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

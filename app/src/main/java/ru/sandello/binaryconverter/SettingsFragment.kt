@@ -10,26 +10,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.fragment_settings.*
+import ru.sandello.binaryconverter.databinding.FragmentSettingsBinding
 
 
 class SettingsFragment : Fragment() {
-
+    private var binding: FragmentSettingsBinding? = null
     private val nightModePref by lazy { context!!.getSharedPreferences("nightMode", Context.MODE_PRIVATE) }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-//        return binding.getRoot()
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false)
+        binding!!.comma = "${getString(R.string.decLengthText)}: $fractionCount"
+        return binding!!.root
     }
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-//        textViewComma.text = getString(R.string.decLengthText) + ": " + (fractionCount)
 
         settingsTheme.setOnClickListener {
             var items = arrayOf(getString(R.string.light), getString(R.string.dark), getString(R.string.battery_saver))
@@ -72,25 +72,13 @@ class SettingsFragment : Fragment() {
                     .setSingleChoiceItems(items, items.indexOf(sharedPref.getInt("decLength", 12).toString())) { dialogInterface, i ->
                         editor.putInt("decLength", items[i].toInt()).apply()
                         fractionCount = items[i].toInt()
-                        Log.d("length", "$fractionCount")
+                        binding!!.comma = "${getString(R.string.decLengthText)}: $fractionCount"
                         dialogInterface.dismiss()
                     }
                     .setNegativeButton(getString(R.string.cancel)) { dialogInterface, _ -> dialogInterface.cancel() }
                     .show()
         }
     }
-
-
-//        seekBarComma.value = (fractionCount).toFloat()
-//        seekBarComma.addOnChangeListener { slider, value, fromUser ->
-//
-//            fractionCount = (value).toInt()
-//            textViewComma.text = getString(R.string.decLengthText) + ": " + (value.toInt())
-//            val sharedPref = context!!.getSharedPreferences("decLength", Context.MODE_PRIVATE)
-//            val editor = sharedPref.edit()
-//            editor.putInt("decLength", (value).toInt()).apply()
-//        }
-//    }
 
     private fun setTheme(themeMode: Int, prefsMode: Int) {
         AppCompatDelegate.setDefaultNightMode(themeMode)
