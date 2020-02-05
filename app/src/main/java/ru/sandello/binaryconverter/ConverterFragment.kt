@@ -171,8 +171,8 @@ class ConverterFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var allowVal = ""
-                for (i in 0 until filled_exposed_dropdown.text.toString().toInt())
-                    allowVal += sym[i]
+//                for (i in 0 until filled_exposed_dropdown.text.toString().toInt())
+//                    allowVal += sym[i]
                 editTextCustom!!.hasFocus()
                 if (s.toString() != "" && !s!!.endsWith(".") && editTextCustom.hasFocus())
                     parse(s.toString(), editTextCustom, textInputLayoutCustom, filled_exposed_dropdown.text.toString().toInt(), null, allowVal)
