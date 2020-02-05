@@ -6,12 +6,12 @@ import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -40,6 +40,8 @@ var cleared = false
 @ExperimentalUnsignedTypes
 class ConverterFragment : Fragment() {
     var bottomSheetInternal: View? = null
+    private val listCustomBin = arrayOf(3, 4, 5, 6, 7, 9, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36)
+    private val listAllBin = arrayOf(2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -77,18 +79,14 @@ class ConverterFragment : Fragment() {
             view.rootView.explanation_fab.hide()
         }
 
-        val listCustomBin = arrayOf(3, 4, 5, 6, 7, 9, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36)
-//        val aa = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, listCustomBin)
-//        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
         val adapter = ArrayAdapter(
                 context!!,
                 R.layout.dropdown_menu_popup_item,
                 listCustomBin)
 
-        filled_exposed_dropdown.setAdapter(adapter)
-        filled_exposed_dropdown.setSelection(adapter.getPosition(3))
-        filled_exposed_dropdown.setText(listCustomBin[0].toString())
+        //filled_exposed_dropdown.setAdapter(adapter)
+//        filled_exposed_dropdown.setSelection(adapter.getPosition(3))
+//        filled_exposed_dropdown.setText(listCustomBin[0].toString())
         filled_exposed_dropdown.setOnItemClickListener { parent, view, position, id ->
             try {
                 editTextCustom.setText(ConvertTo().main(editText10.text.toString(), 10, listCustomBin[position]))
@@ -98,27 +96,10 @@ class ConverterFragment : Fragment() {
                     textInputLayoutCustom?.error = getString(R.string.invalid_value)
             }
         }
-        /*spinnerValue.adapter = aa
-        spinnerValue?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                return
-            }
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                try {
-                    editTextCustom.setText(ConvertTo().main(editText10.text.toString(), 10, listCustomBin[position]))
-                    errorNull()
-                } catch (e: Exception) {
-                    if (editTextCustom?.text.toString() != "")
-                        textInputLayoutCustom?.error = getString(R.string.invalid_value)
-                }
-            }
-        }*/
 
         val spinnerSharedPref = context!!.getSharedPreferences("spinner", Context.MODE_PRIVATE)
         val spinnerEditor = spinnerSharedPref.edit()
-        val listCustomBin2 = arrayOf(2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36)
-        val aa2 = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, listCustomBin2)
+        val aa2 = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, listAllBin)
         aa2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         bottomSheetInternal!!.rootView.spinner4.adapter = aa2
@@ -672,7 +653,6 @@ class ConverterFragment : Fragment() {
         super.onStart()
         val converterSave = context!!.getSharedPreferences("converter", Context.MODE_PRIVATE)
         editText10.setText(converterSave.getString("converter10", ""))
-        val listCustomBin = arrayOf(3, 4, 5, 6, 7, 9, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36)
 //        val aa = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, listCustomBin)
 //        spinnerValue.setSelection(aa.getPosition(converterSave.getInt("converterSpinner", 3)))
 //        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -681,12 +661,12 @@ class ConverterFragment : Fragment() {
                 context!!,
                 R.layout.dropdown_menu_popup_item,
                 listCustomBin)
-
+        //filled_exposed_dropdown.setText(converterSave.getInt("converterSpinner", 3).toString())
         filled_exposed_dropdown.setAdapter(adapter)
-//        filled_exposed_dropdown.setText(converterSave.getInt("converterSpinner", 3))
-        filled_exposed_dropdown.setSelection(adapter.getPosition(converterSave.getInt("converterSpinner", 3)))
+//        filled_exposed_dropdown.setSelection(listCustomBin[3])
+
         if (editText10.text.toString() != "")
-            parse(converterSave.getString("converter10", "")!!, view!!.rootView.editText10, view!!.rootView.textInputLayout10, 10, filled_exposed_dropdown.text.toString().toInt(), "0123456789")
+            //parse(converterSave.getString("converter10", "")!!, view!!.rootView.editText10, view!!.rootView.textInputLayout10, 10, filled_exposed_dropdown.text.toString().toInt(), "0123456789")
         checkClear()
     }
 
