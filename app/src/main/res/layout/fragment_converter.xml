@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    android:id="@+id/frag"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="true"
     android:fillViewport="true"
-    android:fitsSystemWindows="false"
+    android:fitsSystemWindows="true"
     tools:context=".ConverterFragment">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -140,7 +142,6 @@
                 android:layout_marginEnd="8dp"
                 android:hint="@string/freeValue"
                 app:errorEnabled="true"
-                app:hintAnimationEnabled="true"
                 app:layout_constraintEnd_toStartOf="@+id/textInputLayout5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textInputLayout16">
@@ -173,6 +174,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="0dp"
                     android:editable="false"
+                    android:focusable="false"
                     android:maxLength="100"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
             </com.google.android.material.textfield.TextInputLayout>

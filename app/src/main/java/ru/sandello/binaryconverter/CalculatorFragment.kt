@@ -27,6 +27,8 @@ class CalculatorFragment : Fragment() {
     private var myClipboard: ClipboardManager? = null
     private var myClip: ClipData? = null
 
+    private val listCustomBin = arrayOf(2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36)
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_calculator, container, false)
@@ -34,7 +36,7 @@ class CalculatorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        load()
         myClipboard = context?.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager?
 
         editTextResult.setOnClickListener { copyVal("calResult") }
@@ -46,13 +48,6 @@ class CalculatorFragment : Fragment() {
             it.clear_fab.hide()
         }
 
-        val listCustomBin = arrayOf(2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36)
-        val aa = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, listCustomBin)
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner!!.adapter = aa
-        spinner2!!.adapter = aa
-        spinner3!!.adapter = aa
-
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
 
@@ -60,12 +55,12 @@ class CalculatorFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (editTextVal1?.text.toString() != "")
                     try {
-                        a = ConvertTo().main(editTextVal1.text.toString(), spinner.selectedItem.toString().toInt(), 10).toBigDecimal()
+                        a = ConvertTo().main(editTextVal1.text.toString(), spinner.text.toString().toInt(), 10).toBigDecimal()
                         if (togglePlus.isChecked) c = (a + b)
                         if (toggleMinus.isChecked) c = (a - b)
                         if (toggleMult.isChecked) c = (a * b)
                         if (toggleDiv.isChecked && b != 0.toBigDecimal()) c = String.format("%.${fractionCount}f", a.divide(b)).toBigDecimal()
-                        editTextResult.setText(ConvertTo().main(c.toString(), 10, spinner3.selectedItem.toString().toInt()))
+                        editTextResult.setText(ConvertTo().main(c.toString(), 10, spinner3.text.toString().toInt()))
                         errorNull()
                     } catch (e: Exception) {
                         textInputLayoutCustom1?.error = getString(R.string.invalid_value)
@@ -80,12 +75,12 @@ class CalculatorFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (editTextVal2?.text.toString() != "")
                     try {
-                        b = ConvertTo().main(editTextVal2.text.toString(), spinner2.selectedItem.toString().toInt(), 10).toBigDecimal()
+                        b = ConvertTo().main(editTextVal2.text.toString(), spinner2.text.toString().toInt(), 10).toBigDecimal()
                         if (togglePlus.isChecked) c = (a + b)
                         if (toggleMinus.isChecked) c = (a - b)
                         if (toggleMult.isChecked) c = (a * b)
                         if (toggleDiv.isChecked && b != 0.toBigDecimal()) c = a.divide(b, fractionCount, RoundingMode.HALF_UP)
-                        editTextResult.setText(ConvertTo().main(c.toString(), 10, spinner3.selectedItem.toString().toInt()))
+                        editTextResult.setText(ConvertTo().main(c.toString(), 10, spinner3.text.toString().toInt()))
                         errorNull()
                     } catch (e: Exception) {
                         if (editTextVal2?.text.toString() != "")
@@ -105,7 +100,7 @@ class CalculatorFragment : Fragment() {
                         if (toggleMinus.isChecked) c = (a - b)
                         if (toggleMult.isChecked) c = (a * b)
                         if (toggleDiv.isChecked && b != 0.toBigDecimal()) c = a.divide(b, fractionCount, RoundingMode.HALF_UP)
-                        editTextResult.setText(ConvertTo().main(c.toString(), 10, spinner3.selectedItem.toString().toInt()))
+                        editTextResult.setText(ConvertTo().main(c.toString(), 10, spinner3.text.toString().toInt()))
                         errorNull()
                     } catch (e: Exception) {
                         textInputLayoutResult?.error = getString(R.string.invalid_value)
@@ -119,12 +114,12 @@ class CalculatorFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var allowVal = ""
                 val sym = arrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
-                for (i in 0 until spinner.selectedItem.toString().toInt())
+                for (i in 0 until spinner.text.toString().toInt())
                     allowVal += sym[i]
                 if (editTextVal1.hasFocus()) { //Если фокус на editTextVal1
                     if (s.toString() != "") { //если текст не равен нулю
                         var str = ""
-                        for (i in 0 until s!!.length) //ищем символ "-"
+                        for (i in s!!.indices) //ищем символ "-"
                             if (i == 0 && s[0].toString() == "-")
                                 str += s[i]
                             else if (s != "" && s[i].toString() != "-")
@@ -155,13 +150,13 @@ class CalculatorFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var allowVal = ""
                 val sym = arrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
-                for (i in 0 until spinner2.selectedItem.toString().toInt())
+                for (i in 0 until spinner2.text.toString().toInt())
                     allowVal += sym[i]
                 if (editTextVal2.hasFocus()) {
                     if (s.toString() != "") {
                         var str = ""
 
-                        for (i in 0 until s!!.length)
+                        for (i in s!!.indices)
                             if (i == 0 && s[i].toString() == "-")
                                 str += s[i]
                             else if (s != "" && s[i].toString() != "-")
@@ -185,7 +180,7 @@ class CalculatorFragment : Fragment() {
             }
         })
 
-        toggleGroup.addOnButtonCheckedListener { group, checkedId, isChecked ->
+        toggleGroup.addOnButtonCheckedListener { _, _, _ ->
             calculateToggle()
         }
     }
@@ -195,14 +190,14 @@ class CalculatorFragment : Fragment() {
     fun calculate(string: String, editField: View?, editLayout: TextInputLayout?, allowVal: String) {
         try {
             checkClear()
-            if (editField?.resources?.getResourceEntryName(editField.id) == "editTextVal1" && string != "") a = ConvertTo().main(string, spinner.selectedItem.toString().toInt(), 10).toBigDecimal()
-            if (editField?.resources?.getResourceEntryName(editField.id) == "editTextVal2" && string != "") b = ConvertTo().main(string, spinner2.selectedItem.toString().toInt(), 10).toBigDecimal()
+            if (editField?.resources?.getResourceEntryName(editField.id) == "editTextVal1" && string != "") a = ConvertTo().main(string, spinner.text.toString().toInt(), 10).toBigDecimal()
+            if (editField?.resources?.getResourceEntryName(editField.id) == "editTextVal2" && string != "") b = ConvertTo().main(string, spinner2.text.toString().toInt(), 10).toBigDecimal()
             if (togglePlus.isChecked) c = (a + b)
             if (toggleMinus.isChecked) c = (a - b)
             if (toggleMult.isChecked) c = (a * b)
             if (toggleDiv.isChecked && b != 0.toBigDecimal()) c = a.divide(b, fractionCount, RoundingMode.HALF_UP)
             if (editTextVal1.text.toString() != "" && editTextVal2.text.toString() != "")
-                editTextResult.setText(ConvertTo().main(c.toString(), 10, spinner3.selectedItem.toString().toInt()))
+                editTextResult.setText(ConvertTo().main(c.toString(), 10, spinner3.text.toString().toInt()))
             else
                 editTextResult.setText("")
             errorNull()
@@ -221,7 +216,7 @@ class CalculatorFragment : Fragment() {
             if (toggleMult.isChecked) c = (a * b)
             if (toggleDiv.isChecked && b != 0.toBigDecimal()) c = a.divide(b, fractionCount, RoundingMode.HALF_UP)
             if (editTextVal1.text.toString() != "" && editTextVal2.text.toString() != "")
-                editTextResult.setText(ConvertTo().main(c.toString(), 10, spinner3.selectedItem.toString().toInt()))
+                editTextResult.setText(ConvertTo().main(c.toString(), 10, spinner3.text.toString().toInt()))
             else
                 editTextResult.setText("")
             errorNull()
@@ -256,11 +251,19 @@ class CalculatorFragment : Fragment() {
         editTextVal1.setText(calculatorSave.getString("calculator1", ""))
         editTextVal2.setText(calculatorSave.getString("calculator2", ""))
         toggleGroup.check(calculatorSave.getInt("toggle", togglePlus.id))
-        val listCustomBin = arrayOf(2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36)
-        val aa = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, listCustomBin)
-        spinner.setSelection(aa.getPosition(calculatorSave.getInt("spinner1", 10)))
-        spinner2.setSelection(aa.getPosition(calculatorSave.getInt("spinner2", 2)))
-        spinner3.setSelection(aa.getPosition(calculatorSave.getInt("spinner3", 10)))
+        val adapter = ArrayAdapter(
+                context!!,
+                R.layout.dropdown_menu_popup_item,
+                listCustomBin)
+        spinner.setText(calculatorSave.getInt("spinner1", 10).toString())
+        spinner2.setText(calculatorSave.getInt("spinner2", 2).toString())
+        spinner3.setText(calculatorSave.getInt("spinner3", 10).toString())
+        spinner.setAdapter(adapter)
+        spinner2.setAdapter(adapter)
+        spinner3.setAdapter(adapter)
+        a = ConvertTo().main(editTextVal1.text.toString(), spinner.text.toString().toInt(), 10).toBigDecimal()
+        b = ConvertTo().main(editTextVal2.text.toString(), spinner2.text.toString().toInt(), 2).toBigDecimal()
+        calculateToggle()
     }
 
     private fun save() {
@@ -269,9 +272,9 @@ class CalculatorFragment : Fragment() {
         editor.putString("calculator1", editTextVal1.text.toString()).apply()
         editor.putString("calculator2", editTextVal2.text.toString()).apply()
         editor.putInt("toggle", toggleGroup.checkedButtonId).apply()
-        editor.putInt("spinner1", spinner.selectedItem.toString().toInt()).apply()
-        editor.putInt("spinner2", spinner2.selectedItem.toString().toInt()).apply()
-        editor.putInt("spinner3", spinner3.selectedItem.toString().toInt()).apply()
+        editor.putInt("spinner1", spinner.text.toString().toInt()).apply()
+        editor.putInt("spinner2", spinner2.text.toString().toInt()).apply()
+        editor.putInt("spinner3", spinner3.text.toString().toInt()).apply()
     }
 
     @SuppressLint("SetTextI18n")

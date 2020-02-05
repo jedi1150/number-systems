@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import kotlinx.android.synthetic.main.fragment_explanation.*
 
 var fractionCount = 12
 

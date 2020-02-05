@@ -6,24 +6,25 @@ import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.answer_layout.view.*
 import kotlinx.android.synthetic.main.div_layout.view.*
 import kotlinx.android.synthetic.main.frag_layout.view.*
 import kotlinx.android.synthetic.main.fragment_converter.*
 import kotlinx.android.synthetic.main.fragment_converter.view.*
+import kotlinx.android.synthetic.main.fragment_explanation.*
 import kotlinx.android.synthetic.main.fragment_explanation.view.*
 import kotlinx.android.synthetic.main.multiply_layout.view.*
 import kotlinx.android.synthetic.main.multiply_layout2.view.*
@@ -54,8 +55,8 @@ class ConverterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val bottomSheetDialog = BottomSheetDialog(this.context!!)
         bottomSheetDialog.setContentView(R.layout.fragment_explanation)
-
         bottomSheetInternal = bottomSheetDialog.findViewById(R.id.cardViewSheet)
+
         bottomSheetDialog.behavior.skipCollapsed = true
         bottomSheetDialog.behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
@@ -79,15 +80,7 @@ class ConverterFragment : Fragment() {
             view.rootView.explanation_fab.hide()
         }
 
-        val adapter = ArrayAdapter(
-                context!!,
-                R.layout.dropdown_menu_popup_item,
-                listCustomBin)
-
-        //filled_exposed_dropdown.setAdapter(adapter)
-//        filled_exposed_dropdown.setSelection(adapter.getPosition(3))
-//        filled_exposed_dropdown.setText(listCustomBin[0].toString())
-        filled_exposed_dropdown.setOnItemClickListener { parent, view, position, id ->
+        filled_exposed_dropdown.setOnItemClickListener { _, _, position, _ ->
             try {
                 editTextCustom.setText(ConvertTo().main(editText10.text.toString(), 10, listCustomBin[position]))
                 errorNull()
@@ -99,13 +92,15 @@ class ConverterFragment : Fragment() {
 
         val spinnerSharedPref = context!!.getSharedPreferences("spinner", Context.MODE_PRIVATE)
         val spinnerEditor = spinnerSharedPref.edit()
-        val aa2 = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, listAllBin)
-        aa2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        bottomSheetInternal!!.rootView.spinner4.adapter = aa2
-        bottomSheetInternal!!.rootView.spinner5.adapter = aa2
-        bottomSheetInternal!!.rootView.spinner4.setSelection(aa2.getPosition(spinnerSharedPref.getInt("SpinnerFrom", 10)))
-        bottomSheetInternal!!.rootView.spinner5.setSelection(aa2.getPosition(spinnerSharedPref.getInt("SpinnerTo", 2)))
+        val adapter = ArrayAdapter(
+                context!!,
+                R.layout.dropdown_menu_popup_item,
+                listAllBin)
+        bottomSheetInternal!!.rootView.spinner4_dropdown.setText(spinnerSharedPref.getInt("SpinnerFrom", 10).toString())
+        bottomSheetInternal!!.rootView.spinner5_dropdown.setText(spinnerSharedPref.getInt("SpinnerTo", 2).toString())
+        bottomSheetInternal!!.rootView.spinner4_dropdown.setAdapter(adapter)
+        bottomSheetInternal!!.rootView.spinner5_dropdown.setAdapter(adapter)
 
         val sym = arrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
 
@@ -125,7 +120,6 @@ class ConverterFragment : Fragment() {
                 }
             }
         })
-
         //2
         editText2.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
@@ -138,10 +132,9 @@ class ConverterFragment : Fragment() {
                     if (s.toString() != "" && !s!!.endsWith("."))
                         parse(s.toString(), editText2, textInputLayout2, 2, filled_exposed_dropdown.text.toString().toInt(), allowVal)
                 if (s.toString() == "" && !cleared)
-                    clearConverter(editText10)
+                    clearConverter(editText2)
             }
         })
-
         //8
         editText8.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
@@ -154,10 +147,9 @@ class ConverterFragment : Fragment() {
                     if (s.toString() != "" && !s!!.endsWith("."))
                         parse(s.toString(), editText8, textInputLayout8, 8, filled_exposed_dropdown.text.toString().toInt(), allowVal)
                 if (s.toString() == "" && !cleared)
-                    clearConverter(editText10)
+                    clearConverter(editText8)
             }
         })
-
         //16
         editText16.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
@@ -170,10 +162,9 @@ class ConverterFragment : Fragment() {
                     if (s.toString() != "" && !s!!.endsWith(".") && editText16.hasFocus())
                         parse(s.toString(), editText16, textInputLayout16, 16, filled_exposed_dropdown.text.toString().toInt(), allowVal)
                 if (s.toString() == "" && !cleared)
-                    clearConverter(editText10)
+                    clearConverter(editText16)
             }
         })
-
         //custom
         editTextCustom.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
@@ -186,7 +177,7 @@ class ConverterFragment : Fragment() {
                 if (s.toString() != "" && !s!!.endsWith(".") && editTextCustom.hasFocus())
                     parse(s.toString(), editTextCustom, textInputLayoutCustom, filled_exposed_dropdown.text.toString().toInt(), null, allowVal)
                 if (s.toString() == "" && !cleared)
-                    clearConverter(editText10)
+                    clearConverter(editTextCustom)
             }
         })
 
@@ -228,12 +219,12 @@ class ConverterFragment : Fragment() {
                 async {
                     bottomSheetDialog.behavior.state = STATE_COLLAPSED
                     bottomSheetInternal!!.rootView.progressBar.visibility = View.VISIBLE
-                    val buf = bottomSheetInternal!!.rootView.spinner4.selectedItemPosition
-                    bottomSheetInternal!!.rootView.spinner4.setSelection(bottomSheetInternal!!.rootView.spinner5.selectedItemPosition)
-                    bottomSheetInternal!!.rootView.spinner5.setSelection(buf)
+                    val buf = bottomSheetInternal!!.rootView.spinner4_dropdown.text.toString()
+                    bottomSheetInternal!!.rootView.spinner4_dropdown.setText(bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString())
+                    bottomSheetInternal!!.rootView.spinner5_dropdown.setText(buf)
                     bottomSheetInternal!!.rootView.revertButton.setImageResource(R.drawable.compare)
-                    spinnerEditor.putInt("SpinnerFrom", bottomSheetInternal!!.rootView.spinner4.selectedItem.toString().toInt()).apply()
-                    spinnerEditor.putInt("SpinnerTo", bottomSheetInternal!!.rootView.spinner5.selectedItem.toString().toInt()).apply()
+                    spinnerEditor.putInt("SpinnerFrom", bottomSheetInternal!!.rootView.spinner4_dropdown.text.toString().toInt()).apply()
+                    spinnerEditor.putInt("SpinnerTo", bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString().toInt()).apply()
                     (bottomSheetInternal!!.rootView.revertButton.drawable as Animatable).start()
                     delay(300)
                 }.join()
@@ -254,15 +245,13 @@ class ConverterFragment : Fragment() {
             job.start()
         }
 
-        bottomSheetInternal!!.rootView.spinner4?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        bottomSheetInternal!!.rootView.spinner4_dropdown.setOnItemClickListener { _, _, _, _ ->
                 val job = GlobalScope.launch(Dispatchers.Main) {
                     async {
                         bottomSheetDialog.behavior.state = STATE_COLLAPSED
                         bottomSheetInternal!!.rootView.progressBar.visibility = View.VISIBLE
-                        spinnerEditor.putInt("SpinnerFrom", bottomSheetInternal!!.rootView.spinner4.selectedItem.toString().toInt()).apply()
-                        spinnerEditor.putInt("SpinnerTo", bottomSheetInternal!!.rootView.spinner5.selectedItem.toString().toInt()).apply()
+                        spinnerEditor.putInt("SpinnerFrom", bottomSheetInternal!!.rootView.spinner4_dropdown.text.toString().toInt()).apply()
+                        spinnerEditor.putInt("SpinnerTo", bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString().toInt()).apply()
                         delay(300)
                     }.join()
                     launch {
@@ -280,18 +269,15 @@ class ConverterFragment : Fragment() {
                     }.join()
                 }
                 job.start()
-            }
         }
 
-        bottomSheetInternal!!.rootView.spinner5?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        bottomSheetInternal!!.rootView.spinner5_dropdown.setOnItemClickListener { _, _, _, _ ->
                 val job = GlobalScope.launch(Dispatchers.Main) {
                     async {
                         bottomSheetDialog.behavior.state = STATE_COLLAPSED
                         bottomSheetInternal?.rootView?.progressBar?.visibility = View.VISIBLE
-                        spinnerEditor.putInt("SpinnerFrom", bottomSheetInternal!!.rootView.spinner4.selectedItem.toString().toInt()).apply()
-                        spinnerEditor.putInt("SpinnerTo", bottomSheetInternal!!.rootView.spinner5.selectedItem.toString().toInt()).apply()
+                        spinnerEditor.putInt("SpinnerFrom", bottomSheetInternal!!.rootView.spinner4_dropdown.text.toString().toInt()).apply()
+                        spinnerEditor.putInt("SpinnerTo", bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString().toInt()).apply()
                         delay(300)
                     }.join()
                     launch {
@@ -310,8 +296,6 @@ class ConverterFragment : Fragment() {
                 }
                 job.start()
             }
-        }
-
     }
 
     @SuppressLint("SetTextI18n", "InflateParams")
@@ -376,16 +360,16 @@ class ConverterFragment : Fragment() {
 
         // Блок с ответом
         val viConvert = layoutInflater.inflate(R.layout.answer_layout, null, false)
-        viConvert.textResultExplanation1.text = ConvertTo().main(editText10.text.toString(), 10, bottomSheetInternal!!.rootView.spinner4.selectedItem.toString().toInt())
-        viConvert.resultConvertNumber1.text = bottomSheetInternal!!.rootView.spinner4.selectedItem.toString()
-        viConvert.textResultExplanation2.text = ConvertTo().main(editText10.text.toString(), 10, bottomSheetInternal!!.rootView.spinner5.selectedItem.toString().toInt())
-        viConvert.resultConvertNumber2.text = bottomSheetInternal!!.rootView.spinner5.selectedItem.toString()
+        viConvert.textResultExplanation1.text = ConvertTo().main(editText10.text.toString(), 10, bottomSheetInternal!!.rootView.spinner4_dropdown.text.toString().toInt())
+        viConvert.resultConvertNumber1.text = bottomSheetInternal!!.rootView.spinner4_dropdown.text.toString()
+        viConvert.textResultExplanation2.text = ConvertTo().main(editText10.text.toString(), 10, bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString().toInt())
+        viConvert.resultConvertNumber2.text = bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString()
         bottomSheetInternal!!.rootView.explanationCardViewConvert.addView(viConvert)
 
         val layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
         layoutParams.setMargins(8, 8, 32, 8)
 
-        if (((bottomSheetInternal!!.rootView.spinner4.selectedItem.toString().toInt() <= 36) && (bottomSheetInternal!!.rootView.spinner5.selectedItem.toString().toInt() <= 36)) && (bottomSheetInternal!!.rootView.spinner4.selectedItem.toString().toInt() != bottomSheetInternal!!.rootView.spinner5.selectedItem.toString().toInt())) {
+        if (((bottomSheetInternal!!.rootView.spinner4_dropdown.text.toString().toInt() <= 36) && (bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString().toInt() <= 36)) && (bottomSheetInternal!!.rootView.spinner4_dropdown.text.toString().toInt() != bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString().toInt())) {
             bottomSheetInternal!!.rootView.hsvConvert.visibility = View.VISIBLE
 
             bottomSheetInternal!!.rootView.step1.visibility = View.VISIBLE
@@ -405,8 +389,8 @@ class ConverterFragment : Fragment() {
             bottomSheetInternal!!.rootView.dividerExpAnswer.visibility = View.VISIBLE
 
 
-            val fromSpinner = bottomSheetInternal!!.rootView.spinner4.selectedItem.toString()
-            val toSpinner = bottomSheetInternal!!.rootView.spinner5.selectedItem.toString()
+            val fromSpinner = bottomSheetInternal!!.rootView.spinner4_dropdown.text.toString()
+            val toSpinner = bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString()
 
             val stringOriginal = ConvertTo().main(editText10.text.toString(), 10, fromSpinner.toInt())
             val decArray: CharArray = stringOriginal.replace(".", "").toCharArray()
@@ -441,7 +425,6 @@ class ConverterFragment : Fragment() {
                 decLength--
                 leftDecLength--
                 val vi2 = layoutInflater.inflate(R.layout.multiply_layout2, null, false)
-
                 vi2.explanation_multiply2_textView1.text = (ch.toString().toBigInteger(fromSpinner.toInt()).toString(10).toBigDecimal().stripTrailingZeros() * fromSpinner.toDouble().pow(leftDecLength.toDouble()).toBigDecimal().stripTrailingZeros()).setScale(fractionCount, RoundingMode.DOWN).stripTrailingZeros().toString()
                 vi2.explanation_multiply2_convert.text = "10"
                 bottomSheetInternal!!.rootView.explanationCardView1.addView(vi2)
@@ -527,7 +510,7 @@ class ConverterFragment : Fragment() {
                 var z = 0
                 var res = "0.0".toBigDecimal()
                 var n1 = "0." + summ.toString().split(".")[1]
-                val n2 = bottomSheetInternal!!.rootView.spinner5.selectedItem.toString()
+                val n2 = bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString()
                 while (z < fractionCount + 1) {
                     val vi5 = layoutInflater.inflate(R.layout.multiply_layout3, null, false)
                     if (n1.split(".")[1] == "0") break // Если десятичное число равно нулю, то прерываем итерацию
@@ -578,7 +561,7 @@ class ConverterFragment : Fragment() {
             }
         }
 
-        if (bottomSheetInternal!!.rootView.spinner4.selectedItem.toString().toInt() == bottomSheetInternal!!.rootView.spinner5.selectedItem.toString().toInt()) {
+        if (bottomSheetInternal!!.rootView.spinner4_dropdown.text.toString().toInt() == bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString().toInt()) {
             bottomSheetInternal!!.rootView.hsvConvert.visibility = View.GONE
             bottomSheetInternal!!.rootView.hsv1.visibility = View.GONE
             bottomSheetInternal!!.rootView.hsv2.visibility = View.GONE
@@ -652,21 +635,16 @@ class ConverterFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         val converterSave = context!!.getSharedPreferences("converter", Context.MODE_PRIVATE)
-        editText10.setText(converterSave.getString("converter10", ""))
-//        val aa = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, listCustomBin)
-//        spinnerValue.setSelection(aa.getPosition(converterSave.getInt("converterSpinner", 3)))
-//        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
         val adapter = ArrayAdapter(
                 context!!,
                 R.layout.dropdown_menu_popup_item,
                 listCustomBin)
-        //filled_exposed_dropdown.setText(converterSave.getInt("converterSpinner", 3).toString())
+        filled_exposed_dropdown.setText(converterSave.getInt("converterSpinner", 3).toString())
         filled_exposed_dropdown.setAdapter(adapter)
-//        filled_exposed_dropdown.setSelection(listCustomBin[3])
+        editText10.setText(converterSave.getString("converter10", ""))
 
         if (editText10.text.toString() != "")
-            //parse(converterSave.getString("converter10", "")!!, view!!.rootView.editText10, view!!.rootView.textInputLayout10, 10, filled_exposed_dropdown.text.toString().toInt(), "0123456789")
+            parse(converterSave.getString("converter10", "")!!, view!!.rootView.editText10, view!!.rootView.textInputLayout10, 10, filled_exposed_dropdown.text.toString().toInt(), "0123456789")
         checkClear()
     }
 
