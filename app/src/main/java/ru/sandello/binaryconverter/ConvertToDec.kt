@@ -1,7 +1,6 @@
 package ru.sandello.binaryconverter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import kotlin.math.pow
 
 class ConvertTo {

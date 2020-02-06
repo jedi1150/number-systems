@@ -3,9 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clipToPadding="true"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
     <fragment
         android:id="@+id/nav_host_fragment"
@@ -21,9 +19,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
+        android:layout_marginTop="16dp"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:layout_marginTop="16dp"
         android:filterTouchesWhenObscured="false"
         android:fitsSystemWindows="false"
         app:layout_anchor="@+id/bottom_navigation">

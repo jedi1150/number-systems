@@ -11,6 +11,8 @@
         <item name="colorSurface">@color/colorDark</item>
         <item name="colorPrimary">@color/colorLight</item>
         <item name="colorOnSurface">@color/colorLight</item>
+        <item name="strokeColor">@color/colorPrimary</item>
+        <item name="rippleColor">@color/colorPrimary</item>
         <item name="colorSecondary">@color/colorDark</item>
         <item name="colorPrimaryFAB">@color/grayDark</item>
         <item name="colorInverseIcon">@color/grayLight</item>

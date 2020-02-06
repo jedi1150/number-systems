@@ -1,0 +1,68 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="ru.sandello.binaryconverter"
+4    android:versionCode="97"
+5    android:versionName="3.0.8" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->/home/radmin/StudioProjects/Number-Systems/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="29" />
+9-->/home/radmin/StudioProjects/Number-Systems/app/src/main/AndroidManifest.xml
+10
+11    <application
+11-->/home/radmin/StudioProjects/Number-Systems/app/src/main/AndroidManifest.xml:6:5-27:19
+12        android:allowBackup="true"
+12-->/home/radmin/StudioProjects/Number-Systems/app/src/main/AndroidManifest.xml:7:9-35
+13        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+13-->[androidx.core:core:1.1.0] /home/radmin/.gradle/caches/transforms-2/files-2.1/169a2da9bf321caeff55927d803f09de/core-1.1.0/AndroidManifest.xml:24:18-86
+14        android:debuggable="true"
+15        android:icon="@mipmap/ic_launcher"
+15-->/home/radmin/StudioProjects/Number-Systems/app/src/main/AndroidManifest.xml:8:9-43
+16        android:label="@string/app_name"
+16-->/home/radmin/StudioProjects/Number-Systems/app/src/main/AndroidManifest.xml:9:9-41
+17        android:supportsRtl="true"
+17-->/home/radmin/StudioProjects/Number-Systems/app/src/main/AndroidManifest.xml:10:9-35
+18        android:testOnly="true"
+19        android:theme="@style/Theme" >
+19-->/home/radmin/StudioProjects/Number-Systems/app/src/main/AndroidManifest.xml:11:9-37
+20        <activity
+20-->/home/radmin/StudioProjects/Number-Systems/app/src/main/AndroidManifest.xml:13:9-22:20
+21            android:name="ru.sandello.binaryconverter.MainActivity"
+21-->/home/radmin/StudioProjects/Number-Systems/app/src/main/AndroidManifest.xml:14:13-41
+22            android:configChanges="orientation|keyboardHidden|keyboard|locale"
+22-->/home/radmin/StudioProjects/Number-Systems/app/src/main/AndroidManifest.xml:16:13-79
+23            android:windowSoftInputMode="adjustResize" >
+23-->/home/radmin/StudioProjects/Number-Systems/app/src/main/AndroidManifest.xml:15:13-55
+24            <intent-filter>
+24-->/home/radmin/StudioProjects/Number-Systems/app/src/main/AndroidManifest.xml:17:13-21:29
+25                <action android:name="android.intent.action.MAIN" />
+25-->/home/radmin/StudioProjects/Number-Systems/app/src/main/AndroidManifest.xml:18:17-69
+25-->/home/radmin/StudioProjects/Number-Systems/app/src/main/AndroidManifest.xml:18:25-66
+26
+27                <category android:name="android.intent.category.LAUNCHER" />
+27-->/home/radmin/StudioProjects/Number-Systems/app/src/main/AndroidManifest.xml:20:17-77
+27-->/home/radmin/StudioProjects/Number-Systems/app/src/main/AndroidManifest.xml:20:27-74
+28            </intent-filter>
+29        </activity>
+30
+31        <meta-data
+31-->/home/radmin/StudioProjects/Number-Systems/app/src/main/AndroidManifest.xml:24:9-26:36
+32            android:name="android.allow_multiple_resumed_activities"
+32-->/home/radmin/StudioProjects/Number-Systems/app/src/main/AndroidManifest.xml:25:13-69
+33            android:value="true" />
+33-->/home/radmin/StudioProjects/Number-Systems/app/src/main/AndroidManifest.xml:26:13-33
+34
+35        <provider
+35-->[androidx.lifecycle:lifecycle-process:2.1.0-alpha04] /home/radmin/.gradle/caches/transforms-2/files-2.1/b8cc2bea6e100371dee2c889f9fce964/lifecycle-process-2.1.0-alpha04/AndroidManifest.xml:23:9-27:43
+36            android:name="androidx.lifecycle.ProcessLifecycleOwnerInitializer"
+36-->[androidx.lifecycle:lifecycle-process:2.1.0-alpha04] /home/radmin/.gradle/caches/transforms-2/files-2.1/b8cc2bea6e100371dee2c889f9fce964/lifecycle-process-2.1.0-alpha04/AndroidManifest.xml:24:13-79
+37            android:authorities="ru.sandello.binaryconverter.lifecycle-process"
+37-->[androidx.lifecycle:lifecycle-process:2.1.0-alpha04] /home/radmin/.gradle/caches/transforms-2/files-2.1/b8cc2bea6e100371dee2c889f9fce964/lifecycle-process-2.1.0-alpha04/AndroidManifest.xml:25:13-69
+38            android:exported="false"
+38-->[androidx.lifecycle:lifecycle-process:2.1.0-alpha04] /home/radmin/.gradle/caches/transforms-2/files-2.1/b8cc2bea6e100371dee2c889f9fce964/lifecycle-process-2.1.0-alpha04/AndroidManifest.xml:26:13-37
+39            android:multiprocess="true" />
+39-->[androidx.lifecycle:lifecycle-process:2.1.0-alpha04] /home/radmin/.gradle/caches/transforms-2/files-2.1/b8cc2bea6e100371dee2c889f9fce964/lifecycle-process-2.1.0-alpha04/AndroidManifest.xml:27:13-40
+40    </application>
+41
+42</manifest>

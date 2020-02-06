@@ -9,22 +9,20 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
-import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.textfield.TextInputLayout
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.answer_layout.view.*
 import kotlinx.android.synthetic.main.div_layout.view.*
 import kotlinx.android.synthetic.main.frag_layout.view.*
 import kotlinx.android.synthetic.main.fragment_converter.*
 import kotlinx.android.synthetic.main.fragment_converter.view.*
-import kotlinx.android.synthetic.main.fragment_explanation.*
 import kotlinx.android.synthetic.main.fragment_explanation.view.*
 import kotlinx.android.synthetic.main.multiply_layout.view.*
 import kotlinx.android.synthetic.main.multiply_layout2.view.*
@@ -40,6 +38,7 @@ var cleared = false
 
 @ExperimentalUnsignedTypes
 class ConverterFragment : Fragment() {
+    var bottomSheetDialog: BottomSheetDialog? = null
     var bottomSheetInternal: View? = null
     private val listCustomBin = arrayOf(3, 4, 5, 6, 7, 9, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36)
     private val listAllBin = arrayOf(2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36)
@@ -53,16 +52,18 @@ class ConverterFragment : Fragment() {
     @ExperimentalUnsignedTypes
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val bottomSheetDialog = BottomSheetDialog(this.context!!)
-        bottomSheetDialog.setContentView(R.layout.fragment_explanation)
-        bottomSheetInternal = bottomSheetDialog.findViewById(R.id.cardViewSheet)
 
-        bottomSheetDialog.behavior.skipCollapsed = true
-        bottomSheetDialog.behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+        bottomSheetDialog = BottomSheetDialog(view.context)
+        bottomSheetDialog!!.setContentView(R.layout.fragment_explanation)
+        bottomSheetInternal = bottomSheetDialog!!.findViewById(R.id.cardViewSheet)
+        bottomSheetInternal!!.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+
+        bottomSheetDialog!!.behavior.skipCollapsed = true
+        bottomSheetDialog!!.behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 if (newState == STATE_HIDDEN) {
-                    bottomSheetDialog.behavior.state = STATE_HIDDEN
-                    bottomSheetDialog.dismiss()
+                    bottomSheetDialog!!.behavior.state = STATE_HIDDEN
+                    bottomSheetDialog!!.dismiss()
                 }
             }
 
@@ -99,8 +100,6 @@ class ConverterFragment : Fragment() {
                 listAllBin)
         bottomSheetInternal!!.rootView.spinner4_dropdown.setText(spinnerSharedPref.getInt("SpinnerFrom", 10).toString())
         bottomSheetInternal!!.rootView.spinner5_dropdown.setText(spinnerSharedPref.getInt("SpinnerTo", 2).toString())
-        bottomSheetInternal!!.rootView.spinner4_dropdown.setAdapter(adapter)
-        bottomSheetInternal!!.rootView.spinner5_dropdown.setAdapter(adapter)
 
         val sym = arrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
 
@@ -182,34 +181,36 @@ class ConverterFragment : Fragment() {
         })
 
         view.rootView.explanation_fab.setOnClickListener {
+            bottomSheetInternal!!.rootView.spinner4_dropdown.setAdapter(adapter)
+            bottomSheetInternal!!.rootView.spinner5_dropdown.setAdapter(adapter)
             if (editText10!!.text.toString().isNotEmpty()) {
                 try {
                     val job = GlobalScope.launch(Dispatchers.Main) {
                         async {
-                            bottomSheetDialog.behavior.state = STATE_COLLAPSED
-                            bottomSheetDialog.show()
+                            bottomSheetDialog!!.behavior.state = STATE_COLLAPSED
+                            bottomSheetDialog!!.show()
                             bottomSheetInternal!!.rootView.progressBar.visibility = View.VISIBLE
                             delay(1)
-                            bottomSheetDialog.behavior.peekHeight = bottomSheetInternal!!.rootView.bottomSheetAppBar.height
-                            delay(300)
+                            bottomSheetDialog!!.behavior.peekHeight = bottomSheetInternal!!.rootView.bottomSheetCardView.height
+                            delay(350)
                         }.join()
                         launch {
                             bottomSheetInternal!!.rootView.bottomSheetScrollView.setPadding(0, 0, 0, bottomSheetInternal!!.rootView.bottomSheetAppBar.height)
                             try {
                                 parseRepeat()
                             } catch (e: Exception) {
-                                bottomSheetDialog.behavior.state = STATE_HIDDEN
+                                bottomSheetDialog!!.behavior.state = STATE_HIDDEN
                             }
                         }.join()
                         async {
                             delay(1)
-                            bottomSheetDialog.behavior.state = STATE_EXPANDED
+                            bottomSheetDialog!!.behavior.state = STATE_EXPANDED
                             bottomSheetInternal!!.rootView.progressBar.visibility = View.INVISIBLE
                         }.join()
                     }
                     job.start()
                 } catch (e: Exception) {
-                    bottomSheetDialog.behavior.state = STATE_HIDDEN
+                    bottomSheetDialog!!.behavior.state = STATE_HIDDEN
                 }
             }
         }
@@ -217,7 +218,7 @@ class ConverterFragment : Fragment() {
         bottomSheetInternal!!.rootView.revertButton.setOnClickListener {
             val job = GlobalScope.launch(Dispatchers.Main) {
                 async {
-                    bottomSheetDialog.behavior.state = STATE_COLLAPSED
+                    bottomSheetDialog!!.behavior.state = STATE_COLLAPSED
                     bottomSheetInternal!!.rootView.progressBar.visibility = View.VISIBLE
                     val buf = bottomSheetInternal!!.rootView.spinner4_dropdown.text.toString()
                     bottomSheetInternal!!.rootView.spinner4_dropdown.setText(bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString())
@@ -226,19 +227,21 @@ class ConverterFragment : Fragment() {
                     spinnerEditor.putInt("SpinnerFrom", bottomSheetInternal!!.rootView.spinner4_dropdown.text.toString().toInt()).apply()
                     spinnerEditor.putInt("SpinnerTo", bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString().toInt()).apply()
                     (bottomSheetInternal!!.rootView.revertButton.drawable as Animatable).start()
-                    delay(300)
+                    bottomSheetInternal!!.rootView.spinner4_dropdown.setAdapter(adapter)
+                    bottomSheetInternal!!.rootView.spinner5_dropdown.setAdapter(adapter)
+                    delay(350)
                 }.join()
                 async {
                     try {
                         if (editText10.text.toString() != "")
                             parseRepeat()
                     } catch (e: Exception) {
-                        bottomSheetDialog.behavior.state = STATE_HIDDEN
+                        bottomSheetDialog!!.behavior.state = STATE_HIDDEN
                     }
                 }.join()
                 async {
                     delay(1)
-                    bottomSheetDialog.behavior.state = STATE_EXPANDED
+                    bottomSheetDialog!!.behavior.state = STATE_EXPANDED
                     bottomSheetInternal!!.rootView.progressBar.visibility = View.INVISIBLE
                 }.join()
             }
@@ -248,23 +251,23 @@ class ConverterFragment : Fragment() {
         bottomSheetInternal!!.rootView.spinner4_dropdown.setOnItemClickListener { _, _, _, _ ->
                 val job = GlobalScope.launch(Dispatchers.Main) {
                     async {
-                        bottomSheetDialog.behavior.state = STATE_COLLAPSED
+                        bottomSheetDialog!!.behavior.state = STATE_COLLAPSED
                         bottomSheetInternal!!.rootView.progressBar.visibility = View.VISIBLE
                         spinnerEditor.putInt("SpinnerFrom", bottomSheetInternal!!.rootView.spinner4_dropdown.text.toString().toInt()).apply()
                         spinnerEditor.putInt("SpinnerTo", bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString().toInt()).apply()
-                        delay(300)
+                        delay(350)
                     }.join()
                     launch {
-                        if (bottomSheetDialog.behavior.state != STATE_HIDDEN)
+                        if (bottomSheetDialog!!.behavior.state != STATE_HIDDEN)
                             try {
                                 parseRepeat()
                             } catch (e: Exception) {
-                                bottomSheetDialog.behavior.state = STATE_HIDDEN
+                                bottomSheetDialog!!.behavior.state = STATE_HIDDEN
                             }
                     }.join()
                     async {
                         delay(1)
-                        bottomSheetDialog.behavior.state = STATE_EXPANDED
+                        bottomSheetDialog!!.behavior.state = STATE_EXPANDED
                         bottomSheetInternal!!.rootView.progressBar.visibility = View.INVISIBLE
                     }.join()
                 }
@@ -272,29 +275,29 @@ class ConverterFragment : Fragment() {
         }
 
         bottomSheetInternal!!.rootView.spinner5_dropdown.setOnItemClickListener { _, _, _, _ ->
-                val job = GlobalScope.launch(Dispatchers.Main) {
-                    async {
-                        bottomSheetDialog.behavior.state = STATE_COLLAPSED
-                        bottomSheetInternal?.rootView?.progressBar?.visibility = View.VISIBLE
-                        spinnerEditor.putInt("SpinnerFrom", bottomSheetInternal!!.rootView.spinner4_dropdown.text.toString().toInt()).apply()
-                        spinnerEditor.putInt("SpinnerTo", bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString().toInt()).apply()
-                        delay(300)
-                    }.join()
-                    launch {
-                        if (bottomSheetDialog.behavior.state != STATE_HIDDEN)
-                            try {
-                                parseRepeat()
-                            } catch (e: Exception) {
-                                bottomSheetDialog.behavior.state = STATE_HIDDEN
-                            }
-                    }.join()
-                    async {
-                        delay(1)
-                        bottomSheetDialog.behavior.state = STATE_EXPANDED
-                        bottomSheetInternal!!.rootView.progressBar.visibility = View.INVISIBLE
-                    }.join()
-                }
-                job.start()
+            val job = GlobalScope.launch(Dispatchers.Main) {
+                async {
+                    bottomSheetDialog!!.behavior.state = STATE_COLLAPSED
+                    bottomSheetInternal?.rootView?.progressBar?.visibility = View.VISIBLE
+                    spinnerEditor.putInt("SpinnerFrom", bottomSheetInternal!!.rootView.spinner4_dropdown.text.toString().toInt()).apply()
+                    spinnerEditor.putInt("SpinnerTo", bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString().toInt()).apply()
+                    delay(300)
+                }.join()
+                launch {
+                    if (bottomSheetDialog!!.behavior.state != STATE_HIDDEN)
+                        try {
+                            parseRepeat()
+                        } catch (e: Exception) {
+                            bottomSheetDialog!!.behavior.state = STATE_HIDDEN
+                        }
+                }.join()
+                async {
+                    delay(1)
+                    bottomSheetDialog!!.behavior.state = STATE_EXPANDED
+                    bottomSheetInternal!!.rootView.progressBar.visibility = View.INVISIBLE
+                }.join()
+            }
+            job.start()
             }
     }
 
@@ -320,13 +323,12 @@ class ConverterFragment : Fragment() {
 
     @ExperimentalUnsignedTypes
     @SuppressLint("SetTextI18n", "InflateParams", "DefaultLocale")
-    private fun parseRepeat() {
+    fun parseRepeat() {
         var i = 0
         var summ: BigDecimal
 
         var result = ""
         var resultRight = ""
-
         bottomSheetInternal!!.rootView.explanationCardViewConvert.removeAllViews()
         bottomSheetInternal!!.rootView.explanationCardView1.removeAllViews()
         bottomSheetInternal!!.rootView.explanationCardView2.removeAllViews()
@@ -590,6 +592,8 @@ class ConverterFragment : Fragment() {
         viAnswer.textResultExplanation2.text = bottomSheetInternal!!.rootView.textResultExplanation2.text
         viAnswer.resultConvertNumber2.text = bottomSheetInternal!!.rootView.resultConvertNumber2.text
         bottomSheetInternal!!.rootView.explanationCardViewAnswer.addView(viAnswer)
+        bottomSheetDialog!!.behavior.state = STATE_EXPANDED
+
     }
 
     fun clearConverter(editField: View?) {

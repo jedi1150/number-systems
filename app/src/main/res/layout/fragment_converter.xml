@@ -6,18 +6,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipToPadding="true"
-    android:fillViewport="true"
-    android:fitsSystemWindows="true"
     tools:context=".ConverterFragment">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        android:isScrollContainer="true"
-        android:nestedScrollingEnabled="false"
-        android:overScrollMode="always"
         android:paddingBottom="144dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -170,11 +163,12 @@
 
                 <com.google.android.material.textview.MaterialAutoCompleteTextView
                     android:id="@+id/filled_exposed_dropdown"
+                    style="@style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="0dp"
                     android:editable="false"
-                    android:focusable="false"
+                    android:focusableInTouchMode="false"
                     android:maxLength="100"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
             </com.google.android.material.textfield.TextInputLayout>

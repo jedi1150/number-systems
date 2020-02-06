@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowBackground">@color/white</item>
         <item name="android:textColorPrimaryInverse">@color/colorDark</item>
         <item name="android:textColorPrimary">@color/grayDark</item>
         <item name="android:textColorSecondary">@color/midGray</item>
+
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/white</item>
-        <item name="colorSurface">@color/white</item>
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorOnSurface">@color/grayDark</item>
-        <item name="elevationOverlayColor">@color/white</item>
-        <item name="colorSecondary">@color/white</item>
+        <item name="colorOnSurface">@color/colorDark</item>
+        <item name="colorSecondary">@color/colorPrimary</item>
         <item name="colorPrimaryFAB">@color/white</item>
         <item name="colorInverseIcon">@color/colorDark</item>
         <item name="iconColor">@color/grayDark</item>
@@ -28,8 +27,9 @@
         </item>
         <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.MyApp.LargeComponent
         </item>
-        <item name="popupMenuStyle">@style/ShapeAppearance.MyApp.LargeComponent</item>
-        <item name="actionOverflowMenuStyle">@style/ShapeAppearance.MyApp.LargeComponent</item>
+        <item name="popupMenuStyle">@style/Widget.MaterialComponents.PopupMenu</item>
+        <item name="android:contextPopupMenuStyle" tools:ignore="NewApi">@style/Widget.MaterialComponents.PopupMenu.ContextMenu</item>
+        <item name="actionOverflowMenuStyle">@style/Widget.MaterialComponents.PopupMenu.Overflow</item>
     </style>
 
     <style name="ShapeAppearance.MyApp.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
