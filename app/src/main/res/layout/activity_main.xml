@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clipChildren="false">
 
     <fragment
         android:id="@+id/nav_host_fragment"
@@ -15,47 +16,6 @@
         app:navGraph="@navigation/nav_host" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/fab_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:layout_marginTop="16dp"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:filterTouchesWhenObscured="false"
-        android:fitsSystemWindows="false"
-        app:layout_anchor="@+id/bottom_navigation">
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/clear_fab"
-            style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center|end"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            app:backgroundTint="?attr/colorPrimaryFAB"
-            app:icon="@drawable/close"
-            app:iconTint="?attr/colorInverseIcon"
-            app:rippleColor="@color/design_default_color_error" />
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/explanation_fab"
-            style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/colorPrimary"
-            android:text="@string/explanation"
-            android:textColor="@color/white"
-            app:icon="@drawable/explanation"
-            app:iconTint="@color/white"
-            app:rippleColor="?attr/colorPrimaryDark" />
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/snackbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -63,6 +23,7 @@
         app:layout_anchor="@+id/bottom_navigation" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        style="@style/Widget.MaterialComponents.BottomNavigationView"
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,5 +35,39 @@
         app:menu="@menu/bottom_menu">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/fab_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:clipChildren="false"
+        app:layout_anchor="@+id/snackbar">
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/clear_fab"
+            style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center|end"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            app:backgroundTint="?attr/colorPrimaryDark"
+            app:icon="@drawable/close"
+            app:iconTint="?attr/colorInverseIcon"
+            app:rippleColor="@color/design_default_color_error" />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/explanation_fab"
+            style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/explanation"
+            app:icon="@drawable/explanation"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

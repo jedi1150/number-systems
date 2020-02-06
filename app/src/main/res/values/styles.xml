@@ -6,13 +6,12 @@
         <item name="android:textColorPrimaryInverse">@color/colorDark</item>
         <item name="android:textColorPrimary">@color/grayDark</item>
         <item name="android:textColorSecondary">@color/midGray</item>
-
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/white</item>
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorOnSurface">@color/colorDark</item>
         <item name="colorSecondary">@color/colorPrimary</item>
-        <item name="colorPrimaryFAB">@color/white</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorOnSurface">@color/colorDark</item>
         <item name="colorInverseIcon">@color/colorDark</item>
         <item name="iconColor">@color/grayDark</item>
         <item name="iconColorDisabled">@color/disabled</item>

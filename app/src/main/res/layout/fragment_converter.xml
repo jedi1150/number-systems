@@ -27,8 +27,9 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:hint="@string/dec"
+                app:endIconDrawable="@drawable/copy"
+                app:endIconMode="clear_text"
                 app:errorEnabled="true"
-                app:hintAnimationEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -55,6 +56,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:hint="@string/bin"
+                app:endIconDrawable="@drawable/copy"
+                app:endIconMode="clear_text"
                 app:errorEnabled="true"
                 app:hintAnimationEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -81,6 +84,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:hint="@string/oct"
+                app:endIconDrawable="@drawable/copy"
+                app:endIconMode="clear_text"
                 app:errorEnabled="true"
                 app:hintAnimationEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -107,6 +112,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:hint="@string/hex"
+                app:endIconDrawable="@drawable/copy"
+                app:endIconMode="clear_text"
                 app:errorEnabled="true"
                 app:hintAnimationEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -125,7 +132,6 @@
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
             </com.google.android.material.textfield.TextInputLayout>
 
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayoutCustom"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -134,6 +140,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:hint="@string/freeValue"
+                app:endIconDrawable="@drawable/copy"
+                app:endIconMode="clear_text"
                 app:errorEnabled="true"
                 app:layout_constraintEnd_toStartOf="@+id/textInputLayout5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -172,21 +180,6 @@
                     android:maxLength="100"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
             </com.google.android.material.textfield.TextInputLayout>
-
-<!--            <androidx.appcompat.widget.AppCompatSpinner-->
-<!--                android:id="@+id/spinnerValue"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="0dp"-->
-<!--                android:layout_marginTop="4dp"-->
-<!--                android:dropDownWidth="100dp"-->
-<!--                android:longClickable="false"-->
-<!--                android:nestedScrollingEnabled="false"-->
-<!--                android:paddingStart="4dp"-->
-<!--                android:paddingEnd="4dp"-->
-<!--                app:layout_constraintBottom_toBottomOf="@+id/textInputLayout5"-->
-<!--                app:layout_constraintEnd_toEndOf="@+id/textInputLayout5"-->
-<!--                app:layout_constraintStart_toStartOf="@+id/textInputLayout5"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/textInputLayout5" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

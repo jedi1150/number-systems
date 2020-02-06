@@ -10,19 +10,13 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="true"
         android:fillViewport="true"
         android:fitsSystemWindows="true"
         tools:context=".SettingsFragment">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
-            android:isScrollContainer="true"
-            android:nestedScrollingEnabled="false"
-            android:overScrollMode="always">
-
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -42,6 +36,20 @@
                     android:textAlignment="textStart"
                     android:textColor="?android:attr/textColorPrimary"
                     app:icon="@drawable/brightness"
+                    app:iconTint="?attr/iconColor" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/settingsLanguage"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/language"
+                    android:textAlignment="textStart"
+                    android:textColor="?android:attr/textColorPrimary"
+                    app:icon="@drawable/language"
                     app:iconTint="?attr/iconColor" />
 
                 <com.google.android.material.button.MaterialButton
@@ -66,7 +74,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="Help with Translate"
+                    android:text="@string/help_with_translate"
                     android:textAlignment="textStart"
                     android:textColor="?android:attr/textColorPrimary"
                     app:icon="@drawable/translate"
@@ -80,90 +88,12 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="GitHub"
+                    android:text="@string/github"
                     android:textAlignment="textStart"
                     android:textColor="?android:attr/textColorPrimary"
                     app:icon="@drawable/github"
                     app:iconTint="?attr/iconColor" />
 
-                <!--            <TextView-->
-                <!--                android:id="@+id/textViewComma"-->
-                <!--                android:layout_width="0dp"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:layout_marginTop="16dp"-->
-                <!--                android:layout_marginEnd="8dp"-->
-                <!--                android:clickable="false"-->
-                <!--                android:paddingStart="8dp"-->
-                <!--                android:paddingEnd="8dp"-->
-                <!--                android:text="@string/decLengthText"-->
-                <!--                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"-->
-                <!--                app:layout_constraintEnd_toEndOf="parent"-->
-                <!--                app:layout_constraintStart_toStartOf="@+id/guideline5"-->
-                <!--                app:layout_constraintTop_toBottomOf="@+id/theme_switch"-->
-                <!--                tools:visibility="visible" />-->
-
-                <!--            <LinearLayout-->
-                <!--                android:id="@+id/ll1"-->
-                <!--                android:layout_width="0dp"-->
-                <!--                android:layout_height="match_parent"-->
-                <!--                android:orientation="vertical"-->
-                <!--                app:layout_constraintEnd_toEndOf="@+id/textViewComma"-->
-                <!--                app:layout_constraintStart_toStartOf="@+id/textViewComma"-->
-                <!--                app:layout_constraintTop_toBottomOf="@+id/textViewComma">-->
-
-                <!--                <com.google.android.material.slider.Slider-->
-                <!--                    android:id="@+id/seekBarComma"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="match_parent"-->
-                <!--                    android:layout_marginEnd="8dp"-->
-                <!--                    android:elevation="8dp"-->
-                <!--                    android:paddingTop="8dp"-->
-                <!--                    android:paddingBottom="8dp"-->
-                <!--                    android:stepSize="1"-->
-                <!--                    android:thumbTint="@color/colorPrimary"-->
-                <!--                    android:valueFrom="12"-->
-                <!--                    android:valueTo="25"-->
-                <!--                    tools:visibility="visible" />-->
-                <!--            </LinearLayout>-->
-
-                <!--            <androidx.constraintlayout.widget.Guideline-->
-                <!--                android:id="@+id/guideline4"-->
-                <!--                android:layout_width="wrap_content"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:orientation="vertical"-->
-                <!--                app:layout_constraintGuide_begin="0dp" />-->
-
-                <!--            <androidx.constraintlayout.widget.Guideline-->
-                <!--                android:id="@+id/guideline5"-->
-                <!--                android:layout_width="wrap_content"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:orientation="vertical"-->
-                <!--                app:layout_constraintGuide_begin="64dp" />-->
-
-                <!--            <ImageView-->
-                <!--                android:layout_width="wrap_content"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:layout_marginStart="8dp"-->
-                <!--                android:layout_marginEnd="8dp"-->
-                <!--                android:layout_marginBottom="8dp"-->
-                <!--                android:src="@drawable/linear"-->
-                <!--                app:layout_constraintBottom_toBottomOf="@+id/ll1"-->
-                <!--                app:layout_constraintEnd_toStartOf="@+id/guideline5"-->
-                <!--                app:layout_constraintStart_toStartOf="@+id/guideline4"-->
-                <!--                app:layout_constraintTop_toTopOf="@+id/textViewComma"-->
-                <!--                tools:ignore="ContentDescription" />-->
-
-                <!--            <ImageView-->
-                <!--                android:layout_width="wrap_content"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:layout_marginStart="8dp"-->
-                <!--                android:layout_marginEnd="8dp"-->
-                <!--                android:src="@drawable/brightness"-->
-                <!--                app:layout_constraintBottom_toBottomOf="@+id/theme_switch"-->
-                <!--                app:layout_constraintEnd_toStartOf="@+id/guideline5"-->
-                <!--                app:layout_constraintStart_toStartOf="@+id/guideline4"-->
-                <!--                app:layout_constraintTop_toTopOf="@+id/theme_switch"-->
-                <!--                tools:ignore="ContentDescription" />-->
 
             </LinearLayout>
 

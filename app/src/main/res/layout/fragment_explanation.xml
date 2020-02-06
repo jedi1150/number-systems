@@ -3,13 +3,14 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cardViewSheet"
-    app:cardBackgroundColor="?attr/colorPrimarySurface"
+    android:id="@+id/bottomSheetMain"
+    android:background="?attr/colorPrimaryDark"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.circularreveal.cardview.CircularRevealCardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/bottomSheetCardView"
+        style="@style/Widget.MaterialComponents.CardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
@@ -117,16 +118,16 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/bottomSheetScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        app:layout_dodgeInsetEdges="top">
+        android:fitsSystemWindows="true">
 
         <LinearLayout
+            android:id="@+id/bottomSheetContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
