@@ -1,6 +1,9 @@
 package ru.sandello.binaryconverter
 
 import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context.CLIPBOARD_SERVICE
 import android.content.Context
 import android.graphics.drawable.Animatable
 import android.os.Bundle
@@ -9,13 +12,14 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.answer_layout.view.*
@@ -43,6 +47,9 @@ class ConverterFragment : Fragment() {
     private val listCustomBin = arrayOf(3, 4, 5, 6, 7, 9, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36)
     private val listAllBin = arrayOf(2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36)
 
+    private var myClipboard: ClipboardManager? = null
+    private var myClip: ClipData? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_converter, container, false)
@@ -52,12 +59,11 @@ class ConverterFragment : Fragment() {
     @ExperimentalUnsignedTypes
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        myClipboard = context?.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager?
 
         bottomSheetDialog = BottomSheetDialog(view.context)
         bottomSheetDialog!!.setContentView(R.layout.fragment_explanation)
-        bottomSheetInternal = bottomSheetDialog!!.findViewById(R.id.cardViewSheet)
-        bottomSheetInternal!!.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-
+        bottomSheetInternal = bottomSheetDialog!!.findViewById(R.id.bottomSheetMain)
         bottomSheetDialog!!.behavior.skipCollapsed = true
         bottomSheetDialog!!.behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
@@ -67,8 +73,7 @@ class ConverterFragment : Fragment() {
                 }
             }
 
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-            }
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {}
         })
 
         view.rootView.clear_fab.setOnClickListener {
@@ -80,6 +85,12 @@ class ConverterFragment : Fragment() {
             it.clear_fab.hide()
             view.rootView.explanation_fab.hide()
         }
+
+        textInputLayout10.setEndIconOnClickListener { copyVal(editText10) }
+        textInputLayout2.setEndIconOnClickListener { copyVal(editText2) }
+        textInputLayout8.setEndIconOnClickListener { copyVal(editText8) }
+        textInputLayout16.setEndIconOnClickListener { copyVal(editText16) }
+        textInputLayoutCustom.setEndIconOnClickListener { copyVal(editTextCustom) }
 
         filled_exposed_dropdown.setOnItemClickListener { _, _, position, _ ->
             try {
@@ -94,12 +105,14 @@ class ConverterFragment : Fragment() {
         val spinnerSharedPref = context!!.getSharedPreferences("spinner", Context.MODE_PRIVATE)
         val spinnerEditor = spinnerSharedPref.edit()
 
-        val adapter = ArrayAdapter(
+        var adapter = ArrayAdapter(
                 context!!,
                 R.layout.dropdown_menu_popup_item,
                 listAllBin)
         bottomSheetInternal!!.rootView.spinner4_dropdown.setText(spinnerSharedPref.getInt("SpinnerFrom", 10).toString())
         bottomSheetInternal!!.rootView.spinner5_dropdown.setText(spinnerSharedPref.getInt("SpinnerTo", 2).toString())
+        bottomSheetInternal!!.rootView.spinner4_dropdown.setAdapter(adapter)
+        bottomSheetInternal!!.rootView.spinner5_dropdown.setAdapter(adapter)
 
         val sym = arrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
 
@@ -181,8 +194,6 @@ class ConverterFragment : Fragment() {
         })
 
         view.rootView.explanation_fab.setOnClickListener {
-            bottomSheetInternal!!.rootView.spinner4_dropdown.setAdapter(adapter)
-            bottomSheetInternal!!.rootView.spinner5_dropdown.setAdapter(adapter)
             if (editText10!!.text.toString().isNotEmpty()) {
                 try {
                     val job = GlobalScope.launch(Dispatchers.Main) {
@@ -195,7 +206,8 @@ class ConverterFragment : Fragment() {
                             delay(350)
                         }.join()
                         launch {
-                            bottomSheetInternal!!.rootView.bottomSheetScrollView.setPadding(0, 0, 0, bottomSheetInternal!!.rootView.bottomSheetAppBar.height)
+                            bottomSheetInternal!!.rootView.bottomSheetScrollView.setPadding(0, bottomSheetInternal!!.rootView.bottomSheetAppBar.height - 8, 0, 0)
+                            bottomSheetInternal!!.rootView.bottomSheetContent.setPadding(0, 16, 0, 0)
                             try {
                                 parseRepeat()
                             } catch (e: Exception) {
@@ -209,6 +221,7 @@ class ConverterFragment : Fragment() {
                         }.join()
                     }
                     job.start()
+
                 } catch (e: Exception) {
                     bottomSheetDialog!!.behavior.state = STATE_HIDDEN
                 }
@@ -223,12 +236,17 @@ class ConverterFragment : Fragment() {
                     val buf = bottomSheetInternal!!.rootView.spinner4_dropdown.text.toString()
                     bottomSheetInternal!!.rootView.spinner4_dropdown.setText(bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString())
                     bottomSheetInternal!!.rootView.spinner5_dropdown.setText(buf)
+                    adapter = ArrayAdapter(
+                            context!!,
+                            R.layout.dropdown_menu_popup_item,
+                            listAllBin)
+                    bottomSheetInternal!!.rootView.spinner4_dropdown.setAdapter(adapter)
+                    bottomSheetInternal!!.rootView.spinner5_dropdown.setAdapter(adapter)
                     bottomSheetInternal!!.rootView.revertButton.setImageResource(R.drawable.compare)
                     spinnerEditor.putInt("SpinnerFrom", bottomSheetInternal!!.rootView.spinner4_dropdown.text.toString().toInt()).apply()
                     spinnerEditor.putInt("SpinnerTo", bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString().toInt()).apply()
                     (bottomSheetInternal!!.rootView.revertButton.drawable as Animatable).start()
-                    bottomSheetInternal!!.rootView.spinner4_dropdown.setAdapter(adapter)
-                    bottomSheetInternal!!.rootView.spinner5_dropdown.setAdapter(adapter)
+
                     delay(350)
                 }.join()
                 async {
@@ -249,29 +267,33 @@ class ConverterFragment : Fragment() {
         }
 
         bottomSheetInternal!!.rootView.spinner4_dropdown.setOnItemClickListener { _, _, _, _ ->
-                val job = GlobalScope.launch(Dispatchers.Main) {
-                    async {
-                        bottomSheetDialog!!.behavior.state = STATE_COLLAPSED
-                        bottomSheetInternal!!.rootView.progressBar.visibility = View.VISIBLE
-                        spinnerEditor.putInt("SpinnerFrom", bottomSheetInternal!!.rootView.spinner4_dropdown.text.toString().toInt()).apply()
-                        spinnerEditor.putInt("SpinnerTo", bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString().toInt()).apply()
-                        delay(350)
-                    }.join()
-                    launch {
-                        if (bottomSheetDialog!!.behavior.state != STATE_HIDDEN)
-                            try {
-                                parseRepeat()
-                            } catch (e: Exception) {
-                                bottomSheetDialog!!.behavior.state = STATE_HIDDEN
-                            }
-                    }.join()
-                    async {
-                        delay(1)
-                        bottomSheetDialog!!.behavior.state = STATE_EXPANDED
-                        bottomSheetInternal!!.rootView.progressBar.visibility = View.INVISIBLE
-                    }.join()
-                }
-                job.start()
+            val job = GlobalScope.launch(Dispatchers.Main) {
+                async {
+                    bottomSheetDialog!!.behavior.state = STATE_COLLAPSED
+                    bottomSheetInternal!!.rootView.progressBar.visibility = View.VISIBLE
+                    spinnerEditor.putInt("SpinnerFrom", bottomSheetInternal!!.rootView.spinner4_dropdown.text.toString().toInt()).apply()
+                    spinnerEditor.putInt("SpinnerTo", bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString().toInt()).apply()
+                    delay(350)
+                }.join()
+                launch {
+                    if (bottomSheetDialog!!.behavior.state != STATE_HIDDEN)
+                        try {
+                            parseRepeat()
+                        } catch (e: Exception) {
+                            bottomSheetDialog!!.behavior.state = STATE_HIDDEN
+                        }
+                }.join()
+                async {
+                    delay(1)
+                    bottomSheetDialog!!.behavior.state = STATE_EXPANDED
+                    bottomSheetInternal!!.rootView.progressBar.visibility = View.INVISIBLE
+                }.join()
+            }
+            job.start()
+            adapter = ArrayAdapter(
+                    context!!,
+                    R.layout.dropdown_menu_popup_item,
+                    listAllBin)
         }
 
         bottomSheetInternal!!.rootView.spinner5_dropdown.setOnItemClickListener { _, _, _, _ ->
@@ -298,7 +320,11 @@ class ConverterFragment : Fragment() {
                 }.join()
             }
             job.start()
-            }
+            adapter = ArrayAdapter(
+                    context!!,
+                    R.layout.dropdown_menu_popup_item,
+                    listAllBin)
+        }
     }
 
     @SuppressLint("SetTextI18n", "InflateParams")
@@ -634,6 +660,12 @@ class ConverterFragment : Fragment() {
             editText16.setText("")
             editTextCustom.setText("")
         }
+    }
+
+    private fun copyVal(data: EditText) {
+            myClip = ClipData.newPlainText("text4", data.text.toString())
+            myClipboard!!.setPrimaryClip(myClip!!)
+            Snackbar.make(view!!.rootView.snackbar, "Скопировано: ${data.text.toString()}", Snackbar.LENGTH_SHORT).show()
     }
 
     override fun onStart() {
