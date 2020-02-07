@@ -30,4 +30,7 @@
     <string name="system_default">System default</string>
     <string name="chooseTheme">Theme</string>
     <string name="cancel">Cancel</string>
+    <string name="language">Language</string>
+    <string name="help_with_translate">Help with Translate</string>
+    <string name="github">GitHub</string>
 </resources>
