@@ -3,20 +3,17 @@
 
     <style name="Theme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowBackground">@color/colorDark</item>
-        <item name="android:textColorPrimaryInverse">@color/grayLight</item>
-        <item name="android:textColorPrimary">@color/colorLight</item>
-        <item name="android:textColorSecondary">@color/colorLight</item>
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorDark</item>
         <item name="colorSurface">@color/colorDark</item>
-        <item name="colorPrimary">@color/colorLight</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/colorDark</item>
         <item name="colorSecondary">@color/colorPrimary</item>
         <item name="colorOnSecondary">@color/white</item>
-        <item name="colorOnSurface">@color/colorLight</item>
+        <item name="colorOnSurface">@color/white</item>
         <item name="strokeColor">@color/colorPrimary</item>
         <item name="rippleColor">@color/colorPrimary</item>
         <item name="colorInverseIcon">@color/grayLight</item>
-        <item name="iconColor">@color/colorLight</item>
         <item name="iconColorDisabled">@color/disabled</item>
         <item name="tabSelected">@color/colorPrimary</item>
         <item name="dividerColor">@color/grayDark</item>
@@ -32,7 +29,12 @@
         <item name="popupMenuStyle">@style/Widget.MaterialComponents.PopupMenu</item>
         <item name="android:contextPopupMenuStyle" tools:ignore="NewApi">@style/Widget.MaterialComponents.PopupMenu.ContextMenu</item>
         <item name="actionOverflowMenuStyle">@style/Widget.MaterialComponents.PopupMenu.Overflow</item>
+        <item name="preferenceTheme">@style/PreferenceTheme</item>
     </style>
 
+    <style name="PreferenceTheme" parent="@style/PreferenceThemeOverlay.v14.Material">
+        <item name="android:tint">@color/white</item>
+        <item name="android:popupBackground">@color/colorDark</item>
+    </style>
 
 </resources>

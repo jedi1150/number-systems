@@ -16,8 +16,14 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/destination_settings"
+        android:enabled="true"
         android:icon="@drawable/outline"
         android:title="@string/settings"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/destination_settings2"
         android:enabled="true"
+        android:icon="@drawable/outline"
+        android:title="@string/settings"
         app:showAsAction="ifRoom" />
 </menu>

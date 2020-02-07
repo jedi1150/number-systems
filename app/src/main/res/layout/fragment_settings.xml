@@ -35,8 +35,7 @@
                     android:text="@string/chooseTheme"
                     android:textAlignment="textStart"
                     android:textColor="?android:attr/textColorPrimary"
-                    app:icon="@drawable/brightness"
-                    app:iconTint="?attr/iconColor" />
+                    app:icon="@drawable/brightness" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/settingsLanguage"
@@ -49,8 +48,7 @@
                     android:text="@string/language"
                     android:textAlignment="textStart"
                     android:textColor="?android:attr/textColorPrimary"
-                    app:icon="@drawable/language"
-                    app:iconTint="?attr/iconColor" />
+                    app:icon="@drawable/language" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/settingsComma"
@@ -63,8 +61,7 @@
                     android:text="@{comma}"
                     android:textAlignment="textStart"
                     android:textColor="?android:attr/textColorPrimary"
-                    app:icon="@drawable/linear"
-                    app:iconTint="?attr/iconColor" />
+                    app:icon="@drawable/linear" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/settingsTranslate"
@@ -77,12 +74,11 @@
                     android:text="@string/help_with_translate"
                     android:textAlignment="textStart"
                     android:textColor="?android:attr/textColorPrimary"
-                    app:icon="@drawable/translate"
-                    app:iconTint="?attr/iconColor" />
+                    app:icon="@drawable/translate" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/settingsGitHub"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -90,9 +86,7 @@
                     android:layout_marginEnd="8dp"
                     android:text="@string/github"
                     android:textAlignment="textStart"
-                    android:textColor="?android:attr/textColorPrimary"
-                    app:icon="@drawable/github"
-                    app:iconTint="?attr/iconColor" />
+                    app:icon="@drawable/github" />
 
 
             </LinearLayout>
