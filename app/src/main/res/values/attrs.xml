@@ -3,7 +3,6 @@
     <declare-styleable name="themeColor">
         <attr name="iconColor" format="color" />
         <attr name="iconColorDisabled" format="color" />
-        <attr name="tabSelected" format="color" />
         <attr name="til_color" format="color" />
         <attr name="dividerColor" format="color" />
         <attr name="colorBottomNavigation" format="color" />

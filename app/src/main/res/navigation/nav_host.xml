@@ -19,8 +19,4 @@
         android:name="ru.sandello.binaryconverter.SettingsFragment"
         android:label="Settings"
         tools:layout="@layout/fragment_settings" />
-    <fragment
-        android:id="@+id/destination_settings2"
-        android:name="ru.sandello.binaryconverter.SettingsFragment2"
-        android:label="SettingsFragment2" />
 </navigation>

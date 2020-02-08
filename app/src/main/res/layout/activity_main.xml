@@ -15,16 +15,9 @@
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_host" />
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/snackbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        app:layout_anchor="@+id/bottom_navigation" />
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        style="@style/Widget.MaterialComponents.BottomNavigationView"
         android:id="@+id/bottom_navigation"
+        style="@style/Widget.MaterialComponents.BottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -37,12 +30,19 @@
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/snackbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        app:layout_anchor="@+id/fab_group" />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/fab_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:clipChildren="false"
-        app:layout_anchor="@+id/snackbar">
+        app:layout_anchor="@+id/bottom_navigation">
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/clear_fab"

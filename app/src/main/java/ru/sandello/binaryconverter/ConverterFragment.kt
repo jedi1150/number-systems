@@ -192,20 +192,20 @@ class ConverterFragment : Fragment() {
                     clearConverter(editTextCustom)
             }
         })
-
         view.rootView.explanation_fab.setOnClickListener {
             if (editText10!!.text.toString().isNotEmpty()) {
                 try {
                     val job = GlobalScope.launch(Dispatchers.Main) {
                         async {
-                            bottomSheetDialog!!.behavior.state = STATE_COLLAPSED
                             bottomSheetDialog!!.show()
-                            bottomSheetInternal!!.rootView.progressBar.visibility = View.VISIBLE
                             delay(1)
                             bottomSheetDialog!!.behavior.peekHeight = bottomSheetInternal!!.rootView.bottomSheetCardView.height
+                            delay(1)
+                            bottomSheetDialog!!.behavior.state = STATE_COLLAPSED
+                            bottomSheetInternal!!.rootView.progressBar.visibility = View.VISIBLE
                             delay(350)
                         }.join()
-                        launch {
+                        async {
                             bottomSheetInternal!!.rootView.bottomSheetScrollView.setPadding(0, bottomSheetInternal!!.rootView.bottomSheetAppBar.height - 8, 0, 0)
                             bottomSheetInternal!!.rootView.bottomSheetContent.setPadding(0, 16, 0, 0)
                             try {
@@ -218,6 +218,7 @@ class ConverterFragment : Fragment() {
                             delay(1)
                             bottomSheetDialog!!.behavior.state = STATE_EXPANDED
                             bottomSheetInternal!!.rootView.progressBar.visibility = View.INVISIBLE
+
                         }.join()
                     }
                     job.start()

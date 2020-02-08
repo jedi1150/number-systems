@@ -5,120 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottomSheetMain"
     android:background="?attr/colorPrimaryDark"
+    android:clipToPadding="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/bottomSheetCardView"
-        style="@style/Widget.MaterialComponents.CardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        app:layout_anchorGravity="top"
-        app:layout_insetEdge="top">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/bottomSheetAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <View
-                android:id="@+id/divider6"
-                android:layout_width="64dp"
-                android:layout_height="3dp"
-                android:layout_marginTop="8dp"
-                android:background="?attr/dividerColor"
-                android:visibility="invisible"
-                app:layout_constraintCircleRadius="?attr/dialogCornerRadius"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent=".5"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/spinner4"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="16dp"
-                android:minHeight="48dp"
-                app:layout_constraintBottom_toBottomOf="@+id/revertButton"
-                app:layout_constraintEnd_toStartOf="@+id/revertButton"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider6">
-
-                <com.google.android.material.textview.MaterialAutoCompleteTextView
-                    android:id="@+id/spinner4_dropdown"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="0dp"
-                    android:editable="false"
-                    android:focusable="false"
-                    android:maxLength="100"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/spinner5"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="8dp"
-                android:minHeight="48dp"
-                app:layout_constraintBottom_toBottomOf="@+id/revertButton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/revertButton"
-                app:layout_constraintTop_toBottomOf="@id/divider6">
-
-                <com.google.android.material.textview.MaterialAutoCompleteTextView
-                    android:id="@+id/spinner5_dropdown"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="0dp"
-                    android:editable="false"
-                    android:focusable="false"
-                    android:maxLength="100"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <ImageButton
-                android:id="@+id/revertButton"
-                style="@android:style/Widget.Material.ImageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                app:layout_constraintEnd_toStartOf="@+id/guideline"
-                app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@id/divider6"
-                app:srcCompat="@drawable/compare"
-                tools:ignore="ContentDescription" />
-
-            <androidx.core.widget.ContentLoadingProgressBar
-                android:id="@+id/progressBar"
-                style="@android:style/Widget.Material.ProgressBar.Large"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:indeterminate="true"
-                app:layout_constraintBottom_toBottomOf="@+id/revertButton"
-                app:layout_constraintEnd_toStartOf="@+id/spinner5"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/spinner4"
-                app:layout_constraintTop_toTopOf="@+id/revertButton" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/bottomSheetScrollView"
@@ -367,5 +256,117 @@
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/bottomSheetCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimaryDark"
+        android:layout_gravity="top"
+        app:layout_anchorGravity="top"
+        app:layout_insetEdge="top">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottomSheetAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/divider6"
+                android:layout_width="64dp"
+                android:layout_height="3dp"
+                android:layout_marginTop="8dp"
+                android:background="?attr/dividerColor"
+                android:visibility="invisible"
+                app:layout_constraintCircleRadius="?attr/dialogCornerRadius"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".5"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/spinner4"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:minHeight="48dp"
+                app:layout_constraintBottom_toBottomOf="@+id/revertButton"
+                app:layout_constraintEnd_toStartOf="@+id/revertButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider6">
+
+                <com.google.android.material.textview.MaterialAutoCompleteTextView
+                    android:id="@+id/spinner4_dropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:maxLength="100"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/spinner5"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:minHeight="48dp"
+                app:layout_constraintBottom_toBottomOf="@+id/revertButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/revertButton"
+                app:layout_constraintTop_toBottomOf="@id/divider6">
+
+                <com.google.android.material.textview.MaterialAutoCompleteTextView
+                    android:id="@+id/spinner5_dropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:maxLength="100"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/revertButton"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:layout_constraintEnd_toStartOf="@+id/guideline"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@id/divider6"
+                app:srcCompat="@drawable/compare"
+                tools:ignore="ContentDescription" />
+
+            <androidx.core.widget.ContentLoadingProgressBar
+                android:id="@+id/progressBar"
+                style="@android:style/Widget.Material.ProgressBar.Large"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                app:layout_constraintBottom_toBottomOf="@+id/revertButton"
+                app:layout_constraintEnd_toStartOf="@+id/spinner5"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/spinner4"
+                app:layout_constraintTop_toTopOf="@+id/revertButton" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

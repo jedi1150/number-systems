@@ -1,10 +1,8 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <PreferenceCategory app:title="Settings">
 
         <ListPreference
-            app:defaultValue="reply"
             app:icon="@drawable/brightness"
             app:key="theme"
             app:title="@string/chooseTheme"
@@ -13,21 +11,19 @@
         <ListPreference
             app:defaultValue="reply"
             app:icon="@drawable/language"
+            app:isPreferenceVisible="false"
             app:key="language"
             app:title="@string/language"
+            app:useSimpleSummaryProvider="true" />
+        <ListPreference
+            app:icon="@drawable/linear"
+            app:key="comma"
+            app:title="@string/decLengthText"
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
 
     <PreferenceCategory app:title="Other">
-
-
-
-        <ListPreference
-            app:icon="@drawable/linear"
-            app:key="comma"
-            app:title="@string/decLengthText"
-            app:useSimpleSummaryProvider="true"/>
 
         <Preference
             app:icon="@drawable/translate"
@@ -40,5 +36,4 @@
             app:title="@string/github" />
 
     </PreferenceCategory>
-
 </PreferenceScreen>
