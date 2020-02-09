@@ -3,18 +3,18 @@ package ru.sandello.binaryconverter
 import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipboardManager
-import android.content.Context.CLIPBOARD_SERVICE
 import android.content.Context
+import android.content.Context.CLIPBOARD_SERVICE
 import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.LinearLayout
+import androidx.appcompat.view.ActionMode
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.*
@@ -86,11 +86,26 @@ class ConverterFragment : Fragment() {
             view.rootView.explanation_fab.hide()
         }
 
-        textInputLayout10.setEndIconOnClickListener { copyVal(editText10) }
-        textInputLayout2.setEndIconOnClickListener { copyVal(editText2) }
-        textInputLayout8.setEndIconOnClickListener { copyVal(editText8) }
-        textInputLayout16.setEndIconOnClickListener { copyVal(editText16) }
-        textInputLayoutCustom.setEndIconOnClickListener { copyVal(editTextCustom) }
+        editText10.setOnLongClickListener {
+            copyVal(editText10)
+            false
+        }
+        editText2.setOnLongClickListener {
+            copyVal(editText2)
+            false
+        }
+        editText8.setOnLongClickListener {
+            copyVal(editText8)
+            false
+        }
+        editText16.setOnLongClickListener {
+            copyVal(editText16)
+            false
+        }
+        editTextCustom.setOnLongClickListener {
+            copyVal(editTextCustom)
+            false
+        }
 
         filled_exposed_dropdown.setOnItemClickListener { _, _, position, _ ->
             try {
@@ -208,11 +223,12 @@ class ConverterFragment : Fragment() {
                         async {
                             bottomSheetInternal!!.rootView.bottomSheetScrollView.setPadding(0, bottomSheetInternal!!.rootView.bottomSheetAppBar.height - 8, 0, 0)
                             bottomSheetInternal!!.rootView.bottomSheetContent.setPadding(0, 16, 0, 0)
-                            try {
-                                parseRepeat()
-                            } catch (e: Exception) {
-                                bottomSheetDialog!!.behavior.state = STATE_HIDDEN
-                            }
+//                            try {
+                            parseRepeat()
+//                            } catch (e: Exception) {
+//                                Log.d("result", e.toString())
+//                                bottomSheetDialog!!.behavior.state = STATE_HIDDEN
+//                            }
                         }.join()
                         async {
                             delay(1)
@@ -481,13 +497,13 @@ class ConverterFragment : Fragment() {
             }
 
             while (workString > 0.toBigDecimal() && workString >= toSpinner.toBigDecimal()) {
+
                 val vi3 = layoutInflater.inflate(R.layout.div_layout, null, false)
                 var tv5String: String
 
                 vi3.textView1.text = workString.toString() // Делимое
                 vi3.textView2.text = toSpinner // Делитель
-
-                vi3.textView4.text = (vi3.textView1.text.toString().toBigInteger() / toSpinner.toBigInteger()).toString().split(".")[0]// Целое
+                vi3.textView4.text = (workString.toString().toBigInteger() / toSpinner.toBigInteger()).toString().split(".")[0]// Целое
                 vi3.textView3.text = (vi3.textView4.text.toString().toBigDecimal() * toSpinner.toBigDecimal()).toString() // То, что вычитаем
                 tv5String = (vi3.textView1.text.toString().toBigDecimal() - vi3.textView3.text.toString().toBigDecimal()).toString()
 
@@ -664,9 +680,16 @@ class ConverterFragment : Fragment() {
     }
 
     private fun copyVal(data: EditText) {
+        if (data.text.toString() != "" && data.text.toString() != "0") {
             myClip = ClipData.newPlainText("text4", data.text.toString())
             myClipboard!!.setPrimaryClip(myClip!!)
-            Snackbar.make(view!!.rootView.snackbar, "Скопировано: ${data.text.toString()}", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(view!!.rootView.snackbar, "Скопировано: ${data.text}", Snackbar.LENGTH_SHORT).show()
+        }
+        else {
+//            val menu: ContextMenu? = null
+//            menu
+//            data.createContextMenu()
+        }
     }
 
     override fun onStart() {

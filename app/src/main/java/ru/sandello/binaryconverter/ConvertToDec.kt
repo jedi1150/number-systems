@@ -21,12 +21,12 @@ class ConvertTo {
         fromParse = p1!!
         toParse = p2!!
 
-        leftDecArray = oldString.split(".")[0].toCharArray()
+        leftDecArray = oldString.split("[,.]".toRegex())[0].toCharArray()
         try {
-            rightDecArray = oldString.split(".")[1].toCharArray()
+            rightDecArray = oldString.split("[,.]".toRegex())[1].toCharArray()
         } catch (e: Exception) {
         }
-        decArray = oldString.replace(".", "").toCharArray() //Строка без разделителя
+        decArray = oldString.replace("[,.]".toRegex(), "").toCharArray() //Строка без разделителя
 
         if (fromParse != 10 && toParse == 10) returnString = toDec()
         if (fromParse == 10 && toParse != 10) returnString = fromDec()
@@ -42,7 +42,7 @@ class ConvertTo {
             result += i.toString().toInt(fromParse).toString(10).toBigDecimal() *
                     fromParse.toDouble().pow(leftLength.toDouble()).toBigDecimal()
         }
-        while ((result.toString().length > 1 && result.toString().contains(".") && result.toString().endsWith("0")) || result.toString().endsWith(".")) {
+        while ((result.toString().length > 1 && result.toString().contains("[,.]".toRegex()) && result.toString().endsWith("0")) || result.toString().endsWith(".") || result.toString().endsWith(",")) {
             result = result.toString().substring(0, result.toString().length - 1).toBigDecimal()
         }
         return result.toString()
@@ -51,9 +51,9 @@ class ConvertTo {
     @SuppressLint("DefaultLocale")
     private fun fromDec(): String {
         var res: String
-        leftDecArray = string.split(".")[0].toCharArray()
+        leftDecArray = string.split("[,.]".toRegex())[0].toCharArray()
         try {
-            rightDecArray = string.split(".")[1].toCharArray()
+            rightDecArray = string.split("[,.]".toRegex())[1].toCharArray()
         } catch (e: Exception) {
         }
 
@@ -72,21 +72,21 @@ class ConvertTo {
             right = ""
             while (z < fractionCount) {
 
-                if (n1.contains(".")) {
-                    n1 = ("0.${n1.split(".")[1]}".toBigDecimal() * toParse.toBigDecimal()).toString() //Умножаем дробную часть на степень
-                    if (!n1.contains(".")) break
+                if (n1.contains("[,.]".toRegex())) {
+                    n1 = ("0.${n1.split("[,.]".toRegex())[1]}".toBigDecimal() * toParse.toBigDecimal()).toString() //Умножаем дробную часть на степень
+                    if (!n1.contains("[,.]".toRegex())) break
                 } else
                     break
                 right += if (toParse < 11) {
-                    n1.split(".")[0]  //Целую часть от каждой итерации приписываем к строке
+                    n1.split("[,.]".toRegex())[0]  //Целую часть от каждой итерации приписываем к строке
                 } else {
-                    n1.split(".")[0].toBigInteger(10).toString(toParse).toUpperCase() //Целую часть от каждой итерации приписываем к строке
+                    n1.split("[,.]".toRegex())[0].toBigInteger(10).toString(toParse).toUpperCase() //Целую часть от каждой итерации приписываем к строке
                 }
                 z++
             }
             res += ".$right"
 
-            while ((res.length > 1 && res.contains(".") && res.endsWith("0")) || res.endsWith(".")) {
+            while ((res.length > 1 && res.contains("[,.]".toRegex()) && res.endsWith("0")) || res.endsWith(".") || res.endsWith(",")) {
                 res = res.substring(0, res.length - 1)
             }
         }
