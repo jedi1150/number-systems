@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BinaryConverter.iml" filepath="$PROJECT_DIR$/BinaryConverter.iml" group="BinaryConverter" />
       <module fileurl="file://$PROJECT_DIR$/Number-Systems.iml" filepath="$PROJECT_DIR$/Number-Systems.iml" group="Number-Systems" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="Number-Systems/app" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="BinaryConverter/app" />
     </modules>
   </component>
 </project>
