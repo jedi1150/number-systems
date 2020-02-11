@@ -191,9 +191,9 @@ class ConverterFragment : Fragment() {
         //custom
         editTextCustom.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                view.rootView!!.editTextCustom.removeTextChangedListener(this)
+                editTextCustom.removeTextChangedListener(this)
                 Format().format(editTextCustom)
-                view.rootView!!.editTextCustom.addTextChangedListener(this)
+                editTextCustom.addTextChangedListener(this)
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -201,6 +201,7 @@ class ConverterFragment : Fragment() {
                 if (filled_exposed_dropdown.text.toString() != "") {
                     for (i in 0 until filled_exposed_dropdown.text.toString().toInt())
                         allowVal += sym[i]
+                    TypeMethod().type(editTextCustom, allowVal)
                 } else {
                     for (i in 0 until 36)
                         allowVal += sym[i]

@@ -1,6 +1,5 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory app:title="Settings">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory app:title="@string/settings">
 
         <ListPreference
             app:icon="@drawable/brightness"
@@ -23,12 +22,12 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="Other">
+    <PreferenceCategory app:title="@string/other">
 
         <Preference
             app:icon="@drawable/translate"
-            app:key="translate"
             app:isPreferenceVisible="false"
+            app:key="translate"
             app:title="@string/help_with_translate" />
 
         <Preference

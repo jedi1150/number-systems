@@ -234,7 +234,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="@string/resultOfTranslate"
+                android:text="@string/result_of_translate"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             <HorizontalScrollView

@@ -5,7 +5,7 @@
     <string name="bin">Двоичная (2)</string>
     <string name="oct">Восьмеричная (8)</string>
     <string name="hex">Шестнадцатеричная (16)</string>
-    <string name="baseValue">Основание (n)</string>
+    <string name="base_value">Основание (n)</string>
     <string name="Converter">Конвертер</string>
     <string name="Calculator">Калькулятор</string>
     <string name="result">Результат</string>
@@ -18,7 +18,7 @@
     <string name="settings">Настройки</string>
     <string name="step_4">Дробная часть числа находится умножением на основание новой</string>
     <string name="dec_length_text">Количество знаков после запятой</string>
-    <string name="resultOfTranslate">Результат перевода</string>
+    <string name="result_of_translate">Результат перевода</string>
     <string name="add_decimal">Складываем целую и дробные части</string>
     <string name="dark">Темная</string>
     <string name="light">Светлая</string>
@@ -26,4 +26,9 @@
     <string name="cancel">Отмена</string>
     <string name="system_default">Как в системе</string>
     <string name="battery_saver">Устанавливается режимом энергосбережения</string>
+    <string name="language">Язык</string>
+    <string name="help_with_translate">Помочь с переводом</string>
+    <string name="operand_2">Операнд 2</string>
+    <string name="operand_1">Операнд 1</string>
+    <string name="other">Прочее</string>
 </resources>

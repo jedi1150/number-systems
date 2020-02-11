@@ -53,6 +53,7 @@ class CalculatorFragment : Fragment() {
 
             @SuppressLint("SetTextI18n")
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//                TypeMethod().type(editTextVal1, null)
                 if (editTextVal1?.text.toString() != "")
                     try {
                         a = ConvertTo().main(editTextVal1.text.toString(), spinner.text.toString().toInt(), 10).toBigDecimal()
@@ -73,6 +74,7 @@ class CalculatorFragment : Fragment() {
 
             @SuppressLint("SetTextI18n")
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                TypeMethod().type(editTextVal2, null)
                 if (editTextVal2?.text.toString() != "")
                     try {
                         b = ConvertTo().main(editTextVal2.text.toString(), spinner2.text.toString().toInt(), 10).toBigDecimal()
@@ -120,6 +122,7 @@ class CalculatorFragment : Fragment() {
                 val sym = arrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
                 for (i in 0 until spinner.text.toString().toInt())
                     allowVal += sym[i]
+                TypeMethod().type(editTextVal1, allowVal)
                 if (editTextVal1.hasFocus()) { //Если фокус на editTextVal1
                     if (s.toString() != "") { //если текст не равен нулю
                         var str = ""
@@ -160,6 +163,7 @@ class CalculatorFragment : Fragment() {
                 val sym = arrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
                 for (i in 0 until spinner2.text.toString().toInt())
                     allowVal += sym[i]
+                TypeMethod().type(editTextVal2, allowVal)
                 if (editTextVal2.hasFocus()) {
                     if (s.toString() != "") {
                         var str = ""
@@ -270,11 +274,15 @@ class CalculatorFragment : Fragment() {
         spinner.setAdapter(adapter)
         spinner2.setAdapter(adapter)
         spinner3.setAdapter(adapter)
-        if (editTextVal1.text.toString() != "")
-            a = ConvertTo().main(editTextVal1.text.toString(), spinner.text.toString().toInt(), 10).toBigDecimal()
-        if (editTextVal2.text.toString() != "")
-            b = ConvertTo().main(editTextVal2.text.toString(), spinner2.text.toString().toInt(), 2).toBigDecimal()
+        try {
+            if (editTextVal1.text.toString() != "")
+                a = ConvertTo().main(editTextVal1.text.toString(), spinner.text.toString().toInt(), 10).toBigDecimal()
+            if (editTextVal2.text.toString() != "")
+                b = ConvertTo().main(editTextVal2.text.toString(), spinner2.text.toString().toInt(), 2).toBigDecimal()
+        }
+        catch (e: Exception) {}
         calculateToggle()
+
     }
 
     private fun save() {

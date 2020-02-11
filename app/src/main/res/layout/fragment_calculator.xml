@@ -45,10 +45,8 @@
                     android:layout_height="wrap_content"
                     android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.,-"
                     android:imeOptions="actionDone|flagNoFullscreen"
-                    android:inputType="textNoSuggestions"
                     android:maxLength="100"
-                    android:singleLine="true"
-                    tools:ignore="RtlSymmetry" />
+                    android:singleLine="true" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
