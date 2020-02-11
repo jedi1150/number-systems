@@ -9,12 +9,12 @@ import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.LinearLayout
-import androidx.appcompat.view.ActionMode
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.*
@@ -86,27 +86,6 @@ class ConverterFragment : Fragment() {
             view.rootView.explanation_fab.hide()
         }
 
-        editText10.setOnLongClickListener {
-            copyVal(editText10)
-            false
-        }
-        editText2.setOnLongClickListener {
-            copyVal(editText2)
-            false
-        }
-        editText8.setOnLongClickListener {
-            copyVal(editText8)
-            false
-        }
-        editText16.setOnLongClickListener {
-            copyVal(editText16)
-            false
-        }
-        editTextCustom.setOnLongClickListener {
-            copyVal(editTextCustom)
-            false
-        }
-
         filled_exposed_dropdown.setOnItemClickListener { _, _, position, _ ->
             try {
                 editTextCustom.setText(ConvertTo().main(editText10.text.toString(), 10, listCustomBin[position]))
@@ -133,7 +112,12 @@ class ConverterFragment : Fragment() {
 
         //10
         editText10.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+                view.rootView!!.editText10.removeTextChangedListener(this)
+                Format().format(editText10)
+                view.rootView!!.editText10.addTextChangedListener(this)
+            }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var allowVal = ""
@@ -149,7 +133,11 @@ class ConverterFragment : Fragment() {
         })
         //2
         editText2.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+                view.rootView!!.editText2.removeTextChangedListener(this)
+                Format().format(editText2)
+                view.rootView!!.editText2.addTextChangedListener(this)
+            }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var allowVal = ""
@@ -164,7 +152,11 @@ class ConverterFragment : Fragment() {
         })
         //8
         editText8.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+                view.rootView!!.editText8.removeTextChangedListener(this)
+                Format().format(editText8)
+                view.rootView!!.editText8.addTextChangedListener(this)
+            }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var allowVal = ""
@@ -179,7 +171,11 @@ class ConverterFragment : Fragment() {
         })
         //16
         editText16.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+                view.rootView!!.editText16.removeTextChangedListener(this)
+                Format().format(editText16)
+                view.rootView!!.editText16.addTextChangedListener(this)
+            }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var allowVal = ""
@@ -194,28 +190,38 @@ class ConverterFragment : Fragment() {
         })
         //custom
         editTextCustom.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+                view.rootView!!.editTextCustom.removeTextChangedListener(this)
+                Format().format(editTextCustom)
+                view.rootView!!.editTextCustom.addTextChangedListener(this)
+            }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var allowVal = ""
-//                for (i in 0 until filled_exposed_dropdown.text.toString().toInt())
-//                    allowVal += sym[i]
+                if (filled_exposed_dropdown.text.toString() != "") {
+                    for (i in 0 until filled_exposed_dropdown.text.toString().toInt())
+                        allowVal += sym[i]
+                } else {
+                    for (i in 0 until 36)
+                        allowVal += sym[i]
+                }
                 editTextCustom!!.hasFocus()
                 if (s.toString() != "" && !s!!.endsWith(".") && editTextCustom.hasFocus())
                     parse(s.toString(), editTextCustom, textInputLayoutCustom, filled_exposed_dropdown.text.toString().toInt(), null, allowVal)
-                if (s.toString() == "" && !cleared)
+                if (s.toString() == "")
                     clearConverter(editTextCustom)
             }
         })
+
         view.rootView.explanation_fab.setOnClickListener {
             if (editText10!!.text.toString().isNotEmpty()) {
                 try {
                     val job = GlobalScope.launch(Dispatchers.Main) {
                         async {
                             bottomSheetDialog!!.show()
-                            delay(1)
+                            delay(10)
                             bottomSheetDialog!!.behavior.peekHeight = bottomSheetInternal!!.rootView.bottomSheetCardView.height
-                            delay(1)
+                            delay(10)
                             bottomSheetDialog!!.behavior.state = STATE_COLLAPSED
                             bottomSheetInternal!!.rootView.progressBar.visibility = View.VISIBLE
                             delay(350)
@@ -232,7 +238,9 @@ class ConverterFragment : Fragment() {
                         }.join()
                         async {
                             delay(1)
-                            bottomSheetDialog!!.behavior.state = STATE_EXPANDED
+                            if (bottomSheetInternal!!.rootView.spinner4_dropdown.text.toString().toInt() != bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString().toInt()) {
+                                bottomSheetDialog!!.behavior.state = STATE_EXPANDED
+                            }
                             bottomSheetInternal!!.rootView.progressBar.visibility = View.INVISIBLE
 
                         }.join()
@@ -276,7 +284,9 @@ class ConverterFragment : Fragment() {
                 }.join()
                 async {
                     delay(1)
-                    bottomSheetDialog!!.behavior.state = STATE_EXPANDED
+                    if (bottomSheetInternal!!.rootView.spinner4_dropdown.text.toString().toInt() != bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString().toInt()) {
+                        bottomSheetDialog!!.behavior.state = STATE_EXPANDED
+                    }
                     bottomSheetInternal!!.rootView.progressBar.visibility = View.INVISIBLE
                 }.join()
             }
@@ -302,7 +312,9 @@ class ConverterFragment : Fragment() {
                 }.join()
                 async {
                     delay(1)
-                    bottomSheetDialog!!.behavior.state = STATE_EXPANDED
+                    if (bottomSheetInternal!!.rootView.spinner4_dropdown.text.toString().toInt() != bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString().toInt()) {
+                        bottomSheetDialog!!.behavior.state = STATE_EXPANDED
+                    }
                     bottomSheetInternal!!.rootView.progressBar.visibility = View.INVISIBLE
                 }.join()
             }
@@ -332,7 +344,9 @@ class ConverterFragment : Fragment() {
                 }.join()
                 async {
                     delay(1)
-                    bottomSheetDialog!!.behavior.state = STATE_EXPANDED
+                    if (bottomSheetInternal!!.rootView.spinner4_dropdown.text.toString().toInt() != bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString().toInt()) {
+                        bottomSheetDialog!!.behavior.state = STATE_EXPANDED
+                    }
                     bottomSheetInternal!!.rootView.progressBar.visibility = View.INVISIBLE
                 }.join()
             }
@@ -438,8 +452,8 @@ class ConverterFragment : Fragment() {
             val toSpinner = bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString()
 
             val stringOriginal = ConvertTo().main(editText10.text.toString(), 10, fromSpinner.toInt())
-            val decArray: CharArray = stringOriginal.replace(".", "").toCharArray()
-            val leftDecArray = stringOriginal.split(".")[0].toCharArray()
+            val decArray: CharArray = stringOriginal.replace("[,.]".toRegex(), "").toCharArray()
+            val leftDecArray = stringOriginal.split("[,.]".toRegex())[0].toCharArray()
 
             var decLength = decArray.size
             var leftDecLength = leftDecArray.size
@@ -474,17 +488,21 @@ class ConverterFragment : Fragment() {
                 vi2.explanation_multiply2_convert.text = "10"
                 bottomSheetInternal!!.rootView.explanationCardView1.addView(vi2)
                 summ += vi2.explanation_multiply2_textView1.text.toString().toBigDecimal().stripTrailingZeros()
-                if (decLength == 0) {
-                    vi2.explanation_multiply2_plus.text = "="
+                if (decLength == 0 && i > 1) {
+                    vi2.explanation_multiply2_plus.text = " = "
+                } else if (decLength == 0 && i == 1) {
+                    vi2.explanation_multiply2_plus.text = ""
                 }
             }
             val viRes = layoutInflater.inflate(R.layout.multiply_layout2, null, false)
-            viRes.explanation_multiply2_textView1.text = summ.toString()
-            viRes.explanation_multiply2_convert.text = "10"
-            viRes.explanation_multiply2_plus.text = ""
-            bottomSheetInternal!!.rootView.explanationCardView1.addView(viRes)
+            if (i > 1) {
+                viRes.explanation_multiply2_textView1.text = summ.toString()
+                viRes.explanation_multiply2_convert.text = "10"
+                viRes.explanation_multiply2_plus.text = ""
+                bottomSheetInternal!!.rootView.explanationCardView1.addView(viRes)
+            }
 
-            var workString = summ.toString().split(".")[0].toBigDecimal()
+            var workString = summ.toString().split("[,.]".toRegex())[0].toBigDecimal()
 
             if (workString < toSpinner.toBigDecimal()) {
                 bottomSheetInternal!!.rootView.step2.visibility = View.GONE
@@ -503,7 +521,7 @@ class ConverterFragment : Fragment() {
 
                 vi3.textView1.text = workString.toString() // Делимое
                 vi3.textView2.text = toSpinner // Делитель
-                vi3.textView4.text = (workString.toString().toBigInteger() / toSpinner.toBigInteger()).toString().split(".")[0]// Целое
+                vi3.textView4.text = (workString.toString().toBigInteger() / toSpinner.toBigInteger()).toString().split("[,.]".toRegex())[0]// Целое
                 vi3.textView3.text = (vi3.textView4.text.toString().toBigDecimal() * toSpinner.toBigDecimal()).toString() // То, что вычитаем
                 tv5String = (vi3.textView1.text.toString().toBigDecimal() - vi3.textView3.text.toString().toBigDecimal()).toString()
 
@@ -545,7 +563,7 @@ class ConverterFragment : Fragment() {
             bottomSheetInternal!!.rootView.explanationCardView3.addView(viReverse)
 
             //Если в текстовом поле есть точка, то выводим
-            if (editText10.text.toString().contains(".") && toSpinner != "10" && summ.toString().split(".").size > 1) {
+            if (editText10.text.toString().contains("[,.]".toRegex()) && toSpinner != "10" && summ.toString().split("[,.]".toRegex()).size > 1) {
                 bottomSheetInternal!!.rootView.step4.visibility = View.VISIBLE
                 bottomSheetInternal!!.rootView.explanationCardView4.visibility = View.VISIBLE
                 bottomSheetInternal!!.rootView.dividerExp4.visibility = View.VISIBLE
@@ -554,36 +572,36 @@ class ConverterFragment : Fragment() {
                 bottomSheetInternal!!.rootView.dividerExp5.visibility = View.VISIBLE
                 var z = 0
                 var res = "0.0".toBigDecimal()
-                var n1 = "0." + summ.toString().split(".")[1]
+                var n1 = "0." + summ.toString().split("[,.]".toRegex())[1]
                 val n2 = bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString()
                 while (z < fractionCount + 1) {
                     val vi5 = layoutInflater.inflate(R.layout.multiply_layout3, null, false)
-                    if (n1.split(".")[1] == "0") break // Если десятичное число равно нулю, то прерываем итерацию
+                    if (n1.split("[,.]".toRegex())[1] == "0") break // Если десятичное число равно нулю, то прерываем итерацию
                     if (z == 0) {
                         vi5.fractional_textView_result.text = ""
-                        vi5.fractional_textView_1.text = "." + n1.split(".")[1]
+                        vi5.fractional_textView_1.text = "." + n1.split("[,.]".toRegex())[1]
                     } else {
-                        if (n1.split(".")[1] == "0") z = fractionCount
+                        if (n1.split("[,.]".toRegex())[1] == "0") z = fractionCount
                         try {
-                            val dd = res.toString().split(".")[0].toBigInteger(10).toString(toSpinner.toInt()).toUpperCase()
-                            if (res.toString().split(".")[0].toInt() < 10) {
+                            val dd = res.toString().split("[,.]".toRegex())[0].toBigInteger(10).toString(toSpinner.toInt()).toUpperCase()
+                            if (res.toString().split("[,.]".toRegex())[0].toInt() < 10) {
                                 vi5.fractional_textView_result.text = dd
                                 resultRight += dd
                             } else {
-                                vi5.fractional_textView_result.text = dd + "=" + res.toString().split(".")[0].toInt()
+                                vi5.fractional_textView_result.text = dd + "=" + res.toString().split("[,.]".toRegex())[0].toInt()
                                 resultRight += dd
                             }
-                            n1 = if (res.toString().contains("."))
-                                "0." + res.toString().split(".")[1]
+                            n1 = if (res.toString().contains("[,.]".toRegex()))
+                                "0." + res.toString().split("[,.]".toRegex())[1]
                             else
                                 "0.0"
-                            vi5.fractional_textView_1.text = "." + n1.split(".")[1]
+                            vi5.fractional_textView_1.text = "." + n1.split("[,.]".toRegex())[1]
                         } catch (e: Exception) {
                         }
                     }
                     vi5.fractional_textView_2.text = n2
                     bottomSheetInternal!!.rootView.explanationCardView4.addView(vi5)
-                    if (!res.toString().contains(".")) break
+                    if (!res.toString().contains("[,.]".toRegex())) break
                     res = (n1.toBigDecimal() * n2.toBigDecimal()).stripTrailingZeros()
                     z++
                 }
@@ -635,7 +653,7 @@ class ConverterFragment : Fragment() {
         viAnswer.textResultExplanation2.text = bottomSheetInternal!!.rootView.textResultExplanation2.text
         viAnswer.resultConvertNumber2.text = bottomSheetInternal!!.rootView.resultConvertNumber2.text
         bottomSheetInternal!!.rootView.explanationCardViewAnswer.addView(viAnswer)
-        bottomSheetDialog!!.behavior.state = STATE_EXPANDED
+//        bottomSheetDialog!!.behavior.state = STATE_EXPANDED
 
     }
 
@@ -684,8 +702,7 @@ class ConverterFragment : Fragment() {
             myClip = ClipData.newPlainText("text4", data.text.toString())
             myClipboard!!.setPrimaryClip(myClip!!)
             Snackbar.make(view!!.rootView.snackbar, "Скопировано: ${data.text}", Snackbar.LENGTH_SHORT).show()
-        }
-        else {
+        } else {
 //            val menu: ContextMenu? = null
 //            menu
 //            data.createContextMenu()

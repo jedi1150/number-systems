@@ -109,7 +109,11 @@ class CalculatorFragment : Fragment() {
         }
 
         editTextVal1.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+                view.rootView!!.editTextVal1.removeTextChangedListener(this)
+                Format().format(editTextVal1)
+                view.rootView!!.editTextVal1.addTextChangedListener(this)
+            }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var allowVal = ""
@@ -145,7 +149,11 @@ class CalculatorFragment : Fragment() {
 
 
         editTextVal2.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+                view.rootView!!.editTextVal2.removeTextChangedListener(this)
+                Format().format(editTextVal2)
+                view.rootView!!.editTextVal2.addTextChangedListener(this)
+            }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var allowVal = ""
@@ -204,6 +212,7 @@ class CalculatorFragment : Fragment() {
             save()
         } catch (e: Exception) {
             editLayout?.error = getString(R.string.available_characters_for_input) + ": $allowVal"
+            e.printStackTrace()
         }
     }
 

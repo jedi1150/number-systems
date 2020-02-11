@@ -15,23 +15,33 @@ class ConvertTo {
     var decArray = charArrayOf()
     private var leftDecArray = charArrayOf()
     private var rightDecArray = charArrayOf()
+    private var minusBool = false
 
     fun main(oldString: String, p1: Int?, p2: Int?): String {
-        string = oldString
+        if (oldString.contains("-")) {
+            string = oldString.replace("-", "")
+            minusBool = true
+        }
+        else
+            string = oldString
         fromParse = p1!!
         toParse = p2!!
 
-        leftDecArray = oldString.split("[,.]".toRegex())[0].toCharArray()
+        leftDecArray = string.split("[,.]".toRegex())[0].toCharArray()
         try {
-            rightDecArray = oldString.split("[,.]".toRegex())[1].toCharArray()
+            rightDecArray = string.split("[,.]".toRegex())[1].toCharArray()
         } catch (e: Exception) {
         }
-        decArray = oldString.replace("[,.]".toRegex(), "").toCharArray() //Строка без разделителя
+        decArray = string.replace("[,.]".toRegex(), "").toCharArray() //Строка без разделителя
 
         if (fromParse != 10 && toParse == 10) returnString = toDec()
         if (fromParse == 10 && toParse != 10) returnString = fromDec()
         if (fromParse == 10 && toParse == 10) returnString = fromDec()
         if (fromParse != 10 && toParse != 10) returnString = notDec()
+        if (minusBool) {
+            returnString = returnString.replaceRange(0, 0, "-")
+            minusBool = false
+        }
         return returnString
     }
 
