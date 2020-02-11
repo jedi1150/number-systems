@@ -99,7 +99,7 @@
         android:id="@+id/minus_symb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="-"
+        android:text="@string/minus_symb"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         app:layout_constraintBottom_toTopOf="@+id/divider3"
         app:layout_constraintEnd_toStartOf="@+id/textView1"

@@ -1,10 +1,11 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory app:title="Settings">
 
         <ListPreference
             app:icon="@drawable/brightness"
             app:key="theme"
-            app:title="@string/chooseTheme"
+            app:title="@string/choose_theme"
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
@@ -17,7 +18,7 @@
         <ListPreference
             app:icon="@drawable/linear"
             app:key="comma"
-            app:title="@string/decLengthText"
+            app:title="@string/dec_length_text"
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>

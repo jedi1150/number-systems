@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="TextView"
+        android:text="@string/sample_TV"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +22,7 @@
         android:id="@+id/fragConvertNumber1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/index"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/frag1_textView" />
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
-        android:text="+"
+        android:text="@string/plus_symb"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         app:layout_constraintStart_toEndOf="@+id/fragConvertNumber1"
         app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:text="TextView"
+        android:text="@string/sample_TV"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent" />
@@ -51,7 +51,7 @@
         android:id="@+id/fragConvertNumber2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/index"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/frag2_textView" />
@@ -61,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
-        android:text="="
+        android:text="@string/equal_symb"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         app:layout_constraintStart_toEndOf="@+id/fragConvertNumber2"
         app:layout_constraintTop_toTopOf="parent" />
@@ -71,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:text="TextView"
+        android:text="@string/sample_TV"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         app:layout_constraintStart_toEndOf="@+id/textView7"
         app:layout_constraintTop_toTopOf="parent" />
@@ -80,7 +80,7 @@
         android:id="@+id/fragConvertNumber3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/index"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/fragResult_textView" />
