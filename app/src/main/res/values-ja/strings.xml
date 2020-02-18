@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="app_name">番号システム</string>
+  <string name="dec">10進数（10）</string>
+  <string name="bin">バイナリ（2）</string>
+  <string name="oct">オクタル（8）</string>
+  <string name="hex">16進数（16）</string>
+  <string name="Converter">コンバータ</string>
+  <string name="Calculator">電卓</string>
+  <string name="result">結果</string>
+  <string name="operand_2">オペランド2</string>
+  <string name="operand_1">オペランド1</string>
+  <string name="explanation">説明</string>
+  <string name="invalid_value">無効な値</string>
+  <string name="step_1">10進数システムに変換</string>
+  <string name="step_2">分割列を実行する</string>
+  <string name="step_3">結果を逆順に書きます</string>
+  <string name="available_characters_for_input">入力可能な文字</string>
+  <string name="settings">設定</string>
+  <string name="step_4">数の小数部分に新しいの底を掛けます</string>
+  <string name="light">光</string>
+  <string name="dark">闇</string>
+  <string name="battery_saver">バッテリーセーバーで設定</string>
+  <string name="system_default">システムのデフォルト</string>
+  <string name="cancel">キャンセル</string>
+  <string name="language">言語</string>
+  <string name="help_with_translate">翻訳のお手伝い</string>
+  <string name="base_value">ベース（n）</string>
+  <string name="result_of_translate">翻訳結果</string>
+  <string name="dec_length_text">小数点以下の文字数</string>
+  <string name="add_decimal">整数部と小数部を追加します</string>
+  <string name="choose_theme">テーマ</string>
+  <string name="other">その他</string>
+  <string name="copied">コピー済み</string>
+</resources>

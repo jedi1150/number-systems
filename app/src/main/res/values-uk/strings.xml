@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="app_name">Системи числення</string>
+  <string name="dec">Десяткові (10)</string>
+  <string name="bin">Двійкові (2)</string>
+  <string name="oct">Октал (8)</string>
+  <string name="hex">Шестидесятковий (16)</string>
+  <string name="Converter">Перетворювач</string>
+  <string name="Calculator">Калькулятор</string>
+  <string name="result">Результат</string>
+  <string name="operand_2">Операнд 2</string>
+  <string name="operand_1">Операнд 1</string>
+  <string name="explanation">Пояснення</string>
+  <string name="invalid_value">Недійсне значення</string>
+  <string name="step_1">Перетворити в десяткову систему числення</string>
+  <string name="step_2">Виконайте стовпчик поділу</string>
+  <string name="step_3">Результат запишіть у зворотному порядку</string>
+  <string name="available_characters_for_input">Доступні символи для введення</string>
+  <string name="settings">Налаштування</string>
+  <string name="step_4">Дробова частина числа множиться на базу нового</string>
+  <string name="light">Світло</string>
+  <string name="dark">Темний</string>
+  <string name="battery_saver">Встановлено за допомогою заряду акумулятора</string>
+  <string name="system_default">Система за замовчуванням</string>
+  <string name="cancel">Скасувати</string>
+  <string name="language">Мову</string>
+  <string name="help_with_translate">Довідка з перекладом</string>
+  <string name="base_value">База (n)</string>
+  <string name="result_of_translate">Результат перекладу</string>
+  <string name="dec_length_text">Кількість символів після десяткової крапки</string>
+  <string name="add_decimal">Додайте цілі та дробові частини</string>
+  <string name="choose_theme">Тема</string>
+  <string name="other">Інші</string>
+  <string name="copied">Скопійовані</string>
+</resources>

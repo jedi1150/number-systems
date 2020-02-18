@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="app_name">Сістэмы нумара</string>
+  <string name="dec">Дзесятковы знак (10)</string>
+  <string name="bin">Бінарны (2)</string>
+  <string name="oct">Васьмянка (8)</string>
+  <string name="hex">Шаснаццатковы (16)</string>
+  <string name="Converter">Пераўтваральнік</string>
+  <string name="Calculator">Калькулятар</string>
+  <string name="result">Вынік</string>
+  <string name="operand_2">Операнд 2</string>
+  <string name="operand_1">Операнд 1</string>
+  <string name="explanation">Тлумачэнне</string>
+  <string name="invalid_value">Няправільнае значэнне</string>
+  <string name="step_1">Ператварыць у дзесятковую сістэму лікаў</string>
+  <string name="step_2">Выканайце падзел слупка</string>
+  <string name="step_3">Выпішыце вынік у зваротным парадку</string>
+  <string name="available_characters_for_input">Даступныя сімвалы для ўводу</string>
+  <string name="settings">Налады</string>
+  <string name="step_4">Дробавая частка ліку памнажаецца на аснову новага</string>
+  <string name="light">Святло</string>
+  <string name="dark">Цёмны</string>
+  <string name="battery_saver">Усталяваць Battery Saver</string>
+  <string name="system_default">Сістэма па змаўчанні</string>
+  <string name="cancel">Адмяніць</string>
+  <string name="language">Мова</string>
+  <string name="help_with_translate">Даведка з перакладам</string>
+  <string name="base_value">База (п)</string>
+  <string name="result_of_translate">Вынік перакладу</string>
+  <string name="dec_length_text">Колькасць знакаў пасля коскі</string>
+  <string name="add_decimal">Дадайце цэлыя і дробавыя часткі</string>
+  <string name="choose_theme">Тэма</string>
+  <string name="other">Іншыя</string>
+  <string name="copied">Скапіявана</string>
+</resources>

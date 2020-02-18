@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="app_name">Systèmes de numérotation</string>
+  <string name="dec">Décimal (10)</string>
+  <string name="bin">Binaire (2)</string>
+  <string name="oct">Octal (8)</string>
+  <string name="hex">Hexadécimal (16)</string>
+  <string name="Converter">Convertisseur</string>
+  <string name="Calculator">Calculatrice</string>
+  <string name="result">Résultat</string>
+  <string name="operand_2">Opérande 2</string>
+  <string name="operand_1">Opérande 1</string>
+  <string name="explanation">Explication</string>
+  <string name="invalid_value">valeur invalide</string>
+  <string name="step_1">Convertir en système numérique décimal</string>
+  <string name="step_2">Effectuer la colonne de division</string>
+  <string name="step_3">Écrivez le résultat dans l\'ordre inverse</string>
+  <string name="available_characters_for_input">Caractères disponibles pour la saisie</string>
+  <string name="settings">Réglages</string>
+  <string name="step_4">La partie fractionnaire du nombre est multipliée par la base du nouveau</string>
+  <string name="light">Lumière</string>
+  <string name="dark">Foncé</string>
+  <string name="battery_saver">Défini par l\'économiseur de batterie</string>
+  <string name="system_default">Défaut du système</string>
+  <string name="cancel">Annuler</string>
+  <string name="language">Langue</string>
+  <string name="help_with_translate">Aide à la traduction</string>
+  <string name="base_value">Base (n)</string>
+  <string name="result_of_translate">Résultat de la traduction</string>
+  <string name="dec_length_text">Le nombre de caractères après le point décimal</string>
+  <string name="add_decimal">Ajouter les entiers et les parties fractionnaires</string>
+  <string name="choose_theme">Thème</string>
+  <string name="other">Autre</string>
+  <string name="copied">Copié</string>
+</resources>

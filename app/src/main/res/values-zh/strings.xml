@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="app_name">編號系統</string>
+  <string name="dec">小數（10）</string>
+  <string name="bin">二進制（2）</string>
+  <string name="oct">八進制（8）</string>
+  <string name="hex">十六進制（16）</string>
+  <string name="Converter">轉換器</string>
+  <string name="Calculator">計算器</string>
+  <string name="result">結果</string>
+  <string name="operand_2">操作數2</string>
+  <string name="operand_1">操作數1</string>
+  <string name="explanation">說明</string>
+  <string name="invalid_value">無效值</string>
+  <string name="step_1">轉換為十進制數字系統</string>
+  <string name="step_2">執行除法列</string>
+  <string name="step_3">以相反順序寫結果</string>
+  <string name="available_characters_for_input">可輸入的字符</string>
+  <string name="settings">設定值</string>
+  <string name="step_4">數字的小數部分乘以新的底數</string>
+  <string name="light">光</string>
+  <string name="dark">暗</string>
+  <string name="battery_saver">由省電模式設定</string>
+  <string name="system_default">系統默認</string>
+  <string name="cancel">取消</string>
+  <string name="language">語言</string>
+  <string name="help_with_translate">翻譯幫助</string>
+  <string name="base_value">基數（n）</string>
+  <string name="result_of_translate">翻譯結果</string>
+  <string name="dec_length_text">小數點後的字符數</string>
+  <string name="add_decimal">將整數和小數部分相加</string>
+  <string name="choose_theme">主題</string>
+  <string name="other">其他</string>
+  <string name="copied">複製的</string>
+</resources>

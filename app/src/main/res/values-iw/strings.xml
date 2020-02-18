@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="app_name">מערכות מספר</string>
+  <string name="dec">עשרוני (10)</string>
+  <string name="bin">בינארי (2)</string>
+  <string name="oct">אוקטל (8)</string>
+  <string name="hex">הקסדצימלי (16)</string>
+  <string name="Converter">ממיר</string>
+  <string name="Calculator">מחשבון</string>
+  <string name="result">תוצאה</string>
+  <string name="operand_2">אופרנד 2</string>
+  <string name="operand_1">הפעלה 1</string>
+  <string name="explanation">הסבר</string>
+  <string name="invalid_value">ערך לא תקין</string>
+  <string name="step_1">המרה למערכת מספרים עשרוניים</string>
+  <string name="step_2">בצע את טור החלוקה</string>
+  <string name="step_3">כתוב את התוצאה בסדר הפוך</string>
+  <string name="available_characters_for_input">תווים זמינים לקלט</string>
+  <string name="settings">הגדרות</string>
+  <string name="step_4">החלק השברתי של המספר מוכפל בבסיס החדש</string>
+  <string name="light">אור</string>
+  <string name="dark">אפל</string>
+  <string name="battery_saver">מוגדר על ידי שומר סוללות</string>
+  <string name="system_default">ברירת מחדל של המערכת</string>
+  <string name="cancel">בטל</string>
+  <string name="language">שפה</string>
+  <string name="help_with_translate">עזרה בתרגום</string>
+  <string name="base_value">בסיס (n)</string>
+  <string name="result_of_translate">תוצאת התרגום</string>
+  <string name="dec_length_text">מספר התווים אחרי הנקודה העשרונית</string>
+  <string name="add_decimal">הוסף את מספרים שלמים וחלקי השבר</string>
+  <string name="choose_theme">נושא</string>
+  <string name="other">אחר</string>
+  <string name="copied">הועתק</string>
+</resources>

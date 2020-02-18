@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="app_name">Numerojärjestelmät</string>
+  <string name="dec">Desimaali (10)</string>
+  <string name="bin">Binaari (2)</string>
+  <string name="oct">Oktaali (8)</string>
+  <string name="hex">Heksadesimaali (16)</string>
+  <string name="Converter">Muunnin</string>
+  <string name="Calculator">Laskin</string>
+  <string name="result">Tulos</string>
+  <string name="operand_2">Operandi 2</string>
+  <string name="operand_1">Operandi 1</string>
+  <string name="explanation">Selitys</string>
+  <string name="invalid_value">Kelpaamaton arvo</string>
+  <string name="step_1">Muunna desimaalilukujärjestelmäksi</string>
+  <string name="step_2">Suorita jako-sarake</string>
+  <string name="step_3">Kirjoita tulos käänteisessä järjestyksessä</string>
+  <string name="available_characters_for_input">Syöttöä varten käytettävissä olevat merkit</string>
+  <string name="settings">asetukset</string>
+  <string name="step_4">Murtoluku luvusta kerrotaan uuden perustalla</string>
+  <string name="light">valo</string>
+  <string name="dark">Tumma</string>
+  <string name="battery_saver">Asettaa Battery Saver</string>
+  <string name="system_default">Järjestelmän oletusarvo</string>
+  <string name="cancel">Peruuttaa</string>
+  <string name="language">Kieli</string>
+  <string name="help_with_translate">Apua käännökseen</string>
+  <string name="base_value">Pohja (n)</string>
+  <string name="result_of_translate">Käännöstulos</string>
+  <string name="dec_length_text">Merkkien lukumäärä desimaalin jälkeen</string>
+  <string name="add_decimal">Kokonaislukujen ja murto-osien lisääminen</string>
+  <string name="choose_theme">Teema</string>
+  <string name="other">muut</string>
+  <string name="copied">Kopioida</string>
+</resources>

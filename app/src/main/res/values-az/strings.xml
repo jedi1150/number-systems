@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="app_name">Say sistemləri</string>
+  <string name="dec">Ondalık (10)</string>
+  <string name="bin">İkili (2)</string>
+  <string name="oct">Oktyabr (8)</string>
+  <string name="hex">Altıbucaqlı (16)</string>
+  <string name="Converter">Konverter</string>
+  <string name="Calculator">Kalkulyator</string>
+  <string name="result">Nəticə</string>
+  <string name="operand_2">Operand 2</string>
+  <string name="operand_1">Operand 1</string>
+  <string name="explanation">İzahat</string>
+  <string name="invalid_value">Yanlış dəyər</string>
+  <string name="step_1">Onluq say sisteminə çevrilir</string>
+  <string name="step_2">Bölmə sütununu yerinə yetirin</string>
+  <string name="step_3">Nəticəni tərs qaydada yazın</string>
+  <string name="available_characters_for_input">Giriş üçün mövcud simvol</string>
+  <string name="settings">Parametrlər</string>
+  <string name="step_4">Sayın fraksiya hissəsi yeninin bazasına vurulur</string>
+  <string name="light">İşıq</string>
+  <string name="dark">Qaranlıq</string>
+  <string name="battery_saver">Batareya qənaətçisi tərəfindən təyin edilmişdir</string>
+  <string name="system_default">Sistem default</string>
+  <string name="cancel">Ləğv et</string>
+  <string name="language">Dil</string>
+  <string name="help_with_translate">Tərcümə ilə kömək edin</string>
+  <string name="base_value">Baza (n)</string>
+  <string name="result_of_translate">Tərcümə nəticəsində</string>
+  <string name="dec_length_text">Onluq nöqtəsindən sonra işarələrin sayı</string>
+  <string name="add_decimal">Tam ədədlər və fraksiya hissələri əlavə edin</string>
+  <string name="choose_theme">Mövzu</string>
+  <string name="other">Digərləri</string>
+  <string name="copied">Kopyalandı</string>
+</resources>
