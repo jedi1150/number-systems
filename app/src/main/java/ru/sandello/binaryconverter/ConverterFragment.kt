@@ -1,10 +1,7 @@
 package ru.sandello.binaryconverter
 
 import android.annotation.SuppressLint
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
-import android.content.Context.CLIPBOARD_SERVICE
 import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.text.Editable
@@ -13,13 +10,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.answer_layout.view.*
@@ -35,31 +30,24 @@ import kotlinx.android.synthetic.main.multiply_layout4.view.*
 import kotlinx.coroutines.*
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.util.*
 import kotlin.math.pow
-
 
 var cleared = false
 
-@ExperimentalUnsignedTypes
 class ConverterFragment : Fragment() {
     var bottomSheetDialog: BottomSheetDialog? = null
     var bottomSheetInternal: View? = null
     private val listCustomBin = arrayOf(3, 4, 5, 6, 7, 9, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36)
     private val listAllBin = arrayOf(2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36)
 
-    private var myClipboard: ClipboardManager? = null
-    private var myClip: ClipData? = null
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_converter, container, false)
     }
 
-    @SuppressLint("SetTextI18n", "RestrictedApi")
-    @ExperimentalUnsignedTypes
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        myClipboard = context?.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager?
 
         bottomSheetDialog = BottomSheetDialog(view.context)
         bottomSheetDialog!!.setContentView(R.layout.fragment_explanation)
@@ -113,9 +101,7 @@ class ConverterFragment : Fragment() {
         //10
         editText10.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                view.rootView!!.editText10.removeTextChangedListener(this)
-                Format().format(editText10)
-                view.rootView!!.editText10.addTextChangedListener(this)
+
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -129,14 +115,15 @@ class ConverterFragment : Fragment() {
                     if (s.toString() == "" && !cleared)
                         clearConverter(editText10)
                 }
+                view.rootView!!.editText10.removeTextChangedListener(this)
+                Format().format(editText10)
+                view.rootView!!.editText10.addTextChangedListener(this)
             }
         })
         //2
         editText2.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                view.rootView!!.editText2.removeTextChangedListener(this)
-                Format().format(editText2)
-                view.rootView!!.editText2.addTextChangedListener(this)
+
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -148,14 +135,15 @@ class ConverterFragment : Fragment() {
                         parse(s.toString(), editText2, textInputLayout2, 2, filled_exposed_dropdown.text.toString().toInt(), allowVal)
                 if (s.toString() == "" && !cleared)
                     clearConverter(editText2)
+                view.rootView!!.editText2.removeTextChangedListener(this)
+                Format().format(editText2)
+                view.rootView!!.editText2.addTextChangedListener(this)
             }
         })
         //8
         editText8.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                view.rootView!!.editText8.removeTextChangedListener(this)
-                Format().format(editText8)
-                view.rootView!!.editText8.addTextChangedListener(this)
+
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -167,14 +155,15 @@ class ConverterFragment : Fragment() {
                         parse(s.toString(), editText8, textInputLayout8, 8, filled_exposed_dropdown.text.toString().toInt(), allowVal)
                 if (s.toString() == "" && !cleared)
                     clearConverter(editText8)
+                view.rootView!!.editText8.removeTextChangedListener(this)
+                Format().format(editText8)
+                view.rootView!!.editText8.addTextChangedListener(this)
             }
         })
         //16
         editText16.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                view.rootView!!.editText16.removeTextChangedListener(this)
-                Format().format(editText16)
-                view.rootView!!.editText16.addTextChangedListener(this)
+
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -186,14 +175,15 @@ class ConverterFragment : Fragment() {
                         parse(s.toString(), editText16, textInputLayout16, 16, filled_exposed_dropdown.text.toString().toInt(), allowVal)
                 if (s.toString() == "" && !cleared)
                     clearConverter(editText16)
+                view.rootView!!.editText16.removeTextChangedListener(this)
+                Format().format(editText16)
+                view.rootView!!.editText16.addTextChangedListener(this)
             }
         })
         //custom
         editTextCustom.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                editTextCustom.removeTextChangedListener(this)
-                Format().format(editTextCustom)
-                editTextCustom.addTextChangedListener(this)
+
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -211,6 +201,9 @@ class ConverterFragment : Fragment() {
                     parse(s.toString(), editTextCustom, textInputLayoutCustom, filled_exposed_dropdown.text.toString().toInt(), null, allowVal)
                 if (s.toString() == "")
                     clearConverter(editTextCustom)
+                editTextCustom.removeTextChangedListener(this)
+                Format().format(editTextCustom)
+                editTextCustom.addTextChangedListener(this)
             }
         })
 
@@ -359,8 +352,6 @@ class ConverterFragment : Fragment() {
         }
     }
 
-    @SuppressLint("SetTextI18n", "InflateParams")
-    @ExperimentalUnsignedTypes
     fun parse(string: String, editField: View, editLayout: TextInputLayout, bin: Int, custom: Int?, allowVal: String) = try {
         if (editField.resources.getResourceEntryName(editField.id) != "editText10")
             editText10.setText(ConvertTo().main(string, bin, 10))
@@ -379,8 +370,7 @@ class ConverterFragment : Fragment() {
         editLayout.error = getString(R.string.available_characters_for_input) + ": $allowVal"
     }
 
-    @ExperimentalUnsignedTypes
-    @SuppressLint("SetTextI18n", "InflateParams", "DefaultLocale")
+    @SuppressLint("SetTextI18n", "InflateParams")
     fun parseRepeat() {
         var i = 0
         var summ: BigDecimal
@@ -531,8 +521,8 @@ class ConverterFragment : Fragment() {
                         vi3.textView5.text = tv5String // Остаток
                         result += tv5String //Присваиваем результат
                     } else {
-                        vi3.textView5.text = tv5String + "=" + tv5String.toBigInteger(10).toString(toSpinner.toInt()).toUpperCase()  // Остаток
-                        result += tv5String.toBigInteger(10).toString(toSpinner.toInt()).toUpperCase() //Присваиваем результат
+                        vi3.textView5.text = tv5String + "=" + tv5String.toBigInteger(10).toString(toSpinner.toInt()).toUpperCase(Locale.getDefault())  // Остаток
+                        result += tv5String.toBigInteger(10).toString(toSpinner.toInt()).toUpperCase(Locale.getDefault()) //Присваиваем результат
                     }
                 } else {
                     bottomSheetInternal!!.rootView.step2.visibility = View.GONE
@@ -548,8 +538,8 @@ class ConverterFragment : Fragment() {
                 workString = vi3.textView4.text.toString().toBigDecimal()
                 if (workString < vi3.textView2.text.toString().toBigDecimal()) {
                     if (vi3.textView4.text.toString().toBigDecimal() >= 10.toBigDecimal()) {
-                        result += vi3.textView4.text.toString().toBigInteger(10).toString(toSpinner.toInt()).toUpperCase()
-                        vi3.textView4.text = vi3.textView4.text.toString() + "=" + vi3.textView4.text.toString().toBigInteger(10).toString(toSpinner.toInt()).toUpperCase()
+                        result += vi3.textView4.text.toString().toBigInteger(10).toString(toSpinner.toInt()).toUpperCase(Locale.getDefault())
+                        vi3.textView4.text = vi3.textView4.text.toString() + "=" + vi3.textView4.text.toString().toBigInteger(10).toString(toSpinner.toInt()).toUpperCase(Locale.getDefault())
                     } else {
                         result += vi3.textView4.text.toString()
                     }
@@ -584,7 +574,7 @@ class ConverterFragment : Fragment() {
                     } else {
                         if (n1.split("[,.]".toRegex())[1] == "0") z = fractionCount
                         try {
-                            val dd = res.toString().split("[,.]".toRegex())[0].toBigInteger(10).toString(toSpinner.toInt()).toUpperCase()
+                            val dd = res.toString().split("[,.]".toRegex())[0].toBigInteger(10).toString(toSpinner.toInt()).toUpperCase(Locale.getDefault())
                             if (res.toString().split("[,.]".toRegex())[0].toInt() < 10) {
                                 vi5.fractional_textView_result.text = dd
                                 resultRight += dd
@@ -654,8 +644,6 @@ class ConverterFragment : Fragment() {
         viAnswer.textResultExplanation2.text = bottomSheetInternal!!.rootView.textResultExplanation2.text
         viAnswer.resultConvertNumber2.text = bottomSheetInternal!!.rootView.resultConvertNumber2.text
         bottomSheetInternal!!.rootView.explanationCardViewAnswer.addView(viAnswer)
-//        bottomSheetDialog!!.behavior.state = STATE_EXPANDED
-
     }
 
     fun clearConverter(editField: View?) {
@@ -695,18 +683,6 @@ class ConverterFragment : Fragment() {
             editText8.setText("")
             editText16.setText("")
             editTextCustom.setText("")
-        }
-    }
-
-    private fun copyVal(data: EditText) {
-        if (data.text.toString() != "" && data.text.toString() != "0") {
-            myClip = ClipData.newPlainText("text4", data.text.toString())
-            myClipboard!!.setPrimaryClip(myClip!!)
-            Snackbar.make(view!!.rootView.snackbar, "Скопировано: ${data.text}", Snackbar.LENGTH_SHORT).show()
-        } else {
-//            val menu: ContextMenu? = null
-//            menu
-//            data.createContextMenu()
         }
     }
 

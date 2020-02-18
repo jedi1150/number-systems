@@ -1,6 +1,5 @@
 package ru.sandello.binaryconverter
 
-import android.util.Log
 import android.widget.EditText
 import java.util.*
 
@@ -12,6 +11,7 @@ class Format {
 
             if (string.isNotEmpty()) {
                 var pos = editText.selectionStart
+
                 if (string.contains("-")) { //Правильно высставляем отрицание
                     if (string.toCharArray().count { it.toString().contains("-") } > 1 && pos > 0) {
                         string = string.replace("-", "")

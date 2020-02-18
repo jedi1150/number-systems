@@ -20,10 +20,9 @@ android {
         applicationId 'ru.sandello.binaryconverter'
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 101
-        versionName '4.0.3'
+        versionCode 103
+        versionName '4.0.5'
         signingConfig signingConfigs.config
-        versionNameSuffix = 'beta'
     }
     buildTypes {
         release {

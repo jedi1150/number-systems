@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
-        android:text="@string/plus_symb"
+        android:text="@string/plus_symbol"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         app:layout_constraintStart_toEndOf="@+id/explanation_multiply2_convert"
         app:layout_constraintTop_toTopOf="@+id/explanation_multiply2_textView1" />

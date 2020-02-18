@@ -158,7 +158,8 @@
                     android:layout_margin="0dp"
                     android:editable="false"
                     android:focusableInTouchMode="false"
-                    android:maxLength="100" />
+                    android:maxLength="100"
+                    tools:ignore="Deprecated" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

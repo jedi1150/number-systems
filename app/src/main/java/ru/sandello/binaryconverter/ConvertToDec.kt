@@ -1,6 +1,6 @@
 package ru.sandello.binaryconverter
 
-import android.annotation.SuppressLint
+import java.util.*
 import kotlin.math.pow
 
 class ConvertTo {
@@ -8,11 +8,11 @@ class ConvertTo {
     private var string = ""
     private var leftLength = 0 //Длина целой части числа
     private var result = 0.toBigDecimal() //Переменная суммы
-    var returnString = "" //Возвращаемая строка
-    var fromParse = 0
-    var toParse = 0
+    private var returnString = "" //Возвращаемая строка
+    private var fromParse = 0
+    private var toParse = 0
 
-    var decArray = charArrayOf()
+    private var decArray = charArrayOf()
     private var leftDecArray = charArrayOf()
     private var rightDecArray = charArrayOf()
     private var minusBool = false
@@ -58,7 +58,6 @@ class ConvertTo {
         return result.toString()
     }
 
-    @SuppressLint("DefaultLocale")
     private fun fromDec(): String {
         var res: String
         leftDecArray = string.split("[,.]".toRegex())[0].toCharArray()
@@ -71,7 +70,7 @@ class ConvertTo {
         for (i in leftDecArray) {
             left += i.toString()
         }
-        res = left.toBigInteger(10).toString(toParse).toUpperCase() //Перевод основной части числа в 10
+        res = left.toBigInteger(10).toString(toParse).toUpperCase(Locale.getDefault()) //Перевод основной части числа в 10
         if (rightDecArray.isNotEmpty()) {
             var right = ""
             for (i in rightDecArray) {
@@ -90,7 +89,7 @@ class ConvertTo {
                 right += if (toParse < 11) {
                     n1.split("[,.]".toRegex())[0]  //Целую часть от каждой итерации приписываем к строке
                 } else {
-                    n1.split("[,.]".toRegex())[0].toBigInteger(10).toString(toParse).toUpperCase() //Целую часть от каждой итерации приписываем к строке
+                    n1.split("[,.]".toRegex())[0].toBigInteger(10).toString(toParse).toUpperCase(Locale.getDefault()) //Целую часть от каждой итерации приписываем к строке
                 }
                 z++
             }

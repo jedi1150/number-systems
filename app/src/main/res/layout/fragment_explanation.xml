@@ -313,7 +313,8 @@
                     android:editable="false"
                     android:focusable="false"
                     android:maxLength="100"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    tools:ignore="Deprecated" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -337,7 +338,8 @@
                     android:editable="false"
                     android:focusable="false"
                     android:maxLength="100"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    tools:ignore="Deprecated" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatImageButton

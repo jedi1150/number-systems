@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="2dp"
-        android:text="3"
+        android:text="@string/sample_TV"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         app:layout_constraintEnd_toStartOf="@+id/divider"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,7 +25,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/divider"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="2" />
+        android:text="@string/sample_TV" />
 
     <TextView
         android:id="@+id/textView3"
@@ -33,11 +33,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="2dp"
-        android:text="2"
+        android:text="@string/sample_TV"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         app:layout_constraintEnd_toStartOf="@+id/divider"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/minus_symb"
+        app:layout_constraintStart_toEndOf="@+id/minus_symbol"
         app:layout_constraintTop_toBottomOf="@+id/textView1" />
 
     <TextView
@@ -47,7 +47,7 @@
         android:layout_marginStart="2dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="8dp"
-        android:text="1"
+        android:text="@string/sample_TV"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="2dp"
-        android:text="1"
+        android:text="@string/sample_TV"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         app:layout_constraintEnd_toStartOf="@+id/divider"
         app:layout_constraintHorizontal_bias="1.0"
@@ -96,10 +96,10 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
-        android:id="@+id/minus_symb"
+        android:id="@+id/minus_symbol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/minus_symb"
+        android:text="@string/minus_symbol"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         app:layout_constraintBottom_toTopOf="@+id/divider3"
         app:layout_constraintEnd_toStartOf="@+id/textView1"

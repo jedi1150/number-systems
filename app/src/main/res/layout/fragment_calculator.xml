@@ -67,7 +67,8 @@
                     android:editable="false"
                     android:focusable="false"
                     android:maxLength="100"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    tools:ignore="Deprecated" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButtonToggleGroup
@@ -87,28 +88,28 @@
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/plus_symb" />
+                    android:text="@string/plus_symbol" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/toggleMinus"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/minus_symb" />
+                    android:text="@string/minus_symbol" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/toggleMult"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/multiply_symb" />
+                    android:text="@string/multiply_symbol" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/toggleDiv"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/div_symb" />
+                    android:text="@string/div_symbol" />
 
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -158,7 +159,8 @@
                     android:editable="false"
                     android:focusable="false"
                     android:maxLength="100"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    tools:ignore="Deprecated" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -173,7 +175,8 @@
                 android:clickable="true"
                 app:layout_constraintEnd_toStartOf="@+id/textInputLayout"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutCustom2">
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutCustom2"
+                tools:ignore="KeyboardInaccessibleWidget">
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editTextResult"
@@ -201,7 +204,8 @@
                     android:editable="false"
                     android:focusable="false"
                     android:maxLength="100"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    tools:ignore="Deprecated" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
