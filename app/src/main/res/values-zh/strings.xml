@@ -22,8 +22,7 @@
   <string name="dark">暗</string>
   <string name="battery_saver">由省電模式設定</string>
   <string name="system_default">系統默認</string>
-  <string name="cancel">取消</string>
-  <string name="language">語言</string>
+    <string name="language">語言</string>
   <string name="help_with_translate">翻譯幫助</string>
   <string name="base_value">基數（n）</string>
   <string name="result_of_translate">翻譯結果</string>

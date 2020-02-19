@@ -43,7 +43,6 @@
                     android:id="@+id/editTextVal1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.,-"
                     android:imeOptions="actionDone|flagNoFullscreen"
                     android:maxLength="100"
                     android:singleLine="true" />
@@ -134,9 +133,7 @@
                     android:id="@+id/editTextVal2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ.,-"
                     android:imeOptions="actionDone|flagNoFullscreen"
-                    android:inputType="textNoSuggestions"
                     android:maxLength="100"
                     android:singleLine="true"
                     tools:ignore="RtlSymmetry" />

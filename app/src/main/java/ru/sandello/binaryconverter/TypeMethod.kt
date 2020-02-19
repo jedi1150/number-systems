@@ -12,7 +12,7 @@ class TypeMethod {
         }
         else
         {
-            editText.inputType = InputType.TYPE_CLASS_TEXT
+            editText.inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
         }
     }
 }

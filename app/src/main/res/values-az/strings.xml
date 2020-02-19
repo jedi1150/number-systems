@@ -22,8 +22,7 @@
   <string name="dark">Qaranlıq</string>
   <string name="battery_saver">Batareya qənaətçisi tərəfindən təyin edilmişdir</string>
   <string name="system_default">Sistem default</string>
-  <string name="cancel">Ləğv et</string>
-  <string name="language">Dil</string>
+    <string name="language">Dil</string>
   <string name="help_with_translate">Tərcümə ilə kömək edin</string>
   <string name="base_value">Baza (n)</string>
   <string name="result_of_translate">Tərcümə nəticəsində</string>

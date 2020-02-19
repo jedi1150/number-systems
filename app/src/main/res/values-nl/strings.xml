@@ -22,8 +22,7 @@
   <string name="dark">Donker</string>
   <string name="battery_saver">Ingesteld door batterijbesparing</string>
   <string name="system_default">Systeemfout</string>
-  <string name="cancel">annuleren</string>
-  <string name="language">Taal</string>
+    <string name="language">Taal</string>
   <string name="help_with_translate">Hulp bij vertalen</string>
   <string name="base_value">Basis (n)</string>
   <string name="result_of_translate">Vertaalresultaat</string>

@@ -22,8 +22,7 @@
   <string name="dark">अंधेरा</string>
   <string name="battery_saver">बैटरी सेवर द्वारा सेट करें</string>
   <string name="system_default">सिस्टम डिफ़ॉल्ट</string>
-  <string name="cancel">रद्द करना</string>
-  <string name="language">भाषा: हिन्दी</string>
+    <string name="language">भाषा: हिन्दी</string>
   <string name="help_with_translate">अनुवाद के साथ मदद करें</string>
   <string name="base_value">आधार (n)</string>
   <string name="result_of_translate">अनुवाद का परिणाम</string>

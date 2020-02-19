@@ -22,8 +22,7 @@
   <string name="dark">داكن</string>
   <string name="battery_saver">تعيين بواسطة البطارية التوقف</string>
   <string name="system_default">النظام الافتراضي</string>
-  <string name="cancel">إلغاء</string>
-  <string name="language">لغة</string>
+    <string name="language">لغة</string>
   <string name="help_with_translate">مساعدة في الترجمة</string>
   <string name="base_value">قاعدة (ن)</string>
   <string name="result_of_translate">نتيجة الترجمة</string>

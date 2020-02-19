@@ -22,8 +22,7 @@
   <string name="dark">אפל</string>
   <string name="battery_saver">מוגדר על ידי שומר סוללות</string>
   <string name="system_default">ברירת מחדל של המערכת</string>
-  <string name="cancel">בטל</string>
-  <string name="language">שפה</string>
+    <string name="language">שפה</string>
   <string name="help_with_translate">עזרה בתרגום</string>
   <string name="base_value">בסיס (n)</string>
   <string name="result_of_translate">תוצאת התרגום</string>

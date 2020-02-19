@@ -22,8 +22,7 @@
   <string name="dark">Цёмны</string>
   <string name="battery_saver">Усталяваць Battery Saver</string>
   <string name="system_default">Сістэма па змаўчанні</string>
-  <string name="cancel">Адмяніць</string>
-  <string name="language">Мова</string>
+    <string name="language">Мова</string>
   <string name="help_with_translate">Даведка з перакладам</string>
   <string name="base_value">База (п)</string>
   <string name="result_of_translate">Вынік перакладу</string>

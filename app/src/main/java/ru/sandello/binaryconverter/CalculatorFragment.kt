@@ -55,6 +55,9 @@ class CalculatorFragment : Fragment() {
             return allowVal
         }
 
+        TypeMethod().type(editTextVal1, allow(spinner))
+        TypeMethod().type(editTextVal2, allow(spinner2))
+
         spinner.setOnItemClickListener { _, _, _, _ ->
             TypeMethod().type(editTextVal1, allow(spinner))
             calculate(allow(spinner))
@@ -78,7 +81,6 @@ class CalculatorFragment : Fragment() {
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                TypeMethod().type(editTextVal1, allow(spinner))
                 calculate(allow(spinner))
             }
         })
@@ -93,7 +95,6 @@ class CalculatorFragment : Fragment() {
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                TypeMethod().type(editTextVal2, allow(spinner2))
                 calculate(allow(spinner2))
             }
         })
@@ -172,13 +173,6 @@ class CalculatorFragment : Fragment() {
         spinner.setAdapter(adapter)
         spinner2.setAdapter(adapter)
         spinner3.setAdapter(adapter)
-        try {
-            if (editTextVal1.text.toString() != "")
-                a = ConvertTo().main(editTextVal1.text.toString(), spinner.text.toString().toInt(), 10).toBigDecimal()
-            if (editTextVal2.text.toString() != "")
-                b = ConvertTo().main(editTextVal2.text.toString(), spinner2.text.toString().toInt(), 2).toBigDecimal()
-        } catch (e: Exception) {
-        }
         calculate("")
     }
 

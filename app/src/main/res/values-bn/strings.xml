@@ -22,8 +22,7 @@
   <string name="dark">অন্ধকার</string>
   <string name="battery_saver">ব্যাটারি সেভার দ্বারা সেট</string>
   <string name="system_default">সিস্টেমের ডিফল্ট</string>
-  <string name="cancel">বাতিল</string>
-  <string name="language">ভাষা</string>
+    <string name="language">ভাষা</string>
   <string name="help_with_translate">অনুবাদ সাহায্য করুন</string>
   <string name="base_value">বেস (এন)</string>
   <string name="result_of_translate">অনুবাদ ফলাফল</string>

@@ -22,8 +22,7 @@
   <string name="dark">Темний</string>
   <string name="battery_saver">Встановлено за допомогою заряду акумулятора</string>
   <string name="system_default">Система за замовчуванням</string>
-  <string name="cancel">Скасувати</string>
-  <string name="language">Мову</string>
+    <string name="language">Мову</string>
   <string name="help_with_translate">Довідка з перекладом</string>
   <string name="base_value">База (n)</string>
   <string name="result_of_translate">Результат перекладу</string>

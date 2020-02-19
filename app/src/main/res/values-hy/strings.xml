@@ -22,8 +22,7 @@
   <string name="dark">Մութ</string>
   <string name="battery_saver">Սահմանված է մարտկոցի խնայարարի միջոցով</string>
   <string name="system_default">Համակարգը լռելյայն է</string>
-  <string name="cancel">Չեղարկել</string>
-  <string name="language">Լեզու</string>
+    <string name="language">Լեզու</string>
   <string name="help_with_translate">Օգնեք թարգմանությանը</string>
   <string name="base_value">Հիմք (ն)</string>
   <string name="result_of_translate">Թարգմանության արդյունքը</string>

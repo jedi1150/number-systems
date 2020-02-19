@@ -22,8 +22,7 @@
   <string name="dark">Қараңғы</string>
   <string name="battery_saver">Батареяны үнемдегіш арқылы орнатылады</string>
   <string name="system_default">Жүйе әдепкі</string>
-  <string name="cancel">Болдырмау</string>
-  <string name="language">Тіл</string>
+    <string name="language">Тіл</string>
   <string name="help_with_translate">Аударма бойынша көмек</string>
   <string name="base_value">Негіз (n)</string>
   <string name="result_of_translate">Аударма нәтижесі</string>

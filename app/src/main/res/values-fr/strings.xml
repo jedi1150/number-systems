@@ -22,8 +22,7 @@
   <string name="dark">Foncé</string>
   <string name="battery_saver">Défini par l\'économiseur de batterie</string>
   <string name="system_default">Défaut du système</string>
-  <string name="cancel">Annuler</string>
-  <string name="language">Langue</string>
+    <string name="language">Langue</string>
   <string name="help_with_translate">Aide à la traduction</string>
   <string name="base_value">Base (n)</string>
   <string name="result_of_translate">Résultat de la traduction</string>

@@ -22,8 +22,7 @@
   <string name="dark">Sombrio</string>
   <string name="battery_saver">Definido pelo Economizador de bateria</string>
   <string name="system_default">Sistema padrão</string>
-  <string name="cancel">Cancelar</string>
-  <string name="language">Língua</string>
+    <string name="language">Língua</string>
   <string name="help_with_translate">Ajuda com tradução</string>
   <string name="base_value">Base (n)</string>
   <string name="result_of_translate">Resultado da tradução</string>

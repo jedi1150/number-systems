@@ -22,8 +22,7 @@
   <string name="dark">गाढा</string>
   <string name="battery_saver">ब्याट्री सेभर द्वारा सेट</string>
   <string name="system_default">प्रणाली पूर्वनिर्धारित</string>
-  <string name="cancel">रद्द गर्नुहोस्</string>
-  <string name="language">भाषा</string>
+    <string name="language">भाषा</string>
   <string name="help_with_translate">अनुवादको साथ मद्दत गर्नुहोस्</string>
   <string name="base_value">आधार (n)</string>
   <string name="result_of_translate">अनुवाद परिणाम</string>

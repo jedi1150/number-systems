@@ -22,8 +22,7 @@
   <string name="dark">Темная</string>
   <string name="battery_saver">Устанавливается режимом энергосбережения</string>
   <string name="system_default">Как в системе</string>
-  <string name="cancel">Отмена</string>
-  <string name="language">Язык</string>
+    <string name="language">Язык</string>
   <string name="help_with_translate">Помочь с переводом</string>
   <string name="base_value">Основание (n)</string>
   <string name="result_of_translate">Результат перевода</string>

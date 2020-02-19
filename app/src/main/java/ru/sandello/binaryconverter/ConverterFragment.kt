@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -48,7 +49,7 @@ class ConverterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        load()
         bottomSheetDialog = BottomSheetDialog(view.context)
         bottomSheetDialog!!.setContentView(R.layout.fragment_explanation)
         bottomSheetInternal = bottomSheetDialog!!.findViewById(R.id.bottomSheetMain)
@@ -74,9 +75,18 @@ class ConverterFragment : Fragment() {
             view.rootView.explanation_fab.hide()
         }
 
+        fun allow(to: EditText): String {
+            var allowVal = ""
+            for (i in 0 until to.text.toString().toInt())
+                allowVal += listCustomBin[i]
+            return allowVal
+        }
+        TypeMethod().type(editTextCustom, allow(filled_exposed_dropdown))
+
         filled_exposed_dropdown.setOnItemClickListener { _, _, position, _ ->
             try {
                 editTextCustom.setText(ConvertTo().main(editText10.text.toString(), 10, listCustomBin[position]))
+                editTextCustom.setSelection(editTextCustom.text!!.length)
                 errorNull()
             } catch (e: Exception) {
                 if (editTextCustom?.text.toString() != "")
@@ -125,6 +135,7 @@ class ConverterFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
 
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var allowVal = ""
@@ -145,6 +156,7 @@ class ConverterFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
 
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var allowVal = ""
@@ -165,6 +177,7 @@ class ConverterFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
 
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var allowVal = ""
@@ -185,13 +198,13 @@ class ConverterFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
 
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 var allowVal = ""
                 if (filled_exposed_dropdown.text.toString() != "") {
                     for (i in 0 until filled_exposed_dropdown.text.toString().toInt())
                         allowVal += sym[i]
-                    TypeMethod().type(editTextCustom, allowVal)
                 } else {
                     for (i in 0 until 36)
                         allowVal += sym[i]
@@ -686,27 +699,34 @@ class ConverterFragment : Fragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
+    private fun load() {
         val converterSave = context!!.getSharedPreferences("converter", Context.MODE_PRIVATE)
+        editText10.setText(converterSave.getString("converter10", ""))
         val adapter = ArrayAdapter(
                 context!!,
                 R.layout.dropdown_menu_popup_item,
                 listCustomBin)
         filled_exposed_dropdown.setText(converterSave.getInt("converterSpinner", 3).toString())
         filled_exposed_dropdown.setAdapter(adapter)
-        editText10.setText(converterSave.getString("converter10", ""))
-
         if (editText10.text.toString() != "")
             parse(converterSave.getString("converter10", "")!!, view!!.rootView.editText10, view!!.rootView.textInputLayout10, 10, filled_exposed_dropdown.text.toString().toInt(), "0123456789")
         checkClear()
     }
 
-    override fun onPause() {
-        super.onPause()
+    private fun save() {
         val sharedPref = context!!.getSharedPreferences("converter", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
         editor.putString("converter10", editText10.text.toString()).apply()
         editor.putInt("converterSpinner", filled_exposed_dropdown.text.toString().toInt()).apply()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        load()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        save()
     }
 }
