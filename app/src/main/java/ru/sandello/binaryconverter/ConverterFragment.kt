@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -41,6 +40,7 @@ class ConverterFragment : Fragment() {
     var bottomSheetInternal: View? = null
     private val listCustomBin = arrayOf(3, 4, 5, 6, 7, 9, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36)
     private val listAllBin = arrayOf(2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36)
+    private val sym = arrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -75,16 +75,17 @@ class ConverterFragment : Fragment() {
             view.rootView.explanation_fab.hide()
         }
 
-        fun allow(to: EditText): String {
+        fun allow(to: Int): String {
             var allowVal = ""
-            for (i in 0 until to.text.toString().toInt())
-                allowVal += listCustomBin[i]
+            for (i in 0 until to)
+                allowVal += sym[i]
             return allowVal
         }
-        TypeMethod().type(editTextCustom, allow(filled_exposed_dropdown))
+        TypeMethod().type(editTextCustom, allow(filled_exposed_dropdown.text.toString().toInt()))
 
         filled_exposed_dropdown.setOnItemClickListener { _, _, position, _ ->
             try {
+                TypeMethod().type(editTextCustom, allow(filled_exposed_dropdown.text.toString().toInt()))
                 editTextCustom.setText(ConvertTo().main(editText10.text.toString(), 10, listCustomBin[position]))
                 editTextCustom.setSelection(editTextCustom.text!!.length)
                 errorNull()
@@ -106,112 +107,75 @@ class ConverterFragment : Fragment() {
         bottomSheetInternal!!.rootView.spinner4_dropdown.setAdapter(adapter)
         bottomSheetInternal!!.rootView.spinner5_dropdown.setAdapter(adapter)
 
-        val sym = arrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
-
         //10
         editText10.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
+            override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                var allowVal = ""
-                for (i in 0 until 10)
-                    allowVal += sym[i]
                 if (editText10.hasFocus()) {
                     if (s.toString() != "" && !s!!.endsWith("."))
-                        parse(s.toString(), editText10, textInputLayout10, 10, filled_exposed_dropdown.text.toString().toInt(), allowVal)
+                        parse(s.toString(), editText10, textInputLayout10, 10, filled_exposed_dropdown.text.toString().toInt(), allow(10))
                     if (s.toString() == "" && !cleared)
                         clearConverter(editText10)
                 }
-                view.rootView!!.editText10.removeTextChangedListener(this)
+                editText10.removeTextChangedListener(this)
                 Format().format(editText10)
-                view.rootView!!.editText10.addTextChangedListener(this)
+                editText10.addTextChangedListener(this)
             }
         })
         //2
         editText2.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
+            override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                var allowVal = ""
-                for (i in 0 until 2)
-                    allowVal += sym[i]
                 if (editText2.hasFocus())
                     if (s.toString() != "" && !s!!.endsWith("."))
-                        parse(s.toString(), editText2, textInputLayout2, 2, filled_exposed_dropdown.text.toString().toInt(), allowVal)
+                        parse(s.toString(), editText2, textInputLayout2, 2, filled_exposed_dropdown.text.toString().toInt(), allow(2))
                 if (s.toString() == "" && !cleared)
                     clearConverter(editText2)
-                view.rootView!!.editText2.removeTextChangedListener(this)
+                editText2.removeTextChangedListener(this)
                 Format().format(editText2)
-                view.rootView!!.editText2.addTextChangedListener(this)
+                editText2.addTextChangedListener(this)
             }
         })
         //8
         editText8.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
+            override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                var allowVal = ""
-                for (i in 0 until 8)
-                    allowVal += sym[i]
                 if (editText8.hasFocus())
                     if (s.toString() != "" && !s!!.endsWith("."))
-                        parse(s.toString(), editText8, textInputLayout8, 8, filled_exposed_dropdown.text.toString().toInt(), allowVal)
+                        parse(s.toString(), editText8, textInputLayout8, 8, filled_exposed_dropdown.text.toString().toInt(), allow(8))
                 if (s.toString() == "" && !cleared)
                     clearConverter(editText8)
-                view.rootView!!.editText8.removeTextChangedListener(this)
+                editText8.removeTextChangedListener(this)
                 Format().format(editText8)
-                view.rootView!!.editText8.addTextChangedListener(this)
+                editText8.addTextChangedListener(this)
             }
         })
         //16
         editText16.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
+            override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                var allowVal = ""
-                for (i in 0 until 16)
-                    allowVal += sym[i]
                 if (editText16!!.hasFocus())
                     if (s.toString() != "" && !s!!.endsWith(".") && editText16.hasFocus())
-                        parse(s.toString(), editText16, textInputLayout16, 16, filled_exposed_dropdown.text.toString().toInt(), allowVal)
+                        parse(s.toString(), editText16, textInputLayout16, 16, filled_exposed_dropdown.text.toString().toInt(), allow(16))
                 if (s.toString() == "" && !cleared)
                     clearConverter(editText16)
-                view.rootView!!.editText16.removeTextChangedListener(this)
+                editText16.removeTextChangedListener(this)
                 Format().format(editText16)
-                view.rootView!!.editText16.addTextChangedListener(this)
+                editText16.addTextChangedListener(this)
             }
         })
         //custom
         editTextCustom.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
+            override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                var allowVal = ""
-                if (filled_exposed_dropdown.text.toString() != "") {
-                    for (i in 0 until filled_exposed_dropdown.text.toString().toInt())
-                        allowVal += sym[i]
-                } else {
-                    for (i in 0 until 36)
-                        allowVal += sym[i]
-                }
                 editTextCustom!!.hasFocus()
                 if (s.toString() != "" && !s!!.endsWith(".") && editTextCustom.hasFocus())
-                    parse(s.toString(), editTextCustom, textInputLayoutCustom, filled_exposed_dropdown.text.toString().toInt(), null, allowVal)
+                    parse(s.toString(), editTextCustom, textInputLayoutCustom, filled_exposed_dropdown.text.toString().toInt(), null, allow(filled_exposed_dropdown.text.toString().toInt()))
                 if (s.toString() == "")
                     clearConverter(editTextCustom)
                 editTextCustom.removeTextChangedListener(this)
@@ -236,12 +200,7 @@ class ConverterFragment : Fragment() {
                         async {
                             bottomSheetInternal!!.rootView.bottomSheetScrollView.setPadding(0, bottomSheetInternal!!.rootView.bottomSheetAppBar.height - 8, 0, 0)
                             bottomSheetInternal!!.rootView.bottomSheetContent.setPadding(0, 16, 0, 0)
-//                            try {
                             parseRepeat()
-//                            } catch (e: Exception) {
-//                                Log.d("result", e.toString())
-//                                bottomSheetDialog!!.behavior.state = STATE_HIDDEN
-//                            }
                         }.join()
                         async {
                             delay(1)
