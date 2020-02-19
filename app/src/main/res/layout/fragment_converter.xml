@@ -38,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:digits="0123456789.,-"
                     android:imeOptions="actionDone|flagNoFullscreen"
-                    android:inputType="textNoSuggestions|numberDecimal"
+                    android:inputType="number"
                     android:maxLength="100"
                     android:saveEnabled="false"
                     android:singleLine="true" />
@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:digits="01.,-"
                     android:imeOptions="actionDone|flagNoFullscreen"
-                    android:inputType="textNoSuggestions|numberDecimal"
+                    android:inputType="number"
                     android:maxLength="100"
                     android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -89,7 +89,7 @@
                     android:layout_height="wrap_content"
                     android:digits="01234567.,-"
                     android:imeOptions="actionDone|flagNoFullscreen"
-                    android:inputType="textNoSuggestions|numberDecimal"
+                    android:inputType="number"
                     android:maxLength="100"
                     android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -114,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:digits="0123456789abcdefABCDEF.,-"
                     android:imeOptions="actionDone|flagNoFullscreen"
-                    android:inputType="textNoSuggestions|textVisiblePassword"
+                    android:inputType="number"
                     android:maxLength="100"
                     android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
