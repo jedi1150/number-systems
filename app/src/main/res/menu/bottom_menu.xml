@@ -4,20 +4,20 @@
 
     <item
         android:id="@+id/destination_converter"
-        android:icon="@drawable/ic_rotate_anim"
+        android:icon="@drawable/rotate"
         android:title="@string/Converter"
         android:enabled="true"
         app:showAsAction="always" />
     <item
         android:id="@+id/destination_calculator"
-        android:icon="@drawable/ic_calculator_anim"
+        android:icon="@drawable/calculator"
         android:title="@string/Calculator"
         android:enabled="true"
         app:showAsAction="always" />
     <item
         android:id="@+id/destination_settings"
-        android:icon="@drawable/ic_outline_settings_24px"
-        android:title="@string/settings"
         android:enabled="true"
+        android:icon="@drawable/outline"
+        android:title="@string/settings"
         app:showAsAction="ifRoom" />
 </menu>

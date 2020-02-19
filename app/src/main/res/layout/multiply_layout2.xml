@@ -11,7 +11,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/operand_1"
+        android:text="@string/sample_TV"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,8 +21,7 @@
         android:id="@+id/explanation_multiply2_convert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="10"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+        android:text="@string/index"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/explanation_multiply2_textView1" />
 
@@ -31,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
-        android:text="+"
+        android:text="@string/plus_symbol"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         app:layout_constraintStart_toEndOf="@+id/explanation_multiply2_convert"
         app:layout_constraintTop_toTopOf="@+id/explanation_multiply2_textView1" />

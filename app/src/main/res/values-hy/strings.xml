@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="app_name">Թվային համակարգեր</string>
+  <string name="dec">Տասնորդական (10)</string>
+  <string name="bin">Երկուական (2)</string>
+  <string name="oct">Հոկտեմբեր (8)</string>
+  <string name="hex">Hexadecimal (16)</string>
+  <string name="Converter">Փոխարկիչ</string>
+  <string name="Calculator">Հաշվիչ</string>
+  <string name="result">Արդյունք</string>
+  <string name="operand_2">Օպերա 2</string>
+  <string name="operand_1">Գործողություն 1</string>
+  <string name="explanation">Բացատրություն</string>
+  <string name="invalid_value">Անվավեր արժեք</string>
+  <string name="step_1">Փոխարկեք տասնորդական համարների համակարգ</string>
+  <string name="step_2">Կատարեք բաժանման սյունը</string>
+  <string name="step_3">Արդյունքը գրեք հակառակ հերթականությամբ</string>
+  <string name="available_characters_for_input">Ներածման համար մատչելի նիշ</string>
+  <string name="settings">Կարգավորումներ</string>
+  <string name="step_4">Թվի կոտորակի մասը բազմապատկվում է նորի հիմքով</string>
+  <string name="light">Լույս</string>
+  <string name="dark">Մութ</string>
+  <string name="battery_saver">Սահմանված է մարտկոցի խնայարարի միջոցով</string>
+  <string name="system_default">Համակարգը լռելյայն է</string>
+    <string name="language">Լեզու</string>
+  <string name="help_with_translate">Օգնեք թարգմանությանը</string>
+  <string name="base_value">Հիմք (ն)</string>
+  <string name="result_of_translate">Թարգմանության արդյունքը</string>
+  <string name="dec_length_text">Նիշերի քանակը տասնորդական կետից հետո</string>
+  <string name="add_decimal">Ավելացնել ամբողջ թվեր և կոտորակային մասեր</string>
+  <string name="choose_theme">Թեման</string>
+  <string name="other">Այլ</string>
+  <string name="copied">Պատճենվել է</string>
+</resources>

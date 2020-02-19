@@ -1,13 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 android {
     signingConfigs {
         config {
-            keyAlias ''
-            keyPassword ''
-            storeFile file('')
-            storePassword ''
         }
     }
     repositories {
@@ -18,13 +15,13 @@ android {
     }
     lintOptions { checkReleaseBuilds false }
     compileSdkVersion 29
-    buildToolsVersion '29.0.2'
+    buildToolsVersion '29.0.3'
     defaultConfig {
         applicationId 'ru.sandello.binaryconverter'
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 94
-        versionName '3.0.5'
+        versionCode 105
+        versionName '4.0.7'
         signingConfig signingConfigs.config
     }
     buildTypes {
@@ -35,19 +32,24 @@ android {
             signingConfig signingConfigs.config
             zipAlignEnabled true
         }
-        debug {
-            signingConfig signingConfigs.config
-        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    dataBinding {
+        enabled true
+    }
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.0-rc04'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.2.0-rc04'
-    implementation 'com.google.android.material:material:1.2.0-alpha03'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.1'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.2.1'
+    implementation "androidx.lifecycle:lifecycle-extensions:$archLifecycleVersion"
+    implementation 'com.google.android.material:material:1.2.0-alpha04'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.preference:preference:1.1.0'
+    implementation 'androidx.browser:browser:1.2.0'
 }

@@ -1,27 +1,29 @@
 package ru.sandello.binaryconverter
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.updatePadding
 import androidx.navigation.NavController
-import kotlinx.android.synthetic.main.activity_main.*
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import androidx.preference.PreferenceManager
+import kotlinx.android.synthetic.main.activity_main.*
 
 var fractionCount = 12
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
 
-    @SuppressLint("CommitTransaction")
-    @ExperimentalUnsignedTypes
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setNightMode()
@@ -29,7 +31,6 @@ class MainActivity : AppCompatActivity() {
 
         main_container.setOnApplyWindowInsetsListener { _, insets ->
             bottom_navigation.updatePadding(bottom = insets.systemWindowInsetBottom, right = insets.systemWindowInsetRight, left = insets.systemWindowInsetLeft)
-            fab_group.updatePadding(right = insets.systemWindowInsetRight, left = insets.systemWindowInsetLeft)
             insets
         }
 
@@ -42,6 +43,8 @@ class MainActivity : AppCompatActivity() {
             if (destination.label.toString() == "Settings") {
                 clear_fab.hide()
                 explanation_fab.hide()
+                val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(main_container.windowToken, 0)
             }
             if (destination.label.toString() == "Calculator") {
                 explanation_fab.hide()
@@ -49,13 +52,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         bottom_navigation.setOnNavigationItemReselectedListener { }
-
-        val nightModeSwitched = getSharedPreferences("nightMode", Context.MODE_PRIVATE)
-        val nightModeEditor = nightModeSwitched.edit()
-        if (nightModeSwitched.getBoolean("nightModeSwitched", false)) {
-            navController.navigate(R.id.destination_settings)
-            nightModeEditor.putBoolean("nightModeSwitched", false).apply()
-        }
     }
 
     private fun setupBottomNavMenu(navController: NavController) {
@@ -67,36 +63,39 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp() = findNavController(R.id.nav_host_fragment).navigateUp()
 
 
-    @SuppressLint("ResourceType", "InlinedApi") //Переключение ночного режима, при запуске приложения
+    @SuppressLint("InlinedApi")
     private fun setNightMode() {
         val isNightMode = this.resources.configuration.uiMode
                 .and(Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
-        Log.d("themeMode", isNightMode.toString())
         window.decorView.systemUiVisibility = (
                 View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 )
         if (!isNightMode) {
-                window.decorView.systemUiVisibility = (
-                                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                                or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-                                xor View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        )
+            window.decorView.systemUiVisibility = (
+                    View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                            or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+                            xor View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    )
         }
-        val nightModePref = getSharedPreferences("nightMode", Context.MODE_PRIVATE)
-        if (nightModePref.getInt("nightMode", 2) == 1) {
+        val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        if (sharedPreferences.getString("theme", "2") == "1") {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
         }
-        if (nightModePref.getInt("nightMode", 2) == 0) {
+        if (sharedPreferences.getString("theme", "2") == "0") {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
         }
 
-        if (nightModePref.getInt("nightMode", 2) == 2) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        if (sharedPreferences.getString("theme", "2") == "2") {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
+                delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            }
         }
     }
-
 
 }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="app_name">Číselné systémy</string>
+  <string name="dec">Desítkové (10)</string>
+  <string name="bin">Binární (2)</string>
+  <string name="oct">Oktál (8)</string>
+  <string name="hex">Šestnáctkový (16)</string>
+  <string name="Converter">Konvertor</string>
+  <string name="Calculator">Kalkulačka</string>
+  <string name="result">Výsledek</string>
+  <string name="operand_2">Operand 2</string>
+  <string name="operand_1">Operand 1</string>
+  <string name="explanation">Vysvětlení</string>
+  <string name="invalid_value">neplatná hodnota</string>
+  <string name="step_1">Převést na systém desítkových čísel</string>
+  <string name="step_2">Proveďte sloupec dělení</string>
+  <string name="step_3">Napište výsledek v obráceném pořadí</string>
+  <string name="available_characters_for_input">Dostupné znaky pro zadání</string>
+  <string name="settings">Nastavení</string>
+  <string name="step_4">Zlomková část čísla se vynásobí základem nového</string>
+  <string name="light">Světlo</string>
+  <string name="dark">Temný</string>
+  <string name="battery_saver">Nastaveno šetřičem baterie</string>
+  <string name="system_default">Výchozí systém</string>
+    <string name="language">Jazyk</string>
+  <string name="help_with_translate">Pomoc s překladem</string>
+  <string name="base_value">Základna (n)</string>
+  <string name="result_of_translate">Výsledek překladu</string>
+  <string name="dec_length_text">Počet znaků za desetinnou čárkou</string>
+  <string name="add_decimal">Přidejte celá čísla a zlomkové části</string>
+  <string name="choose_theme">Téma</string>
+  <string name="other">jiný</string>
+  <string name="copied">Zkopírováno!</string>
+</resources>

@@ -43,109 +43,74 @@
                     android:id="@+id/editTextVal1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ."
                     android:imeOptions="actionDone|flagNoFullscreen"
-                    android:inputType="textNoSuggestions"
                     android:maxLength="100"
-                    android:singleLine="true"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                    tools:ignore="RtlSymmetry" />
+                    android:singleLine="true" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout4"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="100dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textInputLayoutCustom1">
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <com.google.android.material.textview.MaterialAutoCompleteTextView
+                    android:id="@+id/spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+                    android:layout_margin="0dp"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:maxLength="100"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    tools:ignore="Deprecated" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/spinner"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="4dp"
-                android:dropDownWidth="100dp"
-                android:paddingStart="4dp"
-                android:popupBackground="?attr/colorPrimaryDark"
-                android:popupTheme="@style/Widget.MaterialComponents.PopupMenu"
-                app:layout_constraintBottom_toBottomOf="@+id/textInputLayout4"
-                app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
-                app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
-                app:layout_constraintTop_toTopOf="@+id/textInputLayout4" />
-
-            <LinearLayout
-                android:id="@+id/linearRadioGroup"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/toggleGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:orientation="horizontal"
-                android:paddingBottom="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutCustom1">
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutCustom1"
+                app:selectionRequired="true"
+                app:singleSelection="true">
 
-                <RadioGroup
-                    android:id="@+id/radioGroup"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight=".7"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/togglePlus"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/plus_symbol" />
 
-                    <RadioButton
-                        android:id="@+id/radioButtonPlus"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:checked="false"
-                        android:text="+"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/toggleMinus"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/minus_symbol" />
 
-                    <RadioButton
-                        android:id="@+id/radioButtonMinus"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_weight="0"
-                        android:checked="false"
-                        android:text="−"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/toggleMult"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/multiply_symbol" />
 
-                    <RadioButton
-                        android:id="@+id/radioButtonMult"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_weight="0"
-                        android:checked="false"
-                        android:text="×"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/toggleDiv"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/div_symbol" />
 
-                    <RadioButton
-                        android:id="@+id/radioButtonDiv"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_weight="0"
-                        android:checked="false"
-                        android:text="÷"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-                </RadioGroup>
-            </LinearLayout>
+            </com.google.android.material.button.MaterialButtonToggleGroup>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayoutCustom2"
@@ -162,49 +127,38 @@
                 app:errorEnabled="true"
                 app:layout_constraintEnd_toStartOf="@+id/textInputLayout3"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearRadioGroup">
+                app:layout_constraintTop_toBottomOf="@+id/toggleGroup">
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editTextVal2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ."
                     android:imeOptions="actionDone|flagNoFullscreen"
-                    android:inputType="textNoSuggestions"
                     android:maxLength="100"
                     android:singleLine="true"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     tools:ignore="RtlSymmetry" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout3"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textInputLayoutCustom2">
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <com.google.android.material.textview.MaterialAutoCompleteTextView
+                    android:id="@+id/spinner2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+                    android:layout_margin="0dp"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:maxLength="100"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    tools:ignore="Deprecated" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/spinner2"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="4dp"
-                android:dropDownWidth="100dp"
-                android:paddingStart="4dp"
-                android:popupBackground="?attr/colorPrimaryDark"
-                android:popupTheme="@style/Widget.MaterialComponents.PopupMenu"
-                app:layout_constraintBottom_toBottomOf="@+id/textInputLayout3"
-                app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
-                app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
-                app:layout_constraintTop_toTopOf="@+id/textInputLayout3" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayoutResult"
@@ -215,55 +169,41 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:hint="@string/result"
-                app:errorEnabled="true"
+                android:clickable="true"
                 app:layout_constraintEnd_toStartOf="@+id/textInputLayout"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutCustom2">
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutCustom2"
+                tools:ignore="KeyboardInaccessibleWidget">
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editTextResult"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:digits=""
-                    android:imeOptions="actionDone|flagNoFullscreen"
-                    android:includeFontPadding="true"
-                    android:inputType="textNoSuggestions|textCapSentences|textCapWords|textCapCharacters"
-                    android:maxLength="100"
-                    android:selectAllOnFocus="true"
-                    android:singleLine="true"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                    android:textIsSelectable="true"
-                    tools:ignore="RtlSymmetry" />
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusableInTouchMode="false" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textInputLayoutResult">
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <com.google.android.material.textview.MaterialAutoCompleteTextView
+                    android:id="@+id/spinner3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+                    android:layout_margin="0dp"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:maxLength="100"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    tools:ignore="Deprecated" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/spinner3"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="4dp"
-                android:dropDownWidth="100dp"
-                android:paddingStart="4dp"
-                android:popupBackground="?attr/colorPrimaryDark"
-                android:popupTheme="@style/Widget.MaterialComponents.PopupMenu"
-                app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
-                app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
-                app:layout_constraintStart_toStartOf="@+id/textInputLayout"
-                app:layout_constraintTop_toTopOf="@+id/textInputLayout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

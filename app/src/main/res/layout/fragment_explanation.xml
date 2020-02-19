@@ -3,21 +3,273 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cardViewSheet"
+    android:id="@+id/bottomSheetMain"
+    android:background="?attr/colorPrimaryDark"
+    android:clipToPadding="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clipChildren="false"
-    android:fitsSystemWindows="false"
-    app:cardPreventCornerOverlap="false"
-    app:cardUseCompatPadding="false">
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/bottomSheetScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <LinearLayout
+            android:id="@+id/bottomSheetContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:orientation="vertical">
+
+            <HorizontalScrollView
+                android:id="@+id/hsvConvert"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/explanationCardViewConvert"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="8dp" />
+            </HorizontalScrollView>
+
+            <View
+                android:id="@+id/dividerExp1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/dividerColor" />
+
+            <TextView
+                android:id="@+id/step1"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/step_1"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+
+            <HorizontalScrollView
+                android:id="@+id/hsv1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:scrollbarAlwaysDrawHorizontalTrack="false"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/explanationCardView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <View
+                android:id="@+id/dividerExp2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/dividerColor" />
+
+            <TextView
+                android:id="@+id/step2"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/step_2"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <HorizontalScrollView
+                android:id="@+id/hsv2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hsv1">
+
+                <LinearLayout
+                    android:id="@+id/explanationCardView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <View
+                android:id="@+id/dividerExp3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/dividerColor" />
+
+            <TextView
+                android:id="@+id/step3"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/step_3"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hsv3" />
+
+            <HorizontalScrollView
+                android:id="@+id/hsv3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/explanationCardView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <View
+                android:id="@+id/dividerExp4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/dividerColor" />
+
+            <TextView
+                android:id="@+id/step4"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/step_4"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <LinearLayout
+                android:id="@+id/explanationCardView4"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+            </LinearLayout>
+
+
+            <View
+                android:id="@+id/dividerExp5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/dividerColor" />
+
+            <TextView
+                android:id="@+id/step5"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/add_decimal"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <HorizontalScrollView
+                android:id="@+id/hsv5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/explanationCardView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+            <View
+                android:id="@+id/dividerExpAnswer"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/dividerColor" />
+
+            <TextView
+                android:id="@+id/stepAnswer"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/result_of_translate"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <HorizontalScrollView
+                android:id="@+id/hsvAnswer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/explanationCardViewAnswer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="8dp" />
+
+            </HorizontalScrollView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/bottomSheetCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimaryDark"
+        android:layout_gravity="top"
+        app:layout_anchorGravity="top"
+        app:layout_insetEdge="top">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/bottomSheetAppBar"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_gravity="top"
-            app:layout_anchorGravity="top"
-            app:layout_insetEdge="top">
+            android:layout_height="wrap_content">
 
             <View
                 android:id="@+id/divider6"
@@ -40,319 +292,83 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
 
-            <Spinner
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/spinner4"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="16dp"
                 android:minHeight="48dp"
-                android:popupBackground="?attr/colorPrimaryDark"
                 app:layout_constraintBottom_toBottomOf="@+id/revertButton"
                 app:layout_constraintEnd_toStartOf="@+id/revertButton"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider6" />
+                app:layout_constraintTop_toBottomOf="@id/divider6">
 
-            <Spinner
+                <com.google.android.material.textview.MaterialAutoCompleteTextView
+                    android:id="@+id/spinner4_dropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:maxLength="100"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    tools:ignore="Deprecated" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/spinner5"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginEnd="8dp"
                 android:minHeight="48dp"
-                android:popupBackground="?attr/colorPrimaryDark"
                 app:layout_constraintBottom_toBottomOf="@+id/revertButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/revertButton"
-                app:layout_constraintTop_toBottomOf="@id/divider6" />
+                app:layout_constraintTop_toBottomOf="@id/divider6">
 
-            <ImageButton
+                <com.google.android.material.textview.MaterialAutoCompleteTextView
+                    android:id="@+id/spinner5_dropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:maxLength="100"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    tools:ignore="Deprecated" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/revertButton"
-                style="@android:style/Widget.Material.ImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 app:layout_constraintEnd_toStartOf="@+id/guideline"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@id/divider6"
-                app:srcCompat="@drawable/ic_compare_anim"
+                app:srcCompat="@drawable/compare"
                 tools:ignore="ContentDescription" />
 
-            <View
-                android:id="@+id/dividerExpMain"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="?attr/dividerColor"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <ProgressBar
+            <androidx.core.widget.ContentLoadingProgressBar
                 android:id="@+id/progressBar"
-                style="@android:style/Widget.Material.ProgressBar.Horizontal"
+                style="@android:style/Widget.Material.ProgressBar.Large"
                 android:layout_width="0dp"
-                android:layout_height="12dp"
+                android:layout_height="wrap_content"
                 android:indeterminate="true"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@+id/dividerExpMain"
+                app:layout_constraintBottom_toBottomOf="@+id/revertButton"
+                app:layout_constraintEnd_toStartOf="@+id/spinner5"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/dividerExpMain" />
+                app:layout_constraintStart_toEndOf="@+id/spinner4"
+                app:layout_constraintTop_toTopOf="@+id/revertButton" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/bottomSheetScrollView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:animateLayoutChanges="true"
-            android:animationCache="true"
-            android:fitsSystemWindows="true"
-            app:layout_dodgeInsetEdges="top">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
-                android:orientation="vertical">
-
-                <HorizontalScrollView
-                    android:id="@+id/hsvConvert"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="none"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <LinearLayout
-                        android:id="@+id/explanationCardViewConvert"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:padding="8dp" />
-                </HorizontalScrollView>
-
-                <View
-                    android:id="@+id/dividerExp1"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="?attr/dividerColor" />
-
-                <TextView
-                    android:id="@+id/step1"
-                    style="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/step_1"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
-
-                <HorizontalScrollView
-                    android:id="@+id/hsv1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:scrollbarAlwaysDrawHorizontalTrack="false"
-                    android:scrollbars="none">
-
-                    <LinearLayout
-                        android:id="@+id/explanationCardView1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:orientation="horizontal"
-                        android:padding="8dp">
-
-                    </LinearLayout>
-                </HorizontalScrollView>
-
-                <View
-                    android:id="@+id/dividerExp2"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="?attr/dividerColor" />
-
-                <TextView
-                    android:id="@+id/step2"
-                    style="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/step_2"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-                <HorizontalScrollView
-                    android:id="@+id/hsv2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:scrollbars="none"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/hsv1">
-
-                    <LinearLayout
-                        android:id="@+id/explanationCardView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:orientation="horizontal"
-                        android:padding="8dp">
-
-                    </LinearLayout>
-                </HorizontalScrollView>
-
-                <View
-                    android:id="@+id/dividerExp3"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="?attr/dividerColor" />
-
-                <TextView
-                    android:id="@+id/step3"
-                    style="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/step_3"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/hsv3" />
-
-                <HorizontalScrollView
-                    android:id="@+id/hsv3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:scrollbars="none">
-
-                    <LinearLayout
-                        android:id="@+id/explanationCardView3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:orientation="horizontal"
-                        android:padding="8dp">
-
-                    </LinearLayout>
-                </HorizontalScrollView>
-
-                <View
-                    android:id="@+id/dividerExp4"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="?attr/dividerColor" />
-
-                <TextView
-                    android:id="@+id/step4"
-                    style="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/step_4"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-                <LinearLayout
-                    android:id="@+id/explanationCardView4"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:padding="8dp">
-
-                </LinearLayout>
-
-
-                <View
-                    android:id="@+id/dividerExp5"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="?attr/dividerColor" />
-
-                <TextView
-                    android:id="@+id/step5"
-                    style="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/addDecimal"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-                <HorizontalScrollView
-                    android:id="@+id/hsv5"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="8dp"
-                    android:orientation="horizontal"
-                    android:scrollbars="none">
-
-                    <LinearLayout
-                        android:id="@+id/explanationCardView5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="8dp">
-
-                    </LinearLayout>
-
-                </HorizontalScrollView>
-
-                <View
-                    android:id="@+id/dividerExpAnswer"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="?attr/dividerColor" />
-
-                <TextView
-                    android:id="@+id/stepAnswer"
-                    style="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/resultOfTranslate"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-                <HorizontalScrollView
-                    android:id="@+id/hsvAnswer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:orientation="horizontal"
-                    android:scrollbars="none">
-
-                    <LinearLayout
-                        android:id="@+id/explanationCardViewAnswer"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="8dp" />
-
-                </HorizontalScrollView>
-
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

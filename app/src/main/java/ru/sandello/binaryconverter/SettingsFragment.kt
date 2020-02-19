@@ -1,71 +1,102 @@
 package ru.sandello.binaryconverter
 
-import android.annotation.SuppressLint
-import android.content.Context
+import android.content.DialogInterface
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.fragment.app.Fragment
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.android.synthetic.main.fragment_settings.*
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.view.updatePadding
+import androidx.preference.ListPreference
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
+import kotlinx.android.synthetic.main.activity_main.view.*
 
-class SettingsFragment : Fragment() {
 
-    private val nightModePref by lazy {  context!!.getSharedPreferences("nightMode", Context.MODE_PRIVATE) }
+class SettingsFragment : PreferenceFragmentCompat() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_settings, container, false)
-    }
-
-    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        view.setOnApplyWindowInsetsListener { it, insets ->
+            it.updatePadding(bottom = view.rootView.bottom_navigation.height, right = insets.systemWindowInsetRight, left = insets.systemWindowInsetLeft)
+            insets
+        }
+    }
 
-        textViewComma.text = getString(R.string.decLengthText) + ": " + (fractionCount)
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        setPreferencesFromResource(R.xml.root_preferences, rootKey)
+        val themePref = findPreference("theme") as ListPreference?
+        val languagePref = findPreference("language") as ListPreference?
+        val commaPref = findPreference("comma") as ListPreference?
+        val translatePref = findPreference("translate") as Preference?
+        val githubPref = findPreference("github") as Preference?
 
-        theme_switch.setOnClickListener {
-            var items = arrayOf(getString(R.string.light), getString(R.string.dark))
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                items = arrayOf(getString(R.string.light), getString(R.string.dark), getString(R.string.system_default))
+        var themeEntries = arrayOf(getString(R.string.light), getString(R.string.dark), getString(R.string.battery_saver))
+        val themeEntryValues = arrayOf("0", "1", "2")
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            themePref?.setOnPreferenceChangeListener { _, newValue ->
+                when (newValue.toString()) {
+                    "0" -> setTheme(AppCompatDelegate.MODE_NIGHT_NO)
+                    "1" -> setTheme(AppCompatDelegate.MODE_NIGHT_YES)
+                    "2" -> setTheme(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
+                }
+                true
             }
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            themeEntries = arrayOf(getString(R.string.light), getString(R.string.dark), getString(R.string.system_default))
+            themePref?.setOnPreferenceChangeListener { _, newValue ->
+                when (newValue.toString()) {
+                    "0" -> setTheme(AppCompatDelegate.MODE_NIGHT_NO)
+                    "1" -> setTheme(AppCompatDelegate.MODE_NIGHT_YES)
+                    "2" -> setTheme(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                }
+                true
+            }
+        }
+        themePref?.entries = themeEntries
+        themePref?.entryValues = themeEntryValues
+        if (themePref?.value == null)
+            themePref?.setValueIndex(2)
 
-            MaterialAlertDialogBuilder(context)
-                    .setTitle(getString(R.string.chooseTheme))
-                    .setSingleChoiceItems(items, nightModePref.getInt("nightMode", 2)) { dialogInterface, i ->
-                        when (i) {
-                            0 -> setTheme(AppCompatDelegate.MODE_NIGHT_NO, 0)
-                            1 -> setTheme(AppCompatDelegate.MODE_NIGHT_YES, 1)
-                            2 -> setTheme(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM, 2)
-                        }
-                        dialogInterface.cancel()
-                    }
-                    .setNegativeButton(getString(R.string.cancel)) { dialogInterface, _ -> dialogInterface.cancel() }
-                    .show()
+
+
+        val languageEntries = resources.getStringArray(R.array.language_array)
+        val languageEntryValues = resources.getStringArray(R.array.language_locale_array)
+        languagePref?.entries = languageEntries
+        languagePref?.entryValues = languageEntryValues
+        val commaEntries = resources.getStringArray(R.array.comma_array)
+        val commaEntryValues = resources.getStringArray(R.array.comma_array)
+        commaPref?.setOnPreferenceChangeListener { _, newValue ->
+            fractionCount = newValue.toString().toInt()
+            true
+        }
+        commaPref?.entries = commaEntries
+        commaPref?.entryValues = commaEntryValues
+        if (commaPref?.value == null)
+            commaPref?.value = "12"
+
+        translatePref?.setOnPreferenceClickListener {
+            val url = "https://t.me/jedi1150"
+            val builder = CustomTabsIntent.Builder()
+            val customTabsIntent = builder.build()
+            customTabsIntent.launchUrl(context!!, Uri.parse(url))
+            true
         }
 
-        seekBarComma.value = (fractionCount).toFloat()
-        seekBarComma.setOnChangeListener { _, value ->
-            @SuppressLint("SetTextI18n")
-                fractionCount = (value).toInt()
-                textViewComma.text = getString(R.string.decLengthText) + ": " + (value.toInt())
-                val sharedPref = context!!.getSharedPreferences("decLength", Context.MODE_PRIVATE)
-                val editor = sharedPref.edit()
-                editor.putInt("decLength", (value).toInt()).apply()
-
+        githubPref?.setOnPreferenceClickListener {
+            val url = "https://github.com/jedi1150/Number-Systems"
+            val builder = CustomTabsIntent.Builder()
+            val customTabsIntent = builder.build()
+            customTabsIntent.launchUrl(context!!, Uri.parse(url))
+            true
         }
     }
 
-    private fun setTheme(themeMode: Int, prefsMode: Int) {
-        AppCompatDelegate.setDefaultNightMode(themeMode)
+    private fun setTheme(themeMode: Int) {
         (activity as AppCompatActivity).delegate.localNightMode = themeMode
-        saveTheme(prefsMode)
+        AppCompatDelegate.setDefaultNightMode(themeMode)
     }
-
-    private fun saveTheme(theme: Int) = nightModePref.edit().putInt("nightMode", theme).apply()
-
 }

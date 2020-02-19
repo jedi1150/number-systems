@@ -1,30 +1,34 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <string name="app_name">Системы Счисления</string>
-    <string name="dec">Десятичная (10)</string>
-    <string name="bin">Двоичная (2)</string>
-    <string name="oct">Восьмеричная (8)</string>
-    <string name="hex">Шестнадцатеричная (16)</string>
-    <string name="freeValue">Основание (n)</string>
-    <string name="Converter">Конвертер</string>
-    <string name="Calculator">Калькулятор</string>
-    <string name="result">Результат</string>
-    <string name="operand_2">Операнд 2</string>
-    <string name="operand_1">Операнд 1</string>
-    <string name="explanation">Решение</string>
-    <string name="invalid_value">Недопустимое значение</string>
-    <string name="step_1">Конвертируем в десятичную систему счисления</string>
-    <string name="step_2">Выполняем деление столбиком целой части числа</string>
-    <string name="step_3">Полученный результат записать в обратной последовательности</string>
-    <string name="available_characters_for_input">Доступные символы для ввода</string>
-    <string name="settings">Настройки</string>
-    <string name="step_4" translatable="false">Дробная часть числа находится умножением на основание новой</string>
-    <string name="decLengthText">Количество знаков после запятой</string>
-    <string name="resultOfTranslate">Результат перевода</string>
-    <string name="addDecimal">Складываем целую и дробные части</string>
-    <string name="dark">Темная</string>
-    <string name="light">Светлая</string>
-    <string name="chooseTheme">Тема</string>
-    <string name="cancel">Отмена</string>
-    <string name="system_default">Как в системе</string>
+  <string name="app_name">Системы Счисления</string>
+  <string name="dec">Десятичная (10)</string>
+  <string name="bin">Двоичная (2)</string>
+  <string name="oct">Восьмеричная (8)</string>
+  <string name="hex">Шестнадцатеричная (16)</string>
+  <string name="Converter">Конвертер</string>
+  <string name="Calculator">Калькулятор</string>
+  <string name="result">Результат</string>
+  <string name="operand_2">Операнд 2</string>
+  <string name="operand_1">Операнд 1</string>
+  <string name="explanation">Решение</string>
+  <string name="invalid_value">Недопустимое значение</string>
+  <string name="step_1">Конвертируем в десятичную систему счисления</string>
+  <string name="step_2">Выполняем деление столбиком целой части числа</string>
+  <string name="step_3">Полученный результат записать в обратной последовательности</string>
+  <string name="available_characters_for_input">Доступные символы для ввода</string>
+  <string name="settings">Настройки</string>
+  <string name="step_4">Дробная часть числа находится умножением на основание новой</string>
+  <string name="light">Светлая</string>
+  <string name="dark">Темная</string>
+  <string name="battery_saver">Устанавливается режимом энергосбережения</string>
+  <string name="system_default">Как в системе</string>
+    <string name="language">Язык</string>
+  <string name="help_with_translate">Помочь с переводом</string>
+  <string name="base_value">Основание (n)</string>
+  <string name="result_of_translate">Результат перевода</string>
+  <string name="dec_length_text">Количество символов после запятой</string>
+  <string name="add_decimal">Добавьте целые и дробные части</string>
+  <string name="choose_theme">Тема</string>
+  <string name="other">Прочее</string>
+  <string name="copied">Скопировано</string>
 </resources>
