@@ -10,6 +10,6 @@ BIN, OCT, DEC, HEX
 
 Complete translation solution
 
-Translated by <a href='https://lokalise.com'>Lokalise</a>
+App translated by <a href='https://lokalise.com'>Lokalise</a>
 
 <a href='https://play.google.com/store/apps/details?id=ru.sandello.binaryconverter'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' width='200'/></a>
