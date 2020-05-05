@@ -11,18 +11,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.activity_main.view.bottom_navigation
+import kotlinx.android.synthetic.main.activity_main.view.main_container
 import kotlinx.android.synthetic.main.answer_layout.view.*
 import kotlinx.android.synthetic.main.div_layout.view.*
 import kotlinx.android.synthetic.main.frag_layout.view.*
 import kotlinx.android.synthetic.main.fragment_converter.*
 import kotlinx.android.synthetic.main.fragment_converter.view.*
+import kotlinx.android.synthetic.main.fragment_explanation.*
 import kotlinx.android.synthetic.main.fragment_explanation.view.*
+import kotlinx.android.synthetic.main.fragment_explanation.view.bottomSheetMain
 import kotlinx.android.synthetic.main.multiply_layout.view.*
 import kotlinx.android.synthetic.main.multiply_layout2.view.*
 import kotlinx.android.synthetic.main.multiply_layout3.view.*
@@ -50,7 +56,7 @@ class ConverterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         load()
-        bottomSheetDialog = BottomSheetDialog(view.context)
+        bottomSheetDialog = BottomSheetDialog(view.rootView.context)
         bottomSheetDialog!!.setContentView(R.layout.fragment_explanation)
         bottomSheetInternal = bottomSheetDialog!!.findViewById(R.id.bottomSheetMain)
         bottomSheetDialog!!.behavior.skipCollapsed = true
@@ -64,7 +70,7 @@ class ConverterFragment : Fragment() {
 
             override fun onSlide(bottomSheet: View, slideOffset: Float) {}
         })
-
+        
         view.rootView.clear_fab.setOnClickListener {
             editText10?.setText("")
             editText2?.setText("")
