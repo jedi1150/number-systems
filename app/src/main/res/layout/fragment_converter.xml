@@ -6,6 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    android:fillViewport="true"
     tools:context=".ConverterFragment">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -151,11 +153,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textInputLayoutCustom">
 
-                <com.google.android.material.textview.MaterialAutoCompleteTextView
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/filled_exposed_dropdown"
-                    style="@style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_margin="0dp"
                     android:editable="false"
                     android:focusableInTouchMode="false"
