@@ -26,7 +26,6 @@
 
         <Preference
             app:icon="@drawable/translate"
-            app:isPreferenceVisible="false"
             app:key="translate"
             app:title="@string/help_with_translate" />
 
