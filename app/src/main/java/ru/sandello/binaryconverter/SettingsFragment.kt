@@ -1,6 +1,5 @@
 package ru.sandello.binaryconverter
 
-import android.content.DialogInterface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -79,10 +78,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
             commaPref?.value = "12"
 
         translatePref?.setOnPreferenceClickListener {
-            val url = "https://t.me/jedi1150"
+            val url = "https://app.lokalise.com/project/500055995e428d3e42ff98.41853582/?view=multi"
             val builder = CustomTabsIntent.Builder()
             val customTabsIntent = builder.build()
-            customTabsIntent.launchUrl(context!!, Uri.parse(url))
+            customTabsIntent.launchUrl(requireContext(), Uri.parse(url))
             true
         }
 
@@ -90,7 +89,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             val url = "https://github.com/jedi1150/Number-Systems"
             val builder = CustomTabsIntent.Builder()
             val customTabsIntent = builder.build()
-            customTabsIntent.launchUrl(context!!, Uri.parse(url))
+            customTabsIntent.launchUrl(requireContext(), Uri.parse(url))
             true
         }
     }
