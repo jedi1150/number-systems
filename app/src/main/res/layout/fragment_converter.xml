@@ -116,7 +116,6 @@
                     android:layout_height="wrap_content"
                     android:digits="0123456789abcdefABCDEF.,-"
                     android:imeOptions="actionDone|flagNoFullscreen"
-                    android:inputType="number"
                     android:maxLength="100"
                     android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
