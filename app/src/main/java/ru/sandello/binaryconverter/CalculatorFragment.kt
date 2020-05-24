@@ -138,37 +138,37 @@ class CalculatorFragment : Fragment() {
     }
 
     private fun errorNull() {
-        view!!.rootView.textInputLayoutCustom1.error = null
-        view!!.rootView.textInputLayoutCustom2.error = null
-        view!!.rootView.textInputLayoutResult.error = null
+        requireView().rootView.textInputLayoutCustom1.error = null
+        requireView().rootView.textInputLayoutCustom2.error = null
+        requireView().rootView.textInputLayoutResult.error = null
     }
 
     private fun checkClear() {
         if (editTextVal1.text.toString() != "" || editTextVal2.text.toString() != "")
-            view!!.rootView.clear_fab.show()
+            requireView().rootView.clear_fab.show()
         else
-            view!!.rootView.clear_fab.hide()
+            requireView().rootView.clear_fab.hide()
     }
 
     private fun String.copyVal() {
         if (this == "calResult" && editTextResult.text.toString() != "0" && editTextResult.text.toString() != "") {
             myClip = ClipData.newPlainText("text", editTextResult.text.toString())
             myClipboard!!.setPrimaryClip(myClip!!)
-            Snackbar.make(view!!.rootView.snackbar, "${getString(R.string.copied)}: ${editTextResult.text}", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(requireView().rootView.snackbar, "${getString(R.string.copied)}: ${editTextResult.text}", Snackbar.LENGTH_SHORT).show()
         }
     }
 
     private fun load() {
-        val calculatorSave = context!!.getSharedPreferences("calculator", Context.MODE_PRIVATE)
+        val calculatorSave = requireContext().getSharedPreferences("calculator", Context.MODE_PRIVATE)
         editTextVal1.setText(calculatorSave.getString("calculator1", ""))
         editTextVal2.setText(calculatorSave.getString("calculator2", ""))
         toggleGroup.check(calculatorSave.getInt("toggle", togglePlus.id))
         val adapter = ArrayAdapter(
-                context!!,
+                requireContext(),
                 R.layout.dropdown_menu_popup_item,
                 listCustomBin)
         spinner.setText(calculatorSave.getInt("spinner1", 10).toString())
-        spinner2.setText(calculatorSave.getInt("spinner2", 2).toString())
+        spinner2.setText(calculatorSave.getInt("spinner2", 10).toString())
         spinner3.setText(calculatorSave.getInt("spinner3", 10).toString())
         spinner.setAdapter(adapter)
         spinner2.setAdapter(adapter)
@@ -177,7 +177,7 @@ class CalculatorFragment : Fragment() {
     }
 
     private fun save() {
-        val sharedPref = context!!.getSharedPreferences("calculator", Context.MODE_PRIVATE)
+        val sharedPref = requireContext().getSharedPreferences("calculator", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
         editor.putString("calculator1", editTextVal1.text.toString()).apply()
         editor.putString("calculator2", editTextVal2.text.toString()).apply()

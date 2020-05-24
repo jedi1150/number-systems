@@ -20,8 +20,8 @@ android {
         applicationId 'ru.sandello.binaryconverter'
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 106
-        versionName '4.0.8'
+        versionCode 107
+        versionName '4.0.9'
         signingConfig signingConfigs.config
     }
     buildTypes {
@@ -43,13 +43,13 @@ android {
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.1'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.2.1'
-    implementation "androidx.lifecycle:lifecycle-extensions:$archLifecycleVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.72"
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta6'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     implementation 'com.google.android.material:material:1.2.0-alpha06'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.preference:preference:1.1.0'
+    implementation 'androidx.preference:preference:1.1.1'
     implementation 'androidx.browser:browser:1.2.0'
 }

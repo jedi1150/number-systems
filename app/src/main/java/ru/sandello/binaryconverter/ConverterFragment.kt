@@ -11,24 +11,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
-import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.*
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.textfield.TextInputLayout
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
-import kotlinx.android.synthetic.main.activity_main.view.bottom_navigation
-import kotlinx.android.synthetic.main.activity_main.view.main_container
 import kotlinx.android.synthetic.main.answer_layout.view.*
 import kotlinx.android.synthetic.main.div_layout.view.*
 import kotlinx.android.synthetic.main.frag_layout.view.*
 import kotlinx.android.synthetic.main.fragment_converter.*
 import kotlinx.android.synthetic.main.fragment_converter.view.*
-import kotlinx.android.synthetic.main.fragment_explanation.*
 import kotlinx.android.synthetic.main.fragment_explanation.view.*
-import kotlinx.android.synthetic.main.fragment_explanation.view.bottomSheetMain
 import kotlinx.android.synthetic.main.multiply_layout.view.*
 import kotlinx.android.synthetic.main.multiply_layout2.view.*
 import kotlinx.android.synthetic.main.multiply_layout3.view.*
@@ -101,11 +95,11 @@ class ConverterFragment : Fragment() {
             }
         }
 
-        val spinnerSharedPref = context!!.getSharedPreferences("spinner", Context.MODE_PRIVATE)
+        val spinnerSharedPref = requireContext().getSharedPreferences("spinner", Context.MODE_PRIVATE)
         val spinnerEditor = spinnerSharedPref.edit()
 
         var adapter = ArrayAdapter(
-                context!!,
+                requireContext(),
                 R.layout.dropdown_menu_popup_item,
                 listAllBin)
         bottomSheetInternal!!.rootView.spinner4_dropdown.setText(spinnerSharedPref.getInt("SpinnerFrom", 10).toString())
@@ -234,7 +228,7 @@ class ConverterFragment : Fragment() {
                     bottomSheetInternal!!.rootView.spinner4_dropdown.setText(bottomSheetInternal!!.rootView.spinner5_dropdown.text.toString())
                     bottomSheetInternal!!.rootView.spinner5_dropdown.setText(buf)
                     adapter = ArrayAdapter(
-                            context!!,
+                            requireContext(),
                             R.layout.dropdown_menu_popup_item,
                             listAllBin)
                     bottomSheetInternal!!.rootView.spinner4_dropdown.setAdapter(adapter)
@@ -292,7 +286,7 @@ class ConverterFragment : Fragment() {
             }
             job.start()
             adapter = ArrayAdapter(
-                    context!!,
+                    requireContext(),
                     R.layout.dropdown_menu_popup_item,
                     listAllBin)
         }
@@ -324,7 +318,7 @@ class ConverterFragment : Fragment() {
             }
             job.start()
             adapter = ArrayAdapter(
-                    context!!,
+                    requireContext(),
                     R.layout.dropdown_menu_popup_item,
                     listAllBin)
         }
@@ -634,8 +628,8 @@ class ConverterFragment : Fragment() {
             if (editField?.resources?.getResourceEntryName(editField.id) != "editTextCustom") editTextCustom?.setText("")
         }
         errorNull()
-        view!!.rootView.clear_fab.hide()
-        view!!.rootView.explanation_fab.hide()
+        requireView().rootView.clear_fab.hide()
+        requireView().rootView.explanation_fab.hide()
     }
 
     private fun errorNull() {
@@ -648,14 +642,14 @@ class ConverterFragment : Fragment() {
 
     private fun checkClear() {
         if (editText10.text.toString() != "" || editText2.text.toString() != "" || editText8.text.toString() != "" || editText16.text.toString() != "" || editTextCustom.text.toString() != "") {
-            view!!.rootView.clear_fab.show()
+            requireView().rootView.clear_fab.show()
             if (editText10.text.toString() != "1")
-                view!!.rootView.explanation_fab.show()
+                requireView().rootView.explanation_fab.show()
             else
-                view!!.rootView.explanation_fab.show()
+                requireView().rootView.explanation_fab.show()
         } else {
-            view!!.rootView.clear_fab.hide()
-            view!!.rootView.explanation_fab.hide()
+            requireView().rootView.clear_fab.hide()
+            requireView().rootView.explanation_fab.hide()
             editText10.setText("")
             editText2.setText("")
             editText8.setText("")
@@ -665,21 +659,21 @@ class ConverterFragment : Fragment() {
     }
 
     private fun load() {
-        val converterSave = context!!.getSharedPreferences("converter", Context.MODE_PRIVATE)
+        val converterSave = requireContext().getSharedPreferences("converter", Context.MODE_PRIVATE)
         editText10.setText(converterSave.getString("converter10", ""))
         val adapter = ArrayAdapter(
-                context!!,
+                requireContext(),
                 R.layout.dropdown_menu_popup_item,
                 listCustomBin)
         filled_exposed_dropdown.setText(converterSave.getInt("converterSpinner", 3).toString())
         filled_exposed_dropdown.setAdapter(adapter)
         if (editText10.text.toString() != "")
-            parse(converterSave.getString("converter10", "")!!, view!!.rootView.editText10, view!!.rootView.textInputLayout10, 10, filled_exposed_dropdown.text.toString().toInt(), "0123456789")
+            parse(converterSave.getString("converter10", "")!!, requireView().rootView.editText10, requireView().rootView.textInputLayout10, 10, filled_exposed_dropdown.text.toString().toInt(), "0123456789")
         checkClear()
     }
 
     private fun save() {
-        val sharedPref = context!!.getSharedPreferences("converter", Context.MODE_PRIVATE)
+        val sharedPref = requireContext().getSharedPreferences("converter", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
         editor.putString("converter10", editText10.text.toString()).apply()
         editor.putInt("converterSpinner", filled_exposed_dropdown.text.toString().toInt()).apply()
