@@ -39,7 +39,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextVal1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/toggleGroup">
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextVal2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -175,7 +175,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayoutCustom2"
                 tools:ignore="KeyboardInaccessibleWidget">
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextResult"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

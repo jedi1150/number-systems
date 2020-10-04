@@ -11,15 +11,18 @@ import androidx.core.view.updatePadding
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import kotlinx.android.synthetic.main.activity_main.view.*
+import com.google.android.play.core.review.ReviewManagerFactory
 
 
+@Suppress("DEPRECATION")
 class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.setOnApplyWindowInsetsListener { it, insets ->
-            it.updatePadding(bottom = view.rootView.bottom_navigation.height, right = insets.systemWindowInsetRight, left = insets.systemWindowInsetLeft)
+        view.setOnApplyWindowInsetsListener { v, insets ->
+            view.post {
+                v.updatePadding(top = insets.systemWindowInsetTop, bottom = insets.systemWindowInsetBottom)
+            }
             insets
         }
     }
@@ -29,6 +32,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val themePref = findPreference("theme") as ListPreference?
         val languagePref = findPreference("language") as ListPreference?
         val commaPref = findPreference("comma") as ListPreference?
+        val reviewPref = findPreference("review") as Preference?
         val translatePref = findPreference("translate") as Preference?
         val githubPref = findPreference("github") as Preference?
 
@@ -61,7 +65,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             themePref?.setValueIndex(2)
 
 
-
         val languageEntries = resources.getStringArray(R.array.language_array)
         val languageEntryValues = resources.getStringArray(R.array.language_locale_array)
         languagePref?.entries = languageEntries
@@ -76,6 +79,21 @@ class SettingsFragment : PreferenceFragmentCompat() {
         commaPref?.entryValues = commaEntryValues
         if (commaPref?.value == null)
             commaPref?.value = "12"
+
+        reviewPref?.setOnPreferenceClickListener {
+            val reviewManager = ReviewManagerFactory.create(activity)
+            val requestReviewFlow = reviewManager.requestReviewFlow()
+            requestReviewFlow.addOnCompleteListener { request ->
+                if (request.isSuccessful) {
+                    val reviewInfo = request.result
+                    val flow = reviewManager.launchReviewFlow(activity, reviewInfo)
+                    flow.addOnCompleteListener {
+                        // Обрабатываем завершение сценария оценки
+                    }
+                }
+            }
+            true
+        }
 
         translatePref?.setOnPreferenceClickListener {
             val url = "https://app.lokalise.com/project/500055995e428d3e42ff98.41853582/?view=multi"

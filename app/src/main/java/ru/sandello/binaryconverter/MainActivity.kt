@@ -13,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.updatePadding
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.preference.PreferenceManager
 import kotlinx.android.synthetic.main.activity_main.*
@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setNightMode()
         setContentView(R.layout.activity_main)
-
         main_container.setOnApplyWindowInsetsListener { _, insets ->
             bottom_navigation.updatePadding(bottom = insets.systemWindowInsetBottom, right = insets.systemWindowInsetRight, left = insets.systemWindowInsetLeft)
             insets
@@ -37,7 +36,8 @@ class MainActivity : AppCompatActivity() {
         val themePref = getSharedPreferences("decLength", Context.MODE_PRIVATE)
         fractionCount = themePref.getInt("decLength", 12)
 
-        val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
         setupBottomNavMenu(navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.label.toString() == "Settings") {
