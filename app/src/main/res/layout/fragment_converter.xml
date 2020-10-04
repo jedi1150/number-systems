@@ -60,7 +60,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout10">
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editText2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editText8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -110,13 +110,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout8">
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editText16"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:digits="0123456789abcdefABCDEF.,-"
                     android:imeOptions="actionDone|flagNoFullscreen"
-                    android:inputType="number"
                     android:maxLength="100"
                     android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -134,7 +133,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textInputLayout16">
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextCustom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

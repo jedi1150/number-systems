@@ -4,10 +4,10 @@
     android:id="@+id/main_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="false"
-    android:clipChildren="false">
+    android:clipChildren="false"
+    android:fitsSystemWindows="false">
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
@@ -22,10 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="?attr/colorBottomNavigation"
         app:elevation="0dp"
-        app:itemIconTint="@color/custom_tab_textcolors"
-        app:itemTextColor="@color/custom_tab_textcolors"
         app:menu="@menu/bottom_menu">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
@@ -47,26 +44,25 @@
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/clear_fab"
-            style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center|end"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:layout_marginTop="16dp"
-            app:backgroundTint="?attr/colorPrimaryDark"
+            android:backgroundTint="?android:attr/windowBackground"
+            android:elevation="8dp"
             app:icon="@drawable/close"
-            app:iconTint="?attr/colorInverseIcon"
+            app:iconTint="?attr/colorOnBackground"
             app:rippleColor="@color/design_default_color_error" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/explanation_fab"
-            style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton.Icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/explanation"
-            app:icon="@drawable/explanation"/>
+            app:icon="@drawable/explanation" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

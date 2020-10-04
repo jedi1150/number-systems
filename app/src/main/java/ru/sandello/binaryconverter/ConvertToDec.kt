@@ -21,9 +21,7 @@ class ConvertTo {
         if (oldString.contains("-")) {
             string = oldString.replace("-", "")
             minusBool = true
-        }
-        else
-            string = oldString
+        } else string = oldString
         fromParse = p1!!
         toParse = p2!!
 
@@ -59,7 +57,7 @@ class ConvertTo {
     }
 
     private fun fromDec(): String {
-        var res: String
+        var res = ""
         leftDecArray = string.split("[,.]".toRegex())[0].toCharArray()
         try {
             rightDecArray = string.split("[,.]".toRegex())[1].toCharArray()
@@ -70,7 +68,10 @@ class ConvertTo {
         for (i in leftDecArray) {
             left += i.toString()
         }
-        res = left.toBigInteger(10).toString(toParse).toUpperCase(Locale.getDefault()) //Перевод основной части числа в 10
+        try {
+            res = left.toBigInteger(10).toString(toParse).toUpperCase(Locale.getDefault()) //Перевод основной части числа в 10
+        } catch (e: Exception) {
+        }
         if (rightDecArray.isNotEmpty()) {
             var right = ""
             for (i in rightDecArray) {

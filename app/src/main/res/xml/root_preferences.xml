@@ -25,8 +25,12 @@
     <PreferenceCategory app:title="@string/other">
 
         <Preference
+            app:icon="@drawable/rate_review"
+            app:key="review"
+            app:title="@string/review" />
+
+        <Preference
             app:icon="@drawable/translate"
-            app:isPreferenceVisible="false"
             app:key="translate"
             app:title="@string/help_with_translate" />
 
