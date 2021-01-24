@@ -2,16 +2,16 @@
 <resources>
   <string name="app_name">সংখ্যা সিস্টেম</string>
   <string name="dec">দশমিক (10)</string>
-  <string name="bin">বাইনারি (2)</string>
-  <string name="oct">অক্টাল (8)</string>
-  <string name="hex">হেক্সাডেসিমাল (16)</string>
-  <string name="Converter">পরিবর্তক</string>
-  <string name="Calculator">গণক</string>
-  <string name="result">ফলাফল</string>
-  <string name="operand_2">অপেরাড 2</string>
-  <string name="operand_1">অপেরাড ঘ</string>
-  <string name="explanation">ব্যাখ্যা</string>
-  <string name="invalid_value">অবৈধ মান</string>
+    <string name="bin">বাইনারি (2)</string>
+    <string name="oct">অক্টাল (8)</string>
+    <string name="hex">হেক্সাডেসিমাল (16)</string>
+    <string name="Converter">পরিবর্তক</string>
+    <string name="Calculator">গণক</string>
+    <string name="result">ফলাফল</string>
+    <string name="operand_2">অপেরাড 2</string>
+    <string name="operand_1">অপেরাড ঘ</string>
+    <string name="explanation">ব্যাখ্যা</string>
+    <string name="invalid_value">অবৈধ মান</string>
     <string name="step_1">দশমিক সংখ্যা পদ্ধতিতে রূপান্তর করুন</string>
     <string name="step_2">বিভাগ কলাম সম্পাদন করুন</string>
     <string name="step_3">বিপরীত ক্রমে ফলাফল লিখুন</string>
@@ -33,4 +33,7 @@
     <string name="other">অন্যান্য</string>
     <string name="copied">অনুলিপি করা</string>
     <string name="review">অ্যাপ্লিকেশন এবং পর্যালোচনা রেট</string>
+    <string name="ad">বিজ্ঞাপন</string>
+    <string name="adWatch">বিজ্ঞাপন দেখুন</string>
+    <string name="adMessage">ওহে!\nআমরা সত্যিই বিজ্ঞাপনগুলি যুক্ত করতে চাইনি, তবে আমাদের আর্থিক সহায়তা প্রয়োজন। সুতরাং আপনি বিজ্ঞাপন দেখতে বা অপ্ট আউট করতে পারেন। attention\nমনোযোগ দেওয়ার জন্য ধন্যবাদ!</string>
 </resources>

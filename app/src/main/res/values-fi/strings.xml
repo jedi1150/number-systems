@@ -2,16 +2,16 @@
 <resources>
   <string name="app_name">Numerojärjestelmät</string>
   <string name="dec">Desimaali (10)</string>
-  <string name="bin">Binaari (2)</string>
-  <string name="oct">Oktaali (8)</string>
-  <string name="hex">Heksadesimaali (16)</string>
-  <string name="Converter">Muunnin</string>
-  <string name="Calculator">Laskin</string>
-  <string name="result">Tulos</string>
-  <string name="operand_2">Operandi 2</string>
-  <string name="operand_1">Operandi 1</string>
-  <string name="explanation">Selitys</string>
-  <string name="invalid_value">Kelpaamaton arvo</string>
+    <string name="bin">Binaari (2)</string>
+    <string name="oct">Oktaali (8)</string>
+    <string name="hex">Heksadesimaali (16)</string>
+    <string name="Converter">Muunnin</string>
+    <string name="Calculator">Laskin</string>
+    <string name="result">Tulos</string>
+    <string name="operand_2">Operandi 2</string>
+    <string name="operand_1">Operandi 1</string>
+    <string name="explanation">Selitys</string>
+    <string name="invalid_value">Kelpaamaton arvo</string>
     <string name="step_1">Muunna desimaalilukujärjestelmäksi</string>
     <string name="step_2">Suorita jako-sarake</string>
     <string name="step_3">Kirjoita tulos käänteisessä järjestyksessä</string>
@@ -33,4 +33,7 @@
     <string name="other">muut</string>
     <string name="copied">Kopioida</string>
     <string name="review">Arvioi sovellus ja arvostelu</string>
+    <string name="ad">Ilmoitus</string>
+    <string name="adWatch">katso Ad</string>
+    <string name="adMessage">Hei!\nEmme todellakaan halunneet lisätä mainoksia, mutta tarvitsemme taloudellista tukea. Joten voit katsella mainoksia tai kieltäytyä.\nKiitos huomiosta!</string>
 </resources>

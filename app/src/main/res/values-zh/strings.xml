@@ -2,16 +2,16 @@
 <resources>
   <string name="app_name">編號系統</string>
   <string name="dec">小數（10）</string>
-  <string name="bin">二進制（2）</string>
-  <string name="oct">八進制（8）</string>
-  <string name="hex">十六進制（16）</string>
-  <string name="Converter">轉換器</string>
-  <string name="Calculator">計算器</string>
-  <string name="result">結果</string>
-  <string name="operand_2">操作數2</string>
-  <string name="operand_1">操作數1</string>
-  <string name="explanation">說明</string>
-  <string name="invalid_value">無效值</string>
+    <string name="bin">二進制（2）</string>
+    <string name="oct">八進制（8）</string>
+    <string name="hex">十六進制（16）</string>
+    <string name="Converter">轉換器</string>
+    <string name="Calculator">計算器</string>
+    <string name="result">結果</string>
+    <string name="operand_2">操作數2</string>
+    <string name="operand_1">操作數1</string>
+    <string name="explanation">說明</string>
+    <string name="invalid_value">無效值</string>
     <string name="step_1">轉換為十進制數字系統</string>
     <string name="step_2">執行除法列</string>
     <string name="step_3">以相反順序寫結果</string>
@@ -33,4 +33,7 @@
     <string name="other">其他</string>
     <string name="copied">複製的</string>
     <string name="review">為應用評分並進行評論</string>
+    <string name="ad">廣告</string>
+    <string name="adWatch">觀看廣告</string>
+    <string name="adMessage">嗨！\n我們確實不想添加廣告，但是我們需要財務支持。因此，您可以觀看廣告或選擇退出。\n感謝您的關注！</string>
 </resources>

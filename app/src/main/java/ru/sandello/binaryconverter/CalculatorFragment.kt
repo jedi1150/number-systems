@@ -75,7 +75,7 @@ class CalculatorFragment : Fragment() {
         editTextVal1.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 view.rootView!!.editTextVal1.removeTextChangedListener(this)
-                Format().format(editTextVal1)
+                Format().format(editTextVal1!!)
                 view.rootView!!.editTextVal1.addTextChangedListener(this)
             }
 
@@ -89,7 +89,7 @@ class CalculatorFragment : Fragment() {
         editTextVal2.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 view.rootView!!.editTextVal2.removeTextChangedListener(this)
-                Format().format(editTextVal2)
+                Format().format(editTextVal2!!)
                 view.rootView!!.editTextVal2.addTextChangedListener(this)
             }
 

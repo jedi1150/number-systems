@@ -12,6 +12,7 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.play.core.review.ReviewManagerFactory
+import kotlinx.android.synthetic.main.activity_main.view.*
 
 
 @Suppress("DEPRECATION")
@@ -21,7 +22,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         super.onViewCreated(view, savedInstanceState)
         view.setOnApplyWindowInsetsListener { v, insets ->
             view.post {
-                v.updatePadding(top = insets.systemWindowInsetTop, bottom = insets.systemWindowInsetBottom)
+                v.updatePadding(top = insets.systemWindowInsetTop, bottom = view.rootView.bottom_navigation.height)
             }
             insets
         }
@@ -81,12 +82,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
             commaPref?.value = "12"
 
         reviewPref?.setOnPreferenceClickListener {
-            val reviewManager = ReviewManagerFactory.create(activity)
+            val reviewManager = ReviewManagerFactory.create(requireContext())
             val requestReviewFlow = reviewManager.requestReviewFlow()
             requestReviewFlow.addOnCompleteListener { request ->
                 if (request.isSuccessful) {
                     val reviewInfo = request.result
-                    val flow = reviewManager.launchReviewFlow(activity, reviewInfo)
+                    val flow = reviewManager.launchReviewFlow(requireActivity(), reviewInfo)
                     flow.addOnCompleteListener {
                         // Обрабатываем завершение сценария оценки
                     }

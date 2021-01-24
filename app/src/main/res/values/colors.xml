@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#5F96E4</color>
+    <color name="colorLight">#ffffff</color>
     <color name="colorDark">#202125</color>
+    <color name="transparentLight">#E6FFFFFF</color>
+    <color name="transparentDark">#E6202125</color>
     <color name="grayDark">#47484d</color>
     <color name="grayLight">#efefef</color>
-    <color name="white">#fff</color>
     <color name="black">#000</color>
-    <color name="disabled">#757575</color>
 </resources>

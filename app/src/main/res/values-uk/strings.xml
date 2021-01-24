@@ -2,16 +2,16 @@
 <resources>
   <string name="app_name">Системи числення</string>
   <string name="dec">Десяткові (10)</string>
-  <string name="bin">Двійкові (2)</string>
-  <string name="oct">Октал (8)</string>
-  <string name="hex">Шестидесятковий (16)</string>
-  <string name="Converter">Перетворювач</string>
-  <string name="Calculator">Калькулятор</string>
-  <string name="result">Результат</string>
-  <string name="operand_2">Операнд 2</string>
-  <string name="operand_1">Операнд 1</string>
-  <string name="explanation">Пояснення</string>
-  <string name="invalid_value">Недійсне значення</string>
+    <string name="bin">Двійкові (2)</string>
+    <string name="oct">Октал (8)</string>
+    <string name="hex">Шестидесятковий (16)</string>
+    <string name="Converter">Перетворювач</string>
+    <string name="Calculator">Калькулятор</string>
+    <string name="result">Результат</string>
+    <string name="operand_2">Операнд 2</string>
+    <string name="operand_1">Операнд 1</string>
+    <string name="explanation">Пояснення</string>
+    <string name="invalid_value">Недійсне значення</string>
     <string name="step_1">Перетворити в десяткову систему числення</string>
     <string name="step_2">Виконайте стовпчик поділу</string>
     <string name="step_3">Результат запишіть у зворотному порядку</string>
@@ -33,4 +33,7 @@
     <string name="other">Інші</string>
     <string name="copied">Скопійовані</string>
     <string name="review">Оцініть додаток та огляд</string>
+    <string name="ad">Оголошення</string>
+    <string name="adWatch">дивитися рекламу</string>
+    <string name="adMessage">Привіт!\nМи дійсно не хотіли додавати рекламу, але нам потрібна фінансова підтримка. Тож ви можете переглядати рекламу або відмовитись.\nДякую за увагу!</string>
 </resources>

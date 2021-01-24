@@ -2,16 +2,16 @@
 <resources>
   <string name="app_name">Číselné systémy</string>
   <string name="dec">Desítkové (10)</string>
-  <string name="bin">Binární (2)</string>
-  <string name="oct">Oktál (8)</string>
-  <string name="hex">Šestnáctkový (16)</string>
-  <string name="Converter">Konvertor</string>
-  <string name="Calculator">Kalkulačka</string>
-  <string name="result">Výsledek</string>
-  <string name="operand_2">Operand 2</string>
-  <string name="operand_1">Operand 1</string>
-  <string name="explanation">Vysvětlení</string>
-  <string name="invalid_value">neplatná hodnota</string>
+    <string name="bin">Binární (2)</string>
+    <string name="oct">Oktál (8)</string>
+    <string name="hex">Šestnáctkový (16)</string>
+    <string name="Converter">Konvertor</string>
+    <string name="Calculator">Kalkulačka</string>
+    <string name="result">Výsledek</string>
+    <string name="operand_2">Operand 2</string>
+    <string name="operand_1">Operand 1</string>
+    <string name="explanation">Vysvětlení</string>
+    <string name="invalid_value">neplatná hodnota</string>
     <string name="step_1">Převést na systém desítkových čísel</string>
     <string name="step_2">Proveďte sloupec dělení</string>
     <string name="step_3">Napište výsledek v obráceném pořadí</string>
@@ -33,4 +33,7 @@
     <string name="other">jiný</string>
     <string name="copied">Zkopírováno!</string>
     <string name="review">Ohodnoťte aplikaci a recenzi</string>
+    <string name="ad">Inzerát</string>
+    <string name="adWatch">sledovat reklamu</string>
+    <string name="adMessage">Ahoj!\nOpravdu jsme nechtěli přidávat reklamy, ale potřebujeme finanční podporu. Můžete tedy sledovat reklamy nebo se odhlásit.\nDíky za pozornost!</string>
 </resources>
