@@ -3,6 +3,5 @@
     <declare-styleable name="themeColor">
         <attr name="iconColor" format="color" />
         <attr name="transparentSurface" format="color" />
-        <attr name="iconColorDisabled" format="color" />
     </declare-styleable>
 </resources>

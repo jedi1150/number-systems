@@ -112,14 +112,14 @@ class ConverterFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (editText10.hasFocus()) {
+                if (editText10!!.hasFocus()) {
                     if (s.toString() != "" && !s!!.endsWith("."))
                         parse(s.toString(), editText10, textInputLayout10, 10, filled_exposed_dropdown.text.toString().toInt(), allow(10))
                     if (s.toString() == "" && !cleared)
                         clearConverter(editText10)
                 }
                 editText10.removeTextChangedListener(this)
-                Format().format(editText10)
+                Format().format(editText10!!)
                 editText10.addTextChangedListener(this)
             }
         })
@@ -128,13 +128,13 @@ class ConverterFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (editText2.hasFocus())
+                if (editText2!!.hasFocus())
                     if (s.toString() != "" && !s!!.endsWith("."))
                         parse(s.toString(), editText2, textInputLayout2, 2, filled_exposed_dropdown.text.toString().toInt(), allow(2))
                 if (s.toString() == "" && !cleared)
                     clearConverter(editText2)
                 editText2.removeTextChangedListener(this)
-                Format().format(editText2)
+                Format().format(editText2!!)
                 editText2.addTextChangedListener(this)
             }
         })
@@ -143,13 +143,13 @@ class ConverterFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (editText8.hasFocus())
+                if (editText8!!.hasFocus())
                     if (s.toString() != "" && !s!!.endsWith("."))
                         parse(s.toString(), editText8, textInputLayout8, 8, filled_exposed_dropdown.text.toString().toInt(), allow(8))
                 if (s.toString() == "" && !cleared)
                     clearConverter(editText8)
                 editText8.removeTextChangedListener(this)
-                Format().format(editText8)
+                Format().format(editText8!!)
                 editText8.addTextChangedListener(this)
             }
         })
@@ -164,7 +164,7 @@ class ConverterFragment : Fragment() {
                 if (s.toString() == "" && !cleared)
                     clearConverter(editText16)
                 editText16.removeTextChangedListener(this)
-                Format().format(editText16)
+                Format().format(editText16!!)
                 editText16.addTextChangedListener(this)
             }
         })
@@ -179,7 +179,7 @@ class ConverterFragment : Fragment() {
                 if (s.toString() == "")
                     clearConverter(editTextCustom)
                 editTextCustom.removeTextChangedListener(this)
-                Format().format(editTextCustom)
+                Format().format(editTextCustom!!)
                 editTextCustom.addTextChangedListener(this)
             }
         })
@@ -242,7 +242,7 @@ class ConverterFragment : Fragment() {
                 }.join()
                 async {
                     try {
-                        if (editText10.text.toString() != "")
+                        if (editText10!!.text.toString() != "")
                             parseRepeat()
                     } catch (e: Exception) {
                         bottomSheetDialog!!.behavior.state = STATE_HIDDEN

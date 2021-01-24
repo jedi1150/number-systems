@@ -2,16 +2,16 @@
 <resources>
   <string name="app_name">Сандық жүйелер</string>
   <string name="dec">Ондық (10)</string>
-  <string name="bin">Екілік (2)</string>
-  <string name="oct">Қазан (8)</string>
-  <string name="hex">Оналтылық (16)</string>
-  <string name="Converter">Конвертер</string>
-  <string name="Calculator">Калькулятор</string>
-  <string name="result">Нәтиже</string>
-  <string name="operand_2">2</string>
-  <string name="operand_1">1</string>
-  <string name="explanation">Түсіндіру</string>
-  <string name="invalid_value">Жарамсыз мән</string>
+    <string name="bin">Екілік (2)</string>
+    <string name="oct">Қазан (8)</string>
+    <string name="hex">Оналтылық (16)</string>
+    <string name="Converter">Конвертер</string>
+    <string name="Calculator">Калькулятор</string>
+    <string name="result">Нәтиже</string>
+    <string name="operand_2">2</string>
+    <string name="operand_1">1</string>
+    <string name="explanation">Түсіндіру</string>
+    <string name="invalid_value">Жарамсыз мән</string>
     <string name="step_1">Ондық сандар жүйесіне түрлендіру</string>
     <string name="step_2">Бөлу бағанын орындаңыз</string>
     <string name="step_3">Нәтижені кері ретпен жазыңыз</string>
@@ -33,4 +33,7 @@
     <string name="other">Басқа</string>
     <string name="copied">Көшірілген</string>
     <string name="review">Қолданбаға баға беріңіз және шолыңыз</string>
+    <string name="ad">Жарнама</string>
+    <string name="adWatch">қарау Ad</string>
+    <string name="adMessage">Сәлем!\nБіз шынымен де жарнама қосқымыз келмеді, бірақ бізге қаржылық қолдау қажет. Сонымен, сіз жарнамаларды көре аласыз немесе одан бас тарта аласыз.\nНазар аударғаныңызға рақмет!</string>
 </resources>

@@ -2,16 +2,16 @@
 <resources>
   <string name="app_name">Zahlensysteme</string>
   <string name="dec">Dezimal (10)</string>
-  <string name="bin">Binär (2)</string>
-  <string name="oct">Oktal (8)</string>
-  <string name="hex">Hexadezimal (16)</string>
-  <string name="Converter">Konverter</string>
-  <string name="Calculator">Taschenrechner</string>
-  <string name="result">Ergebnis</string>
-  <string name="operand_2">Operand 2</string>
-  <string name="operand_1">Operand 1</string>
-  <string name="explanation">Erläuterung</string>
-  <string name="invalid_value">Ungültiger Wert</string>
+    <string name="bin">Binär (2)</string>
+    <string name="oct">Oktal (8)</string>
+    <string name="hex">Hexadezimal (16)</string>
+    <string name="Converter">Konverter</string>
+    <string name="Calculator">Taschenrechner</string>
+    <string name="result">Ergebnis</string>
+    <string name="operand_2">Operand 2</string>
+    <string name="operand_1">Operand 1</string>
+    <string name="explanation">Erläuterung</string>
+    <string name="invalid_value">Ungültiger Wert</string>
     <string name="step_1">In Dezimalzahlensystem konvertieren</string>
     <string name="step_2">Führen Sie die Teilungsspalte aus</string>
     <string name="step_3">Schreiben Sie das Ergebnis in umgekehrter Reihenfolge</string>
@@ -33,4 +33,7 @@
     <string name="other">Andere</string>
     <string name="copied">Kopiert</string>
     <string name="review">Bewerten Sie die App und bewerten Sie sie</string>
+    <string name="ad">Anzeige</string>
+    <string name="adWatch">Anzeige ansehen</string>
+    <string name="adMessage">Hallo!\nWir wollten wirklich keine Anzeigen hinzufügen, aber wir brauchen finanzielle Unterstützung. So können Sie Anzeigen sehen oder sich abmelden.\nDanke für die Aufmerksamkeit!</string>
 </resources>

@@ -1,1 +1,9 @@
 *.iml
+/KeyStore.jks
+.gradle/
+README.md~Update README.md
+app/google-services.json
+app/release/
+app/src/main/res/values-w820dp/
+build/
+local.properties

@@ -71,7 +71,7 @@
         android:id="@+id/divider"
         android:layout_width="1dp"
         android:layout_height="0dp"
-        android:background="?attr/iconColorDisabled"
+        android:background="?attr/iconColor"
         app:layout_constraintBottom_toBottomOf="@+id/divider3"
         app:layout_constraintStart_toEndOf="@+id/divider3"
         app:layout_constraintTop_toTopOf="@+id/textView1" />
@@ -80,7 +80,7 @@
         android:id="@+id/divider2"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:background="?attr/iconColorDisabled"
+        android:background="?attr/iconColor"
         app:layout_constraintEnd_toEndOf="@+id/textView4"
         app:layout_constraintStart_toEndOf="@+id/divider"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -89,7 +89,7 @@
         android:id="@+id/divider3"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:background="?attr/iconColorDisabled"
+        android:background="?attr/iconColor"
         app:layout_constraintEnd_toEndOf="@+id/divider"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"

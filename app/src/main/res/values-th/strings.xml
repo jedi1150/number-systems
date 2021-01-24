@@ -2,16 +2,16 @@
 <resources>
   <string name="app_name">ระบบตัวเลข</string>
   <string name="dec">ทศนิยม (10)</string>
-  <string name="bin">ไบนารี (2)</string>
-  <string name="oct">แปดด้าน (8)</string>
-  <string name="hex">เลขฐานสิบหก (16)</string>
-  <string name="Converter">แปลง</string>
-  <string name="Calculator">เครื่องคิดเลข</string>
-  <string name="result">ผลลัพธ์</string>
-  <string name="operand_2">ตัวถูกดำเนินการ 2</string>
-  <string name="operand_1">ตัวถูกดำเนินการ 1</string>
-  <string name="explanation">คำอธิบาย</string>
-  <string name="invalid_value">ค่าไม่ถูกต้อง</string>
+    <string name="bin">ไบนารี (2)</string>
+    <string name="oct">แปดด้าน (8)</string>
+    <string name="hex">เลขฐานสิบหก (16)</string>
+    <string name="Converter">แปลง</string>
+    <string name="Calculator">เครื่องคิดเลข</string>
+    <string name="result">ผลลัพธ์</string>
+    <string name="operand_2">ตัวถูกดำเนินการ 2</string>
+    <string name="operand_1">ตัวถูกดำเนินการ 1</string>
+    <string name="explanation">คำอธิบาย</string>
+    <string name="invalid_value">ค่าไม่ถูกต้อง</string>
     <string name="step_1">แปลงเป็นระบบเลขฐานสิบ</string>
     <string name="step_2">ดำเนินการคอลัมน์การหาร</string>
     <string name="step_3">เขียนผลลัพธ์ในลำดับที่กลับกัน</string>
@@ -33,4 +33,7 @@
     <string name="other">อื่น ๆ</string>
     <string name="copied">คัดลอก</string>
     <string name="review">ให้คะแนนแอปและรีวิว</string>
+    <string name="ad">โฆษณา</string>
+    <string name="adWatch">ดูโฆษณา</string>
+    <string name="adMessage">ไฮ!\nเราไม่ต้องการเพิ่มโฆษณา แต่เราต้องการการสนับสนุนทางการเงิน คุณจึงสามารถดูโฆษณาหรือเลือกไม่รับได้\nขอบคุณสำหรับความสนใจ!</string>
 </resources>

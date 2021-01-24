@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <style name="Theme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:windowBackground">@color/colorDark</item>
-        <item name="colorAccent">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorDark</item>
+        <item name="android:colorBackground">@color/colorDark</item>
         <item name="colorSurface">@color/colorDark</item>
+        <item name="transparentSurface">@color/transparentDark</item>
+        <item name="colorOnSurface">@color/grayLight</item>
         <item name="colorPrimary">@color/grayLight</item>
         <item name="colorOnPrimary">@color/colorDark</item>
         <item name="colorSecondary">@color/colorPrimary</item>
         <item name="colorOnSecondary">@color/grayLight</item>
-        <item name="colorInverseIcon">@color/grayLight</item>
         <item name="iconColor">@color/grayLight</item>
-        <item name="iconColorDisabled">@color/disabled</item>
-        <item name="dividerColor">@color/grayDark</item>
-        <item name="colorBottomNavigation">#E6202125</item>
-        <item name="android:statusBarColor">#E6202125</item>
+        <item name="android:statusBarColor">@color/transparentDark</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="dialogCornerRadius">16dp</item>
 
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.MyApp.SmallComponent
         </item>
@@ -26,8 +23,22 @@
         </item>
 
         <item name="popupMenuStyle">@style/Widget.MaterialComponents.PopupMenu</item>
-        <item name="android:contextPopupMenuStyle" tools:ignore="NewApi">@style/Widget.MaterialComponents.PopupMenu.ContextMenu</item>
-        <item name="actionOverflowMenuStyle">@style/Widget.MaterialComponents.PopupMenu.Overflow</item>
+        <item name="actionOverflowMenuStyle">@style/Widget.MaterialComponents.PopupMenu.Overflow
+        </item>
     </style>
 
+    <style name="ShapeAppearance.MyApp.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="ShapeAppearance.MyApp.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="ShapeAppearance.MyApp.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
 </resources>

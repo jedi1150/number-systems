@@ -2,16 +2,16 @@
 <resources>
   <string name="app_name">Сістэмы нумара</string>
   <string name="dec">Дзесятковы знак (10)</string>
-  <string name="bin">Бінарны (2)</string>
-  <string name="oct">Васьмянка (8)</string>
-  <string name="hex">Шаснаццатковы (16)</string>
-  <string name="Converter">Пераўтваральнік</string>
-  <string name="Calculator">Калькулятар</string>
-  <string name="result">Вынік</string>
-  <string name="operand_2">Операнд 2</string>
-  <string name="operand_1">Операнд 1</string>
-  <string name="explanation">Тлумачэнне</string>
-  <string name="invalid_value">Няправільнае значэнне</string>
+    <string name="bin">Бінарны (2)</string>
+    <string name="oct">Васьмянка (8)</string>
+    <string name="hex">Шаснаццатковы (16)</string>
+    <string name="Converter">Пераўтваральнік</string>
+    <string name="Calculator">Калькулятар</string>
+    <string name="result">Вынік</string>
+    <string name="operand_2">Операнд 2</string>
+    <string name="operand_1">Операнд 1</string>
+    <string name="explanation">Тлумачэнне</string>
+    <string name="invalid_value">Няправільнае значэнне</string>
     <string name="step_1">Ператварыць у дзесятковую сістэму лікаў</string>
     <string name="step_2">Выканайце падзел слупка</string>
     <string name="step_3">Выпішыце вынік у зваротным парадку</string>
@@ -33,4 +33,7 @@
     <string name="other">Іншыя</string>
     <string name="copied">Скапіявана</string>
     <string name="review">Ацаніце прыкладанне і агляд</string>
+    <string name="ad">Рэклама</string>
+    <string name="adWatch">глядзець рэкламу</string>
+    <string name="adMessage">Прывітанне!\nМы сапраўды не хацелі дадаваць рэкламу, але нам патрэбна фінансавая падтрымка. Такім чынам, вы можаце глядзець рэкламу альбо адмовіцца ад яе.\nДзякуй за ўвагу!</string>
 </resources>
