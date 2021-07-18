@@ -1,4 +1,4 @@
-package ru.sandello.binaryconverter
+package ru.sandello.binaryconverter.utils
 
 import android.text.InputType
 import android.text.method.DigitsKeyListener
@@ -9,9 +9,7 @@ class TypeMethod {
         if (allowVal!!.length <= 10) {
             editText.inputType = InputType.TYPE_CLASS_NUMBER
             editText.keyListener = DigitsKeyListener.getInstance("1234567890,.-")
-        }
-        else
-        {
+        } else {
             editText.inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
         }
     }

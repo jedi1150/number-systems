@@ -1,5 +1,6 @@
-package ru.sandello.binaryconverter
+package ru.sandello.binaryconverter.utils
 
+import android.util.Log
 import java.util.*
 import kotlin.math.pow
 
@@ -18,6 +19,7 @@ class ConvertTo {
     private var minusBool = false
 
     fun main(oldString: String, p1: Int?, p2: Int?): String {
+        Log.d("test228 convert", "p1: $p1, p2: $p2")
         if (oldString.contains("-")) {
             string = oldString.replace("-", "")
             minusBool = true
@@ -50,7 +52,10 @@ class ConvertTo {
             result += i.toString().toInt(fromParse).toString(10).toBigDecimal() *
                     fromParse.toDouble().pow(leftLength.toDouble()).toBigDecimal()
         }
-        while ((result.toString().length > 1 && result.toString().contains("[,.]".toRegex()) && result.toString().endsWith("0")) || result.toString().endsWith(".") || result.toString().endsWith(",")) {
+        while ((result.toString().length > 1 && result.toString()
+                .contains("[,.]".toRegex()) && result.toString().endsWith("0")) || result.toString()
+                .endsWith(".") || result.toString().endsWith(",")
+        ) {
             result = result.toString().substring(0, result.toString().length - 1).toBigDecimal()
         }
         return result.toString()
@@ -69,7 +74,8 @@ class ConvertTo {
             left += i.toString()
         }
         try {
-            res = left.toBigInteger(10).toString(toParse).toUpperCase(Locale.getDefault()) //Перевод основной части числа в 10
+            res = left.toBigInteger(10).toString(toParse)
+                .uppercase(Locale.getDefault()) //Перевод основной части числа в 10
         } catch (e: Exception) {
         }
         if (rightDecArray.isNotEmpty()) {
@@ -80,23 +86,28 @@ class ConvertTo {
             var z = 0
             var n1 = "0.$right"
             right = ""
-            while (z < fractionCount) {
+            while (z < Shared.FRACTION_COUNT) {
 
                 if (n1.contains("[,.]".toRegex())) {
-                    n1 = ("0.${n1.split("[,.]".toRegex())[1]}".toBigDecimal() * toParse.toBigDecimal()).toString() //Умножаем дробную часть на степень
+                    n1 =
+                        ("0.${n1.split("[,.]".toRegex())[1]}".toBigDecimal() * toParse.toBigDecimal()).toString() //Умножаем дробную часть на степень
                     if (!n1.contains("[,.]".toRegex())) break
                 } else
                     break
                 right += if (toParse < 11) {
                     n1.split("[,.]".toRegex())[0]  //Целую часть от каждой итерации приписываем к строке
                 } else {
-                    n1.split("[,.]".toRegex())[0].toBigInteger(10).toString(toParse).toUpperCase(Locale.getDefault()) //Целую часть от каждой итерации приписываем к строке
+                    n1.split("[,.]".toRegex())[0].toBigInteger(10).toString(toParse)
+                        .uppercase(Locale.getDefault()) //Целую часть от каждой итерации приписываем к строке
                 }
                 z++
             }
             res += ".$right"
 
-            while ((res.length > 1 && res.contains("[,.]".toRegex()) && res.endsWith("0")) || res.endsWith(".") || res.endsWith(",")) {
+            while ((res.length > 1 && res.contains("[,.]".toRegex()) && res.endsWith("0")) || res.endsWith(
+                    "."
+                ) || res.endsWith(",")
+            ) {
                 res = res.substring(0, res.length - 1)
             }
         }

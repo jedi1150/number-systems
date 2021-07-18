@@ -1,9 +1,11 @@
-package ru.sandello.binaryconverter
+package ru.sandello.binaryconverter.ui.settings
 
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.browser.customtabs.CustomTabsIntent
@@ -12,17 +14,30 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.play.core.review.ReviewManagerFactory
-import kotlinx.android.synthetic.main.activity_main.view.*
-
+import ru.sandello.binaryconverter.R
+import ru.sandello.binaryconverter.databinding.ActivityMainBinding
+import ru.sandello.binaryconverter.ui.main.MainActivity
+import ru.sandello.binaryconverter.utils.Shared
 
 @Suppress("DEPRECATION")
 class SettingsFragment : PreferenceFragmentCompat() {
+    private lateinit var activityBinding: ActivityMainBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        activityBinding = (requireActivity() as MainActivity).binding
+
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.setOnApplyWindowInsetsListener { v, insets ->
             view.post {
-                v.updatePadding(top = insets.systemWindowInsetTop, bottom = view.rootView.bottom_navigation.height)
+                v.updatePadding(top = insets.systemWindowInsetTop, bottom = activityBinding.bottomNavigation.height)
             }
             insets
         }
@@ -73,7 +88,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val commaEntries = resources.getStringArray(R.array.comma_array)
         val commaEntryValues = resources.getStringArray(R.array.comma_array)
         commaPref?.setOnPreferenceChangeListener { _, newValue ->
-            fractionCount = newValue.toString().toInt()
+            Shared.FRACTION_COUNT = newValue.toString().toInt()
             true
         }
         commaPref?.entries = commaEntries

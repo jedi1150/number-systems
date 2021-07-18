@@ -34,9 +34,10 @@
         android:theme="@style/Theme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
-            android:name=".MainActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:configChanges="orientation|keyboardHidden|keyboard|locale">
+            android:name=".ui.main.MainActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|locale"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
