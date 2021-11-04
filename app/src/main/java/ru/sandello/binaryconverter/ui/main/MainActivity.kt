@@ -1,21 +1,15 @@
 package ru.sandello.binaryconverter.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.*
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -23,18 +17,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.google.accompanist.insets.*
-import com.google.accompanist.insets.ui.TopAppBar
+import com.google.accompanist.insets.ProvideWindowInsets
+import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.android.gms.ads.interstitial.InterstitialAd
-import ru.sandello.binaryconverter.R
-import ru.sandello.binaryconverter.databinding.ActivityMainBinding
 import ru.sandello.binaryconverter.model.Screen
 import ru.sandello.binaryconverter.ui.calculator.CalculatorScreen
-import ru.sandello.binaryconverter.ui.calculator.CalculatorViewModel
 import ru.sandello.binaryconverter.ui.converter.ConverterScreen
 
 class MainActivity : ComponentActivity() {
-//    lateinit var binding: ActivityMainBinding
+    //    lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
 //    private val model: CalculatorViewModel by viewModels()
 
@@ -86,28 +77,13 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                     },
-                    floatingActionButton = {
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            SmallFloatingActionButton(
-                                onClick = { /*TODO*/ },
-                            ) {
-                                Icon(painter = painterResource(R.drawable.close), contentDescription = null)
-                            }
-                            Spacer(modifier = Modifier.height(8.dp))
-                            LargeFloatingActionButton(
-                                onClick = { /*TODO*/ },
-                            ) {
-                                Icon(painter = painterResource(R.drawable.explanation), contentDescription = null)
-                            }
-                        }
-                    },
                 ) { contentPadding ->
                     NavHost(
                         navController = navController,
                         startDestination = Screen.Converter.route,
-                        modifier = Modifier.padding(contentPadding),
+//                        modifier = Modifier.padding(contentPadding),
                     ) {
-                        composable(Screen.Converter.route) { ConverterScreen() }
+                        composable(Screen.Converter.route) { ConverterScreen(contentPadding) }
                         composable(Screen.Calculator.route) { CalculatorScreen() }
 //                        composable("settings") {  }
                     }

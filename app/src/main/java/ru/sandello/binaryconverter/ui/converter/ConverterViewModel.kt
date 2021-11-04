@@ -56,76 +56,6 @@ class ConverterViewModel : ViewModel() {
     val showInvalidInputError = MutableLiveData<Pair<Int, String>>()
     val stringToast = MutableLiveData<String>()
 
-    private val listCustomBin = arrayOf(
-        3,
-        4,
-        5,
-        6,
-        7,
-        9,
-        11,
-        12,
-        13,
-        14,
-        15,
-        17,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27,
-        28,
-        29,
-        30,
-        31,
-        32,
-        33,
-        34,
-        35,
-        36,
-    )
-    private val listAllBin = arrayOf(
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27,
-        28,
-        29,
-        30,
-        31,
-        32,
-        33,
-        34,
-        35,
-        36,
-    )
     private val sym = arrayOf(
         0,
         1,
@@ -165,42 +95,9 @@ class ConverterViewModel : ViewModel() {
         "Z",
     )
 
-    init {
-//        load()
-//        _operandBase.addSource(_operandBase) {
-//            parse()
-//            Log.d("test228", "operandBase updated")
-//        }
-//        _operandBase.addSource(operandTest) {
-//            Log.d("tet228 test", it)
-//            Log.d("tet228 test", _operandBase.value.toString())
-//            Log.d("tet228 test", _operandBase.value.toString())
-//            viewModelScope.launch {
-//                withContext(Dispatchers.Main) {
-//                    val convertedResult =
-//                        withContext(Dispatchers.Default) {
-//                            ConvertTo().main(
-//                                operandBase.value.toString(),
-//                                10,
-//                                2
-//                            )
-//                        }
-//
-//                    Log.d("tet228 test", convertedResult)
-//                    if (convertedResult != _operandBase.value.toString())
-//                        _operandBase.postValue(convertedResult.toBigDecimal())
-//                    Log.d("tet228 _operandBase", _operandBase.value.toString())
-//                    parse()
-//                }
-//
-//            }
-//        }
-    }
-
     fun updateOperand(fraction: Int, textFieldValue: TextFieldValue) {
         try {
             Log.d(APP_TAG, "ConverterViewModel::updateOperand: frac: $fraction, textFieldVal: $textFieldValue")
-//            val res16 = ConvertTo().main(value.text, fraction, 16).toBigDecimal()
             _operand10new.value = if (fraction != 10) TextFieldValue(ConvertTo().main(textFieldValue.text, fraction, 10)) else textFieldValue
             _operand2new.value = if (fraction != 2) TextFieldValue(ConvertTo().main(textFieldValue.text, fraction, 2)) else textFieldValue
             _operand8new.value = if (fraction != 8) TextFieldValue(ConvertTo().main(textFieldValue.text, fraction, 8)) else textFieldValue
@@ -209,10 +106,6 @@ class ConverterViewModel : ViewModel() {
         } catch (e: Exception) {
             showInvalidInputError.postValue(Pair(fraction, allow(fraction)))
         }
-        Log.i(
-            APP_TAG,
-            "ConverterViewModel::updateOperand val: $textFieldValue, frac: $fraction"
-        )
     }
 
     fun updateCustomBaseNumber(newBase: Int) {
@@ -269,6 +162,14 @@ class ConverterViewModel : ViewModel() {
         for (i in 0 until to)
             allowVal += sym[i]
         return allowVal
+    }
+
+    fun clear() {
+        _operand10new.value = TextFieldValue()
+        _operand2new.value = TextFieldValue()
+        _operand8new.value = TextFieldValue()
+        _operand16new.value = TextFieldValue()
+        _operandCustomNew.value = TextFieldValue()
     }
 
 /*    fun load() {
