@@ -25,7 +25,7 @@ import ru.sandello.binaryconverter.R
 @Composable
 @Preview
 fun CalculatorScreen() {
-    val viewModel: CalculatorViewModel by viewModel()
+    val viewModel: CalculatorViewModel = viewModel()
 
     val textState = remember { mutableStateOf(TextFieldValue()) }
     val options = listOf("3", "4", "5", "6", "7")

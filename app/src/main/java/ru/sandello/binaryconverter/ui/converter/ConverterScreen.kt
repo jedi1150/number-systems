@@ -7,7 +7,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -20,9 +19,8 @@ import ru.sandello.binaryconverter.R
 @Composable
 @Preview
 fun ConverterScreen() {
-    val viewModel: ConverterViewModel by viewModel()
+    val viewModel: ConverterViewModel = viewModel()
 
-    val textState = remember { mutableStateOf(TextFieldValue()) }
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -33,8 +31,8 @@ fun ConverterScreen() {
         }
         item {
             OutlinedTextField(
-                value = textState.value,
-                onValueChange = { textState.value = it },
+                value = viewModel.operand10new.value,
+                onValueChange = { viewModel.updateOperand(fraction = 10, textFieldValue = it) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 4.dp),
@@ -44,8 +42,8 @@ fun ConverterScreen() {
         }
         item {
             OutlinedTextField(
-                value = textState.value,
-                onValueChange = { textState.value = it },
+                value = viewModel.operand2new.value,
+                onValueChange = { viewModel.updateOperand(fraction = 2, textFieldValue = it) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 4.dp),
@@ -55,8 +53,8 @@ fun ConverterScreen() {
         }
         item {
             OutlinedTextField(
-                value = textState.value,
-                onValueChange = { textState.value = it },
+                value = viewModel.operand8new.value,
+                onValueChange = { viewModel.updateOperand(fraction = 8, textFieldValue = it) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 4.dp),
@@ -66,8 +64,8 @@ fun ConverterScreen() {
         }
         item {
             OutlinedTextField(
-                value = textState.value,
-                onValueChange = { textState.value = it },
+                value = viewModel.operand16new.value,
+                onValueChange = { viewModel.updateOperand(fraction = 16, textFieldValue = it) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 4.dp),
@@ -84,17 +82,15 @@ fun ConverterScreen() {
                 val (textField, exposedDropdown) = createRefs()
 
                 OutlinedTextField(
-                    value = textState.value,
-                    onValueChange = { textState.value = it },
-                    label = { Text(stringResource(R.string.base_value)) },
+                    value = viewModel.operandCustomNew.value,
+                    onValueChange = { viewModel.updateOperand(fraction = viewModel.customBaseNumber.value, textFieldValue = it) },
+                    label = { Text(stringResource(R.string.base_value, viewModel.customBaseNumber.value)) },
                     shape = RoundedCornerShape(16.dp),
                     modifier = Modifier.constrainAs(textField) {
                         start.linkTo(parent.start)
                         end.linkTo(exposedDropdown.start, margin = 4.dp)
                     }
                 )
-                val options = listOf("3", "4", "5", "6", "7")
-                var selectedOptionText by remember { mutableStateOf(options[0]) }
                 var expanded by remember { mutableStateOf(false) }
                 ExposedDropdownMenuBox(
                     expanded = expanded,
@@ -108,7 +104,7 @@ fun ConverterScreen() {
                     },
                 ) {
                     OutlinedTextField(
-                        value = selectedOptionText,
+                        value = viewModel.customBaseNumber.value.toString(),
                         onValueChange = { },
                         readOnly = true,
                         label = {},
@@ -126,14 +122,14 @@ fun ConverterScreen() {
                             expanded = false
                         },
                     ) {
-                        options.forEach { selectionOption ->
+                        viewModel.customBaseNumbers.forEach { selectionOption ->
                             DropdownMenuItem(
                                 onClick = {
-                                    selectedOptionText = selectionOption
+                                    viewModel.updateCustomBaseNumber(selectionOption)
                                     expanded = false
                                 }
                             ) {
-                                Text(text = selectionOption)
+                                Text(text = selectionOption.toString())
                             }
                         }
                     }

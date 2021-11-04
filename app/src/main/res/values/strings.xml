@@ -28,7 +28,7 @@
   <string name="language">Language</string>
   <string name="help_with_translate">Help with translation</string>
   <string name="github" translatable="false">GitHub</string>
-  <string name="base_value">Base (n)</string>
+  <string name="base_value">Base (%d)</string>
   <string name="result_of_translate">Translation result</string>
   <string name="sample_TV" translatable="false">sample</string>
   <string name="multiply_symbol" translatable="false">×</string>

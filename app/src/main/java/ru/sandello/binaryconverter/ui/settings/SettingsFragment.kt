@@ -28,7 +28,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activityBinding = (requireActivity() as MainActivity).binding
+//        activityBinding = (requireActivity() as MainActivity).binding
 
         return super.onCreateView(inflater, container, savedInstanceState)
     }

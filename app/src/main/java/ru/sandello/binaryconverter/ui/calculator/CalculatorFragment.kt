@@ -34,7 +34,7 @@ class CalculatorFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        activityBinding = (requireActivity() as MainActivity).binding
+//        activityBinding = (requireActivity() as MainActivity).binding
         binding = FragmentCalculatorBinding.inflate(layoutInflater)
         binding.model = model
         binding.lifecycleOwner = viewLifecycleOwner

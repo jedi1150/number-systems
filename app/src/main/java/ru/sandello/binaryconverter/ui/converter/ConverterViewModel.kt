@@ -1,20 +1,44 @@
 package ru.sandello.binaryconverter.ui.converter
 
 import android.util.Log
-import androidx.databinding.Bindable
-import androidx.databinding.Observable
-import androidx.databinding.PropertyChangeRegistry
-import androidx.lifecycle.*
-import kotlinx.coroutines.*
-import ru.sandello.binaryconverter.utils.*
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import ru.sandello.binaryconverter.utils.APP_TAG
+import ru.sandello.binaryconverter.utils.ConvertTo
 import java.math.BigDecimal
 
-class ConverterViewModel : ViewModel(), Observable {
-    private val callbacks: PropertyChangeRegistry = PropertyChangeRegistry()
+class ConverterViewModel : ViewModel() {
+
+    private val _operand10new = mutableStateOf(TextFieldValue())
+    val operand10new: State<TextFieldValue>
+        get() = _operand10new
+    private val _operand2new = mutableStateOf(TextFieldValue())
+    val operand2new: State<TextFieldValue>
+        get() = _operand2new
+    private val _operand8new = mutableStateOf(TextFieldValue())
+    val operand8new: State<TextFieldValue>
+        get() = _operand8new
+    private val _operand16new = mutableStateOf(TextFieldValue())
+    val operand16new: State<TextFieldValue>
+        get() = _operand16new
+    private val _operandCustomNew = mutableStateOf(TextFieldValue())
+    val operandCustomNew: State<TextFieldValue>
+        get() = _operandCustomNew
+    private val _customBaseNumber = mutableStateOf(3)
+    val customBaseNumber: State<Int>
+        get() = _customBaseNumber
+
+    private val baseNumbers = IntArray(36) { it + 1 }
+    val customBaseNumbers = baseNumbers.toMutableList().filter { !listOf(1, 2, 8, 10, 16).contains(it) }
+
     private val _operandBase = MediatorLiveData<BigDecimal>()
     val operandBase: LiveData<BigDecimal> = _operandBase
 
-    @Bindable
     val operandTest = MutableLiveData<String>()
     private val _operand10 = MutableLiveData(0.toBigDecimal())
     val operand10: LiveData<BigDecimal> = _operand10
@@ -147,69 +171,56 @@ class ConverterViewModel : ViewModel(), Observable {
 //            parse()
 //            Log.d("test228", "operandBase updated")
 //        }
-        _operandBase.addSource(operandTest) {
-            Log.d("tet228 test", it)
-            Log.d("tet228 test", _operandBase.value.toString())
-            Log.d("tet228 test", _operandBase.value.toString())
-            viewModelScope.launch {
-                withContext(Dispatchers.Main) {
-                val convertedResult =
-                    withContext(Dispatchers.Default) {
-                        ConvertTo().main(
-                            operandBase.value.toString(),
-                            10,
-                            2
-                        )
-                    }
-
-                    Log.d("tet228 test", convertedResult)
-                    if (convertedResult != _operandBase.value.toString())
-                        _operandBase.postValue(convertedResult.toBigDecimal())
-                Log.d("tet228 _operandBase", _operandBase.value.toString())
-                parse()
-                }
-
-            }
-        }
-
+//        _operandBase.addSource(operandTest) {
+//            Log.d("tet228 test", it)
+//            Log.d("tet228 test", _operandBase.value.toString())
+//            Log.d("tet228 test", _operandBase.value.toString())
+//            viewModelScope.launch {
+//                withContext(Dispatchers.Main) {
+//                    val convertedResult =
+//                        withContext(Dispatchers.Default) {
+//                            ConvertTo().main(
+//                                operandBase.value.toString(),
+//                                10,
+//                                2
+//                            )
+//                        }
+//
+//                    Log.d("tet228 test", convertedResult)
+//                    if (convertedResult != _operandBase.value.toString())
+//                        _operandBase.postValue(convertedResult.toBigDecimal())
+//                    Log.d("tet228 _operandBase", _operandBase.value.toString())
+//                    parse()
+//                }
+//
+//            }
+//        }
     }
 
-    fun updateOperand(fraction: Int, value: String = "") {
+    fun updateOperand(fraction: Int, textFieldValue: TextFieldValue) {
         try {
-            when (fraction) {
-//                10 -> {
-//                    val res = ConvertTo().main(value, 10, 10).toBigDecimal()
-//                    Log.d("test228 res", res.toString())
-//                    _operand10.postValue(res)
-//                }
-//                2 -> operandTest.postValue(ConvertTo().main(value, 2, 10))
-//                2 -> _operand2.value = (ConvertTo().main(value, 2, 10).toBigDecimal())
-//                8 -> _operand8.value = (ConvertTo().main(value, 8, 10).toBigDecimal())
-//                16 -> _operandBase.postValue(ConvertTo().main(value, 16, 10).toBigDecimal())
-//                else -> _operandBase.postValue(
-//                    ConvertTo().main(
-//                        value,
-//                        fractionCustom.value?.toInt(),
-//                        10
-//                    ).toBigDecimal()
-//                )
-            }
+            Log.d(APP_TAG, "ConverterViewModel::updateOperand: frac: $fraction, textFieldVal: $textFieldValue")
+//            val res16 = ConvertTo().main(value.text, fraction, 16).toBigDecimal()
+            _operand10new.value = if (fraction != 10) TextFieldValue(ConvertTo().main(textFieldValue.text, fraction, 10)) else textFieldValue
+            _operand2new.value = if (fraction != 2) TextFieldValue(ConvertTo().main(textFieldValue.text, fraction, 2)) else textFieldValue
+            _operand8new.value = if (fraction != 8) TextFieldValue(ConvertTo().main(textFieldValue.text, fraction, 8)) else textFieldValue
+            _operand16new.value = if (fraction != 16) TextFieldValue(ConvertTo().main(textFieldValue.text, fraction, 16)) else textFieldValue
+            _operandCustomNew.value = if (fraction != _customBaseNumber.value) TextFieldValue(ConvertTo().main(textFieldValue.text, fraction, _customBaseNumber.value)) else textFieldValue
         } catch (e: Exception) {
             showInvalidInputError.postValue(Pair(fraction, allow(fraction)))
         }
         Log.i(
             APP_TAG,
-            "ConverterViewModel::updateOperand val: $value, frac: $fraction"
+            "ConverterViewModel::updateOperand val: $textFieldValue, frac: $fraction"
         )
     }
 
-    fun updateFraction(newFraction: Int) {
-        _fractionCustom.postValue(newFraction)
-
-        Log.i(APP_TAG, "ConverterViewModel::updateFraction custom val: $newFraction")
+    fun updateCustomBaseNumber(newBase: Int) {
+        Log.i(APP_TAG, "ConverterViewModel::updateCustomBaseNumber ${_customBaseNumber.value} to $newBase")
+        _customBaseNumber.value = newBase
     }
 
-    private fun parse() {
+    /*private fun parse() {
         if (_operandBase.value != null) {
             GlobalScope.launch(Dispatchers.Main) {
                 withContext(Dispatchers.Main) {
@@ -251,7 +262,7 @@ class ConverterViewModel : ViewModel(), Observable {
                 ).toBigDecimal()
             )
         }
-    }
+    }*/
 
     fun allow(to: Int): String {
         var allowVal = ""
@@ -260,7 +271,7 @@ class ConverterViewModel : ViewModel(), Observable {
         return allowVal
     }
 
-    fun load() {
+/*    fun load() {
         Log.d(
             "test228",
             (Shared.preferencesHelper.getStringFromPrefs(SHARED_CONV_OPERAND)?.toBigDecimal()
@@ -290,9 +301,9 @@ class ConverterViewModel : ViewModel(), Observable {
 //                "0123456789"
 //            )
 //        checkClear()
-    }
+    }*/
 
-    fun save() {
+    /*fun save() {
         Shared.preferencesHelper.stringToPrefs(SHARED_CONV_OPERAND, operand10.value.toString())
         fractionCustom.value?.let {
             Shared.preferencesHelper.intToPrefs(
@@ -300,35 +311,5 @@ class ConverterViewModel : ViewModel(), Observable {
                 it
             )
         }
-    }
-
-    override fun addOnPropertyChangedCallback(
-        callback: Observable.OnPropertyChangedCallback
-    ) {
-        callbacks.add(callback)
-    }
-
-    override fun removeOnPropertyChangedCallback(
-        callback: Observable.OnPropertyChangedCallback
-    ) {
-        callbacks.remove(callback)
-    }
-
-    /**
-     * Notifies observers that all properties of this instance have changed.
-     */
-    fun notifyChange() {
-        callbacks.notifyCallbacks(this, 0, null)
-    }
-
-    /**
-     * Notifies observers that a specific property has changed. The getter for the
-     * property that changes should be marked with the @Bindable annotation to
-     * generate a field in the BR class to be used as the fieldId parameter.
-     *
-     * @param fieldId The generated BR id for the Bindable field.
-     */
-    fun notifyPropertyChanged(fieldId: Int) {
-        callbacks.notifyCallbacks(this, fieldId, null)
-    }
+    }*/
 }

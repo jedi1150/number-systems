@@ -16,7 +16,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.databinding.ActivityMainBinding
 import ru.sandello.binaryconverter.databinding.FragmentConverterBinding
-import ru.sandello.binaryconverter.ui.main.MainActivity
 import ru.sandello.binaryconverter.utils.TypeMethod
 
 var cleared = false
@@ -33,7 +32,7 @@ class ConverterFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        activityBinding = (requireActivity() as MainActivity).binding
+//        activityBinding = (requireActivity() as MainActivity).binding
         binding = FragmentConverterBinding.inflate(layoutInflater)
         binding.model = model
         binding.lifecycleOwner = viewLifecycleOwner
@@ -42,7 +41,7 @@ class ConverterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        model.load()
+//        model.load()
         bottomSheetDialog = BottomSheetDialog(view.rootView.context)
         bottomSheetDialog!!.setContentView(R.layout.fragment_explanation)
         bottomSheetInternal = bottomSheetDialog!!.findViewById(R.id.bottomSheetMain)
@@ -71,7 +70,7 @@ class ConverterFragment : Fragment() {
         }
 
         model.operandBase.observe(viewLifecycleOwner, {
-            Log.d("test228 operandCustom observe", it.toString())
+//            Log.d("test228 operandCustom observe", it.toString())
         })
 
 //        TypeMethod().type(
@@ -85,7 +84,7 @@ class ConverterFragment : Fragment() {
                     binding.editTextCustom,
                     model.allow(binding.fractionCustom.text.toString().toInt())
                 )
-                model.updateFraction(position)
+                model.updateCustomBaseNumber(position)
 //                binding.editTextCustom.setText(
 //                    ConvertTo().main(
 //                        binding.editText10.text.toString(),
@@ -188,7 +187,7 @@ class ConverterFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                model.updateOperand(fraction = 16, value = s.toString())
+//                model.updateOperand(fraction = 16, value = s.toString())
 //                if (binding.editText16.hasFocus())
 //                    if (s.toString() != "" && !s!!.endsWith(".") && binding.editText16.hasFocus())
 //                        parse(
@@ -214,10 +213,10 @@ class ConverterFragment : Fragment() {
                 Log.d("test228 custom", s.toString())
                 if (s != "" && s != null) {
                     model.fractionCustom.value?.let {
-                        model.updateOperand(
-                            fraction = it,
-                            value = s.toString()
-                        )
+//                        model.updateOperand(
+//                            fraction = it,
+//                            value = s.toString()
+//                        )
                     }
                 }
 //                binding.editTextCustom.hasFocus()
@@ -341,11 +340,11 @@ class ConverterFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        model.load()
+//        model.load()
     }
 
     override fun onPause() {
         super.onPause()
-        model.save()
+//        model.save()
     }
 }
