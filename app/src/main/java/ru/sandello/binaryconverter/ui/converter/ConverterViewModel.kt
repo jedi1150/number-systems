@@ -96,8 +96,12 @@ class ConverterViewModel : ViewModel() {
     )
 
     fun updateOperand(fraction: Int, textFieldValue: TextFieldValue) {
+        Log.d(APP_TAG, "ConverterViewModel::updateOperand: frac: $fraction, textFieldVal: $textFieldValue")
+        if (textFieldValue.text.isEmpty()) {
+            clear()
+            return
+        }
         try {
-            Log.d(APP_TAG, "ConverterViewModel::updateOperand: frac: $fraction, textFieldVal: $textFieldValue")
             _operand10new.value = if (fraction != 10) TextFieldValue(ConvertTo().main(textFieldValue.text, fraction, 10)) else textFieldValue
             _operand2new.value = if (fraction != 2) TextFieldValue(ConvertTo().main(textFieldValue.text, fraction, 2)) else textFieldValue
             _operand8new.value = if (fraction != 8) TextFieldValue(ConvertTo().main(textFieldValue.text, fraction, 8)) else textFieldValue
