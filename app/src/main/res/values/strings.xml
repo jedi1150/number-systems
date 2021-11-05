@@ -46,4 +46,5 @@
     <string name="adWatch">watch ad</string>
     <string name="adMessage">Hi!\nWe really didn\'t want to add ads, but we need financial support. So you can watch ads or opt out.\nThanks for the attention!</string>
     <string name="title_activity_compose">ComposeActivity</string>
+    <string name="title_activity_test">TestActivity</string>
 </resources>

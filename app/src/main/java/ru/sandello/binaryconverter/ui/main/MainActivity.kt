@@ -4,9 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material3.*
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
 
     private lateinit var ad: InterstitialAd
 
-    @OptIn(ExperimentalMaterial3Api::class)
+    @OptIn(ExperimentalMaterialApi::class)
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -55,13 +55,13 @@ class MainActivity : ComponentActivity() {
                 ProvideWindowInsets(windowInsetsAnimationsEnabled = true) {
                     Scaffold(
                         bottomBar = {
-                            NavigationBar(
+                            BottomNavigation(
                                 modifier = Modifier.navigationBarsWithImePadding(),
                             ) {
                                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                                 val currentDestination = navBackStackEntry?.destination
                                 items.forEach { screen ->
-                                    NavigationBarItem(
+                                    BottomNavigationItem(
                                         icon = { Icon(Icons.Filled.Favorite, contentDescription = null) },
                                         label = { Text(stringResource(screen.resourceId)) },
                                         selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
@@ -85,7 +85,7 @@ class MainActivity : ComponentActivity() {
                             }
                         },
                         floatingActionButton = {
-                            SmallFloatingActionButton(
+                            FloatingActionButton(
                                 onClick = {
                                     if (navController.currentDestination?.route == Screen.Converter.route) {
                                         converterViewModel.clear()

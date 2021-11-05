@@ -7,22 +7,20 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
 import ru.sandello.binaryconverter.R
+import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues) {
     val textState = remember { mutableStateOf(TextFieldValue()) }
@@ -32,7 +30,6 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
     val actionOptions = listOf("+", "-", "*", "/")
     var selectedOption by remember { mutableStateOf(0) }
 
-    @OptIn(ExperimentalMaterialApi::class)
     LazyColumn(
         contentPadding = PaddingValues(
             start = 8.dp,
@@ -52,12 +49,13 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                 OutlinedTextField(
                     value = textState.value,
                     onValueChange = { textState.value = it },
-                    label = { Text(stringResource(R.string.base_value)) },
-                    shape = RoundedCornerShape(16.dp),
                     modifier = Modifier.constrainAs(textField) {
                         start.linkTo(parent.start)
                         end.linkTo(exposedDropdown.start, margin = 4.dp)
-                    }
+                    },
+                    label = { Text(stringResource(R.string.base_value)) },
+                    shape = RoundedCornerShape(16.dp),
+//                    colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = MaterialTheme.colors.primary, unfocusedBorderColor = MaterialTheme.colorScheme.onPrimaryContainer,)
                 )
                 ExposedDropdownMenuBox(
                     expanded = expanded,
@@ -112,11 +110,11 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
             ) {
                 itemsIndexed(actionOptions) { index, option ->
                     val tint by animateColorAsState(
-                        if (selectedOption == index) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface
+                        if (selectedOption == index) MaterialTheme.colors.primary else MaterialTheme.colors.surface
                     )
-                    androidx.compose.material3.OutlinedButton(
+                    OutlinedButton(
                         onClick = { selectedOption = index },
-                        colors = ButtonDefaults.outlinedButtonColors(containerColor = tint),
+//                        colors = ButtonDefaults.outlinedButtonColors(containerColor = tint),
                     ) {
                         Text(option)
                     }
@@ -238,6 +236,16 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+@Preview
+fun PreviewCalculatorScreen() {
+    NumberSystemsTheme {
+        Surface {
+            CalculatorScreen(viewModel = CalculatorViewModel(), mainPadding = PaddingValues())
         }
     }
 }
