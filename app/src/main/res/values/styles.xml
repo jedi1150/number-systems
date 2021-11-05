@@ -11,8 +11,8 @@
         <item name="colorSecondary">@color/colorPrimary</item>
         <item name="colorOnSecondary">@color/colorLight</item>
         <item name="iconColor">@color/grayDark</item>
-        <item name="android:statusBarColor">@color/transparentLight</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
+<!--        <item name="android:statusBarColor">@color/transparentLight</item>-->
+<!--        <item name="android:navigationBarColor">@android:color/transparent</item>-->
         <!--        <item name="android:windowTranslucentNavigation">true</item>-->
         <item name="dialogCornerRadius">16dp</item>
 

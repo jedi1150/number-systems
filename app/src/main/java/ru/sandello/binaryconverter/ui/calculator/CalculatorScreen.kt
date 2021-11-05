@@ -39,7 +39,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                 applyBottom = true,
             ).calculateTopPadding(),
             end = 8.dp,
-            bottom = mainPadding.calculateBottomPadding() + 72.dp,
+            bottom = mainPadding.calculateBottomPadding() + 88.dp,
         ),
     ) {
         item {

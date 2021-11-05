@@ -7,8 +7,10 @@ import androidx.activity.viewModels
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.core.view.WindowCompat
@@ -20,6 +22,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.navigationBarsWithImePadding
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.Screen
@@ -49,9 +52,15 @@ class MainActivity : ComponentActivity() {
         )
 
         setContent {
-            val navController = rememberNavController()
-
             NumberSystemsTheme {
+                val systemUiController = rememberSystemUiController()
+                val useDarkIcons = MaterialTheme.colors.isLight
+
+                val navController = rememberNavController()
+
+                SideEffect {
+                    systemUiController.setSystemBarsColor(color = Color.Transparent, darkIcons = useDarkIcons)
+                }
                 ProvideWindowInsets(windowInsetsAnimationsEnabled = true) {
                     Scaffold(
                         bottomBar = {

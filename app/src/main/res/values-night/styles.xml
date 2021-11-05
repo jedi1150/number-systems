@@ -11,8 +11,6 @@
         <item name="colorSecondary">@color/colorPrimary</item>
         <item name="colorOnSecondary">@color/grayLight</item>
         <item name="iconColor">@color/grayLight</item>
-        <item name="android:statusBarColor">@color/transparentDark</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="dialogCornerRadius">16dp</item>
 
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.MyApp.SmallComponent
