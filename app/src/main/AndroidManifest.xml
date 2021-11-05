@@ -33,10 +33,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+
         <activity
             android:name=".ui.main.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|locale"
             android:exported="true"
+            android:theme="@style/Theme.NoActionBar"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,7 +50,6 @@
         <meta-data
             android:name="android.allow_multiple_resumed_activities"
             android:value="true" />
-
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713" />

@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.*
@@ -25,14 +24,16 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.Screen
 import ru.sandello.binaryconverter.ui.calculator.CalculatorScreen
+import ru.sandello.binaryconverter.ui.calculator.CalculatorViewModel
 import ru.sandello.binaryconverter.ui.converter.ConverterScreen
 import ru.sandello.binaryconverter.ui.converter.ConverterViewModel
+import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 class MainActivity : ComponentActivity() {
     //    lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
     private val converterViewModel: ConverterViewModel by viewModels()
-//    private val model: CalculatorViewModel by viewModels()
+    private val calculatorViewModel: CalculatorViewModel by viewModels()
 
     private lateinit var ad: InterstitialAd
 
@@ -50,57 +51,59 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
 
-            ProvideWindowInsets(windowInsetsAnimationsEnabled = true) {
-                Scaffold(
-                    bottomBar = {
-                        NavigationBar(
-                            modifier = Modifier.navigationBarsWithImePadding(),
-                        ) {
-                            val navBackStackEntry by navController.currentBackStackEntryAsState()
-                            val currentDestination = navBackStackEntry?.destination
-                            items.forEach { screen ->
-                                NavigationBarItem(
-                                    icon = { Icon(Icons.Filled.Favorite, contentDescription = null) },
-                                    label = { Text(stringResource(screen.resourceId)) },
-                                    selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
-                                    onClick = {
-                                        navController.navigate(screen.route) {
-                                            // Pop up to the start destination of the graph to
-                                            // avoid building up a large stack of destinations
-                                            // on the back stack as users select items
-                                            popUpTo(navController.graph.findStartDestination().id) {
-                                                saveState = true
+            NumberSystemsTheme {
+                ProvideWindowInsets(windowInsetsAnimationsEnabled = true) {
+                    Scaffold(
+                        bottomBar = {
+                            NavigationBar(
+                                modifier = Modifier.navigationBarsWithImePadding(),
+                            ) {
+                                val navBackStackEntry by navController.currentBackStackEntryAsState()
+                                val currentDestination = navBackStackEntry?.destination
+                                items.forEach { screen ->
+                                    NavigationBarItem(
+                                        icon = { Icon(Icons.Filled.Favorite, contentDescription = null) },
+                                        label = { Text(stringResource(screen.resourceId)) },
+                                        selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
+                                        onClick = {
+                                            navController.navigate(screen.route) {
+                                                // Pop up to the start destination of the graph to
+                                                // avoid building up a large stack of destinations
+                                                // on the back stack as users select items
+                                                popUpTo(navController.graph.findStartDestination().id) {
+                                                    saveState = true
+                                                }
+                                                // Avoid multiple copies of the same destination when
+                                                // reselecting the same item
+                                                launchSingleTop = true
+                                                // Restore state when reselecting a previously selected item
+                                                restoreState = true
                                             }
-                                            // Avoid multiple copies of the same destination when
-                                            // reselecting the same item
-                                            launchSingleTop = true
-                                            // Restore state when reselecting a previously selected item
-                                            restoreState = true
-                                        }
-                                    },
-                                )
-                            }
-                        }
-                    },
-                    floatingActionButton = {
-                        SmallFloatingActionButton(
-                            onClick = {
-                                if (navController.currentDestination?.route == Screen.Converter.route) {
-                                    converterViewModel.clear()
+                                        },
+                                    )
                                 }
-                            },
+                            }
+                        },
+                        floatingActionButton = {
+                            SmallFloatingActionButton(
+                                onClick = {
+                                    if (navController.currentDestination?.route == Screen.Converter.route) {
+                                        converterViewModel.clear()
+                                    }
+                                },
+                            ) {
+                                Icon(painter = painterResource(R.drawable.close), contentDescription = null)
+                            }
+                        },
+                    ) { contentPadding ->
+                        NavHost(
+                            navController = navController,
+                            startDestination = Screen.Converter.route,
                         ) {
-                            Icon(painter = painterResource(R.drawable.close), contentDescription = null)
-                        }
-                    },
-                ) { contentPadding ->
-                    NavHost(
-                        navController = navController,
-                        startDestination = Screen.Converter.route,
-                    ) {
-                        composable(Screen.Converter.route) { ConverterScreen(converterViewModel, contentPadding) }
-                        composable(Screen.Calculator.route) { CalculatorScreen(contentPadding) }
+                            composable(Screen.Converter.route) { ConverterScreen(converterViewModel, contentPadding) }
+                            composable(Screen.Calculator.route) { CalculatorScreen(calculatorViewModel, contentPadding) }
 //                        composable("settings") {  }
+                        }
                     }
                 }
             }

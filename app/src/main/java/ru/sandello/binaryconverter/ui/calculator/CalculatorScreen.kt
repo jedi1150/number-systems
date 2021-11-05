@@ -20,14 +20,11 @@ import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
-import com.google.accompanist.insets.statusBarsPadding
 import ru.sandello.binaryconverter.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CalculatorScreen(mainPadding: PaddingValues) {
-    val viewModel: CalculatorViewModel = viewModel()
-
+fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues) {
     val textState = remember { mutableStateOf(TextFieldValue()) }
     val options = listOf("3", "4", "5", "6", "7")
     var selectedOptionText by remember { mutableStateOf(options[0]) }

@@ -21,6 +21,9 @@ android {
         versionCode 113
         versionName '2.0.0'
         signingConfig signingConfigs.config
+        vectorDrawables {
+            useSupportLibrary true
+        }
     }
     buildTypes {
         release {
@@ -46,6 +49,7 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
+        kotlinCompilerVersion '1.5.21'
     }
     packagingOptions {
         resources {
