@@ -4,11 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.*
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -20,13 +22,16 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.android.gms.ads.interstitial.InterstitialAd
+import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.Screen
 import ru.sandello.binaryconverter.ui.calculator.CalculatorScreen
 import ru.sandello.binaryconverter.ui.converter.ConverterScreen
+import ru.sandello.binaryconverter.ui.converter.ConverterViewModel
 
 class MainActivity : ComponentActivity() {
     //    lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
+    private val converterViewModel: ConverterViewModel by viewModels()
 //    private val model: CalculatorViewModel by viewModels()
 
     private lateinit var ad: InterstitialAd
@@ -77,14 +82,24 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                     },
+                    floatingActionButton = {
+                        SmallFloatingActionButton(
+                            onClick = {
+                                if (navController.currentDestination?.route == Screen.Converter.route) {
+                                    converterViewModel.clear()
+                                }
+                            },
+                        ) {
+                            Icon(painter = painterResource(R.drawable.close), contentDescription = null)
+                        }
+                    },
                 ) { contentPadding ->
                     NavHost(
                         navController = navController,
                         startDestination = Screen.Converter.route,
-//                        modifier = Modifier.padding(contentPadding),
                     ) {
-                        composable(Screen.Converter.route) { ConverterScreen(contentPadding) }
-                        composable(Screen.Calculator.route) { CalculatorScreen() }
+                        composable(Screen.Converter.route) { ConverterScreen(converterViewModel, contentPadding) }
+                        composable(Screen.Calculator.route) { CalculatorScreen(contentPadding) }
 //                        composable("settings") {  }
                     }
                 }
