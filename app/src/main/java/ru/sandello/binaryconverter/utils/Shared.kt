@@ -9,4 +9,6 @@ object Shared {
     lateinit var resourcesHelper: ResourcesHelper
     @SuppressLint("StaticFieldLeak")
     lateinit var preferencesHelper: PreferencesHelper
+
+    lateinit var converter: Converter
 }

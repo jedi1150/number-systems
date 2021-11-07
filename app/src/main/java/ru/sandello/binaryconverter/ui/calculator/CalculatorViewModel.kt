@@ -151,8 +151,8 @@ class CalculatorViewModel : ViewModel() {
     fun updateOperand(action: Int, value: String = "", fraction: Int) {
         try {
             when (action) {
-                1 -> _operand1.postValue(ConvertTo().main(value, fraction, 10).toBigDecimal())
-                2 -> _operand2.postValue(ConvertTo().main(value, fraction, 10).toBigDecimal())
+//                1 -> _operand1.postValue(Converter().convert(value, fraction, 10).toBigDecimal())
+//                2 -> _operand2.postValue(Converter().convert(value, fraction, 10).toBigDecimal())
             }
         } catch (e: Exception) {
             showInvalidInputError.postValue(Pair(action, allow(fraction)))

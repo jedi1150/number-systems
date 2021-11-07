@@ -1,10 +1,13 @@
 package ru.sandello.binaryconverter.utils
 
 import android.util.Log
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import ru.sandello.binaryconverter.model.ConvertedData
 import java.util.*
 import kotlin.math.pow
 
-class ConvertTo {
+class Converter {
 
     private var string = ""
     private var leftLength = 0 //Длина целой части числа
@@ -18,14 +21,30 @@ class ConvertTo {
     private var rightDecArray = charArrayOf()
     private var minusBool = false
 
-    fun main(oldString: String, p1: Int?, p2: Int?): String {
-        Log.d("test228 convert", "p1: $p1, p2: $p2")
-        if (oldString.contains("-")) {
-            string = oldString.replace("-", "")
+    operator fun invoke(value: String, fromRadix: Int, toRadix: Int): Flow<ConvertedData> = flow {
+        Log.d(APP_TAG, "Converter:: invoke")
+
+        assert(fromRadix > 2 || fromRadix < 36 || toRadix > 2 || fromRadix < 36) {
+            "Radix must be greater than 2 and smaller than 36"
+        }
+
+        if (fromRadix == toRadix) {
+            emit(ConvertedData(result = value, fromRadix = fromRadix, toRadix = toRadix))
+            return@flow
+        }
+
+        emit(ConvertedData(result = convert(value, fromRadix, toRadix), fromRadix = fromRadix, toRadix = toRadix))
+    }
+
+    private fun convert(value: String, fromRadix: Int, toRadix: Int): String {
+        Log.d(APP_TAG, "Converter:: convert: fromRadix: $fromRadix, toRadix: $toRadix")
+
+        if (value.contains("-")) {
+            string = value.replace("-", "")
             minusBool = true
-        } else string = oldString
-        fromParse = p1!!
-        toParse = p2!!
+        } else string = value
+        fromParse = fromRadix
+        toParse = toRadix
 
         leftDecArray = string.split("[,.]".toRegex())[0].toCharArray()
         try {
@@ -46,6 +65,8 @@ class ConvertTo {
     }
 
     private fun toDec(): String {
+        Log.d(APP_TAG, "Converter:: toDec")
+
         leftLength = leftDecArray.size
         for (i in decArray) {
             leftLength--
@@ -62,6 +83,8 @@ class ConvertTo {
     }
 
     private fun fromDec(): String {
+        Log.d(APP_TAG, "Converter:: fromDec")
+
         var res = ""
         leftDecArray = string.split("[,.]".toRegex())[0].toCharArray()
         try {
@@ -115,6 +138,8 @@ class ConvertTo {
     }
 
     private fun notDec(): String {
+        Log.d(APP_TAG, "Converter:: notDec")
+
         string = toDec()
         fromParse = 10
         return fromDec()

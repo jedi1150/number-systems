@@ -4,12 +4,14 @@ import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flatMapMerge
+import kotlinx.coroutines.launch
 import ru.sandello.binaryconverter.utils.APP_TAG
-import ru.sandello.binaryconverter.utils.ConvertTo
+import ru.sandello.binaryconverter.utils.Shared.converter
 import java.math.BigDecimal
 
 class ConverterViewModel : ViewModel() {
@@ -95,24 +97,35 @@ class ConverterViewModel : ViewModel() {
         "Z",
     )
 
-    fun updateOperand(fraction: Int, textFieldValue: TextFieldValue) {
-        Log.d(APP_TAG, "ConverterViewModel::updateOperand: frac: $fraction, textFieldVal: $textFieldValue")
+    @OptIn(FlowPreview::class)
+    fun convert(textFieldValue: TextFieldValue, fromRadix: Int) {
+        Log.d(APP_TAG, "ConverterViewModel::convert: textFieldVal: $textFieldValue, from radix: $fromRadix, ")
         if (textFieldValue.text.isEmpty()) {
             clear()
             return
         }
+
         try {
-            _operand10new.value = if (fraction != 10) TextFieldValue(ConvertTo().main(textFieldValue.text, fraction, 10)) else textFieldValue
-            _operand2new.value = if (fraction != 2) TextFieldValue(ConvertTo().main(textFieldValue.text, fraction, 2)) else textFieldValue
-            _operand8new.value = if (fraction != 8) TextFieldValue(ConvertTo().main(textFieldValue.text, fraction, 8)) else textFieldValue
-            _operand16new.value = if (fraction != 16) TextFieldValue(ConvertTo().main(textFieldValue.text, fraction, 16)) else textFieldValue
-            _operandCustomNew.value = if (fraction != _customBaseNumber.value) TextFieldValue(ConvertTo().main(textFieldValue.text, fraction, _customBaseNumber.value)) else textFieldValue
+            viewModelScope.launch {
+                intArrayOf(2, 8, 10, 16, _customBaseNumber.value).asFlow()
+                    .flatMapMerge { value -> converter(textFieldValue.text, fromRadix, value) }
+                    .collect { value ->
+                        Log.d(APP_TAG, "ConverterViewModel::convert: $value")
+                        when (value.toRadix) {
+                            2 -> _operand2new.value = if (fromRadix == 2) textFieldValue else TextFieldValue(value.result)
+                            8 -> _operand8new.value = if (fromRadix == 8) textFieldValue else TextFieldValue(value.result)
+                            10 -> _operand10new.value = if (fromRadix == 10) textFieldValue else TextFieldValue(value.result)
+                            16 -> _operand16new.value = if (fromRadix == 16) textFieldValue else TextFieldValue(value.result)
+                            _customBaseNumber.value -> _operandCustomNew.value = if (fromRadix == _customBaseNumber.value) textFieldValue else TextFieldValue(value.result)
+                        }
+                    }
+            }
         } catch (e: Exception) {
-            showInvalidInputError.postValue(Pair(fraction, allow(fraction)))
+            showInvalidInputError.postValue(Pair(fromRadix, allow(fromRadix)))
         }
     }
 
-    fun updateCustomBaseNumber(newBase: Int) {
+    fun updateCustomBaseNumber(newBase: Int) { // TODO radix
         Log.i(APP_TAG, "ConverterViewModel::updateCustomBaseNumber ${_customBaseNumber.value} to $newBase")
         _customBaseNumber.value = newBase
     }
