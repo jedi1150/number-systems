@@ -6,10 +6,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
@@ -42,6 +47,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                     .fillMaxWidth()
                     .padding(vertical = 4.dp),
                 label = { Text(stringResource(R.string.dec)) },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = RoundedCornerShape(16.dp),
             )
         }
@@ -53,6 +59,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                     .fillMaxWidth()
                     .padding(vertical = 4.dp),
                 label = { Text(stringResource(R.string.bin)) },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = RoundedCornerShape(16.dp),
             )
         }
@@ -64,6 +71,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                     .fillMaxWidth()
                     .padding(vertical = 4.dp),
                 label = { Text(stringResource(R.string.oct)) },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = RoundedCornerShape(16.dp),
             )
         }
@@ -75,6 +83,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                     .fillMaxWidth()
                     .padding(vertical = 4.dp),
                 label = { Text(stringResource(R.string.hex)) },
+                keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
                 shape = RoundedCornerShape(16.dp),
             )
         }
@@ -90,6 +99,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                     value = viewModel.operandCustomNew.value,
                     onValueChange = { viewModel.convert(fromRadix = viewModel.customBaseNumber.value, textFieldValue = it) },
                     label = { Text(stringResource(R.string.base_value, viewModel.customBaseNumber.value)) },
+                    keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
                     shape = RoundedCornerShape(16.dp),
                     modifier = Modifier.constrainAs(textField) {
                         start.linkTo(parent.start)
