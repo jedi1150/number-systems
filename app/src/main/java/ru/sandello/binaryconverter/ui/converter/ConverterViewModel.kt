@@ -110,6 +110,9 @@ class ConverterViewModel : ViewModel() {
             return
         }
 
+        // TODO Add replacing "-" to start if pressed
+        // TODO Add check to use only one separator
+
         viewModelScope.launch {
             intArrayOf(2, 8, 10, 16, _customBaseNumber.value)
                 .filter { _toRadix ->
@@ -120,7 +123,7 @@ class ConverterViewModel : ViewModel() {
                                 8 -> _operand8new.value = textFieldValue
                                 10 -> _operand10new.value = textFieldValue
                                 16 -> _operand16new.value = textFieldValue
-                                _customBaseNumber.value -> _operandCustomNew.value
+                                _customBaseNumber.value -> _operandCustomNew.value = textFieldValue
                             }
                         }
                     }
@@ -135,7 +138,7 @@ class ConverterViewModel : ViewModel() {
                         8 -> _operand8new.value = TextFieldValue(convertedData.result)
                         10 -> _operand10new.value = TextFieldValue(convertedData.result)
                         16 -> _operand16new.value = TextFieldValue(convertedData.result)
-                        _customBaseNumber.value -> TextFieldValue(convertedData.result)
+                        _customBaseNumber.value -> _operandCustomNew.value = TextFieldValue(convertedData.result)
                     }
                 }
         }

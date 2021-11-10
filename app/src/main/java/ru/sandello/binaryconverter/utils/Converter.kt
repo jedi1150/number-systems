@@ -27,23 +27,25 @@ class Converter {
     }.flowOn(Dispatchers.Default)
 
     private fun convert(value: String, fromRadix: Int, toRadix: Int): String {
-        Log.d(APP_TAG, "Converter::convert: fromRadix: $fromRadix, toRadix: $toRadix")
+        Log.d(APP_TAG, "Converter::convert: from radix $fromRadix to radix $toRadix")
+
+        var string = value
 
         var minusBool = false
-        if (value.contains("-")) {
-            value.replace("-", "")
+        if (string.contains("-")) {
+            string = string.replace("-", "")
             minusBool = true
         }
 
         var result: String
 
         if (fromRadix != 10) {
-            result = toDec(value, fromRadix)
+            result = toDec(string, fromRadix)
             if (toRadix != 10) {
                 result = fromDec(result, toRadix)
             }
         } else {
-            result = fromDec(value, toRadix)
+            result = fromDec(string, toRadix)
         }
 
         if (minusBool) {
@@ -65,7 +67,7 @@ class Converter {
 
         // Pretty formatting
         while (result.length > 1 && result.contains("[,.]".toRegex()) && result.endsWith("0")) {
-            result = result.substring(0, result.length - 1)
+            result = result.split("[,.]".toRegex())[0]
         }
 
         return result
@@ -78,14 +80,14 @@ class Converter {
         if ((value.contains(",") || value.contains(".")) && value.split("[,.]".toRegex())[1].isNotEmpty()) {
             var fractionalPart = value
             var i = 0
-            var formattedFraction = ""
+            var convertedFraction = ""
             while (i < Shared.FRACTION_COUNT) {
                 if (fractionalPart.split("[,.]".toRegex())[1].toBigDecimal() == "0".toBigDecimal()) break
                 fractionalPart = (".${fractionalPart.split("[,.]".toRegex())[1]}".toBigDecimal() * toRadix.toBigDecimal()).toString() //Умножаем дробную часть на степень
                 i++
-                formattedFraction += fractionalPart.split("[,.]".toRegex())[0].toBigInteger(10).toString(toRadix).uppercase(Locale.getDefault())
+                convertedFraction += fractionalPart.split("[,.]".toRegex())[0].toBigInteger(10).toString(toRadix).uppercase(Locale.getDefault())
             }
-            result += ".$formattedFraction"
+            result += ".$convertedFraction"
         }
         return result
     }
