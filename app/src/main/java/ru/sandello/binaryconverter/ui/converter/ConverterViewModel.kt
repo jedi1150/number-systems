@@ -105,25 +105,37 @@ class ConverterViewModel : ViewModel() {
             return
         }
 
-        // TODO Add inserting current textValue
         check(textFieldValue.text.matches(CharRegex().charsRegex(fromRadix))) {
             Log.d(APP_TAG, "ConverterViewModel::convert: Invalid character entered")
             return
         }
 
         viewModelScope.launch {
-            intArrayOf(2, 8, 10, 16, _customBaseNumber.value).asFlow()
-                .flatMapMerge { value -> converter(textFieldValue.text, fromRadix, value) }
+            intArrayOf(2, 8, 10, 16, _customBaseNumber.value)
+                .filter { _toRadix ->
+                    (fromRadix != _toRadix).also {
+                        if (!it) {
+                            when (_toRadix) {
+                                2 -> _operand2new.value = textFieldValue
+                                8 -> _operand8new.value = textFieldValue
+                                10 -> _operand10new.value = textFieldValue
+                                16 -> _operand16new.value = textFieldValue
+                                _customBaseNumber.value -> _operandCustomNew.value
+                            }
+                        }
+                    }
+                }
+                .asFlow()
+                .flatMapMerge { _toRadix -> converter(value = textFieldValue.text, fromRadix = fromRadix, toRadix = _toRadix) }
                 .onCompletion { cause -> if (cause != null) Log.d(APP_TAG, "Flow completed exceptionally") }
                 .catch { error -> Log.e(APP_TAG, "ConverterViewModel::convert: catch", error) }
-                .collect { value ->
-                    Log.d(APP_TAG, "ConverterViewModel::convert: collect $value")
-                    when (value.toRadix) {
-                        2 -> _operand2new.value = if (fromRadix == 2) textFieldValue else TextFieldValue(value.result)
-                        8 -> _operand8new.value = if (fromRadix == 8) textFieldValue else TextFieldValue(value.result)
-                        10 -> _operand10new.value = if (fromRadix == 10) textFieldValue else TextFieldValue(value.result)
-                        16 -> _operand16new.value = if (fromRadix == 16) textFieldValue else TextFieldValue(value.result)
-                        _customBaseNumber.value -> _operandCustomNew.value = if (fromRadix == _customBaseNumber.value) textFieldValue else TextFieldValue(value.result)
+                .collect { convertedData ->
+                    when (convertedData.toRadix) {
+                        2 -> _operand2new.value = TextFieldValue(convertedData.result)
+                        8 -> _operand8new.value = TextFieldValue(convertedData.result)
+                        10 -> _operand10new.value = TextFieldValue(convertedData.result)
+                        16 -> _operand16new.value = TextFieldValue(convertedData.result)
+                        _customBaseNumber.value -> TextFieldValue(convertedData.result)
                     }
                 }
         }

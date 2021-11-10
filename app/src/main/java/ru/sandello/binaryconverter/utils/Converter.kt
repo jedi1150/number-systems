@@ -59,8 +59,7 @@ class Converter {
         val integerPart = value.split("[,.]".toRegex())[0]
 
         val dec = valueWithoutComma.toCharArray().mapIndexed { index, char ->
-            char.toString().toInt(fromRadix).toString(10).toBigDecimal() *
-                    fromRadix.toDouble().pow(integerPart.toCharArray().size - (index + 1)).toBigDecimal()
+            char.toString().toInt(fromRadix).toString(10).toBigDecimal() * fromRadix.toDouble().pow(integerPart.toCharArray().size - (index + 1)).toBigDecimal()
         }
         var result = dec.reduce { acc, decimal -> acc + decimal }.toString()    // Summing all chars
 
