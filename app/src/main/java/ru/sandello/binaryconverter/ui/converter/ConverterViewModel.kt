@@ -110,7 +110,12 @@ class ConverterViewModel : ViewModel() {
             return
         }
 
-        // TODO Add replacing "-" to start if pressed
+        var tempValue = textFieldValue
+
+        if (tempValue.text.contains("-".toRegex())) {
+            tempValue = textFieldValue.copy(tempValue.text.replace("-", "").replaceRange(0, 0, "-"))
+        }
+
         // TODO Add check to use only one separator
 
         viewModelScope.launch {
@@ -119,17 +124,17 @@ class ConverterViewModel : ViewModel() {
                     (fromRadix != _toRadix).also {
                         if (!it) {
                             when (_toRadix) {
-                                2 -> _operand2new.value = textFieldValue
-                                8 -> _operand8new.value = textFieldValue
-                                10 -> _operand10new.value = textFieldValue
-                                16 -> _operand16new.value = textFieldValue
-                                _customBaseNumber.value -> _operandCustomNew.value = textFieldValue
+                                2 -> _operand2new.value = tempValue
+                                8 -> _operand8new.value = tempValue
+                                10 -> _operand10new.value = tempValue
+                                16 -> _operand16new.value = tempValue
+                                _customBaseNumber.value -> _operandCustomNew.value = tempValue
                             }
                         }
                     }
                 }
                 .asFlow()
-                .flatMapMerge { _toRadix -> converter(value = textFieldValue.text, fromRadix = fromRadix, toRadix = _toRadix) }
+                .flatMapMerge { _toRadix -> converter(value = tempValue.text, fromRadix = fromRadix, toRadix = _toRadix) }
                 .onCompletion { cause -> if (cause != null) Log.d(APP_TAG, "Flow completed exceptionally") }
                 .catch { error -> Log.e(APP_TAG, "ConverterViewModel::convert: catch", error) }
                 .collect { convertedData ->
