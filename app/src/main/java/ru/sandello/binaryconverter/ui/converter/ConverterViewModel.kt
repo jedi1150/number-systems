@@ -105,7 +105,15 @@ class ConverterViewModel : ViewModel() {
             return
         }
 
-        check(textFieldValue.text.matches(CharRegex().charsRegex(fromRadix))) {
+        check(
+            textFieldValue.text.matches(
+                CharRegex().charsRegex(
+                    index = fromRadix,
+                    useDelimiterChars = textFieldValue.text.count { it.toString().contains("[,.]".toRegex()) } <= 1,
+                    useNegativeChar = textFieldValue.text.count { it.toString().contains("[-]".toRegex()) } <= 1,
+                )
+            )
+        ) {
             Log.d(APP_TAG, "ConverterViewModel::convert: Invalid character entered")
             return
         }
