@@ -67,6 +67,10 @@ class Converter {
 
         // Pretty formatting
         while (result.length > 1 && result.contains("[,.]".toRegex()) && result.endsWith("0")) {
+            result = result.substringBeforeLast("0")
+        }
+
+        while (result.length > 1 && result.contains("[,.]".toRegex()) && (result.endsWith(",") || result.endsWith("."))) {
             result = result.split("[,.]".toRegex())[0]
         }
 
@@ -89,6 +93,12 @@ class Converter {
             }
             result += ".$convertedFraction"
         }
+
+        // Pretty formatting
+        while (result.length > 1 && result.contains("[,.]".toRegex()) && result.endsWith("0")) {
+            result = result.substringBeforeLast("0")
+        }
+
         return result
     }
 
