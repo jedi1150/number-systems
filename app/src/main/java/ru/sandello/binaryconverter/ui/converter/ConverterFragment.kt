@@ -84,7 +84,7 @@ class ConverterFragment : Fragment() {
                     binding.editTextCustom,
                     model.allow(binding.fractionCustom.text.toString().toInt())
                 )
-                model.updateCustomBaseNumber(position)
+                model.updateCustomRadix(position)
 //                binding.editTextCustom.setText(
 //                    ConvertTo().main(
 //                        binding.editText10.text.toString(),

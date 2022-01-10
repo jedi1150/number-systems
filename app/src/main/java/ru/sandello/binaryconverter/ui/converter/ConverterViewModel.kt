@@ -30,9 +30,9 @@ class ConverterViewModel : ViewModel() {
     private val _operandCustomNew = mutableStateOf(TextFieldValue())
     val operandCustomNew: State<TextFieldValue>
         get() = _operandCustomNew
-    private val _customBaseNumber = mutableStateOf(3)
-    val customBaseNumber: State<Int>
-        get() = _customBaseNumber
+    private val _customRadix = mutableStateOf(3)
+    val customRadix: State<Int>
+        get() = _customRadix
 
     private val baseNumbers = IntArray(36) { it + 1 }
     val customBaseNumbers = baseNumbers.toMutableList().filter { !listOf(1, 2, 8, 10, 16).contains(it) }
@@ -125,7 +125,7 @@ class ConverterViewModel : ViewModel() {
         }
 
         viewModelScope.launch {
-            intArrayOf(2, 8, 10, 16, _customBaseNumber.value)
+            intArrayOf(2, 8, 10, 16, _customRadix.value)
                 .filter { _toRadix ->
                     (fromRadix != _toRadix).also {
                         if (!it) {
@@ -134,7 +134,7 @@ class ConverterViewModel : ViewModel() {
                                 8 -> _operand8new.value = tempValue
                                 10 -> _operand10new.value = tempValue
                                 16 -> _operand16new.value = tempValue
-                                _customBaseNumber.value -> _operandCustomNew.value = tempValue
+                                _customRadix.value -> _operandCustomNew.value = tempValue
                             }
                         }
                     }
@@ -149,15 +149,15 @@ class ConverterViewModel : ViewModel() {
                         8 -> _operand8new.value = TextFieldValue(convertedData.result)
                         10 -> _operand10new.value = TextFieldValue(convertedData.result)
                         16 -> _operand16new.value = TextFieldValue(convertedData.result)
-                        _customBaseNumber.value -> _operandCustomNew.value = TextFieldValue(convertedData.result)
+                        _customRadix.value -> _operandCustomNew.value = TextFieldValue(convertedData.result)
                     }
                 }
         }
     }
 
-    fun updateCustomBaseNumber(newBase: Int) { // TODO radix
-        Log.i(APP_TAG, "ConverterViewModel::updateCustomBaseNumber ${_customBaseNumber.value} to $newBase")
-        _customBaseNumber.value = newBase
+    fun updateCustomRadix(newRadix: Int) {
+        Log.i(APP_TAG, "ConverterViewModel::updateCustomRadix ${_customRadix.value} to $newRadix")
+        _customRadix.value = newRadix
     }
 
     /*private fun parse() {

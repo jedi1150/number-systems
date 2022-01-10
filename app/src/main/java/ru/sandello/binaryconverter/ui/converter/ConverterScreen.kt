@@ -14,7 +14,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
@@ -97,8 +96,8 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
 
                 OutlinedTextField(
                     value = viewModel.operandCustomNew.value,
-                    onValueChange = { viewModel.convert(fromRadix = viewModel.customBaseNumber.value, textFieldValue = it) },
-                    label = { Text(stringResource(R.string.base_value, viewModel.customBaseNumber.value)) },
+                    onValueChange = { viewModel.convert(fromRadix = viewModel.customRadix.value, textFieldValue = it) },
+                    label = { Text(stringResource(R.string.base_value, viewModel.customRadix.value)) },
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
                     shape = RoundedCornerShape(16.dp),
                     modifier = Modifier.constrainAs(textField) {
@@ -120,7 +119,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                     },
                 ) {
                     OutlinedTextField(
-                        value = viewModel.customBaseNumber.value.toString(),
+                        value = viewModel.customRadix.value.toString(),
                         onValueChange = { },
                         readOnly = true,
                         label = {},
@@ -141,7 +140,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                         viewModel.customBaseNumbers.forEach { selectionOption ->
                             DropdownMenuItem(
                                 onClick = {
-                                    viewModel.updateCustomBaseNumber(selectionOption)
+                                    viewModel.updateCustomRadix(selectionOption)
                                     expanded = false
                                 }
                             ) {
