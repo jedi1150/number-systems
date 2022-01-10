@@ -7,6 +7,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import ru.sandello.binaryconverter.utils.APP_TAG
@@ -71,11 +72,26 @@ class ConverterViewModel : ViewModel() {
                     (fromRadix != _toRadix).also {
                         if (!it) {
                             when (_toRadix) {
-                                2 -> _operand2.value = tempValue
-                                8 -> _operand8.value = tempValue
-                                10 -> _operand10.value = tempValue
-                                16 -> _operand16.value = tempValue
-                                _customRadix.value -> _operandCustom.value = tempValue
+                                2 -> {
+                                    if (_operand2.value.text == textFieldValue.text) cancel()
+                                    _operand2.value = tempValue
+                                }
+                                8 -> {
+                                    if (_operand8.value.text == textFieldValue.text) cancel()
+                                    _operand8.value = tempValue
+                                }
+                                10 -> {
+                                    if (_operand10.value.text == textFieldValue.text) cancel()
+                                    _operand10.value = tempValue
+                                }
+                                16 -> {
+                                    if (_operand16.value.text == textFieldValue.text) cancel()
+                                    _operand16.value = tempValue
+                                }
+                                _customRadix.value -> {
+                                    if (_operandCustom.value.text == textFieldValue.text) cancel()
+                                    _operandCustom.value = tempValue
+                                }
                             }
                         }
                     }
