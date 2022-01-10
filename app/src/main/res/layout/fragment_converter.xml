@@ -51,8 +51,6 @@
                         android:maxLength="100"
                         android:saveEnabled="false"
                         android:singleLine="true"
-
-                        android:text="@={model.operandTest}"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
