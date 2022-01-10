@@ -9,6 +9,6 @@ class CharRegex {
         var resultRegex: String = chars.substring(0, index)
         if (useDelimiterChars) resultRegex += delimiterChars
         if (useNegativeChar) resultRegex += negativeChars
-        return "^[${resultRegex}]*\$".toRegex()
+        return "^[${resultRegex}]*\$".toRegex(RegexOption.IGNORE_CASE)
     }
 }
