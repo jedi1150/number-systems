@@ -25,7 +25,7 @@
     <string name="cancel">Bekor qilish</string>
     <string name="language">Til</string>
     <string name="help_with_translate">Tarjimada yordam bering</string>
-    <string name="base_value">Baza (n)</string>
+    <string name="radix">Baza (%d)</string>
     <string name="result_of_translate">Tarjima natijasi</string>
     <string name="dec_length_text">O\'nli kasrdan keyin belgilar soni</string>
     <string name="add_decimal">Butun sonlar va kasr qismlarni qo\'shing</string>

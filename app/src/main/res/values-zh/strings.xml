@@ -25,7 +25,7 @@
     <string name="cancel">取消</string>
     <string name="language">語言</string>
     <string name="help_with_translate">翻譯幫助</string>
-    <string name="base_value">基數（n）</string>
+    <string name="radix">基數 (%d)</string>
     <string name="result_of_translate">翻譯結果</string>
     <string name="dec_length_text">小數點後的字符數</string>
     <string name="add_decimal">將整數和小數部分相加</string>

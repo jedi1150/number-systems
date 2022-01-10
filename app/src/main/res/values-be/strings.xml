@@ -25,7 +25,7 @@
     <string name="cancel">Адмяніць</string>
     <string name="language">Мова</string>
     <string name="help_with_translate">Даведка з перакладам</string>
-    <string name="base_value">База (п)</string>
+    <string name="radix">База (%d)</string>
     <string name="result_of_translate">Вынік перакладу</string>
     <string name="dec_length_text">Колькасць знакаў пасля коскі</string>
     <string name="add_decimal">Дадайце цэлыя і дробавыя часткі</string>

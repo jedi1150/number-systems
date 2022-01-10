@@ -25,7 +25,7 @@
     <string name="cancel">annuleren</string>
     <string name="language">Taal</string>
     <string name="help_with_translate">Hulp bij vertalen</string>
-    <string name="base_value">Basis (n)</string>
+    <string name="radix">Basis (%d)</string>
     <string name="result_of_translate">Vertaalresultaat</string>
     <string name="dec_length_text">Het aantal tekens na de komma</string>
     <string name="add_decimal">De gehele getallen en fractionele delen toevoegen</string>

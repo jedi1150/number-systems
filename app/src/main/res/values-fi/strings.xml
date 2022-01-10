@@ -25,7 +25,7 @@
     <string name="cancel">Peruuttaa</string>
     <string name="language">Kieli</string>
     <string name="help_with_translate">Apua käännökseen</string>
-    <string name="base_value">Pohja (n)</string>
+    <string name="radix">Pohja (%d)</string>
     <string name="result_of_translate">Käännöstulos</string>
     <string name="dec_length_text">Merkkien lukumäärä desimaalin jälkeen</string>
     <string name="add_decimal">Kokonaislukujen ja murto-osien lisääminen</string>

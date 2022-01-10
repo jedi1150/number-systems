@@ -25,7 +25,7 @@
     <string name="cancel">Скасувати</string>
     <string name="language">Мову</string>
     <string name="help_with_translate">Довідка з перекладом</string>
-    <string name="base_value">База (n)</string>
+    <string name="radix">База (%d)</string>
     <string name="result_of_translate">Результат перекладу</string>
     <string name="dec_length_text">Кількість символів після десяткової крапки</string>
     <string name="add_decimal">Додайте цілі та дробові частини</string>

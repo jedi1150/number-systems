@@ -53,7 +53,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                         start.linkTo(parent.start)
                         end.linkTo(exposedDropdown.start, margin = 4.dp)
                     },
-                    label = { Text(stringResource(R.string.base_value)) },
+                    label = { Text(stringResource(R.string.radix)) },
                     shape = RoundedCornerShape(16.dp),
 //                    colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = MaterialTheme.colors.primary, unfocusedBorderColor = MaterialTheme.colorScheme.onPrimaryContainer,)
                 )
@@ -128,7 +128,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                 OutlinedTextField(
                     value = textState.value,
                     onValueChange = { textState.value = it },
-                    label = { Text(stringResource(R.string.base_value)) },
+                    label = { Text(stringResource(R.string.radix)) },
                     shape = RoundedCornerShape(16.dp),
                     modifier = Modifier.constrainAs(textField) {
                         start.linkTo(parent.start)
@@ -186,7 +186,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                 OutlinedTextField(
                     value = textState.value,
                     onValueChange = { textState.value = it },
-                    label = { Text(stringResource(R.string.base_value)) },
+                    label = { Text(stringResource(R.string.radix)) },
                     shape = RoundedCornerShape(16.dp),
                     modifier = Modifier.constrainAs(textField) {
                         start.linkTo(parent.start)

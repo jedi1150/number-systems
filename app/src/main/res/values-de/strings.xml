@@ -25,7 +25,7 @@
     <string name="cancel">Stornieren</string>
     <string name="language">Sprache</string>
     <string name="help_with_translate">Hilfe bei der Übersetzung</string>
-    <string name="base_value">Basis (n)</string>
+    <string name="radix">Basis (%d)</string>
     <string name="result_of_translate">Übersetzungsergebnis</string>
     <string name="dec_length_text">Die Anzahl der Zeichen nach dem Dezimalpunkt</string>
     <string name="add_decimal">Fügen Sie die ganzen Zahlen und Bruchteile hinzu</string>

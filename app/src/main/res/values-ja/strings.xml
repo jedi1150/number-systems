@@ -25,7 +25,7 @@
   <string name="cancel">キャンセル</string>
     <string name="language">言語</string>
     <string name="help_with_translate">翻訳のお手伝い</string>
-    <string name="base_value">ベース（n）</string>
+    <string name="radix">ベース (%d)</string>
     <string name="result_of_translate">翻訳結果</string>
     <string name="dec_length_text">小数点以下の文字数</string>
     <string name="add_decimal">整数部と小数部を追加します</string>

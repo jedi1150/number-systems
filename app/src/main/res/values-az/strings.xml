@@ -25,7 +25,7 @@
     <string name="cancel">Ləğv et</string>
     <string name="language">Dil</string>
     <string name="help_with_translate">Tərcümə ilə kömək edin</string>
-    <string name="base_value">Baza (n)</string>
+    <string name="radix">Baza (%d)</string>
     <string name="result_of_translate">Tərcümə nəticəsində</string>
     <string name="dec_length_text">Onluq nöqtəsindən sonra işarələrin sayı</string>
     <string name="add_decimal">Tam ədədlər və fraksiya hissələri əlavə edin</string>

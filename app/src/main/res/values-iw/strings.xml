@@ -25,7 +25,7 @@
   <string name="cancel">בטל</string>
     <string name="language">שפה</string>
     <string name="help_with_translate">עזרה בתרגום</string>
-    <string name="base_value">בסיס (n)</string>
+    <string name="radix">בסיס (%d)</string>
     <string name="result_of_translate">תוצאת התרגום</string>
     <string name="dec_length_text">מספר התווים אחרי הנקודה העשרונית</string>
     <string name="add_decimal">הוסף את מספרים שלמים וחלקי השבר</string>

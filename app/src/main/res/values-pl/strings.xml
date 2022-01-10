@@ -25,7 +25,7 @@
     <string name="cancel">Anuluj</string>
     <string name="language">Język</string>
     <string name="help_with_translate">Pomoc w tłumaczeniu</string>
-    <string name="base_value">Baza (n)</string>
+    <string name="radix">Baza (%d)</string>
     <string name="result_of_translate">Wynik tłumaczenia</string>
     <string name="dec_length_text">Liczba znaków po przecinku</string>
     <string name="add_decimal">Dodaj liczby całkowite i części ułamkowe</string>

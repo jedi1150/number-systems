@@ -97,7 +97,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                 OutlinedTextField(
                     value = viewModel.operandCustomNew.value,
                     onValueChange = { viewModel.convert(fromRadix = viewModel.customRadix.value, textFieldValue = it) },
-                    label = { Text(stringResource(R.string.base_value, viewModel.customRadix.value)) },
+                    label = { Text(stringResource(R.string.radix, viewModel.customRadix.value)) },
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
                     shape = RoundedCornerShape(16.dp),
                     modifier = Modifier.constrainAs(textField) {
@@ -137,7 +137,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                             expanded = false
                         },
                     ) {
-                        viewModel.customBaseNumbers.forEach { selectionOption ->
+                        viewModel.customRadixes.forEach { selectionOption ->
                             DropdownMenuItem(
                                 onClick = {
                                     viewModel.updateCustomRadix(selectionOption)

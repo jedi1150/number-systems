@@ -25,7 +25,7 @@
     <string name="cancel">ยกเลิก</string>
     <string name="language">ภาษา</string>
     <string name="help_with_translate">ช่วยแปล</string>
-    <string name="base_value">ฐาน (n)</string>
+    <string name="radix">ฐาน (%d)</string>
     <string name="result_of_translate">ผลการแปล</string>
     <string name="dec_length_text">จำนวนอักขระหลังจุดทศนิยม</string>
     <string name="add_decimal">เพิ่มจำนวนเต็มและส่วนที่เป็นเศษส่วน</string>

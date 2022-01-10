@@ -25,7 +25,7 @@
     <string name="cancel">zrušení</string>
     <string name="language">Jazyk</string>
     <string name="help_with_translate">Pomoc s překladem</string>
-    <string name="base_value">Základna (n)</string>
+    <string name="radix">Základna (%d)</string>
     <string name="result_of_translate">Výsledek překladu</string>
     <string name="dec_length_text">Počet znaků za desetinnou čárkou</string>
     <string name="add_decimal">Přidejte celá čísla a zlomkové části</string>

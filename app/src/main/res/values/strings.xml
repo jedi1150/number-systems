@@ -19,7 +19,7 @@
     <string name="index" translatable="false">index</string>
     <string name="multiply_symb" translatable="false">×</string>
     <string name="settings">Settings</string>
-    <string name="step_4">The fractional part of the number is multiplied by the base of the new</string>
+    <string name="step_4">The fractional part of the number is multiplied by the radix of the new</string>
     <string name="light">Light</string>
     <string name="dark">Dark</string>
     <string name="battery_saver">Set by Battery Saver</string>
@@ -28,7 +28,7 @@
     <string name="language">Language</string>
     <string name="help_with_translate">Help with translation</string>
     <string name="github" translatable="false">GitHub</string>
-    <string name="base_value">Base (%d)</string>
+    <string name="radix">Radix (%d)</string>
     <string name="result_of_translate">Translation result</string>
     <string name="sample_TV" translatable="false">sample</string>
     <string name="multiply_symbol" translatable="false">×</string>

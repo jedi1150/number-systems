@@ -25,7 +25,7 @@
     <string name="cancel">إلغاء</string>
     <string name="language">لغة</string>
     <string name="help_with_translate">مساعدة في الترجمة</string>
-    <string name="base_value">قاعدة (ن)</string>
+    <string name="radix">قاعدة (%d)</string>
     <string name="result_of_translate">نتيجة الترجمة</string>
     <string name="dec_length_text">عدد الحروف بعد العلامة العشرية</string>
     <string name="add_decimal">أضف الأعداد الصحيحة والأجزاء الكسرية</string>

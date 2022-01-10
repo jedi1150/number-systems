@@ -34,8 +34,8 @@ class ConverterViewModel : ViewModel() {
     val customRadix: State<Int>
         get() = _customRadix
 
-    private val baseNumbers = IntArray(36) { it + 1 }
-    val customBaseNumbers = baseNumbers.toMutableList().filter { !listOf(1, 2, 8, 10, 16).contains(it) }
+    private val radixes = IntArray(36) { it + 1 }
+    val customRadixes = radixes.toMutableList().filter { !listOf(1, 2, 8, 10, 16).contains(it) }
 
     private val _operandBase = MediatorLiveData<BigDecimal>()
     val operandBase: LiveData<BigDecimal> = _operandBase

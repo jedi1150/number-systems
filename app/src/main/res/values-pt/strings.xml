@@ -17,7 +17,7 @@
     <string name="step_3">Escreva o resultado em ordem inversa</string>
     <string name="available_characters_for_input">Caracteres disponíveis para entrada</string>
     <string name="settings">Configurações</string>
-    <string name="step_4">A parte fracionária do número é multiplicada pela base do novo</string>
+    <string name="step_4">A parte fracionária do número é multiplicada pela radix do novo</string>
     <string name="light">Luz</string>
     <string name="dark">Sombrio</string>
     <string name="battery_saver">Definido pelo Economizador de bateria</string>
@@ -25,7 +25,7 @@
     <string name="cancel">Cancelar</string>
     <string name="language">Língua</string>
     <string name="help_with_translate">Ajuda com tradução</string>
-    <string name="base_value">Base (n)</string>
+    <string name="radix">Radix (%d)</string>
     <string name="result_of_translate">Resultado da tradução</string>
     <string name="dec_length_text">O número de caracteres após o ponto decimal</string>
     <string name="add_decimal">Adicione os números inteiros e as partes fracionárias</string>

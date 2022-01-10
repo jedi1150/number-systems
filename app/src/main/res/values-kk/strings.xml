@@ -25,7 +25,7 @@
     <string name="cancel">Болдырмау</string>
     <string name="language">Тіл</string>
     <string name="help_with_translate">Аударма бойынша көмек</string>
-    <string name="base_value">Негіз (n)</string>
+    <string name="radix">Негіз (%d)</string>
     <string name="result_of_translate">Аударма нәтижесі</string>
     <string name="dec_length_text">Ондық таңбадан кейінгі таңбалар саны</string>
     <string name="add_decimal">Бүтін және бөлшек бөліктерін қосыңыз</string>
