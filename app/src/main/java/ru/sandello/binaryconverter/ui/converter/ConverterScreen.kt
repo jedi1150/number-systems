@@ -1,6 +1,5 @@
 package ru.sandello.binaryconverter.ui.converter
 
-import android.util.Log
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,12 +19,10 @@ import androidx.constraintlayout.compose.Dimension
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
 import ru.sandello.binaryconverter.R
-import ru.sandello.binaryconverter.utils.APP_TAG
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
-    Log.d(APP_TAG, "ConverterScreen:: init")
     LazyColumn(
         contentPadding = PaddingValues(
             start = 8.dp,
