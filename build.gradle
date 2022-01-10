@@ -6,9 +6,9 @@ buildscript {
         material_version = '1.4.0'
         multidex_version = '2.0.1'
         lifecycle_version = '2.4.0'
-        compose_version = '1.1.0-beta01'
-        navigation_compose_version = '2.4.0-beta01'
-        constraintlayout_compose_version = '1.0.0-rc01'
+        compose_version = '1.1.0-rc01'
+        navigation_compose_version = '2.4.0-rc01'
+        constraintlayout_compose_version = '1.0.0-rc02'
         datastore_preferences_version = '1.0.0'
         accompanist_version = '0.21.1-beta'
         firebase_bom_version = '28.3.0'
@@ -18,11 +18,11 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.3'
+        classpath 'com.android.tools.build:gradle:7.0.4'
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31'
         classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5' // TODO deprecated
         classpath 'com.google.gms:google-services:4.3.10'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.8.0'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.8.1'
     }
 }
 

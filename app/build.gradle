@@ -67,8 +67,8 @@ dependencies {
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.ui:ui-tooling:$compose_version"
     implementation "androidx.compose.ui:ui-util:$compose_version"
-    implementation "androidx.activity:activity-compose:$appcompact_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
+    implementation "androidx.activity:activity-compose:$appcompact_version"
     implementation "androidx.constraintlayout:constraintlayout-compose:$constraintlayout_compose_version"
     implementation "androidx.navigation:navigation-compose:$navigation_compose_version"
     implementation "androidx.datastore:datastore-preferences:$datastore_preferences_version"
@@ -92,11 +92,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
     // Play Core
-    implementation 'com.google.android.play:core:1.10.2'
+    implementation 'com.google.android.play:core:1.10.3'
     implementation 'com.google.android.play:core-ktx:1.8.1'
 
     // Ads
-    implementation 'com.google.android.gms:play-services-ads:20.4.0'
+    implementation 'com.google.android.gms:play-services-ads:20.5.0'
 
     // UI Tests
     testImplementation 'junit:junit:4.+'
