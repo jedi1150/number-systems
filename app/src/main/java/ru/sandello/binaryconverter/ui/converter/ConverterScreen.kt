@@ -40,7 +40,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
     ) {
         item {
             OutlinedTextField(
-                value = viewModel.operand10new.value,
+                value = viewModel.operand10.value,
                 onValueChange = { viewModel.convert(fromRadix = 10, textFieldValue = it) },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -52,7 +52,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
         }
         item {
             OutlinedTextField(
-                value = viewModel.operand2new.value,
+                value = viewModel.operand2.value,
                 onValueChange = { viewModel.convert(fromRadix = 2, textFieldValue = it) },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -64,7 +64,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
         }
         item {
             OutlinedTextField(
-                value = viewModel.operand8new.value,
+                value = viewModel.operand8.value,
                 onValueChange = { viewModel.convert(fromRadix = 8, textFieldValue = it) },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -76,7 +76,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
         }
         item {
             OutlinedTextField(
-                value = viewModel.operand16new.value,
+                value = viewModel.operand16.value,
                 onValueChange = { viewModel.convert(fromRadix = 16, textFieldValue = it) },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -95,7 +95,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                 val (textField, exposedDropdown) = createRefs()
 
                 OutlinedTextField(
-                    value = viewModel.operandCustomNew.value,
+                    value = viewModel.operandCustom.value,
                     onValueChange = { viewModel.convert(fromRadix = viewModel.customRadix.value, textFieldValue = it) },
                     label = { Text(stringResource(R.string.radix, viewModel.customRadix.value)) },
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
