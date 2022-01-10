@@ -124,8 +124,6 @@ class ConverterViewModel : ViewModel() {
             tempValue = textFieldValue.copy(tempValue.text.replace("-", "").replaceRange(0, 0, "-"))
         }
 
-        // TODO Add check to use only one separator
-
         viewModelScope.launch {
             intArrayOf(2, 8, 10, 16, _customBaseNumber.value)
                 .filter { _toRadix ->
