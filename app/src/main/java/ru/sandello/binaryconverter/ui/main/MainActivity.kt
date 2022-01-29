@@ -5,8 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -73,7 +71,13 @@ class MainActivity : ComponentActivity() {
                                     val currentDestination = navBackStackEntry?.destination
                                     items.forEach { screen ->
                                         BottomNavigationItem(
-                                            icon = { Icon(Icons.Filled.Favorite, contentDescription = null) },
+                                            icon = {
+                                                Icon(
+                                                    painterResource(screen.iconId),
+                                                    contentDescription = null,
+                                                    tint = MaterialTheme.colors.onSurface,
+                                                )
+                                            },
                                             label = { Text(stringResource(screen.resourceId)) },
                                             selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                                             onClick = {
