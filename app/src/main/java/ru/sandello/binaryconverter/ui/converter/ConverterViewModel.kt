@@ -66,9 +66,6 @@ class ConverterViewModel : ViewModel() {
     fun convert(textFieldValue: TextFieldValue, fromRadix: Int, @IntRange(from = 2, to = 36) toRadixes: IntArray) {
         Log.d(APP_TAG, "ConverterViewModel::convert: textFieldVal: $textFieldValue, from radix: $fromRadix")
 
-        lastValueFrom = textFieldValue
-        lastRadixFrom = fromRadix
-
         if (textFieldValue.text.isEmpty()) {
             clear()
             return
@@ -85,30 +82,17 @@ class ConverterViewModel : ViewModel() {
         ) {
             Log.d(APP_TAG, "ConverterViewModel::convert: Invalid character entered")
             when (fromRadix) {
-                2 -> {
-                    _operand2.value = textFieldValue
-                    _operand2error.value = true
-                }
-                8 -> {
-                    _operand8.value = textFieldValue
-                    _operand8error.value = true
-                }
-                10 -> {
-                    _operand10.value = textFieldValue
-                    _operand10error.value = true
-                }
-                16 -> {
-                    _operand16.value = textFieldValue
-                    _operand16error.value = true
-                }
-                _customRadix.value -> {
-                    _operandCustom.value = textFieldValue
-                    _operandCustomError.value = true
-                }
+                2 -> _operand2error.value = true
+                8 -> _operand8error.value = true
+                10 -> _operand10error.value = true
+                16 -> _operand16error.value = true
+                _customRadix.value -> _operandCustomError.value = true
             }
             return
         }
-        resetErrors()
+
+        lastValueFrom = textFieldValue
+        lastRadixFrom = fromRadix
 
         var tempValue = textFieldValue
 
@@ -148,7 +132,13 @@ class ConverterViewModel : ViewModel() {
                 }
                 .asFlow()
                 .flatMapMerge { _toRadix -> converter(value = tempValue.text, fromRadix = fromRadix, toRadix = _toRadix) }
-                .onCompletion { cause -> if (cause != null) Log.d(APP_TAG, "Flow completed exceptionally") }
+                .onCompletion { cause ->
+                    if (cause != null) {
+                        Log.d(APP_TAG, "Flow completed exceptionally")
+                    } else {
+                        resetErrors()
+                    }
+                }
                 .catch { error -> Log.e(APP_TAG, "ConverterViewModel::convert: catch", error) }
                 .collect { convertedData ->
                     when (convertedData.toRadix) {
