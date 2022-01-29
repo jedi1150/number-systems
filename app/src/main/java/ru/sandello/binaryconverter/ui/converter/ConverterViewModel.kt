@@ -1,6 +1,7 @@
 package ru.sandello.binaryconverter.ui.converter
 
 import android.util.Log
+import androidx.annotation.IntRange
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.input.TextFieldValue
@@ -38,9 +39,19 @@ class ConverterViewModel : ViewModel() {
     private val radixes = IntArray(36) { it + 1 }
     val customRadixes = radixes.toMutableList().filter { !listOf(1, 2, 8, 10, 16).contains(it) }
 
+    private var lastValueFrom: TextFieldValue? = null
+    private var lastRadixFrom: Int? = null
+
+    fun convertFrom(textFieldValue: TextFieldValue, fromRadix: Int) {
+        convert(textFieldValue, fromRadix, toRadixes = intArrayOf(2, 8, 10, 16, _customRadix.value))
+    }
+
     @OptIn(FlowPreview::class)
-    fun convert(textFieldValue: TextFieldValue, fromRadix: Int) {
+    fun convert(textFieldValue: TextFieldValue, fromRadix: Int, @IntRange(from = 2, to = 36) toRadixes: IntArray) {
         Log.d(APP_TAG, "ConverterViewModel::convert: textFieldVal: $textFieldValue, from radix: $fromRadix")
+
+        lastValueFrom = textFieldValue
+        lastRadixFrom = fromRadix
 
         if (textFieldValue.text.isEmpty()) {
             clear()
@@ -67,7 +78,7 @@ class ConverterViewModel : ViewModel() {
         }
 
         viewModelScope.launch {
-            intArrayOf(2, 8, 10, 16, _customRadix.value)
+            toRadixes
                 .filter { _toRadix ->
                     (fromRadix != _toRadix).also {
                         if (!it) {
@@ -113,7 +124,14 @@ class ConverterViewModel : ViewModel() {
     }
 
     fun updateCustomRadix(newRadix: Int) {
-        Log.i(APP_TAG, "ConverterViewModel::updateCustomRadix ${_customRadix.value} to $newRadix")
+        Log.d(APP_TAG, "ConverterViewModel::updateCustomRadix ${_customRadix.value} to $newRadix")
+
+        val value = lastValueFrom
+        val fromRadix = lastRadixFrom
+        if (value != null && fromRadix != null && _customRadix.value != newRadix) {
+            convert(textFieldValue = TextFieldValue().copy(text = value.text), fromRadix, toRadixes = intArrayOf(newRadix))
+        }
+
         _customRadix.value = newRadix
     }
 
