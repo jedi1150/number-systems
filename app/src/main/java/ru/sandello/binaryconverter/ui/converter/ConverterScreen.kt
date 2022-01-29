@@ -43,6 +43,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                     .fillMaxWidth()
                     .padding(vertical = 4.dp),
                 label = { Text(stringResource(R.string.dec)) },
+                isError = viewModel.operand10error.value,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = RoundedCornerShape(16.dp),
             )
@@ -55,6 +56,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                     .fillMaxWidth()
                     .padding(vertical = 4.dp),
                 label = { Text(stringResource(R.string.bin)) },
+                isError = viewModel.operand2error.value,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = RoundedCornerShape(16.dp),
             )
@@ -67,6 +69,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                     .fillMaxWidth()
                     .padding(vertical = 4.dp),
                 label = { Text(stringResource(R.string.oct)) },
+                isError = viewModel.operand8error.value,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = RoundedCornerShape(16.dp),
             )
@@ -79,6 +82,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                     .fillMaxWidth()
                     .padding(vertical = 4.dp),
                 label = { Text(stringResource(R.string.hex)) },
+                isError = viewModel.operand16error.value,
                 keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
                 shape = RoundedCornerShape(16.dp),
             )
@@ -94,13 +98,14 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                 OutlinedTextField(
                     value = viewModel.operandCustom.value,
                     onValueChange = { textFieldValue -> viewModel.convertFrom(fromRadix = viewModel.customRadix.value, textFieldValue = textFieldValue) },
-                    label = { Text(stringResource(R.string.radix, viewModel.customRadix.value)) },
-                    keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
-                    shape = RoundedCornerShape(16.dp),
                     modifier = Modifier.constrainAs(textField) {
                         start.linkTo(parent.start)
                         end.linkTo(exposedDropdown.start, margin = 4.dp)
-                    }
+                    },
+                    label = { Text(stringResource(R.string.radix, viewModel.customRadix.value)) },
+                    isError = viewModel.operandCustomError.value,
+                    keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
+                    shape = RoundedCornerShape(16.dp),
                 )
                 var expanded by remember { mutableStateOf(false) }
                 @OptIn(ExperimentalMaterialApi::class)

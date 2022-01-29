@@ -36,6 +36,22 @@ class ConverterViewModel : ViewModel() {
     val customRadix: State<Int>
         get() = _customRadix
 
+    private val _operand10error = mutableStateOf(false)
+    val operand10error: State<Boolean>
+        get() = _operand10error
+    private val _operand2error = mutableStateOf(false)
+    val operand2error: State<Boolean>
+        get() = _operand2error
+    private val _operand8error = mutableStateOf(false)
+    val operand8error: State<Boolean>
+        get() = _operand8error
+    private val _operand16error = mutableStateOf(false)
+    val operand16error: State<Boolean>
+        get() = _operand16error
+    private val _operandCustomError = mutableStateOf(false)
+    val operandCustomError: State<Boolean>
+        get() = _operandCustomError
+
     private val radixes = IntArray(36) { it + 1 }
     val customRadixes = radixes.toMutableList().filter { !listOf(1, 2, 8, 10, 16).contains(it) }
 
@@ -68,8 +84,31 @@ class ConverterViewModel : ViewModel() {
             )
         ) {
             Log.d(APP_TAG, "ConverterViewModel::convert: Invalid character entered")
+            when (fromRadix) {
+                2 -> {
+                    _operand2.value = textFieldValue
+                    _operand2error.value = true
+                }
+                8 -> {
+                    _operand8.value = textFieldValue
+                    _operand8error.value = true
+                }
+                10 -> {
+                    _operand10.value = textFieldValue
+                    _operand10error.value = true
+                }
+                16 -> {
+                    _operand16.value = textFieldValue
+                    _operand16error.value = true
+                }
+                _customRadix.value -> {
+                    _operandCustom.value = textFieldValue
+                    _operandCustomError.value = true
+                }
+            }
             return
         }
+        resetErrors()
 
         var tempValue = textFieldValue
 
@@ -153,6 +192,15 @@ class ConverterViewModel : ViewModel() {
         _operand8.value = TextFieldValue()
         _operand16.value = TextFieldValue()
         _operandCustom.value = TextFieldValue()
+        resetErrors()
+    }
+
+    private fun resetErrors() {
+        _operand10error.value = false
+        _operand2error.value = false
+        _operand8error.value = false
+        _operand16error.value = false
+        _operandCustomError.value = false
     }
 
 }
