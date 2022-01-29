@@ -43,4 +43,4 @@ keystore.properties
 credential.properties
 
 # Google Services (e.g. APIs or Firebase)
-#**/google-services.json
+**/google-services.json
