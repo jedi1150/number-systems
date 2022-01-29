@@ -129,7 +129,19 @@ class ConverterViewModel : ViewModel() {
         val value = lastValueFrom
         val fromRadix = lastRadixFrom
         if (value != null && fromRadix != null && _customRadix.value != newRadix) {
-            convert(textFieldValue = TextFieldValue().copy(text = value.text), fromRadix, toRadixes = intArrayOf(newRadix))
+            if (fromRadix == _customRadix.value) {
+                convert(
+                    textFieldValue = TextFieldValue().copy(text = value.text),
+                    fromRadix = newRadix,
+                    toRadixes = intArrayOf(2, 8, 10, 16),
+                )
+            } else {
+                convert(
+                    textFieldValue = TextFieldValue().copy(text = value.text),
+                    fromRadix = fromRadix,
+                    toRadixes = intArrayOf(newRadix),
+                )
+            }
         }
 
         _customRadix.value = newRadix
