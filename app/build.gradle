@@ -8,7 +8,6 @@ plugins {
 }
 
 android {
-    lintOptions { checkReleaseBuilds false }
     compileSdkVersion 31
     signingConfigs {
         config {
@@ -55,6 +54,9 @@ android {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
+    }
+    lint {
+        checkReleaseBuilds false
     }
 }
 dependencies {
