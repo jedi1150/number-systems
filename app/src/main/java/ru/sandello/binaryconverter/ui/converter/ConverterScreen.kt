@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.google.accompanist.insets.LocalWindowInsets
+import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.rememberInsetsPaddingValues
 import ru.sandello.binaryconverter.R
 
@@ -24,6 +25,7 @@ import ru.sandello.binaryconverter.R
 @Composable
 fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
     LazyColumn(
+        modifier = Modifier.navigationBarsWithImePadding(),
         contentPadding = PaddingValues(
             start = 8.dp,
             top = rememberInsetsPaddingValues(

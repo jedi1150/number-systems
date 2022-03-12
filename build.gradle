@@ -5,12 +5,12 @@ buildscript {
         appcompact_version = '1.4.0'
         material_version = '1.5.0'
         multidex_version = '2.0.1'
-        lifecycle_version = '2.4.0'
-        compose_version = '1.1.0'
-        navigation_compose_version = '2.4.0'
+        lifecycle_version = '2.4.1'
+        compose_version = '1.2.0-alpha05'
+        navigation_compose_version = '2.4.1'
         constraintlayout_compose_version = '1.0.0'
         datastore_preferences_version = '1.0.0'
-        accompanist_version = '0.23.0'
+        accompanist_version = '0.24.3-alpha'
         firebase_bom_version = '28.3.0'
     }
     repositories {
