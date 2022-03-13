@@ -20,7 +20,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ProvideWindowInsets
-import com.google.accompanist.insets.navigationBarsPadding
+import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import ru.sandello.binaryconverter.R
@@ -59,12 +59,14 @@ class MainActivity : ComponentActivity() {
                 SideEffect {
                     systemUiController.setSystemBarsColor(color = Color.Transparent, darkIcons = useDarkIcons)
                 }
-                ProvideWindowInsets(windowInsetsAnimationsEnabled = true) {
+                ProvideWindowInsets(windowInsetsAnimationsEnabled = true, consumeWindowInsets = false) {
                     Scaffold(
                         bottomBar = {
-                            Surface(color = MaterialTheme.colors.surface.copy(alpha = 0.9f)) {
+                            Surface(
+                                modifier = Modifier.navigationBarsWithImePadding(),
+                                color = MaterialTheme.colors.surface.copy(alpha = 0.9f)
+                            ) {
                                 BottomNavigation(
-                                    modifier = Modifier.navigationBarsPadding(),
                                     backgroundColor = Color.Transparent, elevation = 0.dp,
                                 ) {
                                     val navBackStackEntry by navController.currentBackStackEntryAsState()
