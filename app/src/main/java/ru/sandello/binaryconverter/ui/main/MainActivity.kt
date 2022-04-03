@@ -4,9 +4,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -19,8 +24,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.google.accompanist.insets.ProvideWindowInsets
-import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import ru.sandello.binaryconverter.R
@@ -38,7 +41,7 @@ class MainActivity : ComponentActivity() {
 
     private lateinit var ad: InterstitialAd
 
-    @OptIn(ExperimentalMaterialApi::class)
+    @OptIn(ExperimentalMaterialApi::class, com.google.accompanist.insets.ExperimentalAnimatedInsets::class, androidx.compose.animation.ExperimentalAnimationApi::class)
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -56,18 +59,26 @@ class MainActivity : ComponentActivity() {
 
                 val navController = rememberNavController()
 
+                val imeIsVisible = WindowInsets.ime.asPaddingValues().calculateBottomPadding() > 0.dp
+
                 SideEffect {
                     systemUiController.setSystemBarsColor(color = Color.Transparent, darkIcons = useDarkIcons)
                 }
-                ProvideWindowInsets(windowInsetsAnimationsEnabled = true, consumeWindowInsets = false) {
-                    Scaffold(
-                        bottomBar = {
+
+                Scaffold(
+                    bottomBar = {
+                        AnimatedVisibility(
+                            visible = !imeIsVisible,
+                            enter = expandVertically(expandFrom = Alignment.Top),
+                            exit = shrinkVertically(shrinkTowards = Alignment.Top),
+                        ) {
                             Surface(
-                                modifier = Modifier.navigationBarsWithImePadding(),
-                                color = MaterialTheme.colors.surface.copy(alpha = 0.9f)
+                                color = MaterialTheme.colors.surface.copy(alpha = 0.9f),
                             ) {
                                 BottomNavigation(
-                                    backgroundColor = Color.Transparent, elevation = 0.dp,
+                                    modifier = Modifier.navigationBarsPadding(),
+                                    backgroundColor = Color.Transparent,
+                                    elevation = 0.dp,
                                 ) {
                                     val navBackStackEntry by navController.currentBackStackEntryAsState()
                                     val currentDestination = navBackStackEntry?.destination
@@ -101,26 +112,41 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                             }
-                        },
-                        floatingActionButton = {
-                            FloatingActionButton(
-                                onClick = {
-                                    if (navController.currentDestination?.route == Screen.Converter.route) {
-                                        converterViewModel.clear()
-                                    }
-                                },
-                            ) {
-                                Icon(painter = painterResource(R.drawable.close), contentDescription = null)
-                            }
-                        },
-                    ) { contentPadding ->
-                        NavHost(
-                            navController = navController,
-                            startDestination = Screen.Converter.route,
-                        ) {
-                            composable(Screen.Converter.route) { ConverterScreen(converterViewModel, contentPadding) }
-                            composable(Screen.Calculator.route) { CalculatorScreen(calculatorViewModel, contentPadding) }
+                        }
+                    },
+                ) { contentPadding ->
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screen.Converter.route,
+                    ) {
+                        composable(Screen.Converter.route) { ConverterScreen(converterViewModel, contentPadding) }
+                        composable(Screen.Calculator.route) { CalculatorScreen(calculatorViewModel, contentPadding) }
 //                        composable("settings") {  }
+                    }
+
+                    // FAB clear fields
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(
+                                bottom = maxOf(
+                                    WindowInsets.ime
+                                        .asPaddingValues()
+                                        .calculateBottomPadding(),
+                                    contentPadding.calculateBottomPadding()
+                                )
+                            ),
+                        contentAlignment = Alignment.BottomEnd,
+                    ) {
+                        FloatingActionButton(
+                            onClick = {
+                                if (navController.currentDestination?.route == Screen.Converter.route) {
+                                    converterViewModel.clear()
+                                }
+                            },
+                            Modifier.padding(16.dp)
+                        ) {
+                            Icon(painter = painterResource(R.drawable.close), contentDescription = null)
                         }
                     }
                 }

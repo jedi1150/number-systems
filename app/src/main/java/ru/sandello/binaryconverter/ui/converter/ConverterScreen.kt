@@ -1,8 +1,6 @@
 package ru.sandello.binaryconverter.ui.converter
 
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -16,23 +14,17 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.google.accompanist.insets.LocalWindowInsets
-import com.google.accompanist.insets.rememberInsetsPaddingValues
 import ru.sandello.binaryconverter.R
 
-@OptIn(ExperimentalMaterialApi::class, com.google.accompanist.insets.ExperimentalAnimatedInsets::class, androidx.compose.foundation.ExperimentalFoundationApi::class)
 @Composable
 fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
     LazyColumn(
-        modifier = Modifier.padding(mainPadding),
+        modifier = Modifier.imePadding(),
         contentPadding = PaddingValues(
             start = 8.dp,
-            top = rememberInsetsPaddingValues(
-                insets = LocalWindowInsets.current.systemBars,
-                applyTop = true,
-            ).calculateTopPadding(),
+            top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding() + 8.dp,
             end = 8.dp,
-            bottom = 88.dp,
+            bottom = maxOf(mainPadding.calculateBottomPadding() + 64.dp, 72.dp) + 8.dp,
         ),
     ) {
         item {
