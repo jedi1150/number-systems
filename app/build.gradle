@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'androidx.navigation.safeargs.kotlin'
 //    id 'com.google.gms.google-services' // Uncomment this line to use google-services
     id 'com.google.firebase.crashlytics'
     id 'kotlin-kapt' // TODO deprecated
@@ -9,17 +8,12 @@ plugins {
 
 android {
     compileSdkVersion 31
-    signingConfigs {
-        config {
-        }
-    }
     defaultConfig {
         applicationId 'ru.sandello.binaryconverter'
         minSdkVersion 21
         targetSdkVersion 31
         versionCode 113
         versionName '2.0.0'
-        signingConfig signingConfigs.config
         vectorDrawables {
             useSupportLibrary true
         }
@@ -29,8 +23,22 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
-            zipAlignEnabled true
+        }
+    }
+    flavorDimensions 'flavor-type'
+    productFlavors {
+        prod {
+            dimension 'flavor-type'
+        }
+        beta {
+            dimension 'flavor-type'
+            applicationIdSuffix '.beta'
+            versionNameSuffix '-beta'
+        }
+        dev {
+            dimension 'flavor-type'
+            applicationIdSuffix '.dev'
+            versionNameSuffix '-dev'
         }
     }
     compileOptions {
@@ -48,15 +56,11 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
-        kotlinCompilerVersion '1.6.10'
     }
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
-    }
-    lint {
-        checkReleaseBuilds false
     }
 }
 dependencies {
@@ -97,7 +101,7 @@ dependencies {
     implementation 'com.google.android.play:core-ktx:1.8.1'
 
     // Ads
-    implementation 'com.google.android.gms:play-services-ads:20.5.0'
+    implementation 'com.google.android.gms:play-services-ads:20.6.0'
 
     // UI Tests
     testImplementation 'junit:junit:4.+'
