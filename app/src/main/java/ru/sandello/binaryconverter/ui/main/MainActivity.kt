@@ -133,7 +133,10 @@ class MainActivity : ComponentActivity() {
                                     WindowInsets.ime
                                         .asPaddingValues()
                                         .calculateBottomPadding(),
-                                    contentPadding.calculateBottomPadding()
+                                    WindowInsets.navigationBars
+                                        .asPaddingValues()
+                                        .calculateBottomPadding(),
+                                    contentPadding.calculateBottomPadding(),
                                 )
                             ),
                         contentAlignment = Alignment.BottomEnd,
