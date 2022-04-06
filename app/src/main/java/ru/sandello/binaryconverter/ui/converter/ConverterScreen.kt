@@ -14,6 +14,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.constraintlayout.compose.atMost
 import ru.sandello.binaryconverter.R
 
 @Composable
@@ -94,6 +95,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                         .constrainAs(textField) {
                             start.linkTo(parent.start)
                             end.linkTo(exposedDropdown.start, margin = 4.dp)
+                            width = Dimension.fillToConstraints
                         },
                     label = { Text(stringResource(R.string.radix, viewModel.customRadix.value)) },
                     isError = viewModel.operandCustomError.value,
@@ -110,7 +112,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                     modifier = Modifier.constrainAs(exposedDropdown) {
                         start.linkTo(textField.end, margin = 4.dp)
                         end.linkTo(parent.end)
-                        width = Dimension.preferredWrapContent
+                        width = Dimension.preferredWrapContent.atMost(120.dp)
                     },
                 ) {
                     OutlinedTextField(
