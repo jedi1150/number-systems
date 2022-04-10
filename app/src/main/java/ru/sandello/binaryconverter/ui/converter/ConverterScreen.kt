@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import ru.sandello.binaryconverter.R
+import ru.sandello.binaryconverter.utils.OperandFormatter
 
 @Composable
 fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
@@ -35,6 +36,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                     .fillMaxWidth()
                     .padding(vertical = 4.dp),
                 label = { Text(stringResource(R.string.dec)) },
+                visualTransformation = OperandFormatter(10),
                 isError = viewModel.operand10error.value,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = RoundedCornerShape(16.dp),
@@ -49,6 +51,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                     .padding(vertical = 4.dp),
                 label = { Text(stringResource(R.string.bin)) },
                 isError = viewModel.operand2error.value,
+                visualTransformation = OperandFormatter(2),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = RoundedCornerShape(16.dp),
             )
@@ -62,6 +65,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                     .padding(vertical = 4.dp),
                 label = { Text(stringResource(R.string.oct)) },
                 isError = viewModel.operand8error.value,
+                visualTransformation = OperandFormatter(8),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = RoundedCornerShape(16.dp),
             )
@@ -75,6 +79,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                     .padding(vertical = 4.dp),
                 label = { Text(stringResource(R.string.hex)) },
                 isError = viewModel.operand16error.value,
+                visualTransformation = OperandFormatter(16),
                 keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
                 shape = RoundedCornerShape(16.dp),
             )
@@ -97,6 +102,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                         },
                     label = { Text(stringResource(R.string.radix, viewModel.customRadix.value)) },
                     isError = viewModel.operandCustomError.value,
+                    visualTransformation = OperandFormatter(viewModel.customRadix.value),
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
                     shape = RoundedCornerShape(16.dp),
                 )
