@@ -1,14 +1,20 @@
 package ru.sandello.binaryconverter.utils
 
+import android.util.Log
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 
-class OperandFormatter(private val radix: Int) : VisualTransformation {
-    private val radixes = IntArray(36) { it + 1 }
+class OperandFormatter(radix: Int) : VisualTransformation {
+    private val groupLength: Int
+    private val radixes = IntArray(36) { radix -> radix + 1 }
     private val groupByThreeNumbers = radixes.filter { listOf(3, 7, 8, 9, 10, 11, 12, 13, 14, 15).contains(it) }
     private val groupByFourNumbers = radixes.filter { !listOf(3, 7, 8, 9, 10, 11, 12, 13, 14, 15).contains(it) }
+
+    init {
+        groupLength = groupLength(radix)
+    }
 
     private fun groupLength(radix: Int): Int {
         return when (radix) {
@@ -19,20 +25,24 @@ class OperandFormatter(private val radix: Int) : VisualTransformation {
     }
 
     override fun filter(text: AnnotatedString): TransformedText {
-        // TODO Revert offset
         var out = ""
-        for (i in text.text.indices) {
-            if (i != 0 && i % groupLength(radix) == 0) out += " "
-            out += text.text[i]
+        text.text.indices.reversed().forEach { i ->
+            out += text.text.reversed()[i]
+            if (i != 0 && i % groupLength == 0) {
+                out += " "
+            }
         }
 
         val operandOffsetTranslator = object : OffsetMapping {
             override fun originalToTransformed(offset: Int): Int {
-                return offset + maxOf(0, offset - 1).div(groupLength(radix))
+                val lastGroupLength = out.substringBefore(' ').length
+                    return offset + maxOf(0, offset + (groupLength - lastGroupLength) - 1).floorDiv(groupLength)
             }
 
             override fun transformedToOriginal(offset: Int): Int {
-                return offset - maxOf(0, offset - 1).div(groupLength(radix) + 1)
+                val spacesBeforeOffset = if (out.contains(' ')) out.substring(0, offset).count { it == ' ' } else 0
+
+                return offset - spacesBeforeOffset
             }
         }
 
