@@ -6,57 +6,63 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.google.accompanist.insets.LocalWindowInsets
-import com.google.accompanist.insets.rememberInsetsPaddingValues
+import androidx.constraintlayout.compose.atMost
 import ru.sandello.binaryconverter.R
+import ru.sandello.binaryconverter.ui.OperandVisualTransformation
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues) {
-    val textState = remember { mutableStateOf(TextFieldValue()) }
-    val options = listOf("3", "4", "5", "6", "7")
-    var selectedOptionText by remember { mutableStateOf(options[0]) }
-    var expanded by remember { mutableStateOf(false) }
     val actionOptions = listOf("+", "-", "*", "/")
     var selectedOption by remember { mutableStateOf(0) }
 
     LazyColumn(
+        modifier = Modifier.imePadding(),
         contentPadding = PaddingValues(
             start = 8.dp,
-            top = rememberInsetsPaddingValues(
-                insets = LocalWindowInsets.current.systemBars,
-                applyTop = true,
-                applyBottom = true,
-            ).calculateTopPadding(),
+            top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding() + 8.dp,
             end = 8.dp,
-            bottom = mainPadding.calculateBottomPadding() + 88.dp,
+            bottom = maxOf(mainPadding.calculateBottomPadding() + 64.dp, 72.dp) + 8.dp,
         ),
     ) {
         item {
-            ConstraintLayout(modifier = Modifier.padding(vertical = 4.dp)) {
+            ConstraintLayout(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp)
+            ) {
                 val (textField, exposedDropdown) = createRefs()
 
                 OutlinedTextField(
-                    value = textState.value,
-                    onValueChange = { textState.value = it },
-                    modifier = Modifier.constrainAs(textField) {
-                        start.linkTo(parent.start)
-                        end.linkTo(exposedDropdown.start, margin = 4.dp)
-                    },
-                    label = { Text(stringResource(R.string.radix)) },
+                    value = viewModel.operandCustom1.value,
+                    onValueChange = { textFieldValue -> viewModel.convertFrom(fromRadix = viewModel.customRadix1.value, fromValue = textFieldValue) },
+                    modifier = Modifier
+                        .constrainAs(textField) {
+                            start.linkTo(parent.start)
+                            end.linkTo(exposedDropdown.start, margin = 4.dp)
+                            width = Dimension.fillToConstraints
+                        },
+                    label = { Text(stringResource(R.string.radix, viewModel.customRadix1.value)) },
+                    isError = viewModel.operandCustom1error.value,
+                    visualTransformation = OperandVisualTransformation(viewModel.customRadix1.value),
+                    keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
                     shape = RoundedCornerShape(16.dp),
-//                    colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = MaterialTheme.colors.primary, unfocusedBorderColor = MaterialTheme.colorScheme.onPrimaryContainer,)
                 )
+                var expanded by remember { mutableStateOf(false) }
+                @OptIn(ExperimentalMaterialApi::class)
                 ExposedDropdownMenuBox(
                     expanded = expanded,
                     onExpandedChange = {
@@ -65,11 +71,11 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                     modifier = Modifier.constrainAs(exposedDropdown) {
                         start.linkTo(textField.end, margin = 4.dp)
                         end.linkTo(parent.end)
-                        width = Dimension.preferredWrapContent
+                        width = Dimension.preferredWrapContent.atMost(120.dp)
                     },
                 ) {
                     OutlinedTextField(
-                        value = selectedOptionText,
+                        value = viewModel.customRadix1.value.toString(),
                         onValueChange = { },
                         readOnly = true,
                         label = {},
@@ -87,14 +93,14 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                             expanded = false
                         },
                     ) {
-                        options.forEach { selectionOption ->
+                        viewModel.radixes.forEach { radix ->
                             DropdownMenuItem(
                                 onClick = {
-                                    selectedOptionText = selectionOption
+                                    viewModel.updateCustomRadix(radix)
                                     expanded = false
                                 }
                             ) {
-                                Text(text = selectionOption)
+                                Text(text = radix.toString())
                             }
                         }
                     }
@@ -122,19 +128,30 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
             }
         }
         item {
-            ConstraintLayout(modifier = Modifier.padding(vertical = 4.dp)) {
+            ConstraintLayout(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp)
+            ) {
                 val (textField, exposedDropdown) = createRefs()
 
                 OutlinedTextField(
-                    value = textState.value,
-                    onValueChange = { textState.value = it },
-                    label = { Text(stringResource(R.string.radix)) },
+                    value = viewModel.operandCustom2.value,
+                    onValueChange = { textFieldValue -> viewModel.convertFrom(fromRadix = viewModel.customRadix2.value, fromValue = textFieldValue) },
+                    modifier = Modifier
+                        .constrainAs(textField) {
+                            start.linkTo(parent.start)
+                            end.linkTo(exposedDropdown.start, margin = 4.dp)
+                            width = Dimension.fillToConstraints
+                        },
+                    label = { Text(stringResource(R.string.radix, viewModel.customRadix2.value)) },
+                    isError = viewModel.operandCustom2error.value,
+                    visualTransformation = OperandVisualTransformation(viewModel.customRadix2.value),
+                    keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
                     shape = RoundedCornerShape(16.dp),
-                    modifier = Modifier.constrainAs(textField) {
-                        start.linkTo(parent.start)
-                        end.linkTo(exposedDropdown.start, margin = 4.dp)
-                    }
                 )
+                var expanded by remember { mutableStateOf(false) }
+                @OptIn(ExperimentalMaterialApi::class)
                 ExposedDropdownMenuBox(
                     expanded = expanded,
                     onExpandedChange = {
@@ -143,11 +160,11 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                     modifier = Modifier.constrainAs(exposedDropdown) {
                         start.linkTo(textField.end, margin = 4.dp)
                         end.linkTo(parent.end)
-                        width = Dimension.preferredWrapContent
+                        width = Dimension.preferredWrapContent.atMost(120.dp)
                     },
                 ) {
                     OutlinedTextField(
-                        value = selectedOptionText,
+                        value = viewModel.customRadix2.value.toString(),
                         onValueChange = { },
                         readOnly = true,
                         label = {},
@@ -165,14 +182,14 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                             expanded = false
                         },
                     ) {
-                        options.forEach { selectionOption ->
+                        viewModel.radixes.forEach { radix ->
                             DropdownMenuItem(
                                 onClick = {
-                                    selectedOptionText = selectionOption
+                                    viewModel.updateCustomRadix(radix)
                                     expanded = false
                                 }
                             ) {
-                                Text(text = selectionOption)
+                                Text(text = radix.toString())
                             }
                         }
                     }
@@ -180,19 +197,29 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
             }
         }
         item {
-            ConstraintLayout(modifier = Modifier.padding(vertical = 4.dp)) {
+            ConstraintLayout(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp)
+            ) {
                 val (textField, exposedDropdown) = createRefs()
 
                 OutlinedTextField(
-                    value = textState.value,
-                    onValueChange = { textState.value = it },
-                    label = { Text(stringResource(R.string.radix)) },
+                    value = viewModel.operandResult.value,
+                    onValueChange = { },
+                    modifier = Modifier
+                        .constrainAs(textField) {
+                            start.linkTo(parent.start)
+                            end.linkTo(exposedDropdown.start, margin = 4.dp)
+                            width = Dimension.fillToConstraints
+                        },
+                    label = { Text(stringResource(R.string.radix, viewModel.radixResult.value)) },
+                    visualTransformation = OperandVisualTransformation(viewModel.radixResult.value),
+                    keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
                     shape = RoundedCornerShape(16.dp),
-                    modifier = Modifier.constrainAs(textField) {
-                        start.linkTo(parent.start)
-                        end.linkTo(exposedDropdown.start, margin = 4.dp)
-                    }
                 )
+                var expanded by remember { mutableStateOf(false) }
+                @OptIn(ExperimentalMaterialApi::class)
                 ExposedDropdownMenuBox(
                     expanded = expanded,
                     onExpandedChange = {
@@ -201,11 +228,11 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                     modifier = Modifier.constrainAs(exposedDropdown) {
                         start.linkTo(textField.end, margin = 4.dp)
                         end.linkTo(parent.end)
-                        width = Dimension.preferredWrapContent
+                        width = Dimension.preferredWrapContent.atMost(120.dp)
                     },
                 ) {
                     OutlinedTextField(
-                        value = selectedOptionText,
+                        value = viewModel.radixResult.value.toString(),
                         onValueChange = { },
                         readOnly = true,
                         label = {},
@@ -223,14 +250,14 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                             expanded = false
                         },
                     ) {
-                        options.forEach { selectionOption ->
+                        viewModel.radixes.forEach { radix ->
                             DropdownMenuItem(
                                 onClick = {
-                                    selectedOptionText = selectionOption
+                                    viewModel.updateCustomRadix(radix)
                                     expanded = false
                                 }
                             ) {
-                                Text(text = selectionOption)
+                                Text(text = radix.toString())
                             }
                         }
                     }

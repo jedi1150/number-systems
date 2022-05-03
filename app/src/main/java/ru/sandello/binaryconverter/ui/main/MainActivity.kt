@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
 
     private lateinit var ad: InterstitialAd
 
-    @OptIn(ExperimentalMaterialApi::class, com.google.accompanist.insets.ExperimentalAnimatedInsets::class, androidx.compose.animation.ExperimentalAnimationApi::class)
+    @OptIn(ExperimentalMaterialApi::class, androidx.compose.animation.ExperimentalAnimationApi::class)
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

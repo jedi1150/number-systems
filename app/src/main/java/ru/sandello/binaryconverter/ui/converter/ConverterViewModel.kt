@@ -62,7 +62,7 @@ class ConverterViewModel : ViewModel() {
     }
 
     @OptIn(FlowPreview::class)
-    fun convert(fromValue: String, fromRadix: Int, @IntRange(from = 2, to = 36) toRadixes: IntArray) {
+    private fun convert(fromValue: String, fromRadix: Int, @IntRange(from = 2, to = 36) toRadixes: IntArray) {
         Log.d(APP_TAG, "ConverterViewModel::convert: textFieldVal: $fromValue, from radix: $fromRadix")
 
         if (fromValue.isEmpty()) {
