@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.annotation.IntRange
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.FlowPreview
@@ -17,20 +16,20 @@ import ru.sandello.binaryconverter.utils.Shared.converter
 
 class ConverterViewModel : ViewModel() {
 
-    private val _operand10 = mutableStateOf(TextFieldValue())
-    val operand10: State<TextFieldValue>
+    private val _operand10 = mutableStateOf(String())
+    val operand10: State<String>
         get() = _operand10
-    private val _operand2 = mutableStateOf(TextFieldValue())
-    val operand2: State<TextFieldValue>
+    private val _operand2 = mutableStateOf(String())
+    val operand2: State<String>
         get() = _operand2
-    private val _operand8 = mutableStateOf(TextFieldValue())
-    val operand8: State<TextFieldValue>
+    private val _operand8 = mutableStateOf(String())
+    val operand8: State<String>
         get() = _operand8
-    private val _operand16 = mutableStateOf(TextFieldValue())
-    val operand16: State<TextFieldValue>
+    private val _operand16 = mutableStateOf(String())
+    val operand16: State<String>
         get() = _operand16
-    private val _operandCustom = mutableStateOf(TextFieldValue())
-    val operandCustom: State<TextFieldValue>
+    private val _operandCustom = mutableStateOf(String())
+    val operandCustom: State<String>
         get() = _operandCustom
     private val _customRadix = mutableStateOf(3)
     val customRadix: State<Int>
@@ -55,28 +54,28 @@ class ConverterViewModel : ViewModel() {
     private val radixes = IntArray(36) { it + 1 }
     val customRadixes = radixes.toMutableList().filter { !listOf(1, 2, 8, 10, 16).contains(it) }
 
-    private var lastValueFrom: TextFieldValue? = null
+    private var lastValueFrom: String? = null
     private var lastRadixFrom: Int? = null
 
-    fun convertFrom(textFieldValue: TextFieldValue, fromRadix: Int) {
-        convert(textFieldValue, fromRadix, toRadixes = intArrayOf(2, 8, 10, 16, _customRadix.value))
+    fun convertFrom(fromValue: String, fromRadix: Int) {
+        convert(fromValue, fromRadix, toRadixes = intArrayOf(2, 8, 10, 16, _customRadix.value))
     }
 
     @OptIn(FlowPreview::class)
-    fun convert(textFieldValue: TextFieldValue, fromRadix: Int, @IntRange(from = 2, to = 36) toRadixes: IntArray) {
-        Log.d(APP_TAG, "ConverterViewModel::convert: textFieldVal: $textFieldValue, from radix: $fromRadix")
+    fun convert(fromValue: String, fromRadix: Int, @IntRange(from = 2, to = 36) toRadixes: IntArray) {
+        Log.d(APP_TAG, "ConverterViewModel::convert: textFieldVal: $fromValue, from radix: $fromRadix")
 
-        if (textFieldValue.text.isEmpty()) {
+        if (fromValue.isEmpty()) {
             clear()
             return
         }
 
         check(
-            textFieldValue.text.matches(
+            fromValue.matches(
                 CharRegex().charsRegex(
                     index = fromRadix,
-                    useDelimiterChars = textFieldValue.text.count { it.toString().contains("[,.]".toRegex()) } <= 1,
-                    useNegativeChar = textFieldValue.text.count { it.toString().contains("[-]".toRegex()) } <= 1,
+                    useDelimiterChars = fromValue.count { it.toString().contains("[,.]".toRegex()) } <= 1,
+                    useNegativeChar = fromValue.count { it.toString().contains("[-]".toRegex()) } <= 1,
                 )
             )
         ) {
@@ -91,13 +90,13 @@ class ConverterViewModel : ViewModel() {
             return
         }
 
-        lastValueFrom = textFieldValue
+        lastValueFrom = fromValue
         lastRadixFrom = fromRadix
 
-        var tempValue = textFieldValue
+        var tempValue = fromValue
 
-        if (tempValue.text.contains("-".toRegex())) {
-            tempValue = textFieldValue.copy(tempValue.text.replace("-", "").replaceRange(0, 0, "-"))
+        if (tempValue.contains("-".toRegex())) {
+            tempValue = tempValue.replace("-", "").replaceRange(0, 0, "-")
         }
 
         viewModelScope.launch {
@@ -107,23 +106,23 @@ class ConverterViewModel : ViewModel() {
                         if (!it) {
                             when (_toRadix) {
                                 2 -> {
-                                    if (_operand2.value.text == textFieldValue.text) cancel()
+                                    if (_operand2.value == fromValue) cancel()
                                     _operand2.value = tempValue
                                 }
                                 8 -> {
-                                    if (_operand8.value.text == textFieldValue.text) cancel()
+                                    if (_operand8.value == fromValue) cancel()
                                     _operand8.value = tempValue
                                 }
                                 10 -> {
-                                    if (_operand10.value.text == textFieldValue.text) cancel()
+                                    if (_operand10.value == fromValue) cancel()
                                     _operand10.value = tempValue
                                 }
                                 16 -> {
-                                    if (_operand16.value.text == textFieldValue.text) cancel()
+                                    if (_operand16.value == fromValue) cancel()
                                     _operand16.value = tempValue
                                 }
                                 _customRadix.value -> {
-                                    if (_operandCustom.value.text == textFieldValue.text) cancel()
+                                    if (_operandCustom.value == fromValue) cancel()
                                     _operandCustom.value = tempValue
                                 }
                             }
@@ -131,7 +130,7 @@ class ConverterViewModel : ViewModel() {
                     }
                 }
                 .asFlow()
-                .flatMapMerge { _toRadix -> converter(value = tempValue.text, fromRadix = fromRadix, toRadix = _toRadix) }
+                .flatMapMerge { _toRadix -> converter(value = tempValue, fromRadix = fromRadix, toRadix = _toRadix) }
                 .onCompletion { cause ->
                     if (cause != null) {
                         Log.d(APP_TAG, "Flow completed exceptionally")
@@ -142,11 +141,11 @@ class ConverterViewModel : ViewModel() {
                 .catch { error -> Log.e(APP_TAG, "ConverterViewModel::convert: catch", error) }
                 .collect { convertedData ->
                     when (convertedData.toRadix) {
-                        2 -> _operand2.value = TextFieldValue(convertedData.result)
-                        8 -> _operand8.value = TextFieldValue(convertedData.result)
-                        10 -> _operand10.value = TextFieldValue(convertedData.result)
-                        16 -> _operand16.value = TextFieldValue(convertedData.result)
-                        _customRadix.value -> _operandCustom.value = TextFieldValue(convertedData.result)
+                        2 -> _operand2.value = convertedData.result
+                        8 -> _operand8.value = convertedData.result
+                        10 -> _operand10.value = convertedData.result
+                        16 -> _operand16.value = convertedData.result
+                        _customRadix.value -> _operandCustom.value = convertedData.result
                     }
                 }
         }
@@ -160,13 +159,13 @@ class ConverterViewModel : ViewModel() {
         if (value != null && fromRadix != null && _customRadix.value != newRadix) {
             if (fromRadix == _customRadix.value) {
                 convert(
-                    textFieldValue = TextFieldValue().copy(text = value.text),
+                    fromValue = value,
                     fromRadix = newRadix,
                     toRadixes = intArrayOf(2, 8, 10, 16),
                 )
             } else {
                 convert(
-                    textFieldValue = TextFieldValue().copy(text = value.text),
+                    fromValue = value,
                     fromRadix = fromRadix,
                     toRadixes = intArrayOf(newRadix),
                 )
@@ -177,11 +176,11 @@ class ConverterViewModel : ViewModel() {
     }
 
     fun clear() {
-        _operand10.value = TextFieldValue()
-        _operand2.value = TextFieldValue()
-        _operand8.value = TextFieldValue()
-        _operand16.value = TextFieldValue()
-        _operandCustom.value = TextFieldValue()
+        _operand10.value = String()
+        _operand2.value = String()
+        _operand8.value = String()
+        _operand16.value = String()
+        _operandCustom.value = String()
         resetErrors()
     }
 

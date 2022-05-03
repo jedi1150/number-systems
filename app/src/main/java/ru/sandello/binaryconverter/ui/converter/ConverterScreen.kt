@@ -32,7 +32,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
         item {
             OutlinedTextField(
                 value = viewModel.operand10.value,
-                onValueChange = { textFieldValue -> viewModel.convertFrom(fromRadix = 10, textFieldValue = textFieldValue) },
+                onValueChange = { textFieldValue -> viewModel.convertFrom(fromRadix = 10, fromValue = textFieldValue) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 4.dp),
@@ -46,7 +46,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
         item {
             OutlinedTextField(
                 value = viewModel.operand2.value,
-                onValueChange = { textFieldValue -> viewModel.convertFrom(fromRadix = 2, textFieldValue = textFieldValue) },
+                onValueChange = { textFieldValue -> viewModel.convertFrom(fromRadix = 2, fromValue = textFieldValue) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 4.dp),
@@ -60,7 +60,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
         item {
             OutlinedTextField(
                 value = viewModel.operand8.value,
-                onValueChange = { textFieldValue -> viewModel.convertFrom(fromRadix = 8, textFieldValue = textFieldValue) },
+                onValueChange = { textFieldValue -> viewModel.convertFrom(fromRadix = 8, fromValue = textFieldValue) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 4.dp),
@@ -74,7 +74,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
         item {
             OutlinedTextField(
                 value = viewModel.operand16.value,
-                onValueChange = { textFieldValue -> viewModel.convertFrom(fromRadix = 16, textFieldValue = textFieldValue) },
+                onValueChange = { textFieldValue -> viewModel.convertFrom(fromRadix = 16, fromValue = textFieldValue) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 4.dp),
@@ -95,7 +95,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
 
                 OutlinedTextField(
                     value = viewModel.operandCustom.value,
-                    onValueChange = { textFieldValue -> viewModel.convertFrom(fromRadix = viewModel.customRadix.value, textFieldValue = textFieldValue) },
+                    onValueChange = { textFieldValue -> viewModel.convertFrom(fromRadix = viewModel.customRadix.value, fromValue = textFieldValue) },
                     modifier = Modifier
                         .constrainAs(textField) {
                             start.linkTo(parent.start)
