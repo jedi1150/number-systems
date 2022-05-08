@@ -140,7 +140,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                             expanded = false
                         },
                     ) {
-                        viewModel.customRadixes.forEach { radix ->
+                        viewModel.radixes.forEach { radix ->
                             DropdownMenuItem(
                                 onClick = {
                                     viewModel.updateCustomRadix(radix)

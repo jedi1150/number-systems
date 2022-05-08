@@ -8,7 +8,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flatMapMerge
+import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
 import ru.sandello.binaryconverter.utils.APP_TAG
 import ru.sandello.binaryconverter.utils.CharRegex
@@ -40,8 +43,7 @@ class ConverterViewModel : ViewModel() {
     private val _operandCustomError = mutableStateOf(false)
     val operandCustomError: State<Boolean> = _operandCustomError
 
-    private val radixes = IntArray(36) { it + 1 }
-    val customRadixes = radixes.toMutableList().filter { !listOf(1, 2, 8, 10, 16).contains(it) }
+    val radixes = IntArray(36) { radix -> radix + 1 }.filter { !listOf(1, 2, 8, 10, 16).contains(it) }
 
     private var lastValueFrom: String? = null
     private var lastRadixFrom: Int? = null

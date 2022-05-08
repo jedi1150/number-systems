@@ -7,7 +7,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 
 class OperandVisualTransformation(radix: Int) : VisualTransformation {
     private val groupLength: Int
-    private val radixes = IntArray(36) { radix -> radix + 1 }
+    private val radixes = IntArray(36) { radix -> radix + 1 }.filter { !listOf(1).contains(it) }
     private val groupByThreeNumbers = radixes.filter { listOf(3, 7, 8, 9, 10, 11, 12, 13, 14, 15).contains(it) }
     private val groupByFourNumbers = radixes.filter { !listOf(3, 7, 8, 9, 10, 11, 12, 13, 14, 15).contains(it) }
 

@@ -72,7 +72,7 @@ class CalculatorViewModel : ViewModel() {
     private val _operandCustom2error = mutableStateOf(false)
     val operandCustom2error: State<Boolean> = _operandCustom2error
 
-    val radixes = IntArray(36) { it + 1 }
+    val radixes = IntArray(36) { radix -> radix + 1 }.filter { !listOf(1).contains(it) }
     val arithmeticOptions = listOf(Addition, Subtraction, Multiply, Divide)
 
     val showInvalidInputError = MutableLiveData<Pair<Int, String>>()
