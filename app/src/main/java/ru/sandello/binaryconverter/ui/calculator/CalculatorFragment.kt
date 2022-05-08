@@ -45,7 +45,7 @@ class CalculatorFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         myClipboard = context?.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager?
 
-        binding.editTextResult.setOnClickListener { model.copyVal("calResult") }
+//        binding.editTextResult.setOnClickListener { model.copyVal("calResult") }
 
         activityBinding.clearFab.setOnClickListener {
             binding.editTextVal1.setText("")
@@ -72,18 +72,18 @@ class CalculatorFragment : Fragment() {
 //        )
 
         binding.spinner1.setOnItemClickListener { _, _, _, _ ->
-            TypeMethod().type(
-                binding.editTextVal1,
-                model.allow(binding.spinner1.text.toString().toInt())
-            )
+//            TypeMethod().type(
+//                binding.editTextVal1,
+//                model.allow(binding.spinner1.text.toString().toInt())
+//            )
 //            calculate(model.allow(binding.spinner1))
         }
 
         binding.spinner2.setOnItemClickListener { _, _, _, _ ->
-            TypeMethod().type(
-                binding.editTextVal2,
-                model.allow(binding.spinner2.text.toString().toInt())
-            )
+//            TypeMethod().type(
+//                binding.editTextVal2,
+//                model.allow(binding.spinner2.text.toString().toInt())
+//            )
 //            calculate(model.allow(binding.spinner2))
         }
 
@@ -91,17 +91,17 @@ class CalculatorFragment : Fragment() {
 ////            calculate("")
 //            model.updateFraction(3, )
 //        }
-        binding.spinner1.setOnItemClickListener { _, _, i, _ ->
-            model.updateFraction(1, i)
-        }
+//        binding.spinner1.setOnItemClickListener { _, _, i, _ ->
+//            model.updateFraction(1, i)
+//        }
 
-        binding.spinner2.setOnItemClickListener { _, _, i, _ ->
-            model.updateFraction(2, i)
-        }
+//        binding.spinner2.setOnItemClickListener { _, _, i, _ ->
+//            model.updateFraction(2, i)
+//        }
 
-        binding.spinner3.setOnItemClickListener { _, _, i, _ ->
-            model.updateFraction(3, i)
-        }
+//        binding.spinner3.setOnItemClickListener { _, _, i, _ ->
+//            model.updateFraction(3, i)
+//        }
 
         binding.editTextVal1.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -202,11 +202,11 @@ class CalculatorFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        model.load()
+//        model.load()
     }
 
     override fun onPause() {
         super.onPause()
-        model.save()
+//        model.save()
     }
 }

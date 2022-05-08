@@ -11,14 +11,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
-import ru.sandello.binaryconverter.ui.calculator.OperandType.Operand1
-import ru.sandello.binaryconverter.ui.calculator.OperandType.Operand2
+import ru.sandello.binaryconverter.ui.calculator.OperandType.*
 import ru.sandello.binaryconverter.ui.calculator.RadixType.*
 import ru.sandello.binaryconverter.utils.APP_TAG
 import ru.sandello.binaryconverter.utils.CalcActions
@@ -26,13 +24,14 @@ import ru.sandello.binaryconverter.utils.CharRegex
 import ru.sandello.binaryconverter.utils.Shared
 
 enum class OperandType {
-    Operand1,
-    Operand2,
+    OperandCustom1,
+    OperandCustom2,
+    OperandResult,
 }
 
 enum class RadixType {
-    Radix1,
-    Radix2,
+    RadixCustom1,
+    RadixCustom2,
     RadixResult,
     RadixCalculation,
 }
@@ -41,15 +40,15 @@ class CalculatorViewModel : ViewModel() {
     private val _operandCustom1 = mutableStateOf(String())
     val operandCustom1: State<String>
         get() = _operandCustom1
-    private val _customRadix1 = mutableStateOf(10)
-    val customRadix1: State<Int>
-        get() = _customRadix1
+    private val _radixCustom1 = mutableStateOf(10)
+    val radixCustom1: State<Int>
+        get() = _radixCustom1
     private val _operandCustom2 = mutableStateOf(String())
     val operandCustom2: State<String>
         get() = _operandCustom2
-    private val _customRadix2 = mutableStateOf(2)
-    val customRadix2: State<Int>
-        get() = _customRadix2
+    private val _radixCustom2 = mutableStateOf(2)
+    val radixCustom2: State<Int>
+        get() = _radixCustom2
     private val _operandResult = mutableStateOf(String())
     val operandResult: State<String>
         get() = _operandResult
@@ -62,7 +61,7 @@ class CalculatorViewModel : ViewModel() {
 
     private val operandCustom1Temp = mutableStateOf(String())
     private val operandCustom2Temp = mutableStateOf(String())
-    private val operandCustomResultTemp = mutableStateOf(String())
+    private val operandResultTemp = mutableStateOf(String())
 
     private val _operandCustom1error = mutableStateOf(false)
     val operandCustom1error: State<Boolean>
@@ -90,12 +89,50 @@ class CalculatorViewModel : ViewModel() {
         convert(operandType, fromValue, fromRadix, toRadixes = intArrayOf(_radixCalculation.value))
     }
 
+    fun updateRadix(radixType: RadixType, value: Int) {
+        when (radixType) {
+            RadixCustom1 -> {
+                Log.d(APP_TAG, "CalculatorViewModel::updateRadix: customRadix1 from ${_radixCustom1.value} to $value")
+                _radixCustom1.value = value
+            }
+            RadixCustom2 -> {
+                Log.d(APP_TAG, "CalculatorViewModel::updateRadix: customRadix2 from ${_radixCustom2.value} to $value")
+                _radixCustom2.value = value
+            }
+            RadixResult -> {
+                Log.d(APP_TAG, "CalculatorViewModel::updateRadix: radixResult from ${_radixResult.value} to $value")
+                _radixResult.value = value
+            }
+            RadixCalculation -> {
+                Log.d(APP_TAG, "CalculatorViewModel::updateRadix: radixCalculation from ${_radixCalculation.value} to $value")
+                _radixCalculation.value = value
+            }
+        }
+
+//        if (oldRadix == value) {
+//            return
+//        }
+//
+//        // TODO remove last value
+////        val value = lastValueFrom
+////        val fromRadix = lastRadixFrom
+//        if (value != null && fromRadix != null && oldRadix.value != value) {
+//            convert(
+//                fromValue = value,
+//                fromRadix = value,
+//                toRadixes = intArrayOf(_radixResult.value),
+//            )
+//        }
+//
+//        oldRadix.value = value
+    }
+
+
     @OptIn(FlowPreview::class)
     private fun convert(operandType: OperandType, fromValue: String, fromRadix: Int, @IntRange(from = 2, to = 36) toRadixes: IntArray) {
         Log.d(APP_TAG, "CalculatorViewModel::convert: textFieldVal: $fromValue, from radix: $fromRadix")
 
         if (fromValue.isEmpty()) {
-            clear()
             return
         }
 
@@ -110,8 +147,8 @@ class CalculatorViewModel : ViewModel() {
         ) {
             Log.d(APP_TAG, "CalculatorViewModel::convert: Invalid character entered")
             when (operandType) {
-                Operand1 -> _operandCustom1error.value = true
-                Operand2 -> _operandCustom2error.value = true
+                OperandCustom1 -> _operandCustom1error.value = true
+                OperandCustom2 -> _operandCustom2error.value = true
             }
             return
         }
@@ -125,23 +162,18 @@ class CalculatorViewModel : ViewModel() {
             tempValue = tempValue.replace("-", "").replaceRange(0, 0, "-")
         }
 
-        viewModelScope.launch {
-            toRadixes.filter { _toRadix ->
-                (fromRadix != _toRadix).also {
-                    if (!it) {
-                        when (operandType) {
-                            Operand1 -> {
-                                if (_operandCustom1.value == fromValue) cancel()
-                                _operandCustom1.value = tempValue
-                            }
-                            Operand2 -> {
-                                if (_operandCustom2.value == fromValue) cancel()
-                                _operandCustom2.value = tempValue
-                            }
-                        }
-                    }
-                }
+        when (operandType) {
+            OperandCustom1 -> {
+                _operandCustom1.value = tempValue
             }
+            OperandCustom2 -> {
+                _operandCustom2.value = tempValue
+            }
+            else -> {}
+        }
+
+        viewModelScope.launch {
+            toRadixes
                 .asFlow()
                 .flatMapMerge { _toRadix -> Shared.converter(value = tempValue, fromRadix = fromRadix, toRadix = _toRadix) }
                 .onCompletion { cause ->
@@ -149,39 +181,28 @@ class CalculatorViewModel : ViewModel() {
                         Log.d(APP_TAG, "Flow completed exceptionally")
                     } else {
                         resetErrors()
+                        if (operandType != OperandResult) calculate()
                     }
                 }
                 .catch { error -> Log.e(APP_TAG, "CalculatorViewModel::convert: catch", error) }
                 .collect { convertedData ->
                     when (operandType) {
-                        Operand1 -> operandCustom1Temp.value = convertedData.result
-                        Operand2 -> operandCustom1Temp.value = convertedData.result
+                        OperandCustom1 -> operandCustom1Temp.value = convertedData.result
+                        OperandCustom2 -> operandCustom2Temp.value = convertedData.result
+                        OperandResult -> _operandResult.value = convertedData.result
                     }
                 }
         }
     }
 
-    fun updateCustomRadix(radixType: RadixType, newRadix: Int) {
-        val oldRadix = when (radixType) {
-            Radix1 -> _customRadix1
-            Radix2 -> _customRadix2
-            RadixResult -> _radixResult
-            RadixCalculation -> _radixCalculation
+    private fun calculate() {
+        if (operandCustom1Temp.value.isEmpty() || operandCustom2Temp.value.isEmpty()) {
+            return
         }
-        Log.d(APP_TAG, "CalculatorViewModel::updateCustomRadix ${oldRadix.value} to $newRadix")
-
-        // TODO remove last value
-        val value = lastValueFrom
-        val fromRadix = lastRadixFrom
-        if (value != null && fromRadix != null && oldRadix.value != newRadix) {
-            convert(
-                fromValue = value,
-                fromRadix = newRadix,
-                toRadixes = intArrayOf(_radixResult.value),
-            )
-        }
-
-        oldRadix.value = newRadix
+        Log.d(APP_TAG, "CalculatorViewModel::calculate")
+        operandResultTemp.value = (operandCustom1Temp.value.toInt() + operandCustom2Temp.value.toInt()).toString()
+        convert(operandType = OperandResult, fromValue = operandResultTemp.value, fromRadix = radixCalculation.value, toRadixes = intArrayOf(radixResult.value))
+        Log.d(APP_TAG, "CalculatorViewModel::calculate: ${operandResultTemp.value}")
     }
 
     fun clear() {

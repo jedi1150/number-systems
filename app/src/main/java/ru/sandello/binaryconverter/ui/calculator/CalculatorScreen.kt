@@ -48,17 +48,28 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
 
                 OutlinedTextField(
                     value = viewModel.operandCustom1.value,
-                    onValueChange = { textFieldValue -> viewModel.convertFrom(fromRadix = viewModel.customRadix1.value, fromValue = textFieldValue) },
+                    onValueChange = { textFieldValue ->
+                        viewModel.convertFrom(
+                            operandType = OperandType.OperandCustom1,
+                            fromRadix = viewModel.radixCustom1.value,
+                            fromValue = textFieldValue,
+                        )
+                    },
                     modifier = Modifier
                         .constrainAs(textField) {
                             start.linkTo(parent.start)
                             end.linkTo(exposedDropdown.start, margin = 4.dp)
                             width = Dimension.fillToConstraints
                         },
-                    label = { Text(stringResource(R.string.radix, viewModel.customRadix1.value)) },
+                    label = { Text(stringResource(R.string.radix, viewModel.radixCustom1.value)) },
                     isError = viewModel.operandCustom1error.value,
-                    visualTransformation = OperandVisualTransformation(viewModel.customRadix1.value),
-                    keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
+                    visualTransformation = OperandVisualTransformation(viewModel.radixCustom1.value),
+                    keyboardOptions = KeyboardOptions(
+                        capitalization = KeyboardCapitalization.Characters,
+                        autoCorrect = false,
+                        keyboardType = KeyboardType.Ascii,
+                        imeAction = ImeAction.Done,
+                    ),
                     shape = RoundedCornerShape(16.dp),
                 )
                 var expanded by remember { mutableStateOf(false) }
@@ -75,7 +86,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                     },
                 ) {
                     OutlinedTextField(
-                        value = viewModel.customRadix1.value.toString(),
+                        value = viewModel.radixCustom1.value.toString(),
                         onValueChange = { },
                         readOnly = true,
                         label = {},
@@ -96,7 +107,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                         viewModel.radixes.forEach { radix ->
                             DropdownMenuItem(
                                 onClick = {
-                                    viewModel.updateCustomRadix(radix)
+                                    viewModel.updateRadix(radixType = RadixType.RadixCustom1, value = radix)
                                     expanded = false
                                 }
                             ) {
@@ -137,17 +148,28 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
 
                 OutlinedTextField(
                     value = viewModel.operandCustom2.value,
-                    onValueChange = { textFieldValue -> viewModel.convertFrom(fromRadix = viewModel.customRadix2.value, fromValue = textFieldValue) },
+                    onValueChange = { textFieldValue ->
+                        viewModel.convertFrom(
+                            operandType = OperandType.OperandCustom2,
+                            fromRadix = viewModel.radixCustom2.value,
+                            fromValue = textFieldValue,
+                        )
+                    },
                     modifier = Modifier
                         .constrainAs(textField) {
                             start.linkTo(parent.start)
                             end.linkTo(exposedDropdown.start, margin = 4.dp)
                             width = Dimension.fillToConstraints
                         },
-                    label = { Text(stringResource(R.string.radix, viewModel.customRadix2.value)) },
+                    label = { Text(stringResource(R.string.radix, viewModel.radixCustom2.value)) },
                     isError = viewModel.operandCustom2error.value,
-                    visualTransformation = OperandVisualTransformation(viewModel.customRadix2.value),
-                    keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
+                    visualTransformation = OperandVisualTransformation(viewModel.radixCustom2.value),
+                    keyboardOptions = KeyboardOptions(
+                        capitalization = KeyboardCapitalization.Characters,
+                        autoCorrect = false,
+                        keyboardType = KeyboardType.Ascii,
+                        imeAction = ImeAction.Done,
+                    ),
                     shape = RoundedCornerShape(16.dp),
                 )
                 var expanded by remember { mutableStateOf(false) }
@@ -164,7 +186,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                     },
                 ) {
                     OutlinedTextField(
-                        value = viewModel.customRadix2.value.toString(),
+                        value = viewModel.radixCustom2.value.toString(),
                         onValueChange = { },
                         readOnly = true,
                         label = {},
@@ -185,7 +207,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                         viewModel.radixes.forEach { radix ->
                             DropdownMenuItem(
                                 onClick = {
-                                    viewModel.updateCustomRadix(radix)
+                                    viewModel.updateRadix(radixType = RadixType.RadixCustom2, value = radix)
                                     expanded = false
                                 }
                             ) {
@@ -253,7 +275,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                         viewModel.radixes.forEach { radix ->
                             DropdownMenuItem(
                                 onClick = {
-                                    viewModel.updateCustomRadix(radix)
+                                    viewModel.updateRadix(radixType = RadixType.RadixResult, value = radix)
                                     expanded = false
                                 }
                             ) {
