@@ -24,6 +24,7 @@ class OperandVisualTransformation(radix: Int) : VisualTransformation {
     }
 
     override fun filter(text: AnnotatedString): TransformedText {
+        // TODO Add delimiter processing
         var out = ""
         text.text.indices.reversed().forEach { i ->
             out += text.text.reversed()[i]
