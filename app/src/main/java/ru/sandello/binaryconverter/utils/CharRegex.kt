@@ -1,7 +1,7 @@
 package ru.sandello.binaryconverter.utils
 
 class CharRegex {
-    private val chars = "01234567890abcdefghijklmnopqrstuvwxyz"
+    private val chars = "0123456789abcdefghijklmnopqrstuvwxyz"
     private val negativeChars = "-"
     private val delimiterChars = ",."
 
