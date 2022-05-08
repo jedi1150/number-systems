@@ -1,6 +1,10 @@
 package ru.sandello.binaryconverter.ui.calculator
 
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -8,7 +12,10 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.TextFieldDefaults.FocusedBorderThickness
+import androidx.compose.material.TextFieldDefaults.UnfocusedBorderThickness
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -21,13 +28,12 @@ import androidx.constraintlayout.compose.Dimension
 import androidx.constraintlayout.compose.atMost
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.ui.OperandVisualTransformation
+import ru.sandello.binaryconverter.ui.calculator.ArithmeticType.*
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues) {
-    val actionOptions = listOf("+", "-", "*", "/")
-    var selectedOption by remember { mutableStateOf(0) }
 
     LazyColumn(
         modifier = Modifier.imePadding(),
@@ -123,17 +129,29 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 8.dp),
-                horizontalArrangement = Arrangement.Center
+                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
             ) {
-                itemsIndexed(actionOptions) { index, option ->
-                    val tint by animateColorAsState(
-                        if (selectedOption == index) MaterialTheme.colors.primary else MaterialTheme.colors.surface
-                    )
-                    OutlinedButton(
-                        onClick = { selectedOption = index },
-//                        colors = ButtonDefaults.outlinedButtonColors(containerColor = tint),
+                itemsIndexed(viewModel.arithmeticOptions) { index, arithmetic ->
+                    val checked = viewModel.selectedArithmetic.value == arithmetic
+                    val tint by animateColorAsState(if (checked) MaterialTheme.colors.primary else MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled))
+                    val border by animateDpAsState(if (checked) FocusedBorderThickness else UnfocusedBorderThickness)
+                    IconToggleButton(
+                        checked = checked,
+                        onCheckedChange = { if (it) viewModel.selectArithmetic(arithmetic) },
+                        interactionSource = remember { MutableInteractionSource() },
+                        modifier = Modifier.border(
+                            BorderStroke(border, color = tint),
+                            RoundedCornerShape(16.dp),
+                        ),
                     ) {
-                        Text(option)
+                        Text(
+                            text = when (arithmetic) {
+                                Addition -> "+"
+                                Subtraction -> "-"
+                                Multiply -> "*"
+                                Divide -> "/"
+                            }
+                        )
                     }
                 }
             }

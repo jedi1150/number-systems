@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
+import ru.sandello.binaryconverter.ui.calculator.ArithmeticType.*
 import ru.sandello.binaryconverter.ui.calculator.OperandType.*
 import ru.sandello.binaryconverter.ui.calculator.RadixType.*
 import ru.sandello.binaryconverter.utils.APP_TAG
@@ -34,6 +35,13 @@ enum class RadixType {
     RadixCustom2,
     RadixResult,
     RadixCalculation,
+}
+
+enum class ArithmeticType {
+    Addition,
+    Subtraction,
+    Multiply,
+    Divide,
 }
 
 class CalculatorViewModel : ViewModel() {
@@ -59,6 +67,9 @@ class CalculatorViewModel : ViewModel() {
     val radixCalculation: State<Int>
         get() = _radixCalculation
 
+    private val _selectedArithmetic = mutableStateOf(Addition)
+    val selectedArithmetic: State<ArithmeticType> = _selectedArithmetic
+
     private val operandCustom1Temp = mutableStateOf(String())
     private val operandCustom2Temp = mutableStateOf(String())
     private val operandResultTemp = mutableStateOf(String())
@@ -72,6 +83,7 @@ class CalculatorViewModel : ViewModel() {
         get() = _operandCustom2error
 
     val radixes = IntArray(36) { it + 1 }
+    val arithmeticOptions = listOf(Addition, Subtraction, Multiply, Divide)
 
     private val _actions = MutableLiveData(CalcActions.PLUS)
     val actions: LiveData<CalcActions> = _actions
@@ -125,6 +137,10 @@ class CalculatorViewModel : ViewModel() {
 //        }
 //
 //        oldRadix.value = value
+    }
+
+    fun selectArithmetic(arithmeticType: ArithmeticType) {
+        _selectedArithmetic.value = arithmeticType
     }
 
 
@@ -200,7 +216,13 @@ class CalculatorViewModel : ViewModel() {
             return
         }
         Log.d(APP_TAG, "CalculatorViewModel::calculate")
-        operandResultTemp.value = (operandCustom1Temp.value.toInt() + operandCustom2Temp.value.toInt()).toString()
+        operandResultTemp.value = when (_selectedArithmetic.value) {
+            Addition -> (operandCustom1Temp.value.toInt() + operandCustom2Temp.value.toInt()).toString()
+            Subtraction -> (operandCustom1Temp.value.toInt() - operandCustom2Temp.value.toInt()).toString()
+            Multiply -> (operandCustom1Temp.value.toInt() * operandCustom2Temp.value.toInt()).toString()
+            Divide -> (operandCustom1Temp.value.toInt() / operandCustom2Temp.value.toInt()).toString()
+        }
+
         convert(operandType = OperandResult, fromValue = operandResultTemp.value, fromRadix = radixCalculation.value, toRadixes = intArrayOf(radixResult.value))
         Log.d(APP_TAG, "CalculatorViewModel::calculate: ${operandResultTemp.value}")
     }
