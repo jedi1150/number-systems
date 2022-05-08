@@ -96,42 +96,41 @@ class CalculatorViewModel : ViewModel() {
         convert(operandType, fromValue, fromRadix, toRadixes = intArrayOf(_radixCalculation.value))
     }
 
-    fun updateRadix(radixType: RadixType, value: Int) {
+    fun updateRadix(radixType: RadixType, radix: Int) {
         when (radixType) {
             RadixCustom1 -> {
-                Log.d(APP_TAG, "CalculatorViewModel::updateRadix: customRadix1 from ${_radixCustom1.value} to $value")
-                _radixCustom1.value = value
+                _radixCustom1.run {
+                    if (value == radix) return
+                    value = radix
+                }
+                Log.d(APP_TAG, "CalculatorViewModel::updateRadix: customRadix1 from ${_radixCustom1.value} to $radix")
+                convert(operandType = OperandCustom1, fromValue = _operandCustom1.value, fromRadix = _radixCustom1.value, toRadixes = intArrayOf(radixCalculation.value))
             }
             RadixCustom2 -> {
-                Log.d(APP_TAG, "CalculatorViewModel::updateRadix: customRadix2 from ${_radixCustom2.value} to $value")
-                _radixCustom2.value = value
+                _radixCustom2.run {
+                    if (value == radix) return
+                    value = radix
+                }
+                Log.d(APP_TAG, "CalculatorViewModel::updateRadix: customRadix2 from ${_radixCustom2.value} to $radix")
+                convert(operandType = OperandCustom2, fromValue = _operandCustom2.value, fromRadix = _radixCustom2.value, toRadixes = intArrayOf(radixCalculation.value))
             }
             RadixResult -> {
-                Log.d(APP_TAG, "CalculatorViewModel::updateRadix: radixResult from ${_radixResult.value} to $value")
-                _radixResult.value = value
+                _radixResult.run {
+                    if (value == radix) return
+                    value = radix
+                }
+                Log.d(APP_TAG, "CalculatorViewModel::updateRadix: radixResult from ${_radixResult.value} to $radix")
+                calculate()
             }
             RadixCalculation -> {
-                Log.d(APP_TAG, "CalculatorViewModel::updateRadix: radixCalculation from ${_radixCalculation.value} to $value")
-                _radixCalculation.value = value
+                _radixCalculation.run {
+                    if (value == radix) return
+                    value = radix
+                }
+                Log.d(APP_TAG, "CalculatorViewModel::updateRadix: radixCalculation from ${_radixCalculation.value} to $radix")
+                calculate()
             }
         }
-
-//        if (oldRadix == value) {
-//            return
-//        }
-//
-//        // TODO remove last value
-////        val value = lastValueFrom
-////        val fromRadix = lastRadixFrom
-//        if (value != null && fromRadix != null && oldRadix.value != value) {
-//            convert(
-//                fromValue = value,
-//                fromRadix = value,
-//                toRadixes = intArrayOf(_radixResult.value),
-//            )
-//        }
-//
-//        oldRadix.value = value
     }
 
     fun selectArithmetic(arithmeticType: ArithmeticType) {

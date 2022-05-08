@@ -113,7 +113,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                         viewModel.radixes.forEach { radix ->
                             DropdownMenuItem(
                                 onClick = {
-                                    viewModel.updateRadix(radixType = RadixType.RadixCustom1, value = radix)
+                                    viewModel.updateRadix(radixType = RadixType.RadixCustom1, radix = radix)
                                     expanded = false
                                 }
                             ) {
@@ -225,7 +225,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                         viewModel.radixes.forEach { radix ->
                             DropdownMenuItem(
                                 onClick = {
-                                    viewModel.updateRadix(radixType = RadixType.RadixCustom2, value = radix)
+                                    viewModel.updateRadix(radixType = RadixType.RadixCustom2, radix = radix)
                                     expanded = false
                                 }
                             ) {
@@ -293,7 +293,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                         viewModel.radixes.forEach { radix ->
                             DropdownMenuItem(
                                 onClick = {
-                                    viewModel.updateRadix(radixType = RadixType.RadixResult, value = radix)
+                                    viewModel.updateRadix(radixType = RadixType.RadixResult, radix = radix)
                                     expanded = false
                                 }
                             ) {
