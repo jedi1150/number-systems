@@ -146,6 +146,9 @@ class MainActivity : ComponentActivity() {
                                 if (navController.currentDestination?.route == Screen.Converter.route) {
                                     converterViewModel.clear()
                                 }
+                                if (navController.currentDestination?.route == Screen.Calculator.route) {
+                                    calculatorViewModel.clear()
+                                }
                             },
                             Modifier.padding(16.dp)
                         ) {
