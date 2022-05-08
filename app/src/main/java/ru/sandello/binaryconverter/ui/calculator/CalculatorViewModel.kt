@@ -45,26 +45,19 @@ enum class ArithmeticType {
 
 class CalculatorViewModel : ViewModel() {
     private val _operandCustom1 = mutableStateOf(String())
-    val operandCustom1: State<String>
-        get() = _operandCustom1
+    val operandCustom1: State<String> = _operandCustom1
     private val _radixCustom1 = mutableStateOf(10)
-    val radixCustom1: State<Int>
-        get() = _radixCustom1
+    val radixCustom1: State<Int> = _radixCustom1
     private val _operandCustom2 = mutableStateOf(String())
-    val operandCustom2: State<String>
-        get() = _operandCustom2
+    val operandCustom2: State<String> = _operandCustom2
     private val _radixCustom2 = mutableStateOf(2)
-    val radixCustom2: State<Int>
-        get() = _radixCustom2
+    val radixCustom2: State<Int> = _radixCustom2
     private val _operandResult = mutableStateOf(String())
-    val operandResult: State<String>
-        get() = _operandResult
+    val operandResult: State<String> = _operandResult
     private val _radixResult = mutableStateOf(10)
-    val radixResult: State<Int>
-        get() = _radixResult
+    val radixResult: State<Int> = _radixResult
     private val _radixCalculation = mutableStateOf(10)
-    val radixCalculation: State<Int>
-        get() = _radixCalculation
+    val radixCalculation: State<Int> = _radixCalculation
 
     private val _selectedArithmetic = mutableStateOf(Addition)
     val selectedArithmetic: State<ArithmeticType> = _selectedArithmetic
@@ -74,12 +67,10 @@ class CalculatorViewModel : ViewModel() {
     private val operandResultTemp = mutableStateOf(String())
 
     private val _operandCustom1error = mutableStateOf(false)
-    val operandCustom1error: State<Boolean>
-        get() = _operandCustom1error
+    val operandCustom1error: State<Boolean> = _operandCustom1error
 
     private val _operandCustom2error = mutableStateOf(false)
-    val operandCustom2error: State<Boolean>
-        get() = _operandCustom2error
+    val operandCustom2error: State<Boolean> = _operandCustom2error
 
     val radixes = IntArray(36) { it + 1 }
     val arithmeticOptions = listOf(Addition, Subtraction, Multiply, Divide)

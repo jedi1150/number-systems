@@ -17,39 +17,28 @@ import ru.sandello.binaryconverter.utils.Shared.converter
 class ConverterViewModel : ViewModel() {
 
     private val _operand10 = mutableStateOf(String())
-    val operand10: State<String>
-        get() = _operand10
+    val operand10: State<String> = _operand10
     private val _operand2 = mutableStateOf(String())
-    val operand2: State<String>
-        get() = _operand2
+    val operand2: State<String> = _operand2
     private val _operand8 = mutableStateOf(String())
-    val operand8: State<String>
-        get() = _operand8
+    val operand8: State<String> = _operand8
     private val _operand16 = mutableStateOf(String())
-    val operand16: State<String>
-        get() = _operand16
+    val operand16: State<String> = _operand16
     private val _operandCustom = mutableStateOf(String())
-    val operandCustom: State<String>
-        get() = _operandCustom
+    val operandCustom: State<String> = _operandCustom
     private val _customRadix = mutableStateOf(3)
-    val customRadix: State<Int>
-        get() = _customRadix
+    val customRadix: State<Int> = _customRadix
 
     private val _operand10error = mutableStateOf(false)
-    val operand10error: State<Boolean>
-        get() = _operand10error
+    val operand10error: State<Boolean> = _operand10error
     private val _operand2error = mutableStateOf(false)
-    val operand2error: State<Boolean>
-        get() = _operand2error
+    val operand2error: State<Boolean> = _operand2error
     private val _operand8error = mutableStateOf(false)
-    val operand8error: State<Boolean>
-        get() = _operand8error
+    val operand8error: State<Boolean> = _operand8error
     private val _operand16error = mutableStateOf(false)
-    val operand16error: State<Boolean>
-        get() = _operand16error
+    val operand16error: State<Boolean> = _operand16error
     private val _operandCustomError = mutableStateOf(false)
-    val operandCustomError: State<Boolean>
-        get() = _operandCustomError
+    val operandCustomError: State<Boolean> = _operandCustomError
 
     private val radixes = IntArray(36) { it + 1 }
     val customRadixes = radixes.toMutableList().filter { !listOf(1, 2, 8, 10, 16).contains(it) }
