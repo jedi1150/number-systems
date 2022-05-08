@@ -16,11 +16,9 @@ import com.google.android.material.textfield.TextInputEditText
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.databinding.ActivityMainBinding
 import ru.sandello.binaryconverter.databinding.FragmentCalculatorBinding
-import ru.sandello.binaryconverter.ui.main.MainActivity
 import ru.sandello.binaryconverter.ui.main.MainViewModel
 import ru.sandello.binaryconverter.utils.CalcActions
 import ru.sandello.binaryconverter.utils.Format
-import ru.sandello.binaryconverter.utils.TypeMethod
 
 class CalculatorFragment : Fragment() {
     private lateinit var activityBinding: ActivityMainBinding
@@ -143,15 +141,6 @@ class CalculatorFragment : Fragment() {
 //        binding.toggleGroup.addOnButtonCheckedListener { _, _, _ ->
 //            calculate("")
 //        }
-
-        binding.toggleGroup.addOnButtonCheckedListener { group, checkedId, isChecked ->
-            when (checkedId) {
-                1 -> model.updateAction(CalcActions.PLUS)
-                2 -> model.updateAction(CalcActions.MINUS)
-                3 -> model.updateAction(CalcActions.MULTIPLY)
-                4 -> model.updateAction(CalcActions.DIVIDE)
-            }
-        }
 
         model.showInvalidInputError.observe(viewLifecycleOwner, {
             if (it.first == 1) {

@@ -6,7 +6,6 @@ import android.util.Log
 import androidx.annotation.IntRange
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -20,7 +19,6 @@ import ru.sandello.binaryconverter.ui.calculator.ArithmeticType.*
 import ru.sandello.binaryconverter.ui.calculator.OperandType.*
 import ru.sandello.binaryconverter.ui.calculator.RadixType.*
 import ru.sandello.binaryconverter.utils.APP_TAG
-import ru.sandello.binaryconverter.utils.CalcActions
 import ru.sandello.binaryconverter.utils.CharRegex
 import ru.sandello.binaryconverter.utils.Shared
 
@@ -85,9 +83,6 @@ class CalculatorViewModel : ViewModel() {
     val radixes = IntArray(36) { it + 1 }
     val arithmeticOptions = listOf(Addition, Subtraction, Multiply, Divide)
 
-    private val _actions = MutableLiveData(CalcActions.PLUS)
-    val actions: LiveData<CalcActions> = _actions
-
     val showInvalidInputError = MutableLiveData<Pair<Int, String>>()
     val stringToast = MutableLiveData<String>()
 
@@ -140,7 +135,13 @@ class CalculatorViewModel : ViewModel() {
     }
 
     fun selectArithmetic(arithmeticType: ArithmeticType) {
-        _selectedArithmetic.value = arithmeticType
+        Log.d(APP_TAG, "CalculatorViewModel::selectArithmetic: arithmeticType: $arithmeticType")
+
+        _selectedArithmetic.run {
+            if (value == arithmeticType) return
+            value = arithmeticType
+            calculate()
+        }
     }
 
 
@@ -216,6 +217,7 @@ class CalculatorViewModel : ViewModel() {
             return
         }
         Log.d(APP_TAG, "CalculatorViewModel::calculate")
+
         operandResultTemp.value = when (_selectedArithmetic.value) {
             Addition -> (operandCustom1Temp.value.toInt() + operandCustom2Temp.value.toInt()).toString()
             Subtraction -> (operandCustom1Temp.value.toInt() - operandCustom2Temp.value.toInt()).toString()
@@ -224,7 +226,6 @@ class CalculatorViewModel : ViewModel() {
         }
 
         convert(operandType = OperandResult, fromValue = operandResultTemp.value, fromRadix = radixCalculation.value, toRadixes = intArrayOf(radixResult.value))
-        Log.d(APP_TAG, "CalculatorViewModel::calculate: ${operandResultTemp.value}")
     }
 
     fun clear() {
@@ -286,11 +287,6 @@ class CalculatorViewModel : ViewModel() {
 //
 //        Log.i(APP_TAG, "CalculatorViewModel::updateFraction id: $fractionId val: $newFraction")
 //    }
-
-    fun updateAction(newAction: CalcActions) {
-        _actions.postValue(newAction)
-        Log.i(APP_TAG, "CalculatorViewModel::updateAction act: $newAction")
-    }
 
 //    private fun calculate() {
 //        when (_actions.value) {
