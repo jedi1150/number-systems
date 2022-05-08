@@ -20,7 +20,6 @@ import ru.sandello.binaryconverter.ui.calculator.OperandType.*
 import ru.sandello.binaryconverter.ui.calculator.RadixType.*
 import ru.sandello.binaryconverter.utils.APP_TAG
 import ru.sandello.binaryconverter.utils.CharRegex
-import ru.sandello.binaryconverter.utils.Shared
 import ru.sandello.binaryconverter.utils.Shared.converter
 import java.math.MathContext.DECIMAL128
 
@@ -151,6 +150,15 @@ class CalculatorViewModel : ViewModel() {
         Log.d(APP_TAG, "CalculatorViewModel::convert: textFieldVal: $fromValue, from radix: $fromRadix")
 
         if (fromValue.isEmpty()) {
+            when (operandType) {
+                OperandCustom1 -> {
+                    _operandCustom1.value = String()
+                }
+                OperandCustom2 -> {
+                    _operandCustom2.value = String()
+                }
+                else -> {}
+            }
             return
         }
 
@@ -167,6 +175,7 @@ class CalculatorViewModel : ViewModel() {
             when (operandType) {
                 OperandCustom1 -> _operandCustom1error.value = true
                 OperandCustom2 -> _operandCustom2error.value = true
+                else -> {}
             }
             return
         }
@@ -223,7 +232,13 @@ class CalculatorViewModel : ViewModel() {
             Addition -> (operandCustom1Temp.value.toBigDecimal().plus(operandCustom2Temp.value.toBigDecimal())).toString()
             Subtraction -> (operandCustom1Temp.value.toBigDecimal().minus(operandCustom2Temp.value.toBigDecimal())).toString()
             Multiply -> (operandCustom1Temp.value.toBigDecimal().multiply(operandCustom2Temp.value.toBigDecimal(), DECIMAL128)).toString()
-            Divide -> (operandCustom1Temp.value.toBigDecimal().divide(operandCustom2Temp.value.toBigDecimal(), DECIMAL128)).toString()
+            Divide -> {
+                if (operandCustom2Temp.value.toFloatOrNull() == 0.0f) {
+                    _operandCustom2error.value = true
+                    return
+                }
+                (operandCustom1Temp.value.toBigDecimal().divide(operandCustom2Temp.value.toBigDecimal(), DECIMAL128)).toString()
+            }
         }
 
         convert(operandType = OperandResult, fromValue = operandResultTemp.value, fromRadix = radixCalculation.value, toRadixes = intArrayOf(radixResult.value))
