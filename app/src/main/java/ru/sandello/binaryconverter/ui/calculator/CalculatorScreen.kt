@@ -316,3 +316,13 @@ fun PreviewCalculatorScreen() {
         }
     }
 }
+
+@Preview
+@Composable
+fun PreviewCalculatorScreenDark() {
+    NumberSystemsTheme(darkTheme = true) {
+        Surface {
+            CalculatorScreen(viewModel = CalculatorViewModel(), mainPadding = PaddingValues())
+        }
+    }
+}

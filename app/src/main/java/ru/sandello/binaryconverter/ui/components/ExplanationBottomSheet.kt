@@ -2,11 +2,14 @@ package ru.sandello.binaryconverter.ui.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -15,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.ui.theme.Gray300
 import ru.sandello.binaryconverter.ui.theme.Gray800
+import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.ui.theme.Shapes
 
 @Composable
@@ -45,6 +49,21 @@ fun Explanation() {
 
 @Composable
 @Preview
-private fun ExplanationPreview() {
-    Explanation()
+private fun PreviewExplanation() {
+    NumberSystemsTheme {
+        Surface {
+            Explanation()
+        }
+    }
 }
+
+@Composable
+@Preview
+private fun PreviewExplanationDark() {
+    NumberSystemsTheme(darkTheme = true) {
+        Surface {
+            Explanation()
+        }
+    }
+}
+
