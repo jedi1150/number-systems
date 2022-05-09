@@ -51,6 +51,9 @@ class ConverterViewModel : ViewModel() {
     private var lastValueFrom: String? = null
     private var lastRadixFrom: Int? = null
 
+    private val _showExplanation = mutableStateOf(false)
+    val showExplanation: State<Boolean> = _showExplanation
+
     fun convertFrom(fromValue: String, fromRadix: Int) {
         convert(fromValue, fromRadix, toRadixes = intArrayOf(2, 8, 10, 16, _customRadix.value))
     }
@@ -167,6 +170,14 @@ class ConverterViewModel : ViewModel() {
         }
 
         _customRadix.value = newRadix
+    }
+
+    fun showExplanation() {
+        _showExplanation.value = true
+    }
+
+    fun hideExplanation() {
+        _showExplanation.value = false
     }
 
     fun clear() {

@@ -7,9 +7,7 @@ import androidx.activity.viewModels
 import androidx.compose.animation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,13 +24,16 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.android.gms.ads.interstitial.InterstitialAd
+import kotlinx.coroutines.launch
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.Screen
 import ru.sandello.binaryconverter.ui.calculator.CalculatorScreen
 import ru.sandello.binaryconverter.ui.calculator.CalculatorViewModel
+import ru.sandello.binaryconverter.ui.components.Explanation
 import ru.sandello.binaryconverter.ui.converter.ConverterScreen
 import ru.sandello.binaryconverter.ui.converter.ConverterViewModel
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
+import ru.sandello.binaryconverter.ui.theme.ShapesTop
 
 class MainActivity : ComponentActivity() {
     private val viewModel: MainViewModel by viewModels()
@@ -41,7 +42,7 @@ class MainActivity : ComponentActivity() {
 
     private lateinit var ad: InterstitialAd
 
-    @OptIn(ExperimentalAnimationApi::class)
+    @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialApi::class)
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -54,147 +55,185 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             NumberSystemsTheme {
+                val scope = rememberCoroutineScope()
+
                 val systemUiController = rememberSystemUiController()
                 val useDarkIcons = MaterialTheme.colors.isLight
 
                 val navController = rememberNavController()
 
                 val imeIsVisible = WindowInsets.ime.asPaddingValues().calculateBottomPadding() > 0.dp
+                val bottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Expanded)
 
                 SideEffect {
                     systemUiController.setSystemBarsColor(color = Color.Transparent, darkIcons = useDarkIcons)
                 }
 
-                Scaffold(
-                    bottomBar = {
-                        AnimatedVisibility(
-                            visible = !imeIsVisible,
-                            enter = expandVertically(expandFrom = Alignment.Top),
-                            exit = shrinkVertically(shrinkTowards = Alignment.Top),
-                        ) {
-                            Surface(
-                                color = MaterialTheme.colors.surface.copy(alpha = 0.9f),
+                LaunchedEffect(converterViewModel.showExplanation.value) {
+                    if (converterViewModel.showExplanation.value) {
+                        scope.launch {
+                            bottomSheetState.show()
+                        }
+                    } else {
+                        scope.launch {
+                            bottomSheetState.hide()
+                        }
+                    }
+                }
+
+                LaunchedEffect(bottomSheetState.isVisible) {
+                    if (!bottomSheetState.isVisible) {
+                        converterViewModel.hideExplanation()
+                    }
+                }
+
+                ModalBottomSheetLayout(
+                    sheetState = bottomSheetState,
+                    sheetShape = ShapesTop.medium,
+                    sheetContent = {
+                        Surface(modifier = Modifier.imePadding()) {
+                            Explanation()
+                        }
+                    },
+                ) {
+                    Scaffold(
+                        bottomBar = {
+                            AnimatedVisibility(
+                                visible = !imeIsVisible,
+                                enter = expandVertically(expandFrom = Alignment.Top),
+                                exit = shrinkVertically(shrinkTowards = Alignment.Top),
                             ) {
-                                BottomNavigation(
-                                    modifier = Modifier.navigationBarsPadding(),
-                                    backgroundColor = Color.Transparent,
-                                    elevation = 0.dp,
+                                Surface(
+                                    color = MaterialTheme.colors.surface.copy(alpha = 0.9f),
                                 ) {
-                                    val navBackStackEntry by navController.currentBackStackEntryAsState()
-                                    val currentDestination = navBackStackEntry?.destination
-                                    screens.forEach { screen ->
-                                        BottomNavigationItem(
-                                            icon = {
-                                                Icon(
-                                                    painterResource(screen.iconId),
-                                                    contentDescription = null,
-                                                    tint = MaterialTheme.colors.onSurface,
-                                                )
-                                            },
-                                            label = { Text(stringResource(screen.resourceId)) },
-                                            selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
-                                            onClick = {
-                                                navController.navigate(screen.route) {
-                                                    // Pop up to the start destination of the graph to
-                                                    // avoid building up a large stack of destinations
-                                                    // on the back stack as users select items
-                                                    popUpTo(navController.graph.findStartDestination().id) {
-                                                        saveState = true
+                                    BottomNavigation(
+                                        modifier = Modifier.navigationBarsPadding(),
+                                        backgroundColor = Color.Transparent,
+                                        elevation = 0.dp,
+                                    ) {
+                                        val navBackStackEntry by navController.currentBackStackEntryAsState()
+                                        val currentDestination = navBackStackEntry?.destination
+                                        screens.forEach { screen ->
+                                            BottomNavigationItem(
+                                                icon = {
+                                                    Icon(
+                                                        painterResource(screen.iconId),
+                                                        contentDescription = null,
+                                                        tint = MaterialTheme.colors.onSurface,
+                                                    )
+                                                },
+                                                label = { Text(stringResource(screen.resourceId)) },
+                                                selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
+                                                onClick = {
+                                                    navController.navigate(screen.route) {
+                                                        // Pop up to the start destination of the graph to
+                                                        // avoid building up a large stack of destinations
+                                                        // on the back stack as users select items
+                                                        popUpTo(navController.graph.findStartDestination().id) {
+                                                            saveState = true
+                                                        }
+                                                        // Avoid multiple copies of the same destination when
+                                                        // reselecting the same item
+                                                        launchSingleTop = true
+                                                        // Restore state when reselecting a previously selected item
+                                                        restoreState = true
                                                     }
-                                                    // Avoid multiple copies of the same destination when
-                                                    // reselecting the same item
-                                                    launchSingleTop = true
-                                                    // Restore state when reselecting a previously selected item
-                                                    restoreState = true
-                                                }
-                                            },
-                                        )
+                                                },
+                                            )
+                                        }
                                     }
                                 }
                             }
-                        }
-                    },
-                ) { contentPadding ->
-                    NavHost(
-                        navController = navController,
-                        startDestination = Screen.Converter.route,
-                    ) {
-                        composable(Screen.Converter.route) { ConverterScreen(converterViewModel, contentPadding) }
-                        composable(Screen.Calculator.route) { CalculatorScreen(calculatorViewModel, contentPadding) }
+                        },
+                    ) { contentPadding ->
+                        NavHost(
+                            navController = navController,
+                            startDestination = Screen.Converter.route,
+                        ) {
+                            composable(Screen.Converter.route) { ConverterScreen(converterViewModel, contentPadding) }
+                            composable(Screen.Calculator.route) { CalculatorScreen(calculatorViewModel, contentPadding) }
 //                        composable("settings") {  }
-                    }
-
-                    // FAB clear fields
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(
-                                bottom = maxOf(
-                                    WindowInsets.ime
-                                        .asPaddingValues()
-                                        .calculateBottomPadding(),
-                                    WindowInsets.navigationBars
-                                        .asPaddingValues()
-                                        .calculateBottomPadding(),
-                                    contentPadding.calculateBottomPadding(),
-                                )
-                            ),
-                        contentAlignment = Alignment.BottomEnd
-                    ) {
-                        val navBackStackEntry by navController.currentBackStackEntryAsState()
-                        val currentDestination = navBackStackEntry?.destination
-                        val fabVisible by derivedStateOf {
-                            return@derivedStateOf when (currentDestination?.route) {
-                                Screen.Converter.route -> converterViewModel.hasData.value
-                                Screen.Calculator.route -> calculatorViewModel.hasData.value
-                                else -> false
-                            }
                         }
 
-                        ConstraintLayout() {
-                            val (clearFab, explanationFab) = createRefs()
-
-                            AnimatedVisibility(
-                                visible = fabVisible,
-                                modifier = Modifier.constrainAs(clearFab) {
-                                    end.linkTo(parent.end, margin = 16.dp)
-                                    bottom.linkTo(explanationFab.top, margin = 16.dp, goneMargin = 16.dp)
-                                },
-                                enter = scaleIn(),
-                                exit = scaleOut(),
-                            ) {
-                                FloatingActionButton(
-                                    onClick = {
-                                        if (navController.currentDestination?.route == Screen.Converter.route) {
-                                            converterViewModel.clear()
-                                        }
-                                        if (navController.currentDestination?.route == Screen.Calculator.route) {
-                                            calculatorViewModel.clear()
-                                        }
-                                    },
-                                    elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 6.dp),
-                                ) {
-                                    Icon(painter = painterResource(R.drawable.close), contentDescription = null)
+                        // FAB clear fields
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(
+                                    bottom = maxOf(
+                                        WindowInsets.ime
+                                            .asPaddingValues()
+                                            .calculateBottomPadding(),
+                                        WindowInsets.navigationBars
+                                            .asPaddingValues()
+                                            .calculateBottomPadding(),
+                                        contentPadding.calculateBottomPadding(),
+                                    )
+                                ),
+                            contentAlignment = Alignment.BottomEnd
+                        ) {
+                            val navBackStackEntry by navController.currentBackStackEntryAsState()
+                            val currentDestination = navBackStackEntry?.destination
+                            val fabVisible by derivedStateOf {
+                                return@derivedStateOf when (currentDestination?.route) {
+                                    Screen.Converter.route -> converterViewModel.hasData.value
+                                    Screen.Calculator.route -> calculatorViewModel.hasData.value
+                                    else -> false
                                 }
                             }
 
-                            AnimatedVisibility(
-                                visible = fabVisible,
-                                modifier = Modifier.constrainAs(explanationFab) {
-                                    end.linkTo(parent.end, margin = 16.dp)
-                                    bottom.linkTo(parent.bottom, margin = 16.dp)
-                                },
-                                enter = scaleIn(),
-                                exit = scaleOut(),
-                            ) {
-                                ExtendedFloatingActionButton(
-                                    text = { Text(text = stringResource(id = R.string.explanation)) },
-                                    onClick = { },
-                                    icon = { Icon(painter = painterResource(R.drawable.explanation), contentDescription = stringResource(id = R.string.explanation)) },
-                                    elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 6.dp),
-                                )
-                            }
+                            ConstraintLayout() {
+                                val (clearFab, explanationFab) = createRefs()
 
+                                AnimatedVisibility(
+                                    visible = fabVisible,
+                                    modifier = Modifier.constrainAs(clearFab) {
+                                        end.linkTo(parent.end, margin = 16.dp)
+                                        bottom.linkTo(explanationFab.top, margin = 16.dp, goneMargin = 16.dp)
+                                    },
+                                    enter = scaleIn(),
+                                    exit = scaleOut(),
+                                ) {
+                                    FloatingActionButton(
+                                        onClick = {
+                                            if (navController.currentDestination?.route == Screen.Converter.route) {
+                                                converterViewModel.clear()
+                                            }
+                                            if (navController.currentDestination?.route == Screen.Calculator.route) {
+                                                calculatorViewModel.clear()
+                                            }
+                                        },
+                                        elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 6.dp),
+                                    ) {
+                                        Icon(painter = painterResource(R.drawable.close), contentDescription = null)
+                                    }
+                                }
+
+                                AnimatedVisibility(
+                                    visible = fabVisible,
+                                    modifier = Modifier.constrainAs(explanationFab) {
+                                        end.linkTo(parent.end, margin = 16.dp)
+                                        bottom.linkTo(parent.bottom, margin = 16.dp)
+                                    },
+                                    enter = scaleIn(),
+                                    exit = scaleOut(),
+                                ) {
+                                    ExtendedFloatingActionButton(
+                                        text = { Text(text = stringResource(id = R.string.explanation)) },
+                                        onClick = {
+                                            if (navController.currentDestination?.route == Screen.Converter.route) {
+                                                converterViewModel.showExplanation()
+                                            }
+                                            if (navController.currentDestination?.route == Screen.Calculator.route) {
+//                                                calculatorViewModel.clear()
+                                            }
+                                        },
+                                        icon = { Icon(painter = painterResource(R.drawable.explanation), contentDescription = stringResource(id = R.string.explanation)) },
+                                        elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 6.dp),
+                                    )
+                                }
+
+                            }
                         }
                     }
                 }
