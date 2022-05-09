@@ -1,45 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <supports-screens
-        android:anyDensity="true"
-        android:largeScreens="true"
-        android:normalScreens="true"
-        android:resizeable="true"
-        android:smallScreens="true"
-        android:xlargeScreens="true" />
-
-    <uses-feature
-        android:name="android.hardware.telephony"
-        android:required="false" />
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="false" />
-    <uses-feature
-        android:name="android.hardware.camera.front"
-        android:required="false" />
-    <uses-feature
-        android:name="android.hardware.camera2"
-        android:required="false" />
-
     <application
         android:name=".NumberSystemsApplication"
-        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/Theme"
-        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        android:theme="@style/Theme.NumberSystems">
 
         <activity
             android:name=".ui.main.MainActivity"
-            android:configChanges="orientation|keyboardHidden|keyboard|locale"
-            android:exported="true"
-            android:theme="@style/Theme.NoActionBar"
-            android:windowSoftInputMode="adjustResize">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -48,11 +20,9 @@
         </activity>
 
         <meta-data
-            android:name="android.allow_multiple_resumed_activities"
-            android:value="true" />
-        <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713" />
+
     </application>
 
 </manifest>

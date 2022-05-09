@@ -2,8 +2,9 @@ buildscript {
     ext {
         kotlin_version = '1.6.20'
         core_version = '1.7.0'
-        appcompact_version = '1.4.0'
-        material_version = '1.5.0'
+        appcompat_version = '1.4.1'
+        activity_compose_version = '1.4.0'
+        material_version = '1.6.0'
         multidex_version = '2.0.1'
         lifecycle_version = '2.4.1'
         compose_version = '1.2.0-alpha08'
@@ -20,8 +21,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.2.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5' // TODO deprecated
-        classpath 'com.google.gms:google-services:4.3.10'
+//        classpath 'com.google.gms:google-services:4.3.10'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.8.1'
     }
 }
@@ -36,8 +36,10 @@ allprojects {
         kotlinOptions {
             // Treat all Kotlin warnings as errors (disabled by default)
             allWarningsAsErrors = project.hasProperty("warningsAsErrors") ? project.warningsAsErrors : false
-            // Opt-in to experimental compose APIs
+
             freeCompilerArgs += '-Xopt-in=kotlin.RequiresOptIn'
+            // Enable experimental coroutines APIs, including Flow
+            freeCompilerArgs += '-opt-in=kotlin.Experimental'
         }
     }
 }

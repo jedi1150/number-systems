@@ -3,7 +3,6 @@ plugins {
     id 'kotlin-android'
 //    id 'com.google.gms.google-services' // Uncomment this line to use google-services
     id 'com.google.firebase.crashlytics'
-    id 'kotlin-kapt' // TODO deprecated
 }
 
 android {
@@ -51,8 +50,6 @@ android {
     }
     buildFeatures {
         compose true
-        dataBinding true // TODO deprecated
-        viewBinding true // TODO deprecated
     }
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
@@ -66,17 +63,18 @@ android {
 }
 dependencies {
     implementation "androidx.core:core-ktx:$core_version"
-    implementation "com.google.android.material:material:$material_version"
     implementation "androidx.multidex:multidex:$multidex_version"
 
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "androidx.compose.foundation:foundation:$compose_version"
+    implementation "androidx.compose.foundation:foundation-layout:$compose_version"
     implementation "androidx.compose.ui:ui:$compose_version"
-    implementation "androidx.compose.material:material:$compose_version"
-    implementation "androidx.compose.ui:ui-tooling:$compose_version"
     implementation "androidx.compose.ui:ui-util:$compose_version"
+    implementation "androidx.compose.ui:ui-tooling:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
     implementation "androidx.compose.runtime:runtime:$compose_version"
-    implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
-    implementation "androidx.activity:activity-compose:$appcompact_version"
+    implementation "androidx.compose.material:material:$compose_version"
+    implementation "androidx.compose.animation:animation:$compose_version"
     implementation "androidx.constraintlayout:constraintlayout-compose:$constraintlayout_compose_version"
     implementation "androidx.navigation:navigation-compose:$navigation_compose_version"
     implementation "androidx.datastore:datastore-preferences:$datastore_preferences_version"
@@ -84,10 +82,9 @@ dependencies {
     implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanist_version"
 
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 
-    implementation 'androidx.browser:browser:1.3.0'
+    implementation 'androidx.browser:browser:1.4.0'
 
     // Firebase
     implementation platform("com.google.firebase:firebase-bom:$firebase_bom_version")
@@ -100,26 +97,4 @@ dependencies {
 
     // Ads
     implementation 'com.google.android.gms:play-services-ads:20.6.0'
-
-    // UI Tests
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
-
-    // Deprecated
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.browser:browser:1.3.0'
-    implementation 'androidx.preference:preference-ktx:1.1.1'
-    implementation 'androidx.work:work-runtime-ktx:2.7.0-alpha04'
-
-    def nav_version = "2.4.0-beta01"
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
-    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
-
 }
