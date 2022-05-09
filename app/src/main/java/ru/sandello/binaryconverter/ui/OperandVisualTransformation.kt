@@ -24,19 +24,52 @@ class OperandVisualTransformation(radix: Int) : VisualTransformation {
     }
 
     override fun filter(text: AnnotatedString): TransformedText {
-        // TODO Add delimiter processing
         var out = ""
-        text.text.indices.reversed().forEach { i ->
-            out += text.text.reversed()[i]
+
+        val delimiterExists: Boolean = text.text.contains('.')
+        val beforeDelimiter: String = text.text.substringBefore('.')
+        val afterDelimiter: String = text.text.substringAfter('.', "")
+
+        beforeDelimiter.indices.reversed().forEach { i ->
+            out += beforeDelimiter.reversed()[i]
             if (i != 0 && i % groupLength == 0) {
                 out += " "
             }
         }
 
+        if (delimiterExists) out += "."
+
+        afterDelimiter.run {
+            if (isBlank()) return@run
+            indices.reversed().forEach { i ->
+                out += afterDelimiter.reversed()[i]
+                if (i != 0 && i % groupLength == 0) {
+                    out += " "
+                }
+            }
+        }
+
         val operandOffsetTranslator = object : OffsetMapping {
             override fun originalToTransformed(offset: Int): Int {
-                val lastGroupLength = out.substringBefore(' ').length
-                return offset + maxOf(0, offset + (groupLength - lastGroupLength) - 1).floorDiv(groupLength)
+                val formattedBeforeDelimiter = out.substringBefore('.')
+                val formattedAfterDelimiter = out.substringAfter('.', "")
+                val delimiterLength = if (delimiterExists) 1 else 0
+                val lastGroupBeforeDelimiterLength = formattedBeforeDelimiter.substringBefore(' ').length
+                return when {
+                    offset > 0 && offset <= beforeDelimiter.length -> {
+                        offset + (offset + (groupLength - lastGroupBeforeDelimiterLength) - 1).floorDiv(groupLength)
+                    }
+                    offset > 0 && offset == beforeDelimiter.length + delimiterLength -> {
+                        offset + (offset + (groupLength - lastGroupBeforeDelimiterLength - delimiterLength) - 1).floorDiv(groupLength)
+                    }
+                    offset > 0 && offset > beforeDelimiter.length + delimiterLength -> {
+                        val lastGroupLength = formattedAfterDelimiter.substringBefore(' ').length
+                        offset + (offset + (groupLength - lastGroupBeforeDelimiterLength - delimiterLength - lastGroupLength) - 1).floorDiv(groupLength)
+                    }
+                    else -> {
+                        offset
+                    }
+                }
             }
 
             override fun transformedToOriginal(offset: Int): Int {
