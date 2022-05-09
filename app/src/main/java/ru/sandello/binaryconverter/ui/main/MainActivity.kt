@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -138,7 +139,7 @@ class MainActivity : ComponentActivity() {
                                     contentPadding.calculateBottomPadding(),
                                 )
                             ),
-                        contentAlignment = Alignment.BottomEnd,
+                        contentAlignment = Alignment.BottomEnd
                     ) {
                         val navBackStackEntry by navController.currentBackStackEntryAsState()
                         val currentDestination = navBackStackEntry?.destination
@@ -150,25 +151,50 @@ class MainActivity : ComponentActivity() {
                             }
                         }
 
-                        AnimatedVisibility(
-                            fabVisible,
-                            enter = scaleIn(),
-                            exit = scaleOut(),
-                        ) {
-                            FloatingActionButton(
-                                onClick = {
-                                    if (navController.currentDestination?.route == Screen.Converter.route) {
-                                        converterViewModel.clear()
-                                    }
-                                    if (navController.currentDestination?.route == Screen.Calculator.route) {
-                                        calculatorViewModel.clear()
-                                    }
+                        ConstraintLayout() {
+                            val (clearFab, explanationFab) = createRefs()
+
+                            AnimatedVisibility(
+                                visible = fabVisible,
+                                modifier = Modifier.constrainAs(clearFab) {
+                                    end.linkTo(parent.end, margin = 16.dp)
+                                    bottom.linkTo(explanationFab.top, margin = 16.dp, goneMargin = 16.dp)
                                 },
-                                modifier = Modifier.padding(16.dp),
-                                elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 6.dp),
+                                enter = scaleIn(),
+                                exit = scaleOut(),
                             ) {
-                                Icon(painter = painterResource(R.drawable.close), contentDescription = null)
+                                FloatingActionButton(
+                                    onClick = {
+                                        if (navController.currentDestination?.route == Screen.Converter.route) {
+                                            converterViewModel.clear()
+                                        }
+                                        if (navController.currentDestination?.route == Screen.Calculator.route) {
+                                            calculatorViewModel.clear()
+                                        }
+                                    },
+                                    elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 6.dp),
+                                ) {
+                                    Icon(painter = painterResource(R.drawable.close), contentDescription = null)
+                                }
                             }
+
+                            AnimatedVisibility(
+                                visible = fabVisible,
+                                modifier = Modifier.constrainAs(explanationFab) {
+                                    end.linkTo(parent.end, margin = 16.dp)
+                                    bottom.linkTo(parent.bottom, margin = 16.dp)
+                                },
+                                enter = scaleIn(),
+                                exit = scaleOut(),
+                            ) {
+                                ExtendedFloatingActionButton(
+                                    text = { Text(text = stringResource(id = R.string.explanation)) },
+                                    onClick = { },
+                                    icon = { Icon(painter = painterResource(R.drawable.explanation), contentDescription = stringResource(id = R.string.explanation)) },
+                                    elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 6.dp),
+                                )
+                            }
+
                         }
                     }
                 }
