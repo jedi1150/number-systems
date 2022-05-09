@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    compileSdkVersion 31
+    compileSdk 31
     defaultConfig {
         applicationId 'ru.sandello.binaryconverter'
-        minSdkVersion 21
-        targetSdkVersion 31
+        minSdk 21
+        targetSdk 31
         versionCode 113
         versionName '2.0.0'
         vectorDrawables {
@@ -62,6 +62,7 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+    namespace 'ru.sandello.binaryconverter'
 }
 dependencies {
     implementation "androidx.core:core-ktx:$core_version"
