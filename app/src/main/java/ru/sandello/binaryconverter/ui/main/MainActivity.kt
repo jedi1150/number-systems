@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity() {
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        val items = listOf(
+        val screens = listOf(
             Screen.Converter,
             Screen.Calculator,
         )
@@ -81,7 +81,7 @@ class MainActivity : ComponentActivity() {
                                 ) {
                                     val navBackStackEntry by navController.currentBackStackEntryAsState()
                                     val currentDestination = navBackStackEntry?.destination
-                                    items.forEach { screen ->
+                                    screens.forEach { screen ->
                                         BottomNavigationItem(
                                             icon = {
                                                 Icon(
