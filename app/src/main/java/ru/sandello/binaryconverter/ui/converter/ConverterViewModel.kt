@@ -19,7 +19,7 @@ import ru.sandello.binaryconverter.utils.Shared.converter
 
 class ConverterViewModel : ViewModel() {
 
-    private val _operand10 = mutableStateOf("13")
+    private val _operand10 = mutableStateOf(String())
     val operand10: State<String> = _operand10
     private val _operand2 = mutableStateOf(String())
     val operand2: State<String> = _operand2
