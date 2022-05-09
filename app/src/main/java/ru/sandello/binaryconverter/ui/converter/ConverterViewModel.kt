@@ -19,7 +19,7 @@ import ru.sandello.binaryconverter.utils.Shared.converter
 
 class ConverterViewModel : ViewModel() {
 
-    private val _operand10 = mutableStateOf(String())
+    private val _operand10 = mutableStateOf("13")
     val operand10: State<String> = _operand10
     private val _operand2 = mutableStateOf(String())
     val operand2: State<String> = _operand2
@@ -42,6 +42,9 @@ class ConverterViewModel : ViewModel() {
     val operand16error: State<Boolean> = _operand16error
     private val _operandCustomError = mutableStateOf(false)
     val operandCustomError: State<Boolean> = _operandCustomError
+
+    val hasData: State<Boolean>
+        get() = mutableStateOf(_operand10.value.isNotBlank() || _operand2.value.isNotBlank() || _operand8.value.isNotBlank() || _operand16.value.isNotBlank() || _operandCustom.value.isNotBlank())
 
     val radixes = IntArray(36) { radix -> radix + 1 }.filter { !listOf(1, 2, 8, 10, 16).contains(it) }
 

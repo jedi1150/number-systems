@@ -68,9 +68,11 @@ class CalculatorViewModel : ViewModel() {
 
     private val _operandCustom1error = mutableStateOf(false)
     val operandCustom1error: State<Boolean> = _operandCustom1error
-
     private val _operandCustom2error = mutableStateOf(false)
     val operandCustom2error: State<Boolean> = _operandCustom2error
+
+    val hasData: State<Boolean>
+        get() = mutableStateOf(_operandCustom1.value.isNotBlank() || _operandCustom2.value.isNotBlank())
 
     val radixes = IntArray(36) { radix -> radix + 1 }.filter { !listOf(1).contains(it) }
     val arithmeticOptions = listOf(Addition, Subtraction, Multiply, Divide)

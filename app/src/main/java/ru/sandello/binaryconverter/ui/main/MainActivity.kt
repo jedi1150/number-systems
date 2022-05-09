@@ -4,12 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,7 +40,7 @@ class MainActivity : ComponentActivity() {
 
     private lateinit var ad: InterstitialAd
 
-    @OptIn(ExperimentalMaterialApi::class, androidx.compose.animation.ExperimentalAnimationApi::class)
+    @OptIn(ExperimentalAnimationApi::class)
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -141,18 +140,35 @@ class MainActivity : ComponentActivity() {
                             ),
                         contentAlignment = Alignment.BottomEnd,
                     ) {
-                        FloatingActionButton(
-                            onClick = {
-                                if (navController.currentDestination?.route == Screen.Converter.route) {
-                                    converterViewModel.clear()
-                                }
-                                if (navController.currentDestination?.route == Screen.Calculator.route) {
-                                    calculatorViewModel.clear()
-                                }
-                            },
-                            Modifier.padding(16.dp)
+                        val navBackStackEntry by navController.currentBackStackEntryAsState()
+                        val currentDestination = navBackStackEntry?.destination
+                        val fabVisible by derivedStateOf {
+                            return@derivedStateOf when (currentDestination?.route) {
+                                Screen.Converter.route -> converterViewModel.hasData.value
+                                Screen.Calculator.route -> calculatorViewModel.hasData.value
+                                else -> false
+                            }
+                        }
+
+                        AnimatedVisibility(
+                            fabVisible,
+                            enter = scaleIn(),
+                            exit = scaleOut(),
                         ) {
-                            Icon(painter = painterResource(R.drawable.close), contentDescription = null)
+                            FloatingActionButton(
+                                onClick = {
+                                    if (navController.currentDestination?.route == Screen.Converter.route) {
+                                        converterViewModel.clear()
+                                    }
+                                    if (navController.currentDestination?.route == Screen.Calculator.route) {
+                                        calculatorViewModel.clear()
+                                    }
+                                },
+                                modifier = Modifier.padding(16.dp),
+                                elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 6.dp),
+                            ) {
+                                Icon(painter = painterResource(R.drawable.close), contentDescription = null)
+                            }
                         }
                     }
                 }
