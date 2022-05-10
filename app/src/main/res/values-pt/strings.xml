@@ -12,7 +12,7 @@
   <string name="operand_1">Operando 1</string>
   <string name="explanation">Explicação</string>
   <string name="invalid_value">Valor inválido</string>
-  <string name="step_1">Converter em sistema de números decimais</string>
+  <string name="explanation_convert_to_decimal">Converter em sistema de números decimais</string>
   <string name="explanation_perform_division">Execute a coluna de divisão</string>
   <string name="explanation_reverse_result">Escreva o resultado em ordem inversa</string>
   <string name="available_characters_for_input">Caracteres disponíveis para entrada</string>

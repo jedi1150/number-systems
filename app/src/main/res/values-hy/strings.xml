@@ -12,7 +12,7 @@
     <string name="operand_1">Գործողություն 1</string>
     <string name="explanation">Բացատրություն</string>
     <string name="invalid_value">Անվավեր արժեք</string>
-    <string name="step_1">Փոխարկեք տասնորդական համարների համակարգ</string>
+    <string name="explanation_convert_to_decimal">Փոխարկեք տասնորդական համարների համակարգ</string>
     <string name="explanation_perform_division">Կատարեք բաժանման սյունը</string>
     <string name="explanation_reverse_result">Արդյունքը գրեք հակառակ հերթականությամբ</string>
     <string name="available_characters_for_input">Ներածման համար մատչելի նիշ</string>

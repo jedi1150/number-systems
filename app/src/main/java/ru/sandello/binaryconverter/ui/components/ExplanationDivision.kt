@@ -1,13 +1,14 @@
 package ru.sandello.binaryconverter.ui.components
 
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -41,12 +42,14 @@ fun ExplanationDivision(from: NumberSystem, to: NumberSystem) {
             fontWeight = FontWeight.Medium,
         )
 
-        LazyRow(
-            modifier = Modifier.fillMaxWidth(),
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp, vertical = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             content = {
-                items(longDivisionList) { longDivision ->
+                longDivisionList.forEach { longDivision ->
                     ExplanationLongDivision(longDivision)
                 }
             },
@@ -61,15 +64,14 @@ fun ExplanationDivision(from: NumberSystem, to: NumberSystem) {
             fontWeight = FontWeight.Medium,
         )
 
-        LazyRow(
-            modifier = Modifier.fillMaxWidth(),
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            content = {
-                item {
-                    NumberSystem(numberSystem = to)
-                }
-            }
+        Text(
+            text = buildAnnotatedString {
+                append(numberSystem(numberSystem = to))
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp, vertical = 8.dp),
         )
     }
 
@@ -94,7 +96,7 @@ private fun longDivision(dividend: BigDecimal, divisor: BigDecimal): LongDivisio
 private fun PreviewExplanationDivision() {
     NumberSystemsTheme {
         Surface {
-            ExplanationDivision(NumberSystem("256", 10), NumberSystem("1 000 000", 2))
+            ExplanationDivision(NumberSystem("2", 10), NumberSystem("1 000 000", 2))
         }
     }
 }

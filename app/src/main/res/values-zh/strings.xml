@@ -12,7 +12,7 @@
     <string name="operand_1">操作數1</string>
     <string name="explanation">說明</string>
     <string name="invalid_value">無效值</string>
-    <string name="step_1">轉換為十進制數字系統</string>
+    <string name="explanation_convert_to_decimal">轉換為十進制數字系統</string>
     <string name="explanation_perform_division">執行除法列</string>
     <string name="explanation_reverse_result">以相反順序寫結果</string>
     <string name="available_characters_for_input">可輸入的字符</string>

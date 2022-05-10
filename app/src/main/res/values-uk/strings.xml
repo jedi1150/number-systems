@@ -12,7 +12,7 @@
     <string name="operand_1">Операнд 1</string>
     <string name="explanation">Пояснення</string>
     <string name="invalid_value">Недійсне значення</string>
-    <string name="step_1">Перетворити в десяткову систему числення</string>
+    <string name="explanation_convert_to_decimal">Перетворити в десяткову систему числення</string>
     <string name="explanation_perform_division">Виконайте стовпчик поділу</string>
     <string name="explanation_reverse_result">Результат запишіть у зворотному порядку</string>
     <string name="available_characters_for_input">Доступні символи для введення</string>

@@ -12,7 +12,7 @@
     <string name="operand_1">Operand 1</string>
     <string name="explanation">İzahat</string>
     <string name="invalid_value">Yanlış dəyər</string>
-    <string name="step_1">Onluq say sisteminə çevrilir</string>
+    <string name="explanation_convert_to_decimal">Onluq say sisteminə çevrilir</string>
     <string name="explanation_perform_division">Bölmə sütununu yerinə yetirin</string>
     <string name="explanation_reverse_result">Nəticəni tərs qaydada yazın</string>
     <string name="available_characters_for_input">Giriş üçün mövcud simvol</string>

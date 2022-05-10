@@ -12,7 +12,7 @@
     <string name="operand_1">Operand 1</string>
     <string name="explanation">Erläuterung</string>
     <string name="invalid_value">Ungültiger Wert</string>
-    <string name="step_1">In Dezimalzahlensystem konvertieren</string>
+    <string name="explanation_convert_to_decimal">In Dezimalzahlensystem konvertieren</string>
     <string name="explanation_perform_division">Führen Sie die Teilungsspalte aus</string>
     <string name="explanation_reverse_result">Schreiben Sie das Ergebnis in umgekehrter Reihenfolge</string>
     <string name="available_characters_for_input">Verfügbare Zeichen für die Eingabe</string>

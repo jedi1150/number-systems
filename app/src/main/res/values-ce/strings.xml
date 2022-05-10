@@ -12,7 +12,7 @@
     <string name="operand_1">Operand 1</string>
     <string name="explanation">Vysvětlení</string>
     <string name="invalid_value">neplatná hodnota</string>
-    <string name="step_1">Převést na systém desítkových čísel</string>
+    <string name="explanation_convert_to_decimal">Převést na systém desítkových čísel</string>
     <string name="explanation_perform_division">Proveďte sloupec dělení</string>
     <string name="explanation_reverse_result">Napište výsledek v obráceném pořadí</string>
     <string name="available_characters_for_input">Dostupné znaky pro zadání</string>

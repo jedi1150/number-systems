@@ -12,7 +12,7 @@
     <string name="operand_1">Operandi 1</string>
     <string name="explanation">Selitys</string>
     <string name="invalid_value">Kelpaamaton arvo</string>
-    <string name="step_1">Muunna desimaalilukujärjestelmäksi</string>
+    <string name="explanation_convert_to_decimal">Muunna desimaalilukujärjestelmäksi</string>
     <string name="explanation_perform_division">Suorita jako-sarake</string>
     <string name="explanation_reverse_result">Kirjoita tulos käänteisessä järjestyksessä</string>
     <string name="available_characters_for_input">Syöttöä varten käytettävissä olevat merkit</string>

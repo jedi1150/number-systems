@@ -12,7 +12,7 @@
     <string name="operand_1">オペランド1</string>
     <string name="explanation">説明</string>
     <string name="invalid_value">無効な値</string>
-    <string name="step_1">10進数システムに変換</string>
+    <string name="explanation_convert_to_decimal">10進数システムに変換</string>
     <string name="explanation_perform_division">分割列を実行する</string>
     <string name="explanation_reverse_result">結果を逆順に書きます</string>
     <string name="available_characters_for_input">入力可能な文字</string>

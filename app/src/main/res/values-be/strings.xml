@@ -12,7 +12,7 @@
     <string name="operand_1">Операнд 1</string>
     <string name="explanation">Тлумачэнне</string>
     <string name="invalid_value">Няправільнае значэнне</string>
-    <string name="step_1">Ператварыць у дзесятковую сістэму лікаў</string>
+    <string name="explanation_convert_to_decimal">Ператварыць у дзесятковую сістэму лікаў</string>
     <string name="explanation_perform_division">Выканайце падзел слупка</string>
     <string name="explanation_reverse_result">Выпішыце вынік у зваротным парадку</string>
     <string name="available_characters_for_input">Даступныя сімвалы для ўводу</string>

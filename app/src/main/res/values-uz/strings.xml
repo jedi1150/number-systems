@@ -12,7 +12,7 @@
     <string name="operand_1">1</string>
     <string name="explanation">Izoh</string>
     <string name="invalid_value">Noto‘g‘ri qiymat</string>
-    <string name="step_1">O\'nli raqamlar tizimiga aylantiring</string>
+    <string name="explanation_convert_to_decimal">O\'nli raqamlar tizimiga aylantiring</string>
     <string name="explanation_perform_division">Bo\'linish ustunini bajaring</string>
     <string name="explanation_reverse_result">Natijani teskari tartibda yozing</string>
     <string name="available_characters_for_input">Kirish uchun mavjud belgilar</string>

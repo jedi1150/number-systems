@@ -12,7 +12,7 @@
     <string name="operand_1">Operand 1</string>
     <string name="explanation">Uitleg</string>
     <string name="invalid_value">ongeldige waarde</string>
-    <string name="step_1">Converteren naar decimaal getallenstelsel</string>
+    <string name="explanation_convert_to_decimal">Converteren naar decimaal getallenstelsel</string>
     <string name="explanation_perform_division">Voer de divisiekolom uit</string>
     <string name="explanation_reverse_result">Schrijf het resultaat in omgekeerde volgorde</string>
     <string name="available_characters_for_input">Beschikbare tekens voor invoer</string>

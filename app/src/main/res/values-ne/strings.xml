@@ -12,7 +12,7 @@
     <string name="operand_1">ओपेरान्ड १</string>
     <string name="explanation">स्पष्टीकरण</string>
     <string name="invalid_value">अवैध मान</string>
-    <string name="step_1">दशमलव नम्बर प्रणालीमा रूपान्तरण गर्नुहोस्</string>
+    <string name="explanation_convert_to_decimal">दशमलव नम्बर प्रणालीमा रूपान्तरण गर्नुहोस्</string>
     <string name="explanation_perform_division">भाग स्तम्भ प्रदर्शन गर्नुहोस्</string>
     <string name="explanation_reverse_result">उल्टो क्रममा परिणाम लेख्नुहोस्</string>
     <string name="available_characters_for_input">इनपुटका लागि उपलब्ध वर्णहरू</string>

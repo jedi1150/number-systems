@@ -12,7 +12,7 @@
     <string name="operand_1">הפעלה 1</string>
     <string name="explanation">הסבר</string>
     <string name="invalid_value">ערך לא תקין</string>
-    <string name="step_1">המרה למערכת מספרים עשרוניים</string>
+    <string name="explanation_convert_to_decimal">המרה למערכת מספרים עשרוניים</string>
     <string name="explanation_perform_division">בצע את טור החלוקה</string>
     <string name="explanation_reverse_result">כתוב את התוצאה בסדר הפוך</string>
     <string name="available_characters_for_input">תווים זמינים לקלט</string>
