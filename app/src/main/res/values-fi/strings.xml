@@ -13,8 +13,8 @@
     <string name="explanation">Selitys</string>
     <string name="invalid_value">Kelpaamaton arvo</string>
     <string name="step_1">Muunna desimaalilukujärjestelmäksi</string>
-    <string name="step_2">Suorita jako-sarake</string>
-    <string name="step_3">Kirjoita tulos käänteisessä järjestyksessä</string>
+    <string name="explanation_perform_division">Suorita jako-sarake</string>
+    <string name="explanation_reverse_result">Kirjoita tulos käänteisessä järjestyksessä</string>
     <string name="available_characters_for_input">Syöttöä varten käytettävissä olevat merkit</string>
     <string name="settings">asetukset</string>
     <string name="step_4">Murtoluku luvusta kerrotaan uuden perustalla</string>

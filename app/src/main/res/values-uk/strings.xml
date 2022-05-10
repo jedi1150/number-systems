@@ -13,8 +13,8 @@
     <string name="explanation">Пояснення</string>
     <string name="invalid_value">Недійсне значення</string>
     <string name="step_1">Перетворити в десяткову систему числення</string>
-    <string name="step_2">Виконайте стовпчик поділу</string>
-    <string name="step_3">Результат запишіть у зворотному порядку</string>
+    <string name="explanation_perform_division">Виконайте стовпчик поділу</string>
+    <string name="explanation_reverse_result">Результат запишіть у зворотному порядку</string>
     <string name="available_characters_for_input">Доступні символи для введення</string>
     <string name="settings">Налаштування</string>
     <string name="step_4">Дробова частина числа множиться на базу нового</string>

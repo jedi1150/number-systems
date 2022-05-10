@@ -13,8 +13,8 @@
     <string name="explanation">Тлумачэнне</string>
     <string name="invalid_value">Няправільнае значэнне</string>
     <string name="step_1">Ператварыць у дзесятковую сістэму лікаў</string>
-    <string name="step_2">Выканайце падзел слупка</string>
-    <string name="step_3">Выпішыце вынік у зваротным парадку</string>
+    <string name="explanation_perform_division">Выканайце падзел слупка</string>
+    <string name="explanation_reverse_result">Выпішыце вынік у зваротным парадку</string>
     <string name="available_characters_for_input">Даступныя сімвалы для ўводу</string>
     <string name="settings">Налады</string>
     <string name="step_4">Дробавая частка ліку памнажаецца на аснову новага</string>

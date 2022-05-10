@@ -13,8 +13,8 @@
     <string name="explanation">Izoh</string>
     <string name="invalid_value">Noto‘g‘ri qiymat</string>
     <string name="step_1">O\'nli raqamlar tizimiga aylantiring</string>
-    <string name="step_2">Bo\'linish ustunini bajaring</string>
-    <string name="step_3">Natijani teskari tartibda yozing</string>
+    <string name="explanation_perform_division">Bo\'linish ustunini bajaring</string>
+    <string name="explanation_reverse_result">Natijani teskari tartibda yozing</string>
     <string name="available_characters_for_input">Kirish uchun mavjud belgilar</string>
     <string name="settings">Sozlamalar</string>
     <string name="step_4">Raqamning kasr qismi yangi bazaga ko\'paytiriladi</string>

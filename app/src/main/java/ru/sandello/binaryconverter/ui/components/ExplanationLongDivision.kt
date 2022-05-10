@@ -14,7 +14,6 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.Dimension
 import ru.sandello.binaryconverter.model.LongDivision
-import ru.sandello.binaryconverter.ui.theme.Gray300
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @Composable
@@ -110,19 +109,16 @@ fun ExplanationLongDivision(longDivision: LongDivision) {
             modifier = Modifier
                 .width(width = 1.dp)
                 .layoutId("verticalLineDivisor"),
-            color = Gray300,
         )
         Divider(
             modifier = Modifier
                 .height(height = 1.dp)
                 .layoutId("horizontalLineQuotient"),
-            color = Gray300,
         )
         Divider(
             modifier = Modifier
                 .height(height = 1.dp)
                 .layoutId("horizontalLineRemainder"),
-            color = Gray300,
         )
     }
 }

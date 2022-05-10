@@ -13,8 +13,8 @@
     <string name="explanation">Wyjaśnienie</string>
     <string name="invalid_value">niewłaściwa wartość</string>
     <string name="step_1">Konwertuj na system liczb dziesiętnych</string>
-    <string name="step_2">Wykonaj kolumnę podziału</string>
-    <string name="step_3">Napisz wynik w odwrotnej kolejności</string>
+    <string name="explanation_perform_division">Wykonaj kolumnę podziału</string>
+    <string name="explanation_reverse_result">Napisz wynik w odwrotnej kolejności</string>
     <string name="available_characters_for_input">Dostępne znaki do wprowadzenia</string>
     <string name="settings">Ustawienia</string>
     <string name="step_4">Część ułamkowa liczby jest mnożona przez podstawę nowego</string>

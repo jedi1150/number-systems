@@ -13,8 +13,8 @@
     <string name="explanation">คำอธิบาย</string>
     <string name="invalid_value">ค่าไม่ถูกต้อง</string>
     <string name="step_1">แปลงเป็นระบบเลขฐานสิบ</string>
-    <string name="step_2">ดำเนินการคอลัมน์การหาร</string>
-    <string name="step_3">เขียนผลลัพธ์ในลำดับที่กลับกัน</string>
+    <string name="explanation_perform_division">ดำเนินการคอลัมน์การหาร</string>
+    <string name="explanation_reverse_result">เขียนผลลัพธ์ในลำดับที่กลับกัน</string>
     <string name="available_characters_for_input">ตัวอักษรที่มีอยู่สำหรับการป้อนข้อมูล</string>
     <string name="settings">การตั้งค่า</string>
     <string name="step_4">ส่วนที่เป็นเศษส่วนของจำนวนจะถูกคูณด้วยฐานของใหม่</string>

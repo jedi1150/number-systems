@@ -13,8 +13,8 @@
     <string name="explanation">Vysvětlení</string>
     <string name="invalid_value">neplatná hodnota</string>
     <string name="step_1">Převést na systém desítkových čísel</string>
-    <string name="step_2">Proveďte sloupec dělení</string>
-    <string name="step_3">Napište výsledek v obráceném pořadí</string>
+    <string name="explanation_perform_division">Proveďte sloupec dělení</string>
+    <string name="explanation_reverse_result">Napište výsledek v obráceném pořadí</string>
     <string name="available_characters_for_input">Dostupné znaky pro zadání</string>
     <string name="settings">Nastavení</string>
     <string name="step_4">Zlomková část čísla se vynásobí základem nového</string>

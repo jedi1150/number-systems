@@ -13,8 +13,8 @@
     <string name="explanation">تفسير</string>
     <string name="invalid_value">قيمة غير صالحة</string>
     <string name="step_1">تحويل إلى نظام الأرقام العشرية</string>
-    <string name="step_2">أداء العمود الانقسام</string>
-    <string name="step_3">اكتب النتيجة بترتيب عكسي</string>
+    <string name="explanation_perform_division">أداء العمود الانقسام</string>
+    <string name="explanation_reverse_result">اكتب النتيجة بترتيب عكسي</string>
     <string name="available_characters_for_input">الشخصيات المتاحة للمدخلات</string>
     <string name="settings">الإعدادات</string>
     <string name="step_4">يتم ضرب الجزء الكسري من الرقم بقاعدة الجديد</string>

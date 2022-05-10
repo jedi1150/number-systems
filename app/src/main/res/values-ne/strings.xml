@@ -13,8 +13,8 @@
     <string name="explanation">स्पष्टीकरण</string>
     <string name="invalid_value">अवैध मान</string>
     <string name="step_1">दशमलव नम्बर प्रणालीमा रूपान्तरण गर्नुहोस्</string>
-    <string name="step_2">भाग स्तम्भ प्रदर्शन गर्नुहोस्</string>
-    <string name="step_3">उल्टो क्रममा परिणाम लेख्नुहोस्</string>
+    <string name="explanation_perform_division">भाग स्तम्भ प्रदर्शन गर्नुहोस्</string>
+    <string name="explanation_reverse_result">उल्टो क्रममा परिणाम लेख्नुहोस्</string>
     <string name="available_characters_for_input">इनपुटका लागि उपलब्ध वर्णहरू</string>
     <string name="settings">सेटिंग्स</string>
     <string name="step_4">संख्याको भिन्नात्मक अंश नयाँको आधारबाट गुणा हुन्छ</string>

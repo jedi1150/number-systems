@@ -13,8 +13,8 @@
     <string name="explanation">Uitleg</string>
     <string name="invalid_value">ongeldige waarde</string>
     <string name="step_1">Converteren naar decimaal getallenstelsel</string>
-    <string name="step_2">Voer de divisiekolom uit</string>
-    <string name="step_3">Schrijf het resultaat in omgekeerde volgorde</string>
+    <string name="explanation_perform_division">Voer de divisiekolom uit</string>
+    <string name="explanation_reverse_result">Schrijf het resultaat in omgekeerde volgorde</string>
     <string name="available_characters_for_input">Beschikbare tekens voor invoer</string>
     <string name="settings">instellingen</string>
     <string name="step_4">Het fractionele deel van het getal wordt vermenigvuldigd met de basis van het nieuwe</string>

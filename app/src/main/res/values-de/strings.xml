@@ -13,8 +13,8 @@
     <string name="explanation">Erläuterung</string>
     <string name="invalid_value">Ungültiger Wert</string>
     <string name="step_1">In Dezimalzahlensystem konvertieren</string>
-    <string name="step_2">Führen Sie die Teilungsspalte aus</string>
-    <string name="step_3">Schreiben Sie das Ergebnis in umgekehrter Reihenfolge</string>
+    <string name="explanation_perform_division">Führen Sie die Teilungsspalte aus</string>
+    <string name="explanation_reverse_result">Schreiben Sie das Ergebnis in umgekehrter Reihenfolge</string>
     <string name="available_characters_for_input">Verfügbare Zeichen für die Eingabe</string>
     <string name="settings">die Einstellungen</string>
     <string name="step_4">Der Bruchteil der Zahl wird mit der Basis des Neuen multipliziert</string>

@@ -13,8 +13,8 @@
     <string name="explanation">Түсіндіру</string>
     <string name="invalid_value">Жарамсыз мән</string>
     <string name="step_1">Ондық сандар жүйесіне түрлендіру</string>
-    <string name="step_2">Бөлу бағанын орындаңыз</string>
-    <string name="step_3">Нәтижені кері ретпен жазыңыз</string>
+    <string name="explanation_perform_division">Бөлу бағанын орындаңыз</string>
+    <string name="explanation_reverse_result">Нәтижені кері ретпен жазыңыз</string>
     <string name="available_characters_for_input">Кіруге арналған таңбалар</string>
     <string name="settings">Параметрлер</string>
     <string name="step_4">Санның бөлшек бөлігі жаңаның негізіне көбейтіледі</string>

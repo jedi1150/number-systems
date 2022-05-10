@@ -13,8 +13,8 @@
     <string name="explanation">Explication</string>
     <string name="invalid_value">valeur invalide</string>
     <string name="step_1">Convertir en système numérique décimal</string>
-    <string name="step_2">Effectuer la colonne de division</string>
-    <string name="step_3">Écrivez le résultat dans l\'ordre inverse</string>
+    <string name="explanation_perform_division">Effectuer la colonne de division</string>
+    <string name="explanation_reverse_result">Écrivez le résultat dans l\'ordre inverse</string>
     <string name="available_characters_for_input">Caractères disponibles pour la saisie</string>
     <string name="settings">Réglages</string>
     <string name="step_4">La partie fractionnaire du nombre est multipliée par la radix du nouveau</string>
