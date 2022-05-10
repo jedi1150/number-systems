@@ -146,7 +146,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                             text = when (arithmetic) {
                                 Addition -> "+"
                                 Subtraction -> "-"
-                                Multiply -> "*"
+                                Multiply -> "×"
                                 Divide -> "/"
                             }
                         )
