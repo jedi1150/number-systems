@@ -27,6 +27,27 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @Composable
 fun ExplanationResult(from: NumberSystem, to: NumberSystem) {
+    val arrowRightId = "arrowRight"
+    val text = buildAnnotatedString {
+        append(numberSystem(from))
+        appendInlineContent(arrowRightId, "→")
+        append(numberSystem(to))
+    }
+    val inlineContent = mapOf(
+        Pair(
+            arrowRightId,
+            InlineTextContent(
+                Placeholder(
+                    width = 12.sp,
+                    height = 12.sp,
+                    placeholderVerticalAlign = PlaceholderVerticalAlign.AboveBaseline
+                )
+            ) {
+                Icon(painterResource(R.drawable.arrow_right), null)
+            }
+        )
+    )
+
     Column {
         Text(
             text = stringResource(id = R.string.result),
@@ -37,29 +58,8 @@ fun ExplanationResult(from: NumberSystem, to: NumberSystem) {
             fontWeight = FontWeight.Medium,
         )
         Text(
-            text = buildAnnotatedString {
-                append(numberSystem(from))
-                appendInlineContent("arrowRight", "→")
-                append(numberSystem(to))
-            },
-            inlineContent = mapOf(
-                Pair(
-                    // This tells the [BasicText] to replace the placeholder string "[myBox]" by
-                    // the composable given in the [InlineTextContent] object.
-                    "arrowRight",
-                    InlineTextContent(
-                        // Placeholder tells text layout the expected size and vertical alignment of
-                        // children composable.
-                        Placeholder(
-                            width = 12.sp,
-                            height = 12.sp,
-                            placeholderVerticalAlign = PlaceholderVerticalAlign.AboveBaseline
-                        )
-                    ) {
-                        Icon(painterResource(R.drawable.arrow_right), null)
-                    }
-                )
-            ),
+            text = text,
+            inlineContent = inlineContent,
             modifier = Modifier
                 .fillMaxWidth()
                 .horizontalScroll(rememberScrollState())
