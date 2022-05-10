@@ -7,8 +7,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -125,13 +123,13 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
             }
         }
         item {
-            LazyRow(
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
             ) {
-                itemsIndexed(viewModel.arithmeticOptions) { index, arithmetic ->
+                viewModel.arithmeticOptions.forEach { arithmetic ->
                     val checked = viewModel.selectedArithmetic.value == arithmetic
                     val tint by animateColorAsState(if (checked) MaterialTheme.colors.primary else MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled))
                     val border by animateDpAsState(if (checked) FocusedBorderThickness else UnfocusedBorderThickness)
