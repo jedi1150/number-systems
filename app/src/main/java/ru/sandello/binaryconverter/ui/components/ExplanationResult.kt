@@ -50,7 +50,7 @@ fun ExplanationResult(from: NumberSystem, to: NumberSystem) {
 
     Column {
         Text(
-            text = stringResource(id = R.string.result),
+            text = stringResource(id = R.string.explanation_result),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp),

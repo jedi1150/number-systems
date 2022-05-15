@@ -5,18 +5,18 @@
     <item
         android:id="@+id/destination_converter"
         android:icon="@drawable/rotate"
-        android:title="@string/Converter"
+        android:title="@string/screen_converter"
         android:enabled="true"
         app:showAsAction="always" />
     <item
         android:id="@+id/destination_calculator"
-        android:title="@string/Calculator"
+        android:title="@string/screen_calculator"
         android:enabled="true"
         app:showAsAction="always" />
     <item
         android:id="@+id/destination_settings"
         android:enabled="true"
         android:icon="@drawable/outline"
-        android:title="@string/settings"
+        android:title="@string/screen_settings"
         app:showAsAction="ifRoom" />
 </menu>

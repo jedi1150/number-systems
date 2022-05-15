@@ -9,6 +9,6 @@ sealed class Screen(
     @StringRes val resourceId: Int,
     @DrawableRes val iconId: Int,
 ) {
-    object Converter : Screen("converter", R.string.Converter, R.drawable.ic_converter)
-    object Calculator : Screen("calculator", R.string.Calculator, R.drawable.ic_calculator)
+    object Converter : Screen("converter", R.string.screen_converter, R.drawable.ic_converter)
+    object Calculator : Screen("calculator", R.string.screen_calculator, R.drawable.ic_calculator)
 }
