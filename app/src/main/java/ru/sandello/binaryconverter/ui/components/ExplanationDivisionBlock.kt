@@ -8,8 +8,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -22,11 +24,13 @@ import java.math.RoundingMode
 
 @Composable
 fun ExplanationDivisionBlock(from: NumberSystem, to: NumberSystem) {
+    val fromDecimal = from.value.substringBefore(".")
+    val toDecimal = to.value.substringBefore(".")
 
     val divisionList: MutableList<Division> = mutableListOf()
     do {
         if (divisionList.isEmpty()) {
-            divisionList.add(longDivision(dividend = from.value.toBigDecimal(), divisor = to.radix))
+            divisionList.add(longDivision(dividend = fromDecimal.toBigDecimal(), divisor = to.radix))
         } else {
             divisionList.add(longDivision(dividend = divisionList.last().quotient, divisor = divisionList.last().divisor))
         }
@@ -62,14 +66,23 @@ fun ExplanationDivisionBlock(from: NumberSystem, to: NumberSystem) {
                 .padding(horizontal = 16.dp, vertical = 8.dp),
         )
 
-        Text(
-            text = buildAnnotatedString {
-                append(numberSystem(numberSystem = to))
-            },
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .horizontalScroll(rememberScrollState())
                 .padding(horizontal = 16.dp, vertical = 8.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            content = {
+                Text(
+                    text = buildAnnotatedString {
+                        append(numberSystem(numberSystem = NumberSystem(value = fromDecimal, radix = from.radix)))
+                        withStyle(SpanStyle(letterSpacing = 6.sp)) {
+                            append("=")
+                        }
+                        append(numberSystem(numberSystem = NumberSystem(value = toDecimal, radix = to.radix)))
+                    }
+                )
+            }
         )
     }
 
