@@ -17,7 +17,7 @@
     <string name="explanation_reverse_result">Écrivez le résultat dans l\'ordre inverse</string>
     <string name="available_characters_for_input">Caractères disponibles pour la saisie</string>
     <string name="settings">Réglages</string>
-    <string name="step_4">La partie fractionnaire du nombre est multipliée par la radix du nouveau</string>
+    <string name="explanation_convert_fractional">La partie fractionnaire du nombre est multipliée par la radix du nouveau</string>
     <string name="light">Lumière</string>
     <string name="dark">Foncé</string>
     <string name="battery_saver">Défini par l\'économiseur de batterie</string>

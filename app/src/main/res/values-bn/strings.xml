@@ -17,7 +17,7 @@
     <string name="explanation_reverse_result">বিপরীত ক্রমে ফলাফল লিখুন</string>
     <string name="available_characters_for_input">ইনপুট জন্য উপলব্ধ অক্ষর</string>
     <string name="settings">সেটিংস</string>
-    <string name="step_4">সংখ্যার ভগ্নাংশটি নতুনের ভিত্তিতে গুণিত হয়</string>
+    <string name="explanation_convert_fractional">সংখ্যার ভগ্নাংশটি নতুনের ভিত্তিতে গুণিত হয়</string>
     <string name="light">আলো</string>
     <string name="dark">অন্ধকার</string>
     <string name="battery_saver">ব্যাটারি সেভার দ্বারা সেট</string>

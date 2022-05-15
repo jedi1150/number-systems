@@ -17,7 +17,7 @@
     <string name="explanation_reverse_result">Нәтижені кері ретпен жазыңыз</string>
     <string name="available_characters_for_input">Кіруге арналған таңбалар</string>
     <string name="settings">Параметрлер</string>
-    <string name="step_4">Санның бөлшек бөлігі жаңаның негізіне көбейтіледі</string>
+    <string name="explanation_convert_fractional">Санның бөлшек бөлігі жаңаның негізіне көбейтіледі</string>
     <string name="light">Жарық</string>
     <string name="dark">Қараңғы</string>
     <string name="battery_saver">Батареяны үнемдегіш арқылы орнатылады</string>

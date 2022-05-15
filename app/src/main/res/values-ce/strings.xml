@@ -17,7 +17,7 @@
     <string name="explanation_reverse_result">Napište výsledek v obráceném pořadí</string>
     <string name="available_characters_for_input">Dostupné znaky pro zadání</string>
     <string name="settings">Nastavení</string>
-    <string name="step_4">Zlomková část čísla se vynásobí základem nového</string>
+    <string name="explanation_convert_fractional">Zlomková část čísla se vynásobí základem nového</string>
     <string name="light">Světlo</string>
     <string name="dark">Temný</string>
     <string name="battery_saver">Nastaveno šetřičem baterie</string>

@@ -17,7 +17,7 @@
     <string name="explanation_reverse_result">उल्टो क्रममा परिणाम लेख्नुहोस्</string>
     <string name="available_characters_for_input">इनपुटका लागि उपलब्ध वर्णहरू</string>
     <string name="settings">सेटिंग्स</string>
-    <string name="step_4">संख्याको भिन्नात्मक अंश नयाँको आधारबाट गुणा हुन्छ</string>
+    <string name="explanation_convert_fractional">संख्याको भिन्नात्मक अंश नयाँको आधारबाट गुणा हुन्छ</string>
     <string name="light">हल्का</string>
     <string name="dark">गाढा</string>
     <string name="battery_saver">ब्याट्री सेभर द्वारा सेट</string>

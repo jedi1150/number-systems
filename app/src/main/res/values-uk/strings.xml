@@ -17,7 +17,7 @@
     <string name="explanation_reverse_result">Результат запишіть у зворотному порядку</string>
     <string name="available_characters_for_input">Доступні символи для введення</string>
     <string name="settings">Налаштування</string>
-    <string name="step_4">Дробова частина числа множиться на базу нового</string>
+    <string name="explanation_convert_fractional">Дробова частина числа множиться на базу нового</string>
     <string name="light">Світло</string>
     <string name="dark">Темний</string>
     <string name="battery_saver">Встановлено за допомогою заряду акумулятора</string>

@@ -17,7 +17,7 @@
     <string name="explanation_reverse_result">Schrijf het resultaat in omgekeerde volgorde</string>
     <string name="available_characters_for_input">Beschikbare tekens voor invoer</string>
     <string name="settings">instellingen</string>
-    <string name="step_4">Het fractionele deel van het getal wordt vermenigvuldigd met de basis van het nieuwe</string>
+    <string name="explanation_convert_fractional">Het fractionele deel van het getal wordt vermenigvuldigd met de basis van het nieuwe</string>
     <string name="light">Licht</string>
     <string name="dark">Donker</string>
     <string name="battery_saver">Ingesteld door batterijbesparing</string>

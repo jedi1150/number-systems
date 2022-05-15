@@ -17,7 +17,7 @@
     <string name="explanation_reverse_result">Полученный результат записать в обратной последовательности</string>
     <string name="available_characters_for_input">Доступные символы для ввода</string>
     <string name="settings">Настройки</string>
-    <string name="step_4">Дробная часть числа находится умножением на основание новой</string>
+    <string name="explanation_convert_fractional">Дробная часть числа находится умножением на основание новой</string>
     <string name="light">Светлая</string>
     <string name="dark">Темная</string>
     <string name="battery_saver">Устанавливается режимом энергосбережения</string>

@@ -17,7 +17,7 @@
     <string name="explanation_reverse_result">Արդյունքը գրեք հակառակ հերթականությամբ</string>
     <string name="available_characters_for_input">Ներածման համար մատչելի նիշ</string>
     <string name="settings">Կարգավորումներ</string>
-    <string name="step_4">Թվի կոտորակի մասը բազմապատկվում է նորի հիմքով</string>
+    <string name="explanation_convert_fractional">Թվի կոտորակի մասը բազմապատկվում է նորի հիմքով</string>
     <string name="light">Լույս</string>
     <string name="dark">Մութ</string>
     <string name="battery_saver">Սահմանված է մարտկոցի խնայարարի միջոցով</string>

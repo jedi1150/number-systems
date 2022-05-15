@@ -17,7 +17,7 @@
     <string name="explanation_reverse_result">以相反順序寫結果</string>
     <string name="available_characters_for_input">可輸入的字符</string>
     <string name="settings">設定值</string>
-    <string name="step_4">數字的小數部分乘以新的底數</string>
+    <string name="explanation_convert_fractional">數字的小數部分乘以新的底數</string>
     <string name="light">光</string>
     <string name="dark">暗</string>
     <string name="battery_saver">由省電模式設定</string>

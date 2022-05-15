@@ -17,7 +17,7 @@
     <string name="explanation_reverse_result">結果を逆順に書きます</string>
     <string name="available_characters_for_input">入力可能な文字</string>
     <string name="settings">設定</string>
-    <string name="step_4">数の小数部分に新しいの底を掛けます</string>
+    <string name="explanation_convert_fractional">数の小数部分に新しいの底を掛けます</string>
     <string name="light">光</string>
     <string name="dark">闇</string>
     <string name="battery_saver">バッテリーセーバーで設定</string>

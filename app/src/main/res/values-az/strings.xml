@@ -17,7 +17,7 @@
     <string name="explanation_reverse_result">Nəticəni tərs qaydada yazın</string>
     <string name="available_characters_for_input">Giriş üçün mövcud simvol</string>
     <string name="settings">Parametrlər</string>
-    <string name="step_4">Sayın fraksiya hissəsi yeninin bazasına vurulur</string>
+    <string name="explanation_convert_fractional">Sayın fraksiya hissəsi yeninin bazasına vurulur</string>
     <string name="light">İşıq</string>
     <string name="dark">Qaranlıq</string>
     <string name="battery_saver">Batareya qənaətçisi tərəfindən təyin edilmişdir</string>

@@ -17,7 +17,7 @@
   <string name="explanation_reverse_result">Escreva o resultado em ordem inversa</string>
   <string name="available_characters_for_input">Caracteres disponíveis para entrada</string>
   <string name="settings">Configurações</string>
-  <string name="step_4">A parte fracionária do número é multiplicada pela radix do novo</string>
+  <string name="explanation_convert_fractional">A parte fracionária do número é multiplicada pela radix do novo</string>
   <string name="light">Luz</string>
   <string name="dark">Sombrio</string>
   <string name="battery_saver">Definido pelo Economizador de bateria</string>

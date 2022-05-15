@@ -17,7 +17,7 @@
     <string name="explanation_reverse_result">כתוב את התוצאה בסדר הפוך</string>
     <string name="available_characters_for_input">תווים זמינים לקלט</string>
     <string name="settings">הגדרות</string>
-    <string name="step_4">החלק השברתי של המספר מוכפל בבסיס החדש</string>
+    <string name="explanation_convert_fractional">החלק השברתי של המספר מוכפל בבסיס החדש</string>
     <string name="light">אור</string>
     <string name="dark">אפל</string>
     <string name="battery_saver">מוגדר על ידי שומר סוללות</string>

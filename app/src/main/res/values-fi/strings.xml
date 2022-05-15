@@ -17,7 +17,7 @@
     <string name="explanation_reverse_result">Kirjoita tulos käänteisessä järjestyksessä</string>
     <string name="available_characters_for_input">Syöttöä varten käytettävissä olevat merkit</string>
     <string name="settings">asetukset</string>
-    <string name="step_4">Murtoluku luvusta kerrotaan uuden perustalla</string>
+    <string name="explanation_convert_fractional">Murtoluku luvusta kerrotaan uuden perustalla</string>
     <string name="light">valo</string>
     <string name="dark">Tumma</string>
     <string name="battery_saver">Asettaa Battery Saver</string>

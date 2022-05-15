@@ -17,7 +17,7 @@
     <string name="explanation_reverse_result">Napisz wynik w odwrotnej kolejności</string>
     <string name="available_characters_for_input">Dostępne znaki do wprowadzenia</string>
     <string name="settings">Ustawienia</string>
-    <string name="step_4">Część ułamkowa liczby jest mnożona przez podstawę nowego</string>
+    <string name="explanation_convert_fractional">Część ułamkowa liczby jest mnożona przez podstawę nowego</string>
     <string name="light">Światło</string>
     <string name="dark">Ciemny</string>
     <string name="battery_saver">Ustawiony przez Oszczędzanie baterii</string>

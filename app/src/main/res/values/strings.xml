@@ -10,16 +10,19 @@
     <string name="result">Result</string>
     <string name="operand_2">Operand 2</string>
     <string name="operand_1">Operand 1</string>
-    <string name="explanation">Explanation</string>
     <string name="invalid_value">Invalid value</string>
+    <string name="available_characters_for_input">Available characters for input</string>
+
+    <string name="explanation">Explanation</string>
     <string name="explanation_convert_to_decimal">Convert to decimal number system</string>
     <string name="explanation_perform_division">Perform the division column</string>
     <string name="explanation_reverse_result">Write the result in reverse order</string>
-    <string name="available_characters_for_input">Available characters for input</string>
+    <string name="explanation_convert_fractional">The fractional part of the number is multiplied by the radix of the new</string>
+    <string name="explanation_convert_fractional_write_result">Write the result from top to bottom</string>
+
     <string name="index" translatable="false">index</string>
     <string name="multiply_symb" translatable="false">×</string>
     <string name="settings">Settings</string>
-    <string name="step_4">The fractional part of the number is multiplied by the radix of the new</string>
     <string name="light">Light</string>
     <string name="dark">Dark</string>
     <string name="battery_saver">Set by Battery Saver</string>
@@ -40,6 +43,7 @@
     <string name="choose_theme">Theme</string>
     <string name="other">Other</string>
     <string name="copied">Copied</string>
+
     <string name="review">Rate app and review</string>
     <string name="ad">Ad</string>
     <string name="adWatch">watch ad</string>

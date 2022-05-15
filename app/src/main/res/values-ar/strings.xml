@@ -17,7 +17,7 @@
     <string name="explanation_reverse_result">اكتب النتيجة بترتيب عكسي</string>
     <string name="available_characters_for_input">الشخصيات المتاحة للمدخلات</string>
     <string name="settings">الإعدادات</string>
-    <string name="step_4">يتم ضرب الجزء الكسري من الرقم بقاعدة الجديد</string>
+    <string name="explanation_convert_fractional">يتم ضرب الجزء الكسري من الرقم بقاعدة الجديد</string>
     <string name="light">ضوء</string>
     <string name="dark">داكن</string>
     <string name="battery_saver">تعيين بواسطة البطارية التوقف</string>

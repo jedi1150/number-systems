@@ -17,7 +17,7 @@
     <string name="explanation_reverse_result">Schreiben Sie das Ergebnis in umgekehrter Reihenfolge</string>
     <string name="available_characters_for_input">Verfügbare Zeichen für die Eingabe</string>
     <string name="settings">die Einstellungen</string>
-    <string name="step_4">Der Bruchteil der Zahl wird mit der Basis des Neuen multipliziert</string>
+    <string name="explanation_convert_fractional">Der Bruchteil der Zahl wird mit der Basis des Neuen multipliziert</string>
     <string name="light">Licht</string>
     <string name="dark">Dunkel</string>
     <string name="battery_saver">Wird vom Batteriesparmodus eingestellt</string>

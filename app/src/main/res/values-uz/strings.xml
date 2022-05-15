@@ -17,7 +17,7 @@
     <string name="explanation_reverse_result">Natijani teskari tartibda yozing</string>
     <string name="available_characters_for_input">Kirish uchun mavjud belgilar</string>
     <string name="settings">Sozlamalar</string>
-    <string name="step_4">Raqamning kasr qismi yangi bazaga ko\'paytiriladi</string>
+    <string name="explanation_convert_fractional">Raqamning kasr qismi yangi bazaga ko\'paytiriladi</string>
     <string name="light">Yorug\'lik</string>
     <string name="dark">Qorong\'i</string>
     <string name="battery_saver">Batareya quvvatini tejash vositasi</string>

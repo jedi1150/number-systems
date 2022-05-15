@@ -17,7 +17,7 @@
     <string name="explanation_reverse_result">परिणाम को उल्टे क्रम में लिखें</string>
     <string name="available_characters_for_input">इनपुट के लिए उपलब्ध वर्ण</string>
     <string name="settings">समायोजन</string>
-    <string name="step_4">संख्या के भिन्नात्मक भाग को नए के आधार से गुणा किया जाता है</string>
+    <string name="explanation_convert_fractional">संख्या के भिन्नात्मक भाग को नए के आधार से गुणा किया जाता है</string>
     <string name="light">रोशनी</string>
     <string name="dark">अंधेरा</string>
     <string name="battery_saver">बैटरी सेवर द्वारा सेट करें</string>
