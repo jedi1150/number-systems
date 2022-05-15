@@ -18,7 +18,7 @@ fun ExplanationDivision(division: Division) {
         text = buildAnnotatedString {
             append(division.dividend.toString())
             withStyle(SpanStyle(letterSpacing = 4.sp)) {
-                append(":")
+                append("÷")
             }
             append(division.divisor.toString())
             withStyle(SpanStyle(letterSpacing = 6.sp)) {
