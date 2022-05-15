@@ -19,6 +19,7 @@
     <string name="explanation_reverse_result">Write the result in reverse order</string>
     <string name="explanation_convert_fractional">The fractional part of the number is multiplied by the radix of the new</string>
     <string name="explanation_convert_fractional_write_result">Write the result from top to bottom</string>
+    <string name="explanation_convert_combine_decimal_fractional">Combine decimal and fractional parts to get the result</string>
 
     <string name="index" translatable="false">index</string>
     <string name="multiply_symb" translatable="false">×</string>
