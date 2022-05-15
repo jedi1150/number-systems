@@ -31,12 +31,12 @@ fun ExplanationConvertFractional(fractionMultiplier: FractionMultiplier) {
                 append(".")
                 append(fractionMultiplier.product.substringAfter("."))
             }
-            fractionMultiplier.convertedProduct?.let {
+            fractionMultiplier.convertedProduct?.let { convertedProduct ->
                 withStyle(SpanStyle(letterSpacing = 6.sp)) {
                     append("=")
                 }
                 withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                    append(it.uppercase())
+                    append(convertedProduct.uppercase())
                 }
             }
         },
