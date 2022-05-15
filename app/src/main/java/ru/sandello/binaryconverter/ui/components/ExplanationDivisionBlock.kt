@@ -34,7 +34,7 @@ fun ExplanationDivisionBlock(from: NumberSystem, to: NumberSystem) {
         } else {
             divisionList.add(longDivision(dividend = divisionList.last().quotient, divisor = divisionList.last().divisor))
         }
-    } while (divisionList.last().quotient >= to.radix.toBigDecimal())
+    } while (divisionList.last().quotient > BigDecimal("0"))
 
     Column {
         Text(
@@ -107,7 +107,7 @@ private fun longDivision(dividend: BigDecimal, divisor: Int): Division {
 private fun PreviewExplanationDivision() {
     NumberSystemsTheme {
         Surface {
-            ExplanationDivisionBlock(NumberSystem("14", 10), NumberSystem("E", 16))
+            ExplanationDivisionBlock(NumberSystem("10.5", 10), NumberSystem("10 10.1", 2))
         }
     }
 }
