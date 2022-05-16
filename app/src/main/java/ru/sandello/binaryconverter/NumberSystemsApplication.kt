@@ -1,10 +1,10 @@
 package ru.sandello.binaryconverter
 
-import androidx.multidex.MultiDexApplication
+import android.app.Application
 import ru.sandello.binaryconverter.utils.Converter
 import ru.sandello.binaryconverter.utils.Shared.converter
 
-class NumberSystemsApplication : MultiDexApplication() {
+class NumberSystemsApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 

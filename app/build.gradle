@@ -62,26 +62,17 @@ android {
     namespace 'ru.sandello.binaryconverter'
 }
 dependencies {
-    implementation "androidx.core:core-ktx:$core_version"
-    implementation "androidx.multidex:multidex:$multidex_version"
-
-    implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.compose.foundation:foundation:$compose_version"
-    implementation "androidx.compose.foundation:foundation-layout:$compose_version"
     implementation "androidx.compose.ui:ui:$compose_version"
-    implementation "androidx.compose.ui:ui-util:$compose_version"
     implementation "androidx.compose.ui:ui-tooling:$compose_version"
-    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation "androidx.compose.runtime:runtime:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
-    implementation "androidx.compose.animation:animation:$compose_version"
     implementation "androidx.constraintlayout:constraintlayout-compose:$constraintlayout_compose_version"
     implementation "androidx.navigation:navigation-compose:$navigation_compose_version"
     implementation "androidx.datastore:datastore-preferences:$datastore_preferences_version"
 
     implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanist_version"
 
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+//    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 
     implementation 'androidx.browser:browser:1.4.0'

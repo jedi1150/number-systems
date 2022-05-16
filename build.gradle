@@ -1,17 +1,14 @@
 buildscript {
     ext {
-        kotlin_version = '1.6.20'
+        kotlin_version = '1.6.21'
         core_version = '1.7.0'
-        appcompat_version = '1.4.1'
-        activity_compose_version = '1.4.0'
-        material_version = '1.6.0'
         multidex_version = '2.0.1'
         lifecycle_version = '2.4.1'
-        compose_version = '1.2.0-alpha08'
+        compose_version = '1.2.0-beta01'
         navigation_compose_version = '2.4.2'
         constraintlayout_compose_version = '1.0.0'
         datastore_preferences_version = '1.0.0'
-        accompanist_version = '0.24.7-alpha'
+        accompanist_version = '0.24.8-beta'
         firebase_bom_version = '28.3.0'
     }
     repositories {
