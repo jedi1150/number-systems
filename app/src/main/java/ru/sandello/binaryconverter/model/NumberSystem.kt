@@ -1,3 +1,3 @@
 package ru.sandello.binaryconverter.model
 
-data class NumberSystem(val value: String, val radix: Int)
+data class NumberSystem(var value: String, var radix: Radix)
