@@ -69,7 +69,7 @@ class CalculatorViewModel : ViewModel() {
         get() = mutableStateOf(_numberSystemCustom1.value.value.isNotBlank() || _numberSystemCustom2.value.value.isNotBlank())
 
     @SuppressLint("Range")
-    val radixes: List<Radix> = Array(36) { radix -> Radix(radix + 1) }.filter { !listOf(Radix(1)).contains(it) }
+    val radixes: List<Radix> = Array(36) { radix -> Radix(radix + 1) }.filter { radix -> !listOf(Radix(1)).contains(radix) }
     val arithmeticOptions = listOf(Addition, Subtraction, Multiply, Divide)
 
     private var lastValueFrom: NumberSystem? = null

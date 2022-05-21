@@ -23,7 +23,7 @@ class ConverterViewModel : ViewModel() {
 
     private val _numberSystem10 = mutableStateOf(NumberSystem(String(), Radix(10)))
     val numberSystem10: State<NumberSystem> = _numberSystem10
-    private val _numberSystem2 = mutableStateOf(NumberSystem(String(), Radix(12)))
+    private val _numberSystem2 = mutableStateOf(NumberSystem(String(), Radix(2)))
     val numberSystem2: State<NumberSystem> = _numberSystem2
     private val _numberSystem8 = mutableStateOf(NumberSystem(String(), Radix(8)))
     val numberSystem8: State<NumberSystem> = _numberSystem8
@@ -47,7 +47,7 @@ class ConverterViewModel : ViewModel() {
         get() = mutableStateOf(_numberSystem10.value.value.isNotBlank() || _numberSystem2.value.value.isNotBlank() || _numberSystem8.value.value.isNotBlank() || _numberSystem16.value.value.isNotBlank() || _numberSystemCustom.value.value.isNotBlank())
 
     @SuppressLint("Range")
-    val radixes: List<Radix> = Array(36) { radix -> Radix(radix + 1) }.filter { !listOf(Radix(1), _numberSystem2.value.radix, _numberSystem8.value.radix, _numberSystem10.value.radix, _numberSystem16.value.radix).contains(it) }
+    val radixes: List<Radix> = Array(36) { radix -> Radix(radix + 1) }.filter { radix -> !listOf(Radix(1), _numberSystem2.value.radix, _numberSystem8.value.radix, _numberSystem10.value.radix, _numberSystem16.value.radix).contains(radix) }
 
     private var lastNumberSystem: NumberSystem? = null
 

@@ -250,6 +250,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                             end.linkTo(exposedDropdown.start, margin = 4.dp)
                             width = Dimension.fillToConstraints
                         },
+                    readOnly = true,
                     label = { Text(stringResource(R.string.radix, viewModel.numberSystemResult.value.radix.value)) },
                     visualTransformation = OperandVisualTransformation(viewModel.numberSystemResult.value.radix),
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
