@@ -95,7 +95,7 @@ class MainActivity : ComponentActivity() {
 
                 ModalBottomSheetLayout(
                     sheetState = bottomSheetState,
-                    sheetShape = ShapesTop.medium,
+                    sheetShape = ShapesTop.extraLarge,
                     sheetContent = {
                         Surface(modifier = Modifier.imePadding()) {
                             Explanation(
@@ -201,7 +201,7 @@ class MainActivity : ComponentActivity() {
                                     enter = scaleIn(),
                                     exit = scaleOut(),
                                 ) {
-                                    FloatingActionButton(
+                                    SmallFloatingActionButton(
                                         onClick = {
                                             if (navController.currentDestination?.route == Screen.Converter.route) {
                                                 converterViewModel.clear()
@@ -227,6 +227,7 @@ class MainActivity : ComponentActivity() {
                                 ) {
                                     ExtendedFloatingActionButton(
                                         text = { Text(text = stringResource(id = R.string.explanation)) },
+                                        icon = { Icon(painter = painterResource(R.drawable.explanation), contentDescription = stringResource(id = R.string.explanation)) },
                                         onClick = {
                                             if (navController.currentDestination?.route == Screen.Converter.route) {
                                                 converterViewModel.showExplanation()
@@ -235,7 +236,6 @@ class MainActivity : ComponentActivity() {
 //                                                calculatorViewModel.clear()
                                             }
                                         },
-                                        icon = { Icon(painter = painterResource(R.drawable.explanation), contentDescription = stringResource(id = R.string.explanation)) },
                                         elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 6.dp),
                                     )
                                 }

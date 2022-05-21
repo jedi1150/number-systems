@@ -7,7 +7,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.material3.TextFieldDefaults.FocusedBorderThickness
@@ -74,7 +73,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                         keyboardType = KeyboardType.Ascii,
                         imeAction = ImeAction.Done,
                     ),
-                    shape = RoundedCornerShape(16.dp),
+                    shape = MaterialTheme.shapes.medium,
                 )
                 var expanded by remember { mutableStateOf(false) }
                 ExposedDropdownMenuBox(
@@ -98,7 +97,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                                 expanded = expanded
                             )
                         },
-                        shape = RoundedCornerShape(16.dp),
+                        shape = MaterialTheme.shapes.medium,
                         singleLine = true,
                     )
                     ExposedDropdownMenu(
@@ -138,8 +137,8 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                         onCheckedChange = { if (it) viewModel.selectArithmetic(arithmetic) },
                         interactionSource = remember { MutableInteractionSource() },
                         modifier = Modifier.border(
-                            BorderStroke(border, color = tint),
-                            RoundedCornerShape(16.dp),
+                            border = BorderStroke(border, color = tint),
+                            shape = MaterialTheme.shapes.medium,
                         ),
                     ) {
                         Text(
@@ -185,7 +184,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                         keyboardType = KeyboardType.Ascii,
                         imeAction = ImeAction.Done,
                     ),
-                    shape = RoundedCornerShape(16.dp),
+                    shape = MaterialTheme.shapes.medium,
                 )
                 var expanded by remember { mutableStateOf(false) }
                 @OptIn(ExperimentalMaterial3Api::class)
@@ -210,7 +209,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                                 expanded = expanded
                             )
                         },
-                        shape = RoundedCornerShape(16.dp),
+                        shape = MaterialTheme.shapes.medium,
                         singleLine = true,
                     )
                     ExposedDropdownMenu(
@@ -255,7 +254,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                     label = { Text(stringResource(R.string.radix, viewModel.numberSystemResult.value.radix.value)) },
                     visualTransformation = OperandVisualTransformation(viewModel.numberSystemResult.value.radix),
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
-                    shape = RoundedCornerShape(16.dp),
+                    shape = MaterialTheme.shapes.medium,
                 )
                 var expanded by remember { mutableStateOf(false) }
                 @OptIn(ExperimentalMaterial3Api::class)
@@ -280,7 +279,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                                 expanded = expanded
                             )
                         },
-                        shape = RoundedCornerShape(16.dp),
+                        shape = MaterialTheme.shapes.medium,
                         singleLine = true,
                     )
                     ExposedDropdownMenu(

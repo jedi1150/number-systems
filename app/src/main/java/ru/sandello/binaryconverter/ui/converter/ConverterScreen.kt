@@ -2,7 +2,6 @@ package ru.sandello.binaryconverter.ui.converter
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -43,7 +42,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                 visualTransformation = OperandVisualTransformation(viewModel.numberSystem10.value.radix),
                 isError = viewModel.numberSystem10error.value,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
-                shape = RoundedCornerShape(16.dp),
+                shape = MaterialTheme.shapes.medium,
             )
         }
         item {
@@ -57,7 +56,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                 isError = viewModel.numberSystem2error.value,
                 visualTransformation = OperandVisualTransformation(viewModel.numberSystem2.value.radix),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
-                shape = RoundedCornerShape(16.dp),
+                shape = MaterialTheme.shapes.medium,
             )
         }
         item {
@@ -71,7 +70,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                 isError = viewModel.numberSystem8error.value,
                 visualTransformation = OperandVisualTransformation(viewModel.numberSystem8.value.radix),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
-                shape = RoundedCornerShape(16.dp),
+                shape = MaterialTheme.shapes.medium,
             )
         }
         item {
@@ -85,7 +84,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                 isError = viewModel.numberSystem16error.value,
                 visualTransformation = OperandVisualTransformation(viewModel.numberSystem16.value.radix),
                 keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
-                shape = RoundedCornerShape(16.dp),
+                shape = MaterialTheme.shapes.medium,
             )
         }
         item {
@@ -109,7 +108,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                     isError = viewModel.numberSystemCustomError.value,
                     visualTransformation = OperandVisualTransformation(viewModel.numberSystemCustom.value.radix),
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
-                    shape = RoundedCornerShape(16.dp),
+                    shape = MaterialTheme.shapes.medium,
                 )
                 var expanded by remember { mutableStateOf(false) }
                 @OptIn(ExperimentalMaterial3Api::class)
@@ -134,7 +133,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                                 expanded = expanded
                             )
                         },
-                        shape = RoundedCornerShape(16.dp),
+                        shape = MaterialTheme.shapes.medium,
                         singleLine = true,
                     )
                     ExposedDropdownMenu(
