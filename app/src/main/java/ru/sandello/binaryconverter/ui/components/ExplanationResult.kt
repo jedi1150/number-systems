@@ -7,9 +7,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
-import androidx.compose.material.Icon
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -82,7 +82,7 @@ private fun PreviewExplanationResult() {
 @Preview
 @Composable
 private fun PreviewExplanationResultDark() {
-    NumberSystemsTheme(darkTheme = true) {
+    NumberSystemsTheme(isDarkTheme = true) {
         Surface {
             ExplanationResult(NumberSystem("256", Radix(10)), Radix(2))
         }

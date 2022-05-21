@@ -3,8 +3,8 @@ package ru.sandello.binaryconverter.ui.components
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -63,7 +63,7 @@ fun PreviewExplanationCombineParts() {
 @Preview
 @Composable
 fun PreviewExplanationCombinePartsDark() {
-    NumberSystemsTheme(darkTheme = true) {
+    NumberSystemsTheme(isDarkTheme = true) {
         Surface {
             ExplanationCombineParts(from = NumberSystem(value = "12.55", radix = Radix(8)), to = Radix(16))
         }

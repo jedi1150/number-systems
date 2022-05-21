@@ -3,7 +3,7 @@ package ru.sandello.binaryconverter.ui.components
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Surface
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -59,7 +59,7 @@ private fun PreviewExplanationContent() {
 @Preview
 @Composable
 private fun PreviewExplanationContentDark() {
-    NumberSystemsTheme(darkTheme = true) {
+    NumberSystemsTheme(isDarkTheme = true) {
         Surface {
             ExplanationContent(fromNumberSystem = NumberSystem(value = "12.55", Radix(8)), toRadix = Radix(10))
         }
@@ -69,7 +69,7 @@ private fun PreviewExplanationContentDark() {
 @Preview
 @Composable
 private fun PreviewExplanationContentBinHexDark() {
-    NumberSystemsTheme(darkTheme = true) {
+    NumberSystemsTheme(isDarkTheme = true) {
         Surface {
             ExplanationContent(fromNumberSystem = NumberSystem(value = "10.101010", Radix(2)), toRadix = Radix(16))
         }

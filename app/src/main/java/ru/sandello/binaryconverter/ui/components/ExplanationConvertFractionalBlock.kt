@@ -3,8 +3,8 @@ package ru.sandello.binaryconverter.ui.components
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -113,7 +113,7 @@ private fun PreviewExplanationConvertFractionalBlock() {
 @Preview
 @Composable
 private fun PreviewExplanationConvertFractionalBlockDark() {
-    NumberSystemsTheme(darkTheme = true) {
+    NumberSystemsTheme(isDarkTheme = true) {
         Surface {
             ExplanationConvertFractionalBlock(NumberSystem("10.703125", Radix(10)), Radix(16))
         }

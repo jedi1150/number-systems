@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -112,7 +112,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                     shape = RoundedCornerShape(16.dp),
                 )
                 var expanded by remember { mutableStateOf(false) }
-                @OptIn(ExperimentalMaterialApi::class)
+                @OptIn(ExperimentalMaterial3Api::class)
                 ExposedDropdownMenuBox(
                     expanded = expanded,
                     onExpandedChange = {
@@ -145,13 +145,14 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                     ) {
                         viewModel.radixes.forEach { radix ->
                             DropdownMenuItem(
+                                text = {
+                                    Text(text = radix.value.toString())
+                                },
                                 onClick = {
                                     viewModel.updateCustomRadix(radix)
                                     expanded = false
-                                }
-                            ) {
-                                Text(text = radix.value.toString())
-                            }
+                                },
+                            )
                         }
                     }
                 }
@@ -174,7 +175,7 @@ private fun PreviewConverterScreen() {
 @Preview
 @Composable
 private fun PreviewConverterScreenDark() {
-    NumberSystemsTheme(darkTheme = true) {
+    NumberSystemsTheme(isDarkTheme = true) {
         Surface {
             ConverterScreen(viewModel = ConverterViewModel(), mainPadding = PaddingValues())
         }

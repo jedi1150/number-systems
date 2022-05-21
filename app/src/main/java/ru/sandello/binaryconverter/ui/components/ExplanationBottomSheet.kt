@@ -1,9 +1,9 @@
 package ru.sandello.binaryconverter.ui.components
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Divider
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.Divider
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -57,7 +57,7 @@ private fun PreviewExplanation() {
 @Composable
 @Preview
 private fun PreviewExplanationDark() {
-    NumberSystemsTheme(darkTheme = true) {
+    NumberSystemsTheme(isDarkTheme = true) {
         Surface {
             Explanation(from = NumberSystem(value = "10.10", Radix(10)), to = Radix(2))
         }

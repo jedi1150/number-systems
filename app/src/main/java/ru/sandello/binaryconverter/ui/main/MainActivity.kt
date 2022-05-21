@@ -1,12 +1,18 @@
 package ru.sandello.binaryconverter.ui.main
 
+//import androidx.compose.material.*
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.animation.*
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetLayout
+import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.rememberModalBottomSheetState
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,7 +48,7 @@ class MainActivity : ComponentActivity() {
 
     private lateinit var ad: InterstitialAd
 
-    @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialApi::class)
+    @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -58,7 +64,7 @@ class MainActivity : ComponentActivity() {
                 val scope = rememberCoroutineScope()
 
                 val systemUiController = rememberSystemUiController()
-                val useDarkIcons = MaterialTheme.colors.isLight
+                val useDarkIcons = !isSystemInDarkTheme()
 
                 val navController = rememberNavController()
 
@@ -107,25 +113,16 @@ class MainActivity : ComponentActivity() {
                                 exit = shrinkVertically(shrinkTowards = Alignment.Top),
                             ) {
                                 Surface(
-                                    color = MaterialTheme.colors.surface.copy(alpha = 0.9f),
+                                    tonalElevation = 3.dp
                                 ) {
-                                    BottomNavigation(
+                                    NavigationBar(
                                         modifier = Modifier.navigationBarsPadding(),
-                                        backgroundColor = Color.Transparent,
-                                        elevation = 0.dp,
+                                        tonalElevation = 0.dp,
                                     ) {
                                         val navBackStackEntry by navController.currentBackStackEntryAsState()
                                         val currentDestination = navBackStackEntry?.destination
                                         screens.forEach { screen ->
-                                            BottomNavigationItem(
-                                                icon = {
-                                                    Icon(
-                                                        painterResource(screen.iconId),
-                                                        contentDescription = null,
-                                                        tint = MaterialTheme.colors.onSurface,
-                                                    )
-                                                },
-                                                label = { Text(stringResource(screen.resourceId)) },
+                                            NavigationBarItem(
                                                 selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                                                 onClick = {
                                                     navController.navigate(screen.route) {
@@ -142,6 +139,13 @@ class MainActivity : ComponentActivity() {
                                                         restoreState = true
                                                     }
                                                 },
+                                                icon = {
+                                                    Icon(
+                                                        painterResource(screen.iconId),
+                                                        contentDescription = null,
+                                                    )
+                                                },
+                                                label = { Text(stringResource(screen.resourceId)) },
                                             )
                                         }
                                     }

@@ -1,7 +1,7 @@
 package ru.sandello.binaryconverter.ui.components
 
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -56,7 +56,7 @@ private fun PreviewExplanationConvertFractional() {
 @Preview
 @Composable
 private fun PreviewExplanationConvertFractionalDark() {
-    NumberSystemsTheme(darkTheme = true) {
+    NumberSystemsTheme(isDarkTheme = true) {
         Surface {
             ExplanationConvertFractional(FractionMultiplier(multiplier = "10.703125", multiplicand = 16, product = "11.25", convertedProduct = "B"))
         }

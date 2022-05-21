@@ -1,8 +1,8 @@
 package ru.sandello.binaryconverter.ui.components
 
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.buildAnnotatedString
@@ -17,7 +17,7 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 fun numberSystem(numberSystem: NumberSystem): AnnotatedString {
     return buildAnnotatedString {
         append(numberSystem.value)
-        withStyle(style = MaterialTheme.typography.overline.toSpanStyle().copy(baselineShift = BaselineShift.Subscript)) {
+        withStyle(style = MaterialTheme.typography.labelMedium.toSpanStyle().copy(baselineShift = BaselineShift.Subscript)) {
             append(numberSystem.radix.value.toString())
         }
     }
@@ -36,7 +36,7 @@ private fun PreviewNumberSystem() {
 @Preview
 @Composable
 private fun PreviewNumberSystemDark() {
-    NumberSystemsTheme(darkTheme = true) {
+    NumberSystemsTheme(isDarkTheme = true) {
         Surface {
             Text(text = numberSystem(numberSystem = NumberSystem("256", Radix(10))))
         }

@@ -9,9 +9,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
-import androidx.compose.material.TextFieldDefaults.FocusedBorderThickness
-import androidx.compose.material.TextFieldDefaults.UnfocusedBorderThickness
+import androidx.compose.material3.*
+import androidx.compose.material3.TextFieldDefaults.FocusedBorderThickness
+import androidx.compose.material3.TextFieldDefaults.UnfocusedBorderThickness
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,7 +30,7 @@ import ru.sandello.binaryconverter.ui.OperandVisualTransformation
 import ru.sandello.binaryconverter.ui.calculator.ArithmeticType.*
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues) {
 
@@ -77,7 +77,6 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                     shape = RoundedCornerShape(16.dp),
                 )
                 var expanded by remember { mutableStateOf(false) }
-                @OptIn(ExperimentalMaterialApi::class)
                 ExposedDropdownMenuBox(
                     expanded = expanded,
                     onExpandedChange = {
@@ -110,13 +109,14 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                     ) {
                         viewModel.radixes.forEach { radix ->
                             DropdownMenuItem(
+                                text = {
+                                    Text(text = radix.value.toString())
+                                },
                                 onClick = {
                                     viewModel.updateRadix(radixType = RadixType.RadixCustom1, newRadix = radix)
                                     expanded = false
-                                }
-                            ) {
-                                Text(text = radix.value.toString())
-                            }
+                                },
+                            )
                         }
                     }
                 }
@@ -131,7 +131,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
             ) {
                 viewModel.arithmeticOptions.forEach { arithmetic ->
                     val checked = viewModel.selectedArithmetic.value == arithmetic
-                    val tint by animateColorAsState(if (checked) MaterialTheme.colors.primary else MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.disabled))
+                    val tint by animateColorAsState(if (checked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface)
                     val border by animateDpAsState(if (checked) FocusedBorderThickness else UnfocusedBorderThickness)
                     IconToggleButton(
                         checked = checked,
@@ -188,7 +188,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                     shape = RoundedCornerShape(16.dp),
                 )
                 var expanded by remember { mutableStateOf(false) }
-                @OptIn(ExperimentalMaterialApi::class)
+                @OptIn(ExperimentalMaterial3Api::class)
                 ExposedDropdownMenuBox(
                     expanded = expanded,
                     onExpandedChange = {
@@ -221,13 +221,14 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                     ) {
                         viewModel.radixes.forEach { radix ->
                             DropdownMenuItem(
+                                text = {
+                                    Text(text = radix.value.toString())
+                                },
                                 onClick = {
                                     viewModel.updateRadix(radixType = RadixType.RadixCustom2, newRadix = radix)
                                     expanded = false
-                                }
-                            ) {
-                                Text(text = radix.value.toString())
-                            }
+                                },
+                            )
                         }
                     }
                 }
@@ -257,7 +258,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                     shape = RoundedCornerShape(16.dp),
                 )
                 var expanded by remember { mutableStateOf(false) }
-                @OptIn(ExperimentalMaterialApi::class)
+                @OptIn(ExperimentalMaterial3Api::class)
                 ExposedDropdownMenuBox(
                     expanded = expanded,
                     onExpandedChange = {
@@ -290,13 +291,14 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                     ) {
                         viewModel.radixes.forEach { radix ->
                             DropdownMenuItem(
+                                text = {
+                                    Text(text = radix.value.toString())
+                                },
                                 onClick = {
                                     viewModel.updateRadix(radixType = RadixType.RadixResult, newRadix = radix)
                                     expanded = false
-                                }
-                            ) {
-                                Text(text = radix.value.toString())
-                            }
+                                },
+                            )
                         }
                     }
                 }
@@ -318,7 +320,7 @@ fun PreviewCalculatorScreen() {
 @Preview
 @Composable
 fun PreviewCalculatorScreenDark() {
-    NumberSystemsTheme(darkTheme = true) {
+    NumberSystemsTheme(isDarkTheme = true) {
         Surface {
             CalculatorScreen(viewModel = CalculatorViewModel(), mainPadding = PaddingValues())
         }

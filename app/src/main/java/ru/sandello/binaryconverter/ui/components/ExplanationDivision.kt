@@ -1,7 +1,7 @@
 package ru.sandello.binaryconverter.ui.components
 
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -62,7 +62,7 @@ private fun PreviewExplanationLongDivision() {
 @Preview
 @Composable
 private fun PreviewExplanationLongDivisionDark() {
-    NumberSystemsTheme(darkTheme = true) {
+    NumberSystemsTheme(isDarkTheme = true) {
         Surface {
             ExplanationDivision(
                 Division(
