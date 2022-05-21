@@ -25,6 +25,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.constraintlayout.compose.atMost
 import ru.sandello.binaryconverter.R
+import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.ui.OperandVisualTransformation
 import ru.sandello.binaryconverter.ui.calculator.ArithmeticType.*
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
@@ -51,12 +52,11 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                 val (textField, exposedDropdown) = createRefs()
 
                 OutlinedTextField(
-                    value = viewModel.operandCustom1.value,
+                    value = viewModel.numberSystemCustom1.value.value,
                     onValueChange = { textFieldValue ->
                         viewModel.convertFrom(
                             operandType = OperandType.OperandCustom1,
-                            fromRadix = viewModel.radixCustom1.value,
-                            fromValue = textFieldValue,
+                            from = NumberSystem(value = textFieldValue, radix = viewModel.numberSystemCustom1.value.radix),
                         )
                     },
                     modifier = Modifier
@@ -65,9 +65,9 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                             end.linkTo(exposedDropdown.start, margin = 4.dp)
                             width = Dimension.fillToConstraints
                         },
-                    label = { Text(stringResource(R.string.radix, viewModel.radixCustom1.value)) },
-                    isError = viewModel.operandCustom1error.value,
-                    visualTransformation = OperandVisualTransformation(viewModel.radixCustom1.value),
+                    label = { Text(stringResource(R.string.radix, viewModel.numberSystemCustom1.value.radix.value)) },
+                    isError = viewModel.numberSystem1error.value,
+                    visualTransformation = OperandVisualTransformation(viewModel.numberSystemCustom1.value.radix),
                     keyboardOptions = KeyboardOptions(
                         capitalization = KeyboardCapitalization.Characters,
                         autoCorrect = false,
@@ -90,7 +90,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                     },
                 ) {
                     OutlinedTextField(
-                        value = viewModel.radixCustom1.value.toString(),
+                        value = viewModel.numberSystemCustom1.value.radix.value.toString(),
                         onValueChange = { },
                         readOnly = true,
                         label = {},
@@ -111,11 +111,11 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                         viewModel.radixes.forEach { radix ->
                             DropdownMenuItem(
                                 onClick = {
-                                    viewModel.updateRadix(radixType = RadixType.RadixCustom1, radix = radix)
+                                    viewModel.updateRadix(radixType = RadixType.RadixCustom1, newRadix = radix)
                                     expanded = false
                                 }
                             ) {
-                                Text(text = radix.toString())
+                                Text(text = radix.value.toString())
                             }
                         }
                     }
@@ -163,12 +163,11 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                 val (textField, exposedDropdown) = createRefs()
 
                 OutlinedTextField(
-                    value = viewModel.operandCustom2.value,
+                    value = viewModel.numberSystemCustom2.value.value,
                     onValueChange = { textFieldValue ->
                         viewModel.convertFrom(
                             operandType = OperandType.OperandCustom2,
-                            fromRadix = viewModel.radixCustom2.value,
-                            fromValue = textFieldValue,
+                            from = NumberSystem(value = textFieldValue, radix = viewModel.numberSystemCustom2.value.radix),
                         )
                     },
                     modifier = Modifier
@@ -177,9 +176,9 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                             end.linkTo(exposedDropdown.start, margin = 4.dp)
                             width = Dimension.fillToConstraints
                         },
-                    label = { Text(stringResource(R.string.radix, viewModel.radixCustom2.value)) },
-                    isError = viewModel.operandCustom2error.value,
-                    visualTransformation = OperandVisualTransformation(viewModel.radixCustom2.value),
+                    label = { Text(stringResource(R.string.radix, viewModel.numberSystemCustom2.value.radix.value)) },
+                    isError = viewModel.numberSystem2error.value,
+                    visualTransformation = OperandVisualTransformation(viewModel.numberSystemCustom2.value.radix),
                     keyboardOptions = KeyboardOptions(
                         capitalization = KeyboardCapitalization.Characters,
                         autoCorrect = false,
@@ -202,7 +201,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                     },
                 ) {
                     OutlinedTextField(
-                        value = viewModel.radixCustom2.value.toString(),
+                        value = viewModel.numberSystemCustom2.value.radix.value.toString(),
                         onValueChange = { },
                         readOnly = true,
                         label = {},
@@ -223,11 +222,11 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                         viewModel.radixes.forEach { radix ->
                             DropdownMenuItem(
                                 onClick = {
-                                    viewModel.updateRadix(radixType = RadixType.RadixCustom2, radix = radix)
+                                    viewModel.updateRadix(radixType = RadixType.RadixCustom2, newRadix = radix)
                                     expanded = false
                                 }
                             ) {
-                                Text(text = radix.toString())
+                                Text(text = radix.value.toString())
                             }
                         }
                     }
@@ -243,7 +242,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                 val (textField, exposedDropdown) = createRefs()
 
                 OutlinedTextField(
-                    value = viewModel.operandResult.value,
+                    value = viewModel.numberSystemResult.value.value,
                     onValueChange = { },
                     modifier = Modifier
                         .constrainAs(textField) {
@@ -251,8 +250,8 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                             end.linkTo(exposedDropdown.start, margin = 4.dp)
                             width = Dimension.fillToConstraints
                         },
-                    label = { Text(stringResource(R.string.radix, viewModel.radixResult.value)) },
-                    visualTransformation = OperandVisualTransformation(viewModel.radixResult.value),
+                    label = { Text(stringResource(R.string.radix, viewModel.numberSystemResult.value.radix.value)) },
+                    visualTransformation = OperandVisualTransformation(viewModel.numberSystemResult.value.radix),
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
                     shape = RoundedCornerShape(16.dp),
                 )
@@ -270,7 +269,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                     },
                 ) {
                     OutlinedTextField(
-                        value = viewModel.radixResult.value.toString(),
+                        value = viewModel.numberSystemResult.value.radix.value.toString(),
                         onValueChange = { },
                         readOnly = true,
                         label = {},
@@ -291,11 +290,11 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                         viewModel.radixes.forEach { radix ->
                             DropdownMenuItem(
                                 onClick = {
-                                    viewModel.updateRadix(radixType = RadixType.RadixResult, radix = radix)
+                                    viewModel.updateRadix(radixType = RadixType.RadixResult, newRadix = radix)
                                     expanded = false
                                 }
                             ) {
-                                Text(text = radix.toString())
+                                Text(text = radix.value.toString())
                             }
                         }
                     }

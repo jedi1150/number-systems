@@ -19,10 +19,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.NumberSystem
+import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @Composable
-fun ExplanationConvertToDecimal(from: NumberSystem, to: NumberSystem) {
+fun ExplanationConvertToDecimal(from: NumberSystem) {
+    val position = from.value.substringBefore(".").length
+    val filteredValue = from.value.toList().filterNot { it == '.' }
+
     Column {
         Text(
             text = stringResource(id = R.string.explanation_convert_to_decimal),
@@ -37,14 +41,14 @@ fun ExplanationConvertToDecimal(from: NumberSystem, to: NumberSystem) {
             text = buildAnnotatedString {
                 append(numberSystem(numberSystem = from))
                 withStyle(SpanStyle(letterSpacing = 6.sp)) { append("=") }
-                from.value.toList().forEachIndexed { index, number ->
+                filteredValue.forEachIndexed { index, number ->
                     append(number)
                     withStyle(SpanStyle(letterSpacing = 4.sp)) { append("×") }
-                    append(positionedNumber(number = from.radix, position = from.value.length - 1 - index))
-                    if (index != from.value.lastIndex) withStyle(SpanStyle(letterSpacing = 6.sp)) { append("+") }
+                    append(positionedNumber(number = from.radix.value, position = position - 1 - index))
+                    if (index != filteredValue.lastIndex) withStyle(SpanStyle(letterSpacing = 6.sp)) { append("+") }
                 }
                 withStyle(SpanStyle(letterSpacing = 6.sp)) { append("=") }
-                append(numberSystem(numberSystem = to))
+//                append(numberSystem(numberSystem = to))
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -59,7 +63,7 @@ fun ExplanationConvertToDecimal(from: NumberSystem, to: NumberSystem) {
 fun PreviewExplanationConvertToDecimal() {
     NumberSystemsTheme {
         Surface {
-            ExplanationConvertToDecimal(NumberSystem("256", 8), NumberSystem("174", 10))
+            ExplanationConvertToDecimal(NumberSystem("12.55", Radix(8)))
         }
     }
 }
@@ -69,7 +73,7 @@ fun PreviewExplanationConvertToDecimal() {
 fun PreviewExplanationConvertToDecimalDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            ExplanationConvertToDecimal(NumberSystem("256", 8), NumberSystem("174", 10))
+            ExplanationConvertToDecimal(NumberSystem("12.55", Radix(8)))
         }
     }
 }

@@ -16,10 +16,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.NumberSystem
+import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @Composable
-fun ExplanationCombineParts(from: NumberSystem, to: NumberSystem) {
+fun ExplanationCombineParts(from: NumberSystem, to: Radix) {
     Column {
         Text(
             text = stringResource(id = R.string.explanation_convert_combine_decimal_fractional),
@@ -41,7 +42,7 @@ fun ExplanationCombineParts(from: NumberSystem, to: NumberSystem) {
                         withStyle(SpanStyle(letterSpacing = 6.sp)) {
                             append("=")
                         }
-                        append(numberSystem(numberSystem = to))
+//                        append(numberSystem(numberSystem = to))
                     }
                 )
             }
@@ -54,7 +55,7 @@ fun ExplanationCombineParts(from: NumberSystem, to: NumberSystem) {
 fun PreviewExplanationCombineParts() {
     NumberSystemsTheme {
         Surface {
-            ExplanationCombineParts(from = NumberSystem(value = "12.55", radix = 8), to = NumberSystem(value = "A.B4", radix = 16))
+            ExplanationCombineParts(from = NumberSystem(value = "12.55", radix = Radix(8)), to = Radix(16))
         }
     }
 }
@@ -64,7 +65,7 @@ fun PreviewExplanationCombineParts() {
 fun PreviewExplanationCombinePartsDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            ExplanationCombineParts(from = NumberSystem(value = "12.55", radix = 8), to = NumberSystem(value = "A.B4", radix = 16))
+            ExplanationCombineParts(from = NumberSystem(value = "12.55", radix = Radix(8)), to = Radix(16))
         }
     }
 }

@@ -6,62 +6,62 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import ru.sandello.binaryconverter.model.ConvertedData
+import ru.sandello.binaryconverter.model.NumberSystem
+import ru.sandello.binaryconverter.model.Radix
 import java.util.*
 import kotlin.math.pow
 
 class Converter {
 
-    operator fun invoke(value: String, fromRadix: Int, toRadix: Int): Flow<ConvertedData> = flow {
+    operator fun invoke(from: NumberSystem, toRadix: Radix): Flow<ConvertedData> = flow {
         Log.d(APP_TAG, "Converter::invoke")
 
-        assert(fromRadix > 2 || fromRadix < 36 || toRadix > 2 || fromRadix < 36) {
+        assert(from.radix.value > 2 || from.radix.value < 36 || toRadix.value > 2 || from.radix.value < 36) {
             "Radix must be greater than 2 and smaller than 36"
         }
 
-        if (fromRadix == toRadix) {
-            emit(ConvertedData(result = value, fromRadix = fromRadix, toRadix = toRadix))
+        if (from.radix == toRadix) {
+            emit(ConvertedData(fromRadix = from.radix, result = NumberSystem(value = from.value, radix = from.radix)))
             return@flow
         }
 
-        emit(ConvertedData(result = convert(value, fromRadix, toRadix), fromRadix = fromRadix, toRadix = toRadix))
+        emit(ConvertedData(fromRadix = from.radix, result = convert(from, toRadix)))
     }.flowOn(Dispatchers.Default)
 
-    private fun convert(value: String, fromRadix: Int, toRadix: Int): String {
-        Log.d(APP_TAG, "Converter::convert: from radix $fromRadix to radix $toRadix")
-
-        var string = value
+    private fun convert(fromNumberSystem: NumberSystem, toRadix: Radix): NumberSystem {
+        Log.d(APP_TAG, "Converter::convert: from radix ${fromNumberSystem.radix.value} to radix ${toRadix.value}")
 
         var minusBool = false
-        if (string.contains("-")) {
-            string = string.replace("-", "")
+        if (fromNumberSystem.value.contains("-")) {
+            fromNumberSystem.value = fromNumberSystem.value.replace("-", "")
             minusBool = true
         }
 
-        var result: String
+        var result: NumberSystem
 
-        if (fromRadix != 10) {
-            result = toDec(string, fromRadix)
-            if (toRadix != 10) {
+        if (fromNumberSystem.radix != Radix(10)) {
+            result = toDec(fromNumberSystem)
+            if (toRadix != Radix(10)) {
                 result = fromDec(result, toRadix)
             }
         } else {
-            result = fromDec(string, toRadix)
+            result = fromDec(fromNumberSystem, toRadix)
         }
 
         if (minusBool) {
-            result = result.replaceRange(0, 0, "-")
+            result.value = result.value.replaceRange(0, 0, "-")
         }
         return result
     }
 
-    private fun toDec(value: String, fromRadix: Int): String {
+    private fun toDec(from: NumberSystem): NumberSystem {
         Log.d(APP_TAG, "Converter::toDec")
 
-        val valueWithoutComma = value.replace("[,.]".toRegex(), "")
-        val integerPart = value.split("[,.]".toRegex())[0]
+        val valueWithoutComma = from.value.replace("[,.]".toRegex(), "")
+        val integerPart = from.value.split("[,.]".toRegex())[0]
 
         val dec = valueWithoutComma.toCharArray().mapIndexed { index, char ->
-            char.toString().toInt(fromRadix).toString(10).toBigDecimal() * fromRadix.toDouble().pow(integerPart.toCharArray().size - (index + 1)).toBigDecimal()
+            char.toString().toInt(from.radix.value).toString(10).toBigDecimal() * from.radix.value.toDouble().pow(integerPart.toCharArray().size - (index + 1)).toBigDecimal()
         }
         var result = dec.reduce { acc, decimal -> acc + decimal }.toString()    // Summing all chars
 
@@ -74,22 +74,22 @@ class Converter {
             result = result.split("[,.]".toRegex())[0]
         }
 
-        return result
+        return NumberSystem(value = result, radix = Radix(10))
     }
 
-    private fun fromDec(value: String, toRadix: Int): String {
+    private fun fromDec(value: NumberSystem, toRadix: Radix): NumberSystem {
         Log.d(APP_TAG, "Converter::fromDec")
 
-        var result: String = value.split("[,.]".toRegex())[0].toBigInteger(10).toString(toRadix).uppercase(Locale.getDefault())
-        if ((value.contains(",") || value.contains(".")) && value.split("[,.]".toRegex())[1].isNotEmpty()) {
-            var fractionalPart = value
+        var result: String = value.value.split("[,.]".toRegex())[0].toBigInteger(10).toString(toRadix.value).uppercase(Locale.getDefault())
+        if ((value.value.contains(",") || value.value.contains(".")) && value.value.split("[,.]".toRegex())[1].isNotEmpty()) {
+            var fractionalPart = value.value
             var i = 0
             var convertedFraction = ""
             while (i < Shared.FRACTION_COUNT) {
                 if (fractionalPart.split("[,.]".toRegex())[1].toBigDecimal() == "0".toBigDecimal()) break
-                fractionalPart = (".${fractionalPart.split("[,.]".toRegex())[1]}".toBigDecimal() * toRadix.toBigDecimal()).toString() //Умножаем дробную часть на степень
+                fractionalPart = (".${fractionalPart.split("[,.]".toRegex())[1]}".toBigDecimal() * toRadix.value.toBigDecimal()).toString()
                 i++
-                convertedFraction += fractionalPart.split("[,.]".toRegex())[0].toBigInteger(10).toString(toRadix).uppercase(Locale.getDefault())
+                convertedFraction += fractionalPart.split("[,.]".toRegex())[0].toBigInteger(10).toString(toRadix.value).uppercase(Locale.getDefault())
             }
             result += ".$convertedFraction"
         }
@@ -99,7 +99,7 @@ class Converter {
             result = result.substringBeforeLast("0")
         }
 
-        return result
+        return NumberSystem(value = result, radix = toRadix)
     }
 
 }

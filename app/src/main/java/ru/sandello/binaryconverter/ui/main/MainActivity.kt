@@ -92,7 +92,10 @@ class MainActivity : ComponentActivity() {
                     sheetShape = ShapesTop.medium,
                     sheetContent = {
                         Surface(modifier = Modifier.imePadding()) {
-                            Explanation()
+                            Explanation(
+                                from = converterViewModel.numberSystem10.value,
+                                to = converterViewModel.numberSystem2.value.radix,
+                            )
                         }
                     },
                 ) {
@@ -182,7 +185,7 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
 
-                            ConstraintLayout() {
+                            ConstraintLayout {
                                 val (clearFab, explanationFab) = createRefs()
 
                                 AnimatedVisibility(

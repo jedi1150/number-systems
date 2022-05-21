@@ -1,12 +1,9 @@
 package ru.sandello.binaryconverter.ui.calculator
 
-import android.content.ClipData
-import android.content.ClipboardManager
+import android.annotation.SuppressLint
 import android.util.Log
-import androidx.annotation.IntRange
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.FlowPreview
@@ -15,6 +12,8 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
+import ru.sandello.binaryconverter.model.NumberSystem
+import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.ui.calculator.ArithmeticType.*
 import ru.sandello.binaryconverter.ui.calculator.OperandType.*
 import ru.sandello.binaryconverter.ui.calculator.RadixType.*
@@ -44,84 +43,73 @@ enum class ArithmeticType {
 }
 
 class CalculatorViewModel : ViewModel() {
-    private val _operandCustom1 = mutableStateOf(String())
-    val operandCustom1: State<String> = _operandCustom1
-    private val _radixCustom1 = mutableStateOf(10)
-    val radixCustom1: State<Int> = _radixCustom1
-    private val _operandCustom2 = mutableStateOf(String())
-    val operandCustom2: State<String> = _operandCustom2
-    private val _radixCustom2 = mutableStateOf(2)
-    val radixCustom2: State<Int> = _radixCustom2
-    private val _operandResult = mutableStateOf(String())
-    val operandResult: State<String> = _operandResult
-    private val _radixResult = mutableStateOf(10)
-    val radixResult: State<Int> = _radixResult
-    private val _radixCalculation = mutableStateOf(10)
-    val radixCalculation: State<Int> = _radixCalculation
+    private val _numberSystemCustom1 = mutableStateOf(NumberSystem(String(), Radix(10)))
+    val numberSystemCustom1: State<NumberSystem> = _numberSystemCustom1
+    private val _numberSystemCustom2 = mutableStateOf(NumberSystem(String(), Radix(2)))
+    val numberSystemCustom2: State<NumberSystem> = _numberSystemCustom2
+    private val _numberSystemResult = mutableStateOf(NumberSystem(String(), Radix(10)))
+    val numberSystemResult: State<NumberSystem> = _numberSystemResult
+
+    private val _radixCalculation = mutableStateOf(Radix(10))
+    val radixCalculation: State<Radix> = _radixCalculation
 
     private val _selectedArithmetic = mutableStateOf(Addition)
     val selectedArithmetic: State<ArithmeticType> = _selectedArithmetic
 
-    private val operandCustom1Temp = mutableStateOf(String())
-    private val operandCustom2Temp = mutableStateOf(String())
-    private val operandResultTemp = mutableStateOf(String())
+    private val numberSystem1Temp = mutableStateOf(NumberSystem(String(), _radixCalculation.value))
+    private val numberSystem2Temp = mutableStateOf(NumberSystem(String(), _radixCalculation.value))
+    private val numberSystemResultTemp = mutableStateOf(NumberSystem(String(), _radixCalculation.value))
 
-    private val _operandCustom1error = mutableStateOf(false)
-    val operandCustom1error: State<Boolean> = _operandCustom1error
-    private val _operandCustom2error = mutableStateOf(false)
-    val operandCustom2error: State<Boolean> = _operandCustom2error
+    private val _numberSystem1error = mutableStateOf(false)
+    val numberSystem1error: State<Boolean> = _numberSystem1error
+    private val _numberSystem2error = mutableStateOf(false)
+    val numberSystem2error: State<Boolean> = _numberSystem2error
 
     val hasData: State<Boolean>
-        get() = mutableStateOf(_operandCustom1.value.isNotBlank() || _operandCustom2.value.isNotBlank())
+        get() = mutableStateOf(_numberSystemCustom1.value.value.isNotBlank() || _numberSystemCustom2.value.value.isNotBlank())
 
-    val radixes = IntArray(36) { radix -> radix + 1 }.filter { !listOf(1).contains(it) }
+    @SuppressLint("Range")
+    val radixes: List<Radix> = Array(36) { radix -> Radix(radix + 1) }.filter { !listOf(Radix(1)).contains(it) }
     val arithmeticOptions = listOf(Addition, Subtraction, Multiply, Divide)
 
-    val showInvalidInputError = MutableLiveData<Pair<Int, String>>()
-    val stringToast = MutableLiveData<String>()
+    private var lastValueFrom: NumberSystem? = null
 
-    private var myClip: ClipData? = null
-    private var myClipboard: ClipboardManager? = null
-
-    private var lastValueFrom: String? = null
-    private var lastRadixFrom: Int? = null
-
-    fun convertFrom(operandType: OperandType, fromValue: String, fromRadix: Int) {
-        convert(operandType, fromValue, fromRadix, toRadixes = intArrayOf(_radixCalculation.value))
+    fun convertFrom(operandType: OperandType, from: NumberSystem) {
+        convert(operandType, from, toRadixes = arrayOf(_radixCalculation.value))
     }
 
-    fun updateRadix(radixType: RadixType, radix: Int) {
+    fun updateRadix(radixType: RadixType, newRadix: Radix) {
         when (radixType) {
             RadixCustom1 -> {
-                _radixCustom1.run {
-                    if (value == radix) return
-                    value = radix
+                _numberSystemCustom1.value.run {
+                    if (radix == newRadix) return
+                    radix = newRadix
                 }
-                Log.d(APP_TAG, "CalculatorViewModel::updateRadix: customRadix1 from ${_radixCustom1.value} to $radix")
-                convert(operandType = OperandCustom1, fromValue = _operandCustom1.value, fromRadix = _radixCustom1.value, toRadixes = intArrayOf(radixCalculation.value))
+                Log.d(APP_TAG, "CalculatorViewModel::updateRadix: numberSystemCustom1.radix from ${_numberSystemCustom1.value.radix.value} to ${newRadix.value}")
+                convert(operandType = OperandCustom1, from = _numberSystemCustom1.value, toRadixes = arrayOf(radixCalculation.value))
             }
             RadixCustom2 -> {
-                _radixCustom2.run {
-                    if (value == radix) return
-                    value = radix
+                _numberSystemCustom2.value.run {
+                    if (radix == newRadix) return
+                    radix = newRadix
                 }
-                Log.d(APP_TAG, "CalculatorViewModel::updateRadix: customRadix2 from ${_radixCustom2.value} to $radix")
-                convert(operandType = OperandCustom2, fromValue = _operandCustom2.value, fromRadix = _radixCustom2.value, toRadixes = intArrayOf(radixCalculation.value))
+                Log.d(APP_TAG, "CalculatorViewModel::updateRadix: numberSystemCustom2.radix from ${_numberSystemCustom2.value.radix.value} to ${newRadix.value}")
+                convert(operandType = OperandCustom2, from = _numberSystemCustom2.value, toRadixes = arrayOf(radixCalculation.value))
             }
             RadixResult -> {
-                _radixResult.run {
-                    if (value == radix) return
-                    value = radix
+                _numberSystemResult.value.run {
+                    if (radix == newRadix) return
+                    radix = newRadix
                 }
-                Log.d(APP_TAG, "CalculatorViewModel::updateRadix: radixResult from ${_radixResult.value} to $radix")
+                Log.d(APP_TAG, "CalculatorViewModel::updateRadix: numberSystemResult.radix from ${_numberSystemResult.value.radix.value} to ${newRadix.value}")
                 calculate()
             }
             RadixCalculation -> {
                 _radixCalculation.run {
-                    if (value == radix) return
-                    value = radix
+                    if (value == newRadix) return
+                    value = newRadix
                 }
-                Log.d(APP_TAG, "CalculatorViewModel::updateRadix: radixCalculation from ${_radixCalculation.value} to $radix")
+                Log.d(APP_TAG, "CalculatorViewModel::updateRadix: radixCalculation.value from ${_radixCalculation.value.value} to ${newRadix.value}")
                 calculate()
             }
         }
@@ -139,44 +127,40 @@ class CalculatorViewModel : ViewModel() {
 
 
     @OptIn(FlowPreview::class)
-    private fun convert(operandType: OperandType, fromValue: String, fromRadix: Int, @IntRange(from = 2, to = 36) toRadixes: IntArray) {
-        Log.d(APP_TAG, "CalculatorViewModel::convert: textFieldVal: $fromValue, from radix: $fromRadix")
+    private fun convert(operandType: OperandType, from: NumberSystem, toRadixes: Array<Radix>) {
+        Log.d(APP_TAG, "CalculatorViewModel::convert: textFieldVal: ${from.value}, from radix: ${from.radix.value}")
 
-        if (fromValue.isEmpty()) {
-            when (operandType) {
-                OperandCustom1 -> {
-                    _operandCustom1.value = String()
-                }
-                OperandCustom2 -> {
-                    _operandCustom2.value = String()
-                }
-                else -> {}
+        when (operandType) {
+            OperandCustom1 -> {
+                _numberSystemCustom1.value = from
             }
-            return
+            OperandCustom2 -> {
+                _numberSystemCustom2.value = from
+            }
+            else -> {}
         }
 
         check(
-            fromValue.matches(
+            from.value.matches(
                 CharRegex().charsRegex(
-                    index = fromRadix,
-                    useDelimiterChars = fromValue.count { it.toString().contains("[,.]".toRegex()) } <= 1,
-                    useNegativeChar = fromValue.count { it.toString().contains("[-]".toRegex()) } <= 1,
+                    index = from.radix.value,
+                    useDelimiterChars = from.value.count { it.toString().contains("[,.]".toRegex()) } <= 1,
+                    useNegativeChar = from.value.count { it.toString().contains("[-]".toRegex()) } <= 1,
                 )
             )
         ) {
-            Log.d(APP_TAG, "CalculatorViewModel::convert: Invalid character entered")
+            Log.e(APP_TAG, "CalculatorViewModel::convert: Invalid character entered")
             when (operandType) {
-                OperandCustom1 -> _operandCustom1error.value = true
-                OperandCustom2 -> _operandCustom2error.value = true
+                OperandCustom1 -> _numberSystem1error.value = true
+                OperandCustom2 -> _numberSystem2error.value = true
                 else -> {}
             }
             return
         }
 
-        lastValueFrom = fromValue
-        lastRadixFrom = fromRadix
+        lastValueFrom = from
 
-        var tempValue = fromValue
+        var tempValue = from.value
 
         if (tempValue.contains("-".toRegex())) {
             tempValue = tempValue.replace("-", "").replaceRange(0, 0, "-")
@@ -184,10 +168,10 @@ class CalculatorViewModel : ViewModel() {
 
         when (operandType) {
             OperandCustom1 -> {
-                _operandCustom1.value = tempValue
+                _numberSystemCustom1.value.value = tempValue
             }
             OperandCustom2 -> {
-                _operandCustom2.value = tempValue
+                _numberSystemCustom2.value.value = tempValue
             }
             else -> {}
         }
@@ -195,7 +179,7 @@ class CalculatorViewModel : ViewModel() {
         viewModelScope.launch {
             toRadixes
                 .asFlow()
-                .flatMapMerge { _toRadix -> converter(value = tempValue, fromRadix = fromRadix, toRadix = _toRadix) }
+                .flatMapMerge { _toRadix -> converter(from = from, toRadix = _toRadix) }
                 .onCompletion { cause ->
                     if (cause != null) {
                         Log.d(APP_TAG, "Flow completed exceptionally")
@@ -206,146 +190,48 @@ class CalculatorViewModel : ViewModel() {
                 }
                 .catch { error -> Log.e(APP_TAG, "CalculatorViewModel::convert: catch", error) }
                 .collect { convertedData ->
+                    Log.d(APP_TAG, "CalculatorViewModel::collect: operandType: $operandType, result: ${convertedData.result}")
                     when (operandType) {
-                        OperandCustom1 -> operandCustom1Temp.value = convertedData.result
-                        OperandCustom2 -> operandCustom2Temp.value = convertedData.result
-                        OperandResult -> _operandResult.value = convertedData.result
+                        OperandCustom1 -> numberSystem1Temp.value = convertedData.result
+                        OperandCustom2 -> numberSystem2Temp.value = convertedData.result
+                        OperandResult -> _numberSystemResult.value = convertedData.result
                     }
                 }
         }
     }
 
     private fun calculate() {
-        if (operandCustom1Temp.value.isEmpty() || operandCustom2Temp.value.isEmpty()) {
+        if (numberSystem1Temp.value.value.isBlank() || numberSystem2Temp.value.value.isBlank()) {
             return
         }
         Log.d(APP_TAG, "CalculatorViewModel::calculate")
 
-        operandResultTemp.value = when (_selectedArithmetic.value) {
-            Addition -> (operandCustom1Temp.value.toBigDecimal().plus(operandCustom2Temp.value.toBigDecimal())).toString()
-            Subtraction -> (operandCustom1Temp.value.toBigDecimal().minus(operandCustom2Temp.value.toBigDecimal())).toString()
-            Multiply -> (operandCustom1Temp.value.toBigDecimal().multiply(operandCustom2Temp.value.toBigDecimal(), DECIMAL128)).toString()
+        numberSystemResultTemp.value.value = when (_selectedArithmetic.value) {
+            Addition -> (numberSystem1Temp.value.value.toBigDecimal().plus(numberSystem2Temp.value.value.toBigDecimal())).toString()
+            Subtraction -> (numberSystem1Temp.value.value.toBigDecimal().minus(numberSystem2Temp.value.value.toBigDecimal())).toString()
+            Multiply -> (numberSystem1Temp.value.value.toBigDecimal().multiply(numberSystem2Temp.value.value.toBigDecimal(), DECIMAL128)).toString()
             Divide -> {
-                if (operandCustom2Temp.value.toFloatOrNull() == 0.0f) {
-                    _operandCustom2error.value = true
+                if (numberSystem2Temp.value.value.toFloatOrNull() == 0.0f) {
+                    _numberSystem2error.value = true
                     return
                 }
-                (operandCustom1Temp.value.toBigDecimal().divide(operandCustom2Temp.value.toBigDecimal(), DECIMAL128)).toString()
+                (numberSystem1Temp.value.value.toBigDecimal().divide(numberSystem2Temp.value.value.toBigDecimal(), DECIMAL128)).toString()
             }
         }
 
-        convert(operandType = OperandResult, fromValue = operandResultTemp.value, fromRadix = radixCalculation.value, toRadixes = intArrayOf(radixResult.value))
+        convert(operandType = OperandResult, from = numberSystemResultTemp.value, toRadixes = arrayOf(_numberSystemResult.value.radix))
     }
 
     fun clear() {
-        _operandCustom1.value = String()
-        _operandCustom2.value = String()
-        _operandResult.value = String()
+        _numberSystemCustom1.value = _numberSystemCustom1.value.copy(value = String())
+        _numberSystemCustom2.value = _numberSystemCustom2.value.copy(value = String())
+        _numberSystemResult.value = _numberSystemResult.value.copy(value = String())
         resetErrors()
     }
 
     private fun resetErrors() {
-        _operandCustom1error.value = false
-        _operandCustom2error.value = false
+        _numberSystem1error.value = false
+        _numberSystem2error.value = false
     }
 
-
-    /*  private fun errorNull() {
-          binding.textInputLayoutCustom1.error = null
-          binding.textInputLayoutCustom2.error = null
-          binding.textInputLayoutResult.error = null
-      }*/
-
-    /*private fun checkClear() {
-        if (binding.editTextVal1.text.toString() != "" || binding.editTextVal2.text.toString() != "")
-            binding.clear_fab.show()
-        else
-            binding.clear_fab.hide()
-    }*/
-
-//    fun copyVal(value: String) {
-//        if (value == "calResult" && result.value.toString() != "0" && result.value.toString() != "") {
-//            myClip = ClipData.newPlainText("text", result.value.toString())
-//            myClipboard!!.setPrimaryClip(myClip!!)
-//
-//            stringToast.postValue("${Shared.resourcesHelper.getString(R.string.copied)}: ${_result.value}")
-//        }
-//    }
-
-    fun updateOperand(action: Int, value: String = "", fraction: Int) {
-        try {
-            when (action) {
-//                1 -> _operand1.postValue(Converter().convert(value, fraction, 10).toBigDecimal())
-//                2 -> _operand2.postValue(Converter().convert(value, fraction, 10).toBigDecimal())
-            }
-        } catch (e: Exception) {
-//            showInvalidInputError.postValue(Pair(action, allow(fraction)))
-        }
-        Log.i(
-            APP_TAG,
-            "CalculatorViewModel::updateOperand act: $action val: $value, frac: $fraction"
-        )
-    }
-
-//    fun updateFraction(fractionId: Int, newFraction: Int) {
-//        when (fractionId) {
-//            1 -> _fraction1.postValue(newFraction)
-//            2 -> _fraction2.postValue(newFraction)
-//            3 -> _fractionResult.postValue(newFraction)
-//        }
-//
-//        Log.i(APP_TAG, "CalculatorViewModel::updateFraction id: $fractionId val: $newFraction")
-//    }
-
-//    private fun calculate() {
-//        when (_actions.value) {
-//            CalcActions.PLUS -> _result.postValue(_operand1.value?.add(_operand2.value))
-//            CalcActions.MINUS -> _result.postValue(_operand1.value?.min(_operand2.value))
-//            CalcActions.MULTIPLY -> _result.postValue(_operand1.value?.multiply(_operand2.value))
-//            CalcActions.DIVIDE -> _result.postValue(
-//                operand1.value?.divide(
-//                    operand2.value,
-//                    _fractionResult.value ?: 10,
-//                    RoundingMode.HALF_UP
-//                )
-//            )
-//        }
-//    }
-
-//    fun load() {
-//        _operand1.postValue(
-//            Shared.preferencesHelper.getStringFromPrefs(SHARED_CALC_OPERAND_1)?.toBigDecimal()
-//        )
-//        _operand2.postValue(
-//            Shared.preferencesHelper.getStringFromPrefs(SHARED_CALC_OPERAND_2)?.toBigDecimal()
-//        )
-//        _actions.postValue(
-//            CalcActions.valueOf(
-//                Shared.preferencesHelper.getStringFromPrefs(
-//                    SHARED_CALC_ACTIONS
-//                ) ?: CalcActions.PLUS.toString()
-//            )
-//        )
-//        _fraction1.postValue(Shared.preferencesHelper.getIntFromPrefs(SHARED_CALC_FRACTION_1))
-//        _fraction2.postValue(Shared.preferencesHelper.getIntFromPrefs(SHARED_CALC_FRACTION_2))
-//        _fractionResult.postValue(
-//            Shared.preferencesHelper.getIntFromPrefs(
-//                SHARED_CALC_FRACTION_RESULT
-//            )
-//        )
-//    }
-
-//    fun save() {
-//        Shared.preferencesHelper.stringToPrefs(SHARED_CALC_OPERAND_1, operand1.value.toString())
-//        Shared.preferencesHelper.stringToPrefs(SHARED_CALC_OPERAND_2, operand2.value.toString())
-//        Shared.preferencesHelper.stringToPrefs(SHARED_CALC_ACTIONS, actions.value.toString())
-//        fraction1.value?.let { Shared.preferencesHelper.intToPrefs(SHARED_CALC_FRACTION_1, it) }
-//        fraction2.value?.let { Shared.preferencesHelper.intToPrefs(SHARED_CALC_FRACTION_2, it) }
-//        fractionResult.value?.let {
-//            Shared.preferencesHelper.intToPrefs(
-//                SHARED_CALC_FRACTION_RESULT,
-//                it
-//            )
-//        }
-//    }
 }

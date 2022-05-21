@@ -18,19 +18,22 @@ import androidx.compose.ui.unit.sp
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.Division
 import ru.sandello.binaryconverter.model.NumberSystem
+import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import java.math.BigDecimal
 import java.math.RoundingMode
 
 @Composable
-fun ExplanationDivisionBlock(from: NumberSystem, to: NumberSystem) {
+fun ExplanationDivisionBlock(from: NumberSystem, toRadix: Radix) {
     val fromDecimal = from.value.substringBefore(".")
-    val toDecimal = to.value.substringBefore(".")
+
+    if (fromDecimal.isBlank()) return
+//    val toDecimal = toRadix.value.substringBefore(".")
 
     val divisionList: MutableList<Division> = mutableListOf()
     do {
         if (divisionList.isEmpty()) {
-            divisionList.add(longDivision(dividend = fromDecimal.toBigDecimal(), divisor = to.radix))
+            divisionList.add(longDivision(dividend = fromDecimal.toBigDecimal(), divisor = toRadix.value))
         } else {
             divisionList.add(longDivision(dividend = divisionList.last().quotient, divisor = divisionList.last().divisor))
         }
@@ -79,7 +82,7 @@ fun ExplanationDivisionBlock(from: NumberSystem, to: NumberSystem) {
                         withStyle(SpanStyle(letterSpacing = 6.sp)) {
                             append("=")
                         }
-                        append(numberSystem(numberSystem = NumberSystem(value = toDecimal, radix = to.radix)))
+//                        append(numberSystem(numberSystem = NumberSystem(value = toDecimal, radix = toRadix)))
                     }
                 )
             }
@@ -107,7 +110,7 @@ private fun longDivision(dividend: BigDecimal, divisor: Int): Division {
 private fun PreviewExplanationDivision() {
     NumberSystemsTheme {
         Surface {
-            ExplanationDivisionBlock(NumberSystem("10.5", 10), NumberSystem("10 10.1", 2))
+            ExplanationDivisionBlock(NumberSystem("10.5", Radix(10)), Radix(2))
         }
     }
 }
@@ -117,7 +120,7 @@ private fun PreviewExplanationDivision() {
 private fun PreviewExplanationDivisionDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            ExplanationDivisionBlock(NumberSystem("25", 10), NumberSystem("1 000 000", 2))
+            ExplanationDivisionBlock(NumberSystem("25", Radix(10)), Radix(2))
         }
     }
 }

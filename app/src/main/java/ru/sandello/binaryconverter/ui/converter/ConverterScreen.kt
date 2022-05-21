@@ -17,6 +17,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.constraintlayout.compose.atMost
 import ru.sandello.binaryconverter.R
+import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.ui.OperandVisualTransformation
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
@@ -33,56 +34,56 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
     ) {
         item {
             OutlinedTextField(
-                value = viewModel.operand10.value,
-                onValueChange = { textFieldValue -> viewModel.convertFrom(fromRadix = 10, fromValue = textFieldValue) },
+                value = viewModel.numberSystem10.value.value,
+                onValueChange = { textFieldValue -> viewModel.convertFrom(NumberSystem(value = textFieldValue, radix = viewModel.numberSystem10.value.radix)) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 4.dp),
                 label = { Text(stringResource(R.string.dec)) },
-                visualTransformation = OperandVisualTransformation(10),
-                isError = viewModel.operand10error.value,
+                visualTransformation = OperandVisualTransformation(viewModel.numberSystem10.value.radix),
+                isError = viewModel.numberSystem10error.value,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = RoundedCornerShape(16.dp),
             )
         }
         item {
             OutlinedTextField(
-                value = viewModel.operand2.value,
-                onValueChange = { textFieldValue -> viewModel.convertFrom(fromRadix = 2, fromValue = textFieldValue) },
+                value = viewModel.numberSystem2.value.value,
+                onValueChange = { textFieldValue -> viewModel.convertFrom(NumberSystem(value = textFieldValue, radix = viewModel.numberSystem2.value.radix)) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 4.dp),
                 label = { Text(stringResource(R.string.bin)) },
-                isError = viewModel.operand2error.value,
-                visualTransformation = OperandVisualTransformation(2),
+                isError = viewModel.numberSystem2error.value,
+                visualTransformation = OperandVisualTransformation(viewModel.numberSystem2.value.radix),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = RoundedCornerShape(16.dp),
             )
         }
         item {
             OutlinedTextField(
-                value = viewModel.operand8.value,
-                onValueChange = { textFieldValue -> viewModel.convertFrom(fromRadix = 8, fromValue = textFieldValue) },
+                value = viewModel.numberSystem8.value.value,
+                onValueChange = { textFieldValue -> viewModel.convertFrom(NumberSystem(value = textFieldValue, viewModel.numberSystem8.value.radix)) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 4.dp),
                 label = { Text(stringResource(R.string.oct)) },
-                isError = viewModel.operand8error.value,
-                visualTransformation = OperandVisualTransformation(8),
+                isError = viewModel.numberSystem8error.value,
+                visualTransformation = OperandVisualTransformation(viewModel.numberSystem8.value.radix),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = RoundedCornerShape(16.dp),
             )
         }
         item {
             OutlinedTextField(
-                value = viewModel.operand16.value,
-                onValueChange = { textFieldValue -> viewModel.convertFrom(fromRadix = 16, fromValue = textFieldValue) },
+                value = viewModel.numberSystem16.value.value,
+                onValueChange = { textFieldValue -> viewModel.convertFrom(NumberSystem(value = textFieldValue, radix = viewModel.numberSystem16.value.radix)) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 4.dp),
                 label = { Text(stringResource(R.string.hex)) },
-                isError = viewModel.operand16error.value,
-                visualTransformation = OperandVisualTransformation(16),
+                isError = viewModel.numberSystem16error.value,
+                visualTransformation = OperandVisualTransformation(viewModel.numberSystem16.value.radix),
                 keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
                 shape = RoundedCornerShape(16.dp),
             )
@@ -96,17 +97,17 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                 val (textField, exposedDropdown) = createRefs()
 
                 OutlinedTextField(
-                    value = viewModel.operandCustom.value,
-                    onValueChange = { textFieldValue -> viewModel.convertFrom(fromRadix = viewModel.customRadix.value, fromValue = textFieldValue) },
+                    value = viewModel.numberSystemCustom.value.value,
+                    onValueChange = { textFieldValue -> viewModel.convertFrom(NumberSystem(value = textFieldValue, radix = viewModel.numberSystemCustom.value.radix)) },
                     modifier = Modifier
                         .constrainAs(textField) {
                             start.linkTo(parent.start)
                             end.linkTo(exposedDropdown.start, margin = 4.dp)
                             width = Dimension.fillToConstraints
                         },
-                    label = { Text(stringResource(R.string.radix, viewModel.customRadix.value)) },
-                    isError = viewModel.operandCustomError.value,
-                    visualTransformation = OperandVisualTransformation(viewModel.customRadix.value),
+                    label = { Text(stringResource(R.string.radix, viewModel.numberSystemCustom.value.radix.value)) },
+                    isError = viewModel.numberSystemCustomError.value,
+                    visualTransformation = OperandVisualTransformation(viewModel.numberSystemCustom.value.radix),
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
                     shape = RoundedCornerShape(16.dp),
                 )
@@ -124,7 +125,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                     },
                 ) {
                     OutlinedTextField(
-                        value = viewModel.customRadix.value.toString(),
+                        value = viewModel.numberSystemCustom.value.radix.value.toString(),
                         onValueChange = { },
                         readOnly = true,
                         label = {},
@@ -149,7 +150,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                                     expanded = false
                                 }
                             ) {
-                                Text(text = radix.toString())
+                                Text(text = radix.value.toString())
                             }
                         }
                     }

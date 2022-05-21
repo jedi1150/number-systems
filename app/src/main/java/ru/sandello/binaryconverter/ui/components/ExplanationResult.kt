@@ -23,15 +23,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.NumberSystem
+import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @Composable
-fun ExplanationResult(from: NumberSystem, to: NumberSystem) {
+fun ExplanationResult(from: NumberSystem, toRadix: Radix) {
     val arrowRightId = "arrowRight"
     val text = buildAnnotatedString {
         append(numberSystem(from))
         appendInlineContent(arrowRightId, "→")
-        append(numberSystem(to))
+//        append(numberSystem(toRadix))
     }
     val inlineContent = mapOf(
         Pair(
@@ -73,7 +74,7 @@ fun ExplanationResult(from: NumberSystem, to: NumberSystem) {
 private fun PreviewExplanationResult() {
     NumberSystemsTheme {
         Surface {
-            ExplanationResult(NumberSystem("256", 10), NumberSystem("1 000 000", 2))
+            ExplanationResult(NumberSystem("256", Radix(10)), Radix(2))
         }
     }
 }
@@ -83,7 +84,7 @@ private fun PreviewExplanationResult() {
 private fun PreviewExplanationResultDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            ExplanationResult(NumberSystem("256", 10), NumberSystem("1 000 000", 2))
+            ExplanationResult(NumberSystem("256", Radix(10)), Radix(2))
         }
     }
 }

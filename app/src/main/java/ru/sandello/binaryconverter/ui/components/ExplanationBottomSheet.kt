@@ -14,13 +14,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.sandello.binaryconverter.R
-import ru.sandello.binaryconverter.ui.theme.Gray300
-import ru.sandello.binaryconverter.ui.theme.Gray800
+import ru.sandello.binaryconverter.model.NumberSystem
+import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.ui.theme.Shapes
 
 @Composable
-fun Explanation() {
+fun Explanation(from: NumberSystem, to: Radix) {
     Column(modifier = Modifier.padding(top = 8.dp, bottom = 24.dp)) {
         Box(
             modifier = Modifier.fillMaxWidth(),
@@ -30,7 +30,6 @@ fun Explanation() {
                 modifier = Modifier
                     .size(width = 50.dp, height = 4.dp)
                     .clip(Shapes.small),
-                color = Gray300,
             )
         }
         Text(
@@ -38,10 +37,10 @@ fun Explanation() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            color = Gray800,
             fontSize = 24.sp,
             fontWeight = FontWeight.Medium,
         )
+        ExplanationContent(fromNumberSystem = from, toRadix = to)
     }
 }
 
@@ -50,7 +49,7 @@ fun Explanation() {
 private fun PreviewExplanation() {
     NumberSystemsTheme {
         Surface {
-            Explanation()
+            Explanation(from = NumberSystem(value = "10.5", Radix(10)), to = Radix(2))
         }
     }
 }
@@ -60,7 +59,7 @@ private fun PreviewExplanation() {
 private fun PreviewExplanationDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            Explanation()
+            Explanation(from = NumberSystem(value = "10.10", Radix(10)), to = Radix(2))
         }
     }
 }

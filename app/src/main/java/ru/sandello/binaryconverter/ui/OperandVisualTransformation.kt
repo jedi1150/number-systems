@@ -1,21 +1,25 @@
 package ru.sandello.binaryconverter.ui
 
+import android.annotation.SuppressLint
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
+import ru.sandello.binaryconverter.model.Radix
 
-class OperandVisualTransformation(radix: Int) : VisualTransformation {
+class OperandVisualTransformation(radix: Radix) : VisualTransformation {
     private val groupLength: Int
-    private val radixes = IntArray(36) { radix -> radix + 1 }.filter { !listOf(1).contains(it) }
-    private val groupByThreeNumbers = radixes.filter { listOf(3, 7, 8, 9, 10, 11, 12, 13, 14, 15).contains(it) }
-    private val groupByFourNumbers = radixes.filter { !listOf(3, 7, 8, 9, 10, 11, 12, 13, 14, 15).contains(it) }
+
+    @SuppressLint("Range")
+    private val radixes: List<Radix> = Array(36) { radix -> Radix(radix + 1) }.filter { !listOf(Radix(1)).contains(it) }
+    private val groupByThreeNumbers = radixes.filter { listOf(Radix(3), Radix(7), Radix(8), Radix(9), Radix(10), Radix(11), Radix(12), Radix(13), Radix(14), Radix(15)).contains(it) }
+    private val groupByFourNumbers = radixes.filter { !listOf(Radix(3), Radix(7), Radix(8), Radix(9), Radix(10), Radix(11), Radix(12), Radix(13), Radix(14), Radix(15)).contains(it) }
 
     init {
         groupLength = groupLength(radix)
     }
 
-    private fun groupLength(radix: Int): Int {
+    private fun groupLength(radix: Radix): Int {
         return when (radix) {
             in groupByThreeNumbers -> 3
             in groupByFourNumbers -> 4
