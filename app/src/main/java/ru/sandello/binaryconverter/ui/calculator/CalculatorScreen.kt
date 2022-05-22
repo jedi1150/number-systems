@@ -3,8 +3,6 @@ package ru.sandello.binaryconverter.ui.calculator
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.border
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
@@ -130,23 +128,21 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
             ) {
                 viewModel.arithmeticOptions.forEach { arithmetic ->
                     val checked = viewModel.selectedArithmetic.value == arithmetic
-                    val tint by animateColorAsState(if (checked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface)
                     val border by animateDpAsState(if (checked) FocusedBorderThickness else UnfocusedBorderThickness)
-                    IconToggleButton(
+                    val borderColor by animateColorAsState(if (checked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline)
+                    OutlinedIconToggleButton(
                         checked = checked,
                         onCheckedChange = { if (it) viewModel.selectArithmetic(arithmetic) },
-                        interactionSource = remember { MutableInteractionSource() },
-                        modifier = Modifier.border(
-                            border = BorderStroke(border, color = tint),
-                            shape = MaterialTheme.shapes.medium,
-                        ),
+                        shape = MaterialTheme.shapes.medium,
+                        border = BorderStroke(border, color = borderColor),
+                        colors = IconButtonDefaults.outlinedIconToggleButtonColors(checkedContainerColor = MaterialTheme.colorScheme.primaryContainer)
                     ) {
                         Text(
                             text = when (arithmetic) {
                                 Addition -> "+"
-                                Subtraction -> "-"
+                                Subtraction -> "−"
                                 Multiply -> "×"
-                                Divide -> "/"
+                                Divide -> "÷"
                             }
                         )
                     }
