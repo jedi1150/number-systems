@@ -5,7 +5,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.animation.*
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.ExperimentalMaterialApi
@@ -107,47 +110,41 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Scaffold(
                         bottomBar = {
-                            AnimatedVisibility(
-                                visible = !imeIsVisible,
-                                enter = expandVertically(expandFrom = Alignment.Top),
-                                exit = shrinkVertically(shrinkTowards = Alignment.Top),
+                            Surface(
+                                tonalElevation = 3.dp
                             ) {
-                                Surface(
-                                    tonalElevation = 3.dp
+                                NavigationBar(
+                                    modifier = Modifier.navigationBarsPadding(),
+                                    tonalElevation = 0.dp,
                                 ) {
-                                    NavigationBar(
-                                        modifier = Modifier.navigationBarsPadding(),
-                                        tonalElevation = 0.dp,
-                                    ) {
-                                        val navBackStackEntry by navController.currentBackStackEntryAsState()
-                                        val currentDestination = navBackStackEntry?.destination
-                                        screens.forEach { screen ->
-                                            NavigationBarItem(
-                                                selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
-                                                onClick = {
-                                                    navController.navigate(screen.route) {
-                                                        // Pop up to the start destination of the graph to
-                                                        // avoid building up a large stack of destinations
-                                                        // on the back stack as users select items
-                                                        popUpTo(navController.graph.findStartDestination().id) {
-                                                            saveState = true
-                                                        }
-                                                        // Avoid multiple copies of the same destination when
-                                                        // reselecting the same item
-                                                        launchSingleTop = true
-                                                        // Restore state when reselecting a previously selected item
-                                                        restoreState = true
+                                    val navBackStackEntry by navController.currentBackStackEntryAsState()
+                                    val currentDestination = navBackStackEntry?.destination
+                                    screens.forEach { screen ->
+                                        NavigationBarItem(
+                                            selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
+                                            onClick = {
+                                                navController.navigate(screen.route) {
+                                                    // Pop up to the start destination of the graph to
+                                                    // avoid building up a large stack of destinations
+                                                    // on the back stack as users select items
+                                                    popUpTo(navController.graph.findStartDestination().id) {
+                                                        saveState = true
                                                     }
-                                                },
-                                                icon = {
-                                                    Icon(
-                                                        painterResource(screen.iconId),
-                                                        contentDescription = null,
-                                                    )
-                                                },
-                                                label = { Text(stringResource(screen.resourceId)) },
-                                            )
-                                        }
+                                                    // Avoid multiple copies of the same destination when
+                                                    // reselecting the same item
+                                                    launchSingleTop = true
+                                                    // Restore state when reselecting a previously selected item
+                                                    restoreState = true
+                                                }
+                                            },
+                                            icon = {
+                                                Icon(
+                                                    painterResource(screen.iconId),
+                                                    contentDescription = null,
+                                                )
+                                            },
+                                            label = { Text(stringResource(screen.resourceId)) },
+                                        )
                                     }
                                 }
                             }
