@@ -13,7 +13,7 @@ import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @Composable
-fun ExplanationContent(fromNumberSystem: NumberSystem, toRadix: Radix) {
+fun ExplanationContent(fromNumberSystem: NumberSystem, to: NumberSystem) {
 
     if (fromNumberSystem.value.isBlank()) {
         return
@@ -31,18 +31,18 @@ fun ExplanationContent(fromNumberSystem: NumberSystem, toRadix: Radix) {
 
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
 
-        ExplanationResult(from = fromNumberSystem, toRadix = toRadix)
+        ExplanationResult(from = fromNumberSystem, to = to)
         if (fromNumberSystem.radix.value != 10) {
             ExplanationConvertToDecimal(from = fromNumberSystem)
         }
-        if (toRadix.value != 10) {
-            ExplanationDivisionBlock(from = fromNumberSystem, toRadix = toRadix)
+        if (to.radix != Radix(10)) {
+            ExplanationDivisionBlock(from = fromNumberSystem, to = to)
             if (fromNumberSystem.value.contains(".")) {
-                ExplanationConvertFractionalBlock(from = fromNumberSystem, toRadix = toRadix)
-                ExplanationCombineParts(from = fromNumberSystem, to = toRadix)
+                ExplanationConvertFractionalBlock(from = fromNumberSystem, to = to)
+                ExplanationCombineParts(from = fromNumberSystem, to = to)
             }
         }
-        ExplanationResult(from = fromNumberSystem, toRadix = toRadix)
+        ExplanationResult(from = fromNumberSystem, to = to)
     }
 }
 
@@ -51,7 +51,7 @@ fun ExplanationContent(fromNumberSystem: NumberSystem, toRadix: Radix) {
 private fun PreviewExplanationContent() {
     NumberSystemsTheme {
         Surface {
-            ExplanationContent(fromNumberSystem = NumberSystem(value = "10.5", Radix(10)), toRadix = Radix(2))
+            ExplanationContent(fromNumberSystem = NumberSystem(value = "10.5", Radix(10)), to = NumberSystem(value = "1010.1", Radix(2)))
         }
     }
 }
@@ -61,7 +61,7 @@ private fun PreviewExplanationContent() {
 private fun PreviewExplanationContentDark() {
     NumberSystemsTheme(isDarkTheme = true) {
         Surface {
-            ExplanationContent(fromNumberSystem = NumberSystem(value = "12.55", Radix(8)), toRadix = Radix(10))
+            ExplanationContent(fromNumberSystem = NumberSystem(value = "12.55", Radix(8)), to = NumberSystem(value = "10.703125", Radix(10)))
         }
     }
 }
@@ -71,7 +71,7 @@ private fun PreviewExplanationContentDark() {
 private fun PreviewExplanationContentBinHexDark() {
     NumberSystemsTheme(isDarkTheme = true) {
         Surface {
-            ExplanationContent(fromNumberSystem = NumberSystem(value = "10.101010", Radix(2)), toRadix = Radix(16))
+            ExplanationContent(fromNumberSystem = NumberSystem(value = "10.101010", Radix(2)), to = NumberSystem(value = "2.A8", Radix(16)))
         }
     }
 }

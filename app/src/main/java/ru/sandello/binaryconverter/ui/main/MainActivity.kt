@@ -18,8 +18,10 @@ import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -51,7 +53,7 @@ class MainActivity : ComponentActivity() {
 
     private lateinit var ad: InterstitialAd
 
-    @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
+    @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -63,6 +65,8 @@ class MainActivity : ComponentActivity() {
         )
 
         setContent {
+            val keyboardController = LocalSoftwareKeyboardController.current
+
             NumberSystemsTheme {
                 val scope = rememberCoroutineScope()
 
@@ -81,7 +85,9 @@ class MainActivity : ComponentActivity() {
                 LaunchedEffect(converterViewModel.showExplanation.value) {
                     if (converterViewModel.showExplanation.value) {
                         scope.launch {
+                            keyboardController?.hide()
                             bottomSheetState.show()
+                            viewModel.acceptValues(converterViewModel.numberSystem10.value, converterViewModel.numberSystem2.value)
                         }
                     } else {
                         scope.launch {
@@ -102,8 +108,8 @@ class MainActivity : ComponentActivity() {
                     sheetContent = {
                         Surface(modifier = Modifier.imePadding()) {
                             Explanation(
-                                from = converterViewModel.numberSystem10.value,
-                                to = converterViewModel.numberSystem2.value.radix,
+                                from = viewModel.nsFrom.value,
+                                to = viewModel.nsTo.value,
                             )
                         }
                     },

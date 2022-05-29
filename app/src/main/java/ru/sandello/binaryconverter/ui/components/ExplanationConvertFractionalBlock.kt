@@ -24,20 +24,22 @@ import ru.sandello.binaryconverter.utils.getFractional
 import java.math.BigDecimal
 
 @Composable
-fun ExplanationConvertFractionalBlock(from: NumberSystem, toRadix: Radix) {
+fun ExplanationConvertFractionalBlock(from: NumberSystem, to: NumberSystem) {
     val fromFractional = getFractional(from.value)
     var iterations = 0
+    val maxIterations = 12
 
     val fractionMultiplierList: MutableList<FractionMultiplier> = mutableListOf()
     do {
         if (fractionMultiplierList.isEmpty()) {
-            fractionMultiplierList.add(fractionMultiplier(multiplier = fromFractional, multiplicand = toRadix.value))
+            fractionMultiplierList.add(fractionMultiplier(multiplier = fromFractional, multiplicand = to.radix.value))
         } else {
-            fractionMultiplierList.add(fractionMultiplier(multiplier = getFractional(fractionMultiplierList.last().product), multiplicand = toRadix.value))
+            fractionMultiplierList.add(fractionMultiplier(multiplier = getFractional(fractionMultiplierList.last().product), multiplicand = to.radix.value))
         }
         iterations++
-    } while (fractionMultiplierList.last().product.toBigDecimal().scale() > 0
-        && iterations < fromFractional.toBigDecimal().scale()
+    } while (
+        fractionMultiplierList.last().product.toBigDecimal().scale() > 0
+        && (iterations < fromFractional.toBigDecimal().scale() || iterations < maxIterations)
     )
 
     Column {
@@ -80,7 +82,7 @@ fun ExplanationConvertFractionalBlock(from: NumberSystem, toRadix: Radix) {
                         withStyle(SpanStyle(letterSpacing = 6.sp)) {
                             append("=")
                         }
-//                        append(numberSystem(numberSystem = NumberSystem(value = "0." + toRadix.value.substringAfter("."), radix = toRadix)))
+                        append(numberSystem(numberSystem = NumberSystem(value = "0." + to.value.substringAfter("."), radix = to.radix)))
                     }
                 )
             }
@@ -105,7 +107,7 @@ private fun fractionMultiplier(multiplier: String, multiplicand: Int): FractionM
 private fun PreviewExplanationConvertFractionalBlock() {
     NumberSystemsTheme {
         Surface {
-            ExplanationConvertFractionalBlock(NumberSystem("10.703125", Radix(10)), Radix(16))
+            ExplanationConvertFractionalBlock(NumberSystem("10.703125", Radix(10)), NumberSystem("A.B4", Radix(16)))
         }
     }
 }
@@ -115,7 +117,17 @@ private fun PreviewExplanationConvertFractionalBlock() {
 private fun PreviewExplanationConvertFractionalBlockDark() {
     NumberSystemsTheme(isDarkTheme = true) {
         Surface {
-            ExplanationConvertFractionalBlock(NumberSystem("10.703125", Radix(10)), Radix(16))
+            ExplanationConvertFractionalBlock(NumberSystem("10.703125", Radix(10)), NumberSystem("A.B4", Radix(16)))
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun PreviewExplanationConvertFractionalBlockDark2() {
+    NumberSystemsTheme(isDarkTheme = true) {
+        Surface {
+            ExplanationConvertFractionalBlock(NumberSystem("123.123", Radix(10)), NumberSystem("1111011.000111110111", Radix(2)))
         }
     }
 }

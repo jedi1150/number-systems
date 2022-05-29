@@ -24,16 +24,15 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 @Composable
-fun ExplanationDivisionBlock(from: NumberSystem, toRadix: Radix) {
+fun ExplanationDivisionBlock(from: NumberSystem, to: NumberSystem) {
     val fromDecimal = from.value.substringBefore(".")
 
     if (fromDecimal.isBlank()) return
-//    val toDecimal = toRadix.value.substringBefore(".")
 
     val divisionList: MutableList<Division> = mutableListOf()
     do {
         if (divisionList.isEmpty()) {
-            divisionList.add(longDivision(dividend = fromDecimal.toBigDecimal(), divisor = toRadix.value))
+            divisionList.add(longDivision(dividend = fromDecimal.toBigDecimal(), divisor = to.radix.value))
         } else {
             divisionList.add(longDivision(dividend = divisionList.last().quotient, divisor = divisionList.last().divisor))
         }
@@ -82,7 +81,7 @@ fun ExplanationDivisionBlock(from: NumberSystem, toRadix: Radix) {
                         withStyle(SpanStyle(letterSpacing = 6.sp)) {
                             append("=")
                         }
-//                        append(numberSystem(numberSystem = NumberSystem(value = toDecimal, radix = toRadix)))
+                        append(numberSystem(numberSystem = NumberSystem(value = to.value.substringBefore("."), radix = to.radix)))
                     }
                 )
             }
@@ -110,7 +109,7 @@ private fun longDivision(dividend: BigDecimal, divisor: Int): Division {
 private fun PreviewExplanationDivision() {
     NumberSystemsTheme {
         Surface {
-            ExplanationDivisionBlock(NumberSystem("10.5", Radix(10)), Radix(2))
+            ExplanationDivisionBlock(NumberSystem("10.5", Radix(10)), NumberSystem("1010.1", Radix(2)))
         }
     }
 }
@@ -120,7 +119,7 @@ private fun PreviewExplanationDivision() {
 private fun PreviewExplanationDivisionDark() {
     NumberSystemsTheme(isDarkTheme = true) {
         Surface {
-            ExplanationDivisionBlock(NumberSystem("25", Radix(10)), Radix(2))
+            ExplanationDivisionBlock(NumberSystem("25", Radix(10)), NumberSystem("11001", Radix(2)))
         }
     }
 }

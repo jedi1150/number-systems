@@ -20,7 +20,7 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.ui.theme.Shapes
 
 @Composable
-fun Explanation(from: NumberSystem, to: Radix) {
+fun Explanation(from: NumberSystem, to: NumberSystem) {
     Column(modifier = Modifier.padding(top = 8.dp, bottom = 24.dp)) {
         Box(
             modifier = Modifier.fillMaxWidth(),
@@ -40,7 +40,7 @@ fun Explanation(from: NumberSystem, to: Radix) {
             fontSize = 24.sp,
             fontWeight = FontWeight.Medium,
         )
-        ExplanationContent(fromNumberSystem = from, toRadix = to)
+        ExplanationContent(fromNumberSystem = from, to = to)
     }
 }
 
@@ -49,7 +49,7 @@ fun Explanation(from: NumberSystem, to: Radix) {
 private fun PreviewExplanation() {
     NumberSystemsTheme {
         Surface {
-            Explanation(from = NumberSystem(value = "10.5", Radix(10)), to = Radix(2))
+            Explanation(from = NumberSystem(value = "10.5", Radix(10)), to = NumberSystem("1010.1", Radix(2)))
         }
     }
 }
@@ -59,7 +59,7 @@ private fun PreviewExplanation() {
 private fun PreviewExplanationDark() {
     NumberSystemsTheme(isDarkTheme = true) {
         Surface {
-            Explanation(from = NumberSystem(value = "10.10", Radix(10)), to = Radix(2))
+            Explanation(from = NumberSystem(value = "10.10", Radix(10)), to = NumberSystem("1010.1", Radix(2)))
         }
     }
 }
