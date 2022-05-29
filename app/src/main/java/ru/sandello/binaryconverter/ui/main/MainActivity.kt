@@ -107,10 +107,7 @@ class MainActivity : ComponentActivity() {
                     sheetShape = ShapesTop.extraLarge,
                     sheetContent = {
                         Surface(modifier = Modifier.imePadding()) {
-                            Explanation(
-                                from = viewModel.nsFrom.value,
-                                to = viewModel.nsTo.value,
-                            )
+                            Explanation(viewModel.explanationState)
                         }
                     },
                 ) {
