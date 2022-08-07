@@ -86,10 +86,11 @@ fun MainScreen() {
             sheetContent = {
                 Surface(
                     modifier = Modifier
-                        .padding(top = 16.dp)
+                        .padding(top = 12.dp)
                         .statusBarsPadding()
                         .imePadding(),
                     shape = ShapesTop.extraLarge,
+                    tonalElevation = 16.dp,
                 ) {
                     Explanation(viewModel.explanationState)
                 }
@@ -98,7 +99,7 @@ fun MainScreen() {
             Scaffold(
                 bottomBar = {
                     Surface(
-                        tonalElevation = 3.dp
+                        tonalElevation = NavigationBarDefaults.Elevation,
                     ) {
                         NavigationBar(
                             modifier = Modifier.navigationBarsPadding(),
