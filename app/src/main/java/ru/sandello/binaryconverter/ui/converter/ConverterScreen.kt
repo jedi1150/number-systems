@@ -20,6 +20,7 @@ import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.ui.OperandVisualTransformation
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
     LazyColumn(

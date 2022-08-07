@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk 32
     defaultConfig {
         applicationId 'ru.sandello.binaryconverter'
         minSdk 21
@@ -46,7 +46,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
-        useIR = true
     }
     buildFeatures {
         compose true

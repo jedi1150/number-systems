@@ -1,15 +1,15 @@
 buildscript {
     ext {
-        kotlin_version = '1.6.21'
+        kotlin_version = '1.7.0'
         core_version = '1.7.0'
         multidex_version = '2.0.1'
-        lifecycle_version = '2.4.1'
-        compose_version = '1.2.0-beta02'
-        compose_material3_version = '1.0.0-alpha12'
-        navigation_compose_version = '2.4.2'
-        constraintlayout_compose_version = '1.0.0'
+        lifecycle_version = '2.5.1'
+        compose_version = '1.2.0'
+        compose_material3_version = '1.0.0-alpha15'
+        navigation_compose_version = '2.5.1'
+        constraintlayout_compose_version = '1.0.1'
         datastore_preferences_version = '1.0.0'
-        accompanist_version = '0.24.9-beta'
+        accompanist_version = '0.25.0'
         firebase_bom_version = '30.0.1'
     }
     repositories {
@@ -17,7 +17,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.2.0'
+        classpath 'com.android.tools.build:gradle:7.2.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 //        classpath 'com.google.gms:google-services:4.3.10'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.8.1'
