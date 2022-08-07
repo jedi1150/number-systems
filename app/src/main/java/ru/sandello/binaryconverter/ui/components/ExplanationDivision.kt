@@ -62,7 +62,7 @@ private fun PreviewExplanationLongDivision() {
 @Preview
 @Composable
 private fun PreviewExplanationLongDivisionDark() {
-    NumberSystemsTheme(isDarkTheme = true) {
+    NumberSystemsTheme(darkTheme = true) {
         Surface {
             ExplanationDivision(
                 Division(

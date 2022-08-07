@@ -82,7 +82,7 @@ private fun PreviewExplanationResult() {
 @Preview
 @Composable
 private fun PreviewExplanationResultDark() {
-    NumberSystemsTheme(isDarkTheme = true) {
+    NumberSystemsTheme(darkTheme = true) {
         Surface {
             ExplanationResult(NumberSystem("256", Radix(10)), (NumberSystem("100", Radix(2))))
         }

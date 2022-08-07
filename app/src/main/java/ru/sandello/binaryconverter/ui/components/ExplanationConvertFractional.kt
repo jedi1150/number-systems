@@ -56,7 +56,7 @@ private fun PreviewExplanationConvertFractional() {
 @Preview
 @Composable
 private fun PreviewExplanationConvertFractionalDark() {
-    NumberSystemsTheme(isDarkTheme = true) {
+    NumberSystemsTheme(darkTheme = true) {
         Surface {
             ExplanationConvertFractional(FractionMultiplier(multiplier = "10.703125", multiplicand = 16, product = "11.25", convertedProduct = "B"))
         }

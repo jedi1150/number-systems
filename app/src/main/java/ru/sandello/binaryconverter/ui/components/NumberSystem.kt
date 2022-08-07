@@ -36,7 +36,7 @@ private fun PreviewNumberSystem() {
 @Preview
 @Composable
 private fun PreviewNumberSystemDark() {
-    NumberSystemsTheme(isDarkTheme = true) {
+    NumberSystemsTheme(darkTheme = true) {
         Surface {
             Text(text = numberSystem(numberSystem = NumberSystem("256", Radix(10))))
         }

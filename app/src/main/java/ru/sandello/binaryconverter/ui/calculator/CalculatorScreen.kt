@@ -315,7 +315,7 @@ fun PreviewCalculatorScreen() {
 @Preview
 @Composable
 fun PreviewCalculatorScreenDark() {
-    NumberSystemsTheme(isDarkTheme = true) {
+    NumberSystemsTheme(darkTheme = true) {
         Surface {
             CalculatorScreen(viewModel = CalculatorViewModel(), mainPadding = PaddingValues())
         }

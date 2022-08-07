@@ -63,7 +63,7 @@ fun PreviewExplanationCombineParts() {
 @Preview
 @Composable
 fun PreviewExplanationCombinePartsDark() {
-    NumberSystemsTheme(isDarkTheme = true) {
+    NumberSystemsTheme(darkTheme = true) {
         Surface {
             ExplanationCombineParts(from = NumberSystem(value = "12.55", radix = Radix(8)), to = NumberSystem(value = "A.B4", Radix(16)))
         }

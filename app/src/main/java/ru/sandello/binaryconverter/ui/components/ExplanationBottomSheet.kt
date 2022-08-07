@@ -77,7 +77,7 @@ private fun PreviewExplanationCalculating() {
 @Composable
 @Preview(name = "Explanation Calculating Dark", group = "Calculating")
 private fun PreviewExplanationCalculatingDark() {
-    NumberSystemsTheme(isDarkTheme = true) {
+    NumberSystemsTheme(darkTheme = true) {
         Surface {
             Explanation(explanationStateFlow = MutableStateFlow(ExplanationState.Calculating))
         }
@@ -97,7 +97,7 @@ private fun PreviewExplanation() {
 @Composable
 @Preview(name = "Explanation Complete Dark", group = "Complete")
 private fun PreviewExplanationDark() {
-    NumberSystemsTheme(isDarkTheme = true) {
+    NumberSystemsTheme(darkTheme = true) {
         Surface {
             Explanation(explanationStateFlow = MutableStateFlow(ExplanationState.Complete(from = NumberSystem(value = "10.10", Radix(10)), to = NumberSystem("1010.1", Radix(2)))))
         }

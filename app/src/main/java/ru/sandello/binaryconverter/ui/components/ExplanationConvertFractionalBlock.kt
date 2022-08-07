@@ -115,7 +115,7 @@ private fun PreviewExplanationConvertFractionalBlock() {
 @Preview
 @Composable
 private fun PreviewExplanationConvertFractionalBlockDark() {
-    NumberSystemsTheme(isDarkTheme = true) {
+    NumberSystemsTheme(darkTheme = true) {
         Surface {
             ExplanationConvertFractionalBlock(NumberSystem("10.703125", Radix(10)), NumberSystem("A.B4", Radix(16)))
         }
@@ -125,7 +125,7 @@ private fun PreviewExplanationConvertFractionalBlockDark() {
 @Preview
 @Composable
 private fun PreviewExplanationConvertFractionalBlockDark2() {
-    NumberSystemsTheme(isDarkTheme = true) {
+    NumberSystemsTheme(darkTheme = true) {
         Surface {
             ExplanationConvertFractionalBlock(NumberSystem("123.123", Radix(10)), NumberSystem("1111011.000111110111", Radix(2)))
         }

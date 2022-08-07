@@ -71,7 +71,7 @@ fun PreviewExplanationConvertToDecimal() {
 @Preview
 @Composable
 fun PreviewExplanationConvertToDecimalDark() {
-    NumberSystemsTheme(isDarkTheme = true) {
+    NumberSystemsTheme(darkTheme = true) {
         Surface {
             ExplanationConvertToDecimal(NumberSystem("12.55", Radix(8)))
         }

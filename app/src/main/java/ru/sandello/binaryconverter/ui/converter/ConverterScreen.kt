@@ -175,7 +175,7 @@ private fun PreviewConverterScreen() {
 @Preview
 @Composable
 private fun PreviewConverterScreenDark() {
-    NumberSystemsTheme(isDarkTheme = true) {
+    NumberSystemsTheme(darkTheme = true) {
         Surface {
             ConverterScreen(viewModel = ConverterViewModel(), mainPadding = PaddingValues())
         }

@@ -117,7 +117,7 @@ private fun PreviewExplanationDivision() {
 @Preview
 @Composable
 private fun PreviewExplanationDivisionDark() {
-    NumberSystemsTheme(isDarkTheme = true) {
+    NumberSystemsTheme(darkTheme = true) {
         Surface {
             ExplanationDivisionBlock(NumberSystem("25", Radix(10)), NumberSystem("11001", Radix(2)))
         }

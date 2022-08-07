@@ -34,7 +34,7 @@ private fun PreviewPositionedNumber() {
 @Preview
 @Composable
 private fun PreviewPositionedNumberDark() {
-    NumberSystemsTheme(isDarkTheme = true) {
+    NumberSystemsTheme(darkTheme = true) {
         Surface {
             Text(text = positionedNumber(number = 5, position = 2))
         }

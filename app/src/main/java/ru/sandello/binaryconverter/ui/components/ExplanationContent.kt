@@ -72,7 +72,7 @@ private fun PreviewExplanationContent() {
 @Preview
 @Composable
 private fun PreviewExplanationContentDark() {
-    NumberSystemsTheme(isDarkTheme = true) {
+    NumberSystemsTheme(darkTheme = true) {
         Surface {
             ExplanationContent(from = NumberSystem(value = "12.55", Radix(8)), to = NumberSystem(value = "10.703125", Radix(10)))
         }
@@ -82,7 +82,7 @@ private fun PreviewExplanationContentDark() {
 @Preview
 @Composable
 private fun PreviewExplanationContentBinHexDark() {
-    NumberSystemsTheme(isDarkTheme = true) {
+    NumberSystemsTheme(darkTheme = true) {
         Surface {
             ExplanationContent(from = NumberSystem(value = "10.101010", Radix(2)), to = NumberSystem(value = "2.A8", Radix(16)))
         }
