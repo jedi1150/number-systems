@@ -1,6 +1,5 @@
 package ru.sandello.binaryconverter.ui.main
 
-//import androidx.compose.material.*
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -75,7 +74,6 @@ class MainActivity : ComponentActivity() {
 
                 val navController = rememberNavController()
 
-                val imeIsVisible = WindowInsets.ime.asPaddingValues().calculateBottomPadding() > 0.dp
                 val bottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Expanded)
 
                 SideEffect {
@@ -104,9 +102,16 @@ class MainActivity : ComponentActivity() {
 
                 ModalBottomSheetLayout(
                     sheetState = bottomSheetState,
-                    sheetShape = ShapesTop.extraLarge,
+                    sheetElevation = 0.dp,
+                    sheetBackgroundColor = Color.Transparent,
                     sheetContent = {
-                        Surface(modifier = Modifier.imePadding()) {
+                        Surface(
+                            modifier = Modifier
+                                .padding(top = 16.dp)
+                                .statusBarsPadding()
+                                .imePadding(),
+                            shape = ShapesTop.extraLarge,
+                        ) {
                             Explanation(viewModel.explanationState)
                         }
                     },

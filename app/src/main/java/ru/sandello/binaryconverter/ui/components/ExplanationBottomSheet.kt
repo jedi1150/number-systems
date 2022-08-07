@@ -29,7 +29,12 @@ fun Explanation(explanationStateFlow: StateFlow<ExplanationState>) {
     val explanationState by explanationStateFlow.collectAsState()
     val explanation: ExplanationState = explanationState
 
-    Column(modifier = Modifier.padding(top = 8.dp, bottom = 24.dp)) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 16.dp)
+            .statusBarsPadding()
+    ) {
         Box(
             modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center,
