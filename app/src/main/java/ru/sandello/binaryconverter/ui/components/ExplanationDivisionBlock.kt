@@ -48,17 +48,20 @@ fun ExplanationDivisionBlock(from: NumberSystem, to: NumberSystem) {
             fontWeight = FontWeight.Medium,
         )
 
-        divisionList.forEach { longDivision ->
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .horizontalScroll(rememberScrollState())
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                content = {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+        ) {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(6.dp),
+            ) {
+                divisionList.forEach { longDivision ->
                     ExplanationDivision(longDivision)
                 }
-            )
+            }
         }
 
         Text(
@@ -73,7 +76,6 @@ fun ExplanationDivisionBlock(from: NumberSystem, to: NumberSystem) {
                 .fillMaxWidth()
                 .horizontalScroll(rememberScrollState())
                 .padding(horizontal = 16.dp, vertical = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
             content = {
                 Text(
                     text = buildAnnotatedString {

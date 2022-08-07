@@ -2,6 +2,7 @@ package ru.sandello.binaryconverter.ui.components
 
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -58,14 +59,17 @@ fun ExplanationResult(from: NumberSystem, to: NumberSystem) {
             fontSize = 20.sp,
             fontWeight = FontWeight.Medium,
         )
-        Text(
-            text = text,
-            inlineContent = inlineContent,
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .horizontalScroll(rememberScrollState())
                 .padding(horizontal = 16.dp, vertical = 8.dp),
-        )
+        ) {
+            Text(
+                text = text,
+                inlineContent = inlineContent,
+            )
+        }
     }
 }
 

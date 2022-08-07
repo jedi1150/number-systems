@@ -51,18 +51,22 @@ fun ExplanationConvertFractionalBlock(from: NumberSystem, to: NumberSystem) {
             fontSize = 20.sp,
             fontWeight = FontWeight.Medium,
         )
-        fractionMultiplierList.forEach { fractionMultiplier ->
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .horizontalScroll(rememberScrollState())
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                content = {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp, vertical = 8.dp),
+        ) {
+            fractionMultiplierList.forEach { fractionMultiplier ->
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(6.dp),
+                ) {
                     ExplanationConvertFractional(fractionMultiplier)
-                },
-            )
+                }
+            }
         }
+
         Text(
             text = "Write the result from top to bottom",
             modifier = Modifier

@@ -1,7 +1,10 @@
 package ru.sandello.binaryconverter.ui.components
 
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -34,19 +37,17 @@ fun ExplanationCombineParts(from: NumberSystem, to: NumberSystem) {
                 .fillMaxWidth()
                 .horizontalScroll(rememberScrollState())
                 .padding(horizontal = 16.dp, vertical = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            content = {
-                Text(
-                    text = buildAnnotatedString {
-                        append(numberSystem(numberSystem = from))
-                        withStyle(SpanStyle(letterSpacing = 6.sp)) {
-                            append("=")
-                        }
-                        append(numberSystem(numberSystem = to))
+        ) {
+            Text(
+                text = buildAnnotatedString {
+                    append(numberSystem(numberSystem = from))
+                    withStyle(SpanStyle(letterSpacing = 6.sp)) {
+                        append("=")
                     }
-                )
-            }
-        )
+                    append(numberSystem(numberSystem = to))
+                }
+            )
+        }
     }
 }
 
