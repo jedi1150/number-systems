@@ -55,13 +55,13 @@ fun ExplanationConvertFractionalBlock(from: NumberSystem, to: NumberSystem) {
             modifier = Modifier
                 .fillMaxWidth()
                 .horizontalScroll(rememberScrollState())
-                .padding(horizontal = 16.dp, vertical = 8.dp),
+                .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
-            fractionMultiplierList.forEach { fractionMultiplier ->
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(6.dp),
-                ) {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(6.dp),
+            ) {
+                fractionMultiplierList.forEach { fractionMultiplier ->
                     ExplanationConvertFractional(fractionMultiplier)
                 }
             }
