@@ -37,7 +37,7 @@ fun ExplanationContent(from: NumberSystem, to: NumberSystem) {
         }
         if (from.radix.value != 10) {
             item {
-                ExplanationConvertToDecimal(from = from)
+                ExplanationConvertToDecimal(from = from, to = to)
             }
         }
         if (to.radix != Radix(10)) {

@@ -24,7 +24,7 @@ import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @Composable
-fun ExplanationConvertToDecimal(from: NumberSystem) {
+fun ExplanationConvertToDecimal(from: NumberSystem, to: NumberSystem) {
     val position = from.value.substringBefore(".").length
     val filteredValue = from.value.toList().filterNot { it == '.' }
 
@@ -55,7 +55,7 @@ fun ExplanationConvertToDecimal(from: NumberSystem) {
                         if (index != filteredValue.lastIndex) withStyle(SpanStyle(letterSpacing = 6.sp)) { append("+") }
                     }
                     withStyle(SpanStyle(letterSpacing = 6.sp)) { append("=") }
-//                append(numberSystem(numberSystem = to))
+                    append(numberSystem(numberSystem = to))
                 },
             )
         }
@@ -67,7 +67,7 @@ fun ExplanationConvertToDecimal(from: NumberSystem) {
 fun PreviewExplanationConvertToDecimal() {
     NumberSystemsTheme {
         Surface {
-            ExplanationConvertToDecimal(NumberSystem("12.55", Radix(8)))
+            ExplanationConvertToDecimal(from = NumberSystem("12.55", Radix(8)), to = NumberSystem("10.703125", Radix(10)))
         }
     }
 }
@@ -77,7 +77,7 @@ fun PreviewExplanationConvertToDecimal() {
 fun PreviewExplanationConvertToDecimalDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            ExplanationConvertToDecimal(NumberSystem("12.55", Radix(8)))
+            ExplanationConvertToDecimal(NumberSystem("12.55", Radix(8)), to = NumberSystem("10.703125", Radix(10)))
         }
     }
 }
