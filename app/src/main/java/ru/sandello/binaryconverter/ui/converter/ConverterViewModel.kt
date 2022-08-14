@@ -21,7 +21,7 @@ import ru.sandello.binaryconverter.utils.Shared.converter
 
 class ConverterViewModel : ViewModel() {
 
-    private val _numberSystem10 = mutableStateOf(NumberSystem("123123123123123123123123123123123123123", Radix(10)))
+    private val _numberSystem10 = mutableStateOf(NumberSystem(String(), Radix(10)))
     val numberSystem10: State<NumberSystem> = _numberSystem10
     private val _numberSystem2 = mutableStateOf(NumberSystem(String(), Radix(2)))
     val numberSystem2: State<NumberSystem> = _numberSystem2
