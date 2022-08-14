@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
     defaultConfig {
         applicationId 'ru.sandello.binaryconverter'
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 113
         versionName '2.0.0'
         vectorDrawables {
@@ -51,7 +51,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion compose_version
+        kotlinCompilerExtensionVersion compose_compiler_version
     }
     packagingOptions {
         resources {
