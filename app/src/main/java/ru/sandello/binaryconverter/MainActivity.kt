@@ -32,33 +32,6 @@ class MainActivity : ComponentActivity() {
 
 //        Shared.resourcesHelper = ResourcesHelper(applicationContext)
 //        Shared.preferencesHelper = PreferencesHelper(applicationContext)
-//        setNightMode()
-//        binding = ActivityMainBinding.inflate(layoutInflater)
-//        setContentView(binding.root)
-//        binding.mainContainer.setOnApplyWindowInsetsListener { _, insets ->
-//            binding.bottomNavigation.updatePadding(bottom = insets.systemWindowInsetBottom, right = insets.systemWindowInsetRight, left = insets.systemWindowInsetLeft)
-//            insets
-//        }
-
-//        val themePref = getSharedPreferences("decLength", Context.MODE_PRIVATE)
-//        Shared.FRACTION_COUNT = themePref.getInt("decLength", 12)
-
-//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-//        val navController = navHostFragment.navController
-//        setupBottomNavMenu(navController)
-        /*       navController.addOnDestinationChangedListener { _, destination, _ ->
-                   if (destination.label.toString() == "Settings") {
-                       binding.clearFab.hide()
-                       binding.explanationFab.hide()
-                       val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-                       inputMethodManager.hideSoftInputFromWindow(binding.mainContainer.windowToken, 0)
-                   }
-                   if (destination.label.toString() == "Calculator") {
-                       binding.explanationFab.hide()
-                   }
-               }*/
-
-//        binding.bottomNavigation.setOnNavigationItemReselectedListener { }
 
         /*val adDialog = AlertDialog.Builder(this)
         adDialog.setTitle(getString(R.string.ad))
@@ -89,49 +62,5 @@ class MainActivity : ComponentActivity() {
             }
         })*/
     }
-
-/*    private fun setupBottomNavMenu(navController: NavController) {
-        binding.bottomNavigation.let {
-            NavigationUI.setupWithNavController(it, navController)
-        }
-    }*/
-
-//    override fun onSupportNavigateUp() = findNavController(R.id.nav_host_fragment).navigateUp()
-
-
-//    @SuppressLint("InlinedApi")
-//    private fun setNightMode() {
-////        val isNightMode = this.resources.configuration.uiMode
-////                .and(Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
-////        window.decorView.systemUiVisibility = (
-////                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-////                )
-////        if (!isNightMode) {
-////            window.decorView.systemUiVisibility = (
-////                    View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-////                            or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-////                            xor View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-////                    )
-////        }
-////        val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-////        if (sharedPreferences.getString("theme", "2") == "1") {
-////            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-////            delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
-////        }
-////        if (sharedPreferences.getString("theme", "2") == "0") {
-////            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-////            delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
-////        }
-////
-////        if (sharedPreferences.getString("theme", "2") == "2") {
-////            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-////                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
-////                delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY
-////            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-////                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-////                delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-////            }
-////        }
-//    }
 
 }
