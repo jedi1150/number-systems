@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
+import ru.sandello.binaryconverter.utils.NS_DELIMITER
 
 @Composable
 fun ExplanationContent(from: NumberSystem, to: NumberSystem) {
@@ -44,7 +45,7 @@ fun ExplanationContent(from: NumberSystem, to: NumberSystem) {
             item {
                 ExplanationDivisionBlock(from = from, to = to)
             }
-            if (from.value.contains(".")) {
+            if (from.value.contains(NS_DELIMITER)) {
                 item {
                     ExplanationConvertFractionalBlock(from = from, to = to)
                 }

@@ -70,7 +70,7 @@ class Converter {
             result = result.substringBeforeLast("0")
         }
 
-        while (result.length > 1 && result.contains("[,.]".toRegex()) && (result.endsWith(",") || result.endsWith("."))) {
+        while (result.length > 1 && result.contains("[,.]".toRegex()) && (result.endsWith(COMMA) || result.endsWith(NS_DELIMITER))) {
             result = result.split("[,.]".toRegex())[0]
         }
 
@@ -81,7 +81,7 @@ class Converter {
         Log.d(APP_TAG, "Converter::fromDec")
 
         var result: String = value.value.split("[,.]".toRegex())[0].toBigInteger(10).toString(toRadix.value).uppercase(Locale.getDefault())
-        if ((value.value.contains(",") || value.value.contains(".")) && value.value.split("[,.]".toRegex())[1].isNotEmpty()) {
+        if ((value.value.contains(COMMA) || value.value.contains(NS_DELIMITER)) && value.value.split("[,.]".toRegex())[1].isNotEmpty()) {
             var fractionalPart = value.value
             var i = 0
             var convertedFraction = ""

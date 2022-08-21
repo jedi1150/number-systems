@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import ru.sandello.binaryconverter.model.FractionMultiplier
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
+import ru.sandello.binaryconverter.utils.NS_DELIMITER
 
 @Composable
 fun ExplanationConvertFractional(fractionMultiplier: FractionMultiplier) {
@@ -25,11 +26,11 @@ fun ExplanationConvertFractional(fractionMultiplier: FractionMultiplier) {
                 append("=")
             }
             withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                append(fractionMultiplier.product.substringBefore("."))
+                append(fractionMultiplier.product.substringBefore(NS_DELIMITER))
             }
-            if (fractionMultiplier.product.contains(".")) {
-                append(".")
-                append(fractionMultiplier.product.substringAfter("."))
+            if (fractionMultiplier.product.contains(NS_DELIMITER)) {
+                append(NS_DELIMITER)
+                append(fractionMultiplier.product.substringAfter(NS_DELIMITER))
             }
             fractionMultiplier.convertedProduct?.let { convertedProduct ->
                 withStyle(SpanStyle(letterSpacing = 6.sp)) {

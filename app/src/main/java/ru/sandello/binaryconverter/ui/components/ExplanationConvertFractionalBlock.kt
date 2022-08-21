@@ -20,6 +20,7 @@ import ru.sandello.binaryconverter.model.FractionMultiplier
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
+import ru.sandello.binaryconverter.utils.NS_DELIMITER
 import ru.sandello.binaryconverter.utils.getFractional
 import java.math.BigDecimal
 
@@ -86,7 +87,7 @@ fun ExplanationConvertFractionalBlock(from: NumberSystem, to: NumberSystem) {
                         withStyle(SpanStyle(letterSpacing = 6.sp)) {
                             append("=")
                         }
-                        append(numberSystem(numberSystem = NumberSystem(value = "0." + to.value.substringAfter("."), radix = to.radix)))
+                        append(numberSystem(numberSystem = NumberSystem(value = "0." + to.value.substringAfter(NS_DELIMITER), radix = to.radix)))
                     }
                 )
             }

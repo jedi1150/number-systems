@@ -22,11 +22,12 @@ import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
+import ru.sandello.binaryconverter.utils.NS_DELIMITER
 
 @Composable
 fun ExplanationConvertToDecimal(from: NumberSystem, to: NumberSystem) {
-    val position = from.value.substringBefore(".").length
-    val filteredValue = from.value.toList().filterNot { it == '.' }
+    val position = from.value.substringBefore(NS_DELIMITER).length
+    val filteredValue = from.value.toList().filterNot { it == NS_DELIMITER }
 
     Column {
         Text(

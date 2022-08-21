@@ -7,5 +7,5 @@ fun getFractional(value: BigDecimal): String {
 }
 
 fun getFractional(value: String): String {
-    return "0." + value.substringAfter(".")
+    return "0." + value.substringAfter(NS_DELIMITER)
 }
