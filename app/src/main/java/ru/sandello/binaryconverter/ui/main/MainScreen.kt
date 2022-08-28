@@ -14,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
@@ -33,10 +34,11 @@ import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.Screen
 import ru.sandello.binaryconverter.ui.calculator.CalculatorScreen
 import ru.sandello.binaryconverter.ui.calculator.CalculatorViewModel
-import ru.sandello.binaryconverter.ui.components.Explanation
 import ru.sandello.binaryconverter.ui.converter.ConverterScreen
 import ru.sandello.binaryconverter.ui.converter.ConverterViewModel
+import ru.sandello.binaryconverter.ui.explanation.ExplanationScreen
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
+import ru.sandello.binaryconverter.ui.theme.Shapes
 import ru.sandello.binaryconverter.ui.theme.ShapesTop
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
@@ -92,7 +94,24 @@ fun MainScreen() {
                     shape = ShapesTop.extraLarge,
                     tonalElevation = 16.dp,
                 ) {
-                    Explanation(viewModel.explanationState)
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(top = 16.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            Divider(
+                                modifier = Modifier
+                                    .size(width = 50.dp, height = 4.dp)
+                                    .clip(Shapes.small),
+                                color = MaterialTheme.colorScheme.outline,
+                            )
+                        }
+                        ExplanationScreen(viewModel.explanationState)
+                    }
                 }
             },
         ) {

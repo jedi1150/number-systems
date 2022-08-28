@@ -1,4 +1,4 @@
-package ru.sandello.binaryconverter.ui.components
+package ru.sandello.binaryconverter.ui.explanation.components
 
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text

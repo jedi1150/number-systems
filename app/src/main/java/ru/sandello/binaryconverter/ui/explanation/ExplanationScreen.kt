@@ -1,15 +1,14 @@
-package ru.sandello.binaryconverter.ui.components
+package ru.sandello.binaryconverter.ui.explanation
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Divider
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,29 +21,13 @@ import ru.sandello.binaryconverter.model.ExplanationState
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
-import ru.sandello.binaryconverter.ui.theme.Shapes
 
 @Composable
-fun Explanation(explanationStateFlow: StateFlow<ExplanationState>) {
+fun ExplanationScreen(explanationStateFlow: StateFlow<ExplanationState>) {
     val explanationState by explanationStateFlow.collectAsState()
     val explanation: ExplanationState = explanationState
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 16.dp)
-            .statusBarsPadding()
-    ) {
-        Box(
-            modifier = Modifier.fillMaxWidth(),
-            contentAlignment = Alignment.Center,
-        ) {
-            Divider(
-                modifier = Modifier
-                    .size(width = 50.dp, height = 4.dp)
-                    .clip(Shapes.small),
-            )
-        }
+    Column {
         Text(
             text = stringResource(R.string.explanation),
             modifier = Modifier
@@ -69,7 +52,7 @@ fun Explanation(explanationStateFlow: StateFlow<ExplanationState>) {
 private fun PreviewExplanationCalculating() {
     NumberSystemsTheme {
         Surface {
-            Explanation(explanationStateFlow = MutableStateFlow(ExplanationState.Calculating))
+            ExplanationScreen(explanationStateFlow = MutableStateFlow(ExplanationState.Calculating))
         }
     }
 }
@@ -79,7 +62,7 @@ private fun PreviewExplanationCalculating() {
 private fun PreviewExplanationCalculatingDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            Explanation(explanationStateFlow = MutableStateFlow(ExplanationState.Calculating))
+            ExplanationScreen(explanationStateFlow = MutableStateFlow(ExplanationState.Calculating))
         }
     }
 }
@@ -89,7 +72,7 @@ private fun PreviewExplanationCalculatingDark() {
 private fun PreviewExplanation() {
     NumberSystemsTheme {
         Surface {
-            Explanation(explanationStateFlow = MutableStateFlow(ExplanationState.Complete(from = NumberSystem(value = "10.5", Radix(10)), to = NumberSystem("1010.1", Radix(2)))))
+            ExplanationScreen(explanationStateFlow = MutableStateFlow(ExplanationState.Complete(from = NumberSystem(value = "10.5", Radix(10)), to = NumberSystem("1010.1", Radix(2)))))
         }
     }
 }
@@ -99,7 +82,7 @@ private fun PreviewExplanation() {
 private fun PreviewExplanationDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            Explanation(explanationStateFlow = MutableStateFlow(ExplanationState.Complete(from = NumberSystem(value = "10.10", Radix(10)), to = NumberSystem("1010.1", Radix(2)))))
+            ExplanationScreen(explanationStateFlow = MutableStateFlow(ExplanationState.Complete(from = NumberSystem(value = "10.10", Radix(10)), to = NumberSystem("1010.1", Radix(2)))))
         }
     }
 }

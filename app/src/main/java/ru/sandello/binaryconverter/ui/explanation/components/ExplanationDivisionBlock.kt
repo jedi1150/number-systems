@@ -1,4 +1,4 @@
-package ru.sandello.binaryconverter.ui.components
+package ru.sandello.binaryconverter.ui.explanation.components
 
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
