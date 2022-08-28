@@ -1,5 +1,7 @@
 package ru.sandello.binaryconverter.ui.explanation
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -15,7 +17,7 @@ import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.ExplanationState
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
 fun ExplanationScreen(
     viewModel: ExplanationViewModel,
@@ -120,12 +122,25 @@ fun ExplanationScreen(
                 }
             }
         }
-        when (val explanationState = viewModel.explanationState.collectAsState().value) {
-            ExplanationState.Calculating -> {
-                Text("Calculating...") // TODO(oleg): Add loader
-            }
-            is ExplanationState.Complete -> {
-                ExplanationContent(from = explanationState.from, to = explanationState.to)
+        AnimatedContent(
+            targetState = viewModel.explanationState.collectAsState().value,
+        ) { targetExpanded ->
+            when (targetExpanded) {
+                ExplanationState.Calculating -> {
+                    Box(
+                        modifier = Modifier.fillMaxWidth(),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        CircularProgressIndicator(
+                            modifier = Modifier
+                                .padding(16.dp)
+                                .navigationBarsPadding()
+                        )
+                    }
+                }
+                is ExplanationState.Complete -> {
+                    ExplanationContent(from = targetExpanded.from, to = targetExpanded.to)
+                }
             }
         }
     }

@@ -66,9 +66,9 @@ fun MainScreen() {
         LaunchedEffect(converterViewModel.showExplanation.value) {
             if (converterViewModel.showExplanation.value) {
                 scope.launch {
+                    explanationViewModel.acceptValues(converterViewModel.numberSystem10.value, converterViewModel.numberSystem2.value)
                     keyboardController?.hide()
                     bottomSheetState.show()
-                    explanationViewModel.acceptValues(converterViewModel.numberSystem10.value, converterViewModel.numberSystem2.value)
                 }
             } else {
                 scope.launch {
@@ -97,9 +97,7 @@ fun MainScreen() {
                     tonalElevation = 16.dp,
                 ) {
                     Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(top = 16.dp)
+                        modifier = Modifier.padding(top = 16.dp)
                     ) {
                         Box(
                             modifier = Modifier.fillMaxWidth(),
