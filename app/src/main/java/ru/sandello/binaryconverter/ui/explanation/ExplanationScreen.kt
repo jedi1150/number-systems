@@ -1,32 +1,25 @@
 package ru.sandello.binaryconverter.ui.explanation
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.ExplanationState
-import ru.sandello.binaryconverter.model.NumberSystem
-import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ExplanationScreen(explanationStateFlow: StateFlow<ExplanationState>) {
-    val explanationState by explanationStateFlow.collectAsState()
-    val explanation: ExplanationState = explanationState
-
+fun ExplanationScreen(
+    viewModel: ExplanationViewModel,
+) {
     Column {
         Text(
             text = stringResource(R.string.explanation),
@@ -36,23 +29,114 @@ fun ExplanationScreen(explanationStateFlow: StateFlow<ExplanationState>) {
             fontSize = 24.sp,
             fontWeight = FontWeight.Medium,
         )
-        when (explanation) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            var customRadix1Expanded by remember { mutableStateOf(false) }
+            var customRadix2Expanded by remember { mutableStateOf(false) }
+            ExposedDropdownMenuBox(
+                expanded = customRadix1Expanded,
+                onExpandedChange = {
+                    customRadix1Expanded = !customRadix1Expanded
+                },
+                modifier = Modifier.weight(1f),
+            ) {
+                OutlinedTextField(
+                    value = viewModel.nsFrom.value.radix.value.toString(),
+                    onValueChange = { },
+                    readOnly = true,
+                    label = {},
+                    trailingIcon = {
+                        ExposedDropdownMenuDefaults.TrailingIcon(
+                            expanded = customRadix1Expanded
+                        )
+                    },
+                    shape = MaterialTheme.shapes.medium,
+                    singleLine = true,
+                )
+                ExposedDropdownMenu(
+                    expanded = customRadix1Expanded,
+                    onDismissRequest = {
+                        customRadix1Expanded = false
+                    },
+                ) {
+                    viewModel.radixes.forEach { radix ->
+                        DropdownMenuItem(
+                            text = {
+                                Text(text = radix.value.toString())
+                            },
+                            onClick = {
+                                viewModel.updateRadix(radixType = RadixType.RadixCustom1, newRadix = radix)
+                                customRadix1Expanded = false
+                            },
+                        )
+                    }
+                }
+            }
+            IconButton(onClick = viewModel::radixesViceVersa) {
+                Icon(painter = painterResource(id = R.drawable.ic_baseline_shuffle_24), contentDescription = null)
+            }
+            ExposedDropdownMenuBox(
+                expanded = customRadix2Expanded,
+                onExpandedChange = {
+                    customRadix2Expanded = !customRadix2Expanded
+                },
+                modifier = Modifier.weight(1f),
+            ) {
+                OutlinedTextField(
+                    value = viewModel.nsTo.value.radix.value.toString(),
+                    onValueChange = { },
+                    readOnly = true,
+                    label = {},
+                    trailingIcon = {
+                        ExposedDropdownMenuDefaults.TrailingIcon(
+                            expanded = customRadix2Expanded
+                        )
+                    },
+                    shape = MaterialTheme.shapes.medium,
+                    singleLine = true,
+                )
+                ExposedDropdownMenu(
+                    expanded = customRadix2Expanded,
+                    onDismissRequest = {
+                        customRadix2Expanded = false
+                    },
+                ) {
+                    viewModel.radixes.forEach { radix ->
+                        DropdownMenuItem(
+                            text = {
+                                Text(text = radix.value.toString())
+                            },
+                            onClick = {
+                                viewModel.updateRadix(radixType = RadixType.RadixCustom2, newRadix = radix)
+                                customRadix2Expanded = false
+                            },
+                        )
+                    }
+                }
+            }
+        }
+        when (val explanationState = viewModel.explanationState.collectAsState().value) {
             ExplanationState.Calculating -> {
                 Text("Calculating...") // TODO(oleg): Add loader
             }
             is ExplanationState.Complete -> {
-                ExplanationContent(from = explanation.from, to = (explanationState as ExplanationState.Complete).to)
+                ExplanationContent(from = explanationState.from, to = explanationState.to)
             }
         }
     }
 }
 
 @Composable
-@Preview(name = "Explanation Calculating Light", group = "Calculating")
+@Preview(name = "ExplanationScreen", group = "Calculating")
 private fun PreviewExplanationCalculating() {
     NumberSystemsTheme {
         Surface {
-            ExplanationScreen(explanationStateFlow = MutableStateFlow(ExplanationState.Calculating))
+            ExplanationScreen(viewModel = ExplanationViewModel())
         }
     }
 }
@@ -62,27 +146,7 @@ private fun PreviewExplanationCalculating() {
 private fun PreviewExplanationCalculatingDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            ExplanationScreen(explanationStateFlow = MutableStateFlow(ExplanationState.Calculating))
-        }
-    }
-}
-
-@Composable
-@Preview(name = "Explanation Complete Light", group = "Complete")
-private fun PreviewExplanation() {
-    NumberSystemsTheme {
-        Surface {
-            ExplanationScreen(explanationStateFlow = MutableStateFlow(ExplanationState.Complete(from = NumberSystem(value = "10.5", Radix(10)), to = NumberSystem("1010.1", Radix(2)))))
-        }
-    }
-}
-
-@Composable
-@Preview(name = "Explanation Complete Dark", group = "Complete")
-private fun PreviewExplanationDark() {
-    NumberSystemsTheme(darkTheme = true) {
-        Surface {
-            ExplanationScreen(explanationStateFlow = MutableStateFlow(ExplanationState.Complete(from = NumberSystem(value = "10.10", Radix(10)), to = NumberSystem("1010.1", Radix(2)))))
+            ExplanationScreen(viewModel = ExplanationViewModel())
         }
     }
 }

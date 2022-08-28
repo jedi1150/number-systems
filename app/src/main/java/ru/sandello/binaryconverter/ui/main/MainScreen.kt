@@ -37,6 +37,7 @@ import ru.sandello.binaryconverter.ui.calculator.CalculatorViewModel
 import ru.sandello.binaryconverter.ui.converter.ConverterScreen
 import ru.sandello.binaryconverter.ui.converter.ConverterViewModel
 import ru.sandello.binaryconverter.ui.explanation.ExplanationScreen
+import ru.sandello.binaryconverter.ui.explanation.ExplanationViewModel
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.ui.theme.Shapes
 import ru.sandello.binaryconverter.ui.theme.ShapesTop
@@ -47,6 +48,7 @@ fun MainScreen() {
     val viewModel: MainViewModel = viewModel()
     val converterViewModel: ConverterViewModel = viewModel()
     val calculatorViewModel: CalculatorViewModel = viewModel()
+    val explanationViewModel: ExplanationViewModel = viewModel()
 
     val screens = listOf(
         Screen.Converter,
@@ -66,7 +68,7 @@ fun MainScreen() {
                 scope.launch {
                     keyboardController?.hide()
                     bottomSheetState.show()
-                    viewModel.acceptValues(converterViewModel.numberSystem10.value, converterViewModel.numberSystem2.value)
+                    explanationViewModel.acceptValues(converterViewModel.numberSystem10.value, converterViewModel.numberSystem2.value)
                 }
             } else {
                 scope.launch {
@@ -110,7 +112,7 @@ fun MainScreen() {
                                 color = MaterialTheme.colorScheme.outline,
                             )
                         }
-                        ExplanationScreen(viewModel.explanationState)
+                        ExplanationScreen(explanationViewModel)
                     }
                 }
             },
