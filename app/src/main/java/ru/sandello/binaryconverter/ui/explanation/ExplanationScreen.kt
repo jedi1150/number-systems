@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.ExplanationState
-import ru.sandello.binaryconverter.ui.components.RadixOutlinedTextField
+import ru.sandello.binaryconverter.ui.components.RadixExposedDropdown
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class, ExperimentalAnimationGraphicsApi::class)
@@ -44,44 +44,24 @@ fun ExplanationScreen(
         ) {
             var customRadix1Expanded by remember { mutableStateOf(false) }
             var customRadix2Expanded by remember { mutableStateOf(false) }
-            ExposedDropdownMenuBox(
+            RadixExposedDropdown(
                 expanded = customRadix1Expanded,
-                onExpandedChange = {
-                    customRadix1Expanded = !customRadix1Expanded
+                onExpandedChange = { customRadix1Expanded = !customRadix1Expanded },
+                onDismissRequest = { customRadix1Expanded = false },
+                onRadixClicked = { radix ->
+                    viewModel.updateRadix(radixType = RadixType.RadixCustom1, newRadix = radix)
+                    customRadix1Expanded = false
                 },
+                radix = viewModel.nsFrom.value.radix,
+                radixes = viewModel.radixes,
                 modifier = Modifier.weight(1f),
-            ) {
-                RadixOutlinedTextField(
-                    value = viewModel.nsFrom.value.radix.value.toString(),
-                    onValueChange = {},
-                    readOnly = true,
-                    trailingIcon = {
-                        ExposedDropdownMenuDefaults.TrailingIcon(
-                            expanded = customRadix1Expanded
-                        )
-                    },
-                    shape = MaterialTheme.shapes.medium,
-                    singleLine = true,
-                )
-                ExposedDropdownMenu(
-                    expanded = customRadix1Expanded,
-                    onDismissRequest = {
-                        customRadix1Expanded = false
-                    },
-                ) {
-                    viewModel.radixes.forEach { radix ->
-                        DropdownMenuItem(
-                            text = {
-                                Text(text = radix.value.toString())
-                            },
-                            onClick = {
-                                viewModel.updateRadix(radixType = RadixType.RadixCustom1, newRadix = radix)
-                                customRadix1Expanded = false
-                            },
-                        )
-                    }
-                }
-            }
+                trailingIcon = {
+                    ExposedDropdownMenuDefaults.TrailingIcon(
+                        expanded = customRadix1Expanded
+                    )
+                },
+                shape = MaterialTheme.shapes.medium,
+            )
             var atEnd by remember { mutableStateOf(false) }
             IconButton(
                 onClick = {
@@ -97,44 +77,24 @@ fun ExplanationScreen(
                     contentDescription = null,
                 )
             }
-            ExposedDropdownMenuBox(
+            RadixExposedDropdown(
                 expanded = customRadix2Expanded,
-                onExpandedChange = {
-                    customRadix2Expanded = !customRadix2Expanded
+                onExpandedChange = { customRadix2Expanded = !customRadix2Expanded },
+                onDismissRequest = { customRadix2Expanded = false },
+                onRadixClicked = { radix ->
+                    viewModel.updateRadix(radixType = RadixType.RadixCustom2, newRadix = radix)
+                    customRadix2Expanded = false
                 },
+                radix = viewModel.nsTo.value.radix,
+                radixes = viewModel.radixes,
                 modifier = Modifier.weight(1f),
-            ) {
-                RadixOutlinedTextField(
-                    value = viewModel.nsTo.value.radix.value.toString(),
-                    onValueChange = {},
-                    readOnly = true,
-                    trailingIcon = {
-                        ExposedDropdownMenuDefaults.TrailingIcon(
-                            expanded = customRadix2Expanded
-                        )
-                    },
-                    shape = MaterialTheme.shapes.medium,
-                    singleLine = true,
-                )
-                ExposedDropdownMenu(
-                    expanded = customRadix2Expanded,
-                    onDismissRequest = {
-                        customRadix2Expanded = false
-                    },
-                ) {
-                    viewModel.radixes.forEach { radix ->
-                        DropdownMenuItem(
-                            text = {
-                                Text(text = radix.value.toString())
-                            },
-                            onClick = {
-                                viewModel.updateRadix(radixType = RadixType.RadixCustom2, newRadix = radix)
-                                customRadix2Expanded = false
-                            },
-                        )
-                    }
-                }
-            }
+                trailingIcon = {
+                    ExposedDropdownMenuDefaults.TrailingIcon(
+                        expanded = customRadix2Expanded
+                    )
+                },
+                shape = MaterialTheme.shapes.medium,
+            )
         }
         AnimatedContent(
             targetState = viewModel.explanationState.collectAsState().value,
