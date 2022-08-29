@@ -19,6 +19,7 @@ fun RadixExposedDropdown(
     radix: Radix,
     radixes: List<Radix>,
     modifier: Modifier = Modifier,
+    isCompact: Boolean,
     trailingIcon: @Composable (() -> Unit)? = null,
     shape: Shape = TextFieldDefaults.outlinedShape,
 ) {
@@ -27,14 +28,26 @@ fun RadixExposedDropdown(
         onExpandedChange = onExpandedChange,
         modifier = modifier,
     ) {
-        RadixOutlinedTextField(
-            radix = radix,
-            onValueChange = {},
-            readOnly = true,
-            trailingIcon = trailingIcon,
-            shape = shape,
-            singleLine = true,
-        )
+        if (isCompact) {
+            OutlinedTextField(
+                value = radix.value.toString(),
+                onValueChange = { },
+                readOnly = true,
+                trailingIcon = trailingIcon,
+                singleLine = true,
+                shape = shape,
+            )
+        } else {
+            OutlinedTextField(
+                value = radix.value.toString(),
+                onValueChange = {},
+                readOnly = true,
+                label = {},
+                trailingIcon = trailingIcon,
+                singleLine = true,
+                shape = shape,
+            )
+        }
         ExposedDropdownMenu(
             expanded = expanded,
             onDismissRequest = onDismissRequest,
@@ -53,7 +66,7 @@ fun RadixExposedDropdown(
 
 @Preview
 @Composable
-private fun PreviewRadixExposedDropdown() {
+private fun PreviewRadixExposedDropdownComact() {
     var expanded by remember { mutableStateOf(false) }
 
     NumberSystemsTheme {
@@ -65,6 +78,7 @@ private fun PreviewRadixExposedDropdown() {
                 onRadixClicked = { expanded = false },
                 radix = Radix(16),
                 radixes = mutableListOf(Radix(2), Radix(8), Radix(10), Radix(16)),
+                isCompact = true,
                 trailingIcon = {
                     ExposedDropdownMenuDefaults.TrailingIcon(
                         expanded = expanded
@@ -89,6 +103,7 @@ private fun PreviewRadixExposedDropdownDark() {
                 onRadixClicked = { expanded = false },
                 radix = Radix(16),
                 radixes = mutableListOf(Radix(2), Radix(8), Radix(10), Radix(16)),
+                isCompact = false,
                 trailingIcon = {
                     ExposedDropdownMenuDefaults.TrailingIcon(
                         expanded = expanded

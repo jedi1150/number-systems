@@ -55,6 +55,7 @@ fun ExplanationScreen(
                 radix = viewModel.nsFrom.value.radix,
                 radixes = viewModel.radixes,
                 modifier = Modifier.weight(1f),
+                isCompact = true,
                 trailingIcon = {
                     ExposedDropdownMenuDefaults.TrailingIcon(
                         expanded = customRadix1Expanded
@@ -88,6 +89,7 @@ fun ExplanationScreen(
                 radix = viewModel.nsTo.value.radix,
                 radixes = viewModel.radixes,
                 modifier = Modifier.weight(1f),
+                isCompact = true,
                 trailingIcon = {
                     ExposedDropdownMenuDefaults.TrailingIcon(
                         expanded = customRadix2Expanded
