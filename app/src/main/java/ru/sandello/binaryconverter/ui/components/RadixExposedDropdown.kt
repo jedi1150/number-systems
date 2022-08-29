@@ -3,7 +3,7 @@
 package ru.sandello.binaryconverter.ui.components
 
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,7 +28,7 @@ fun RadixExposedDropdown(
         modifier = modifier,
     ) {
         RadixOutlinedTextField(
-            value = radix.value.toString(),
+            radix = radix,
             onValueChange = {},
             readOnly = true,
             trailingIcon = trailingIcon,
@@ -54,15 +54,22 @@ fun RadixExposedDropdown(
 @Preview
 @Composable
 private fun PreviewRadixExposedDropdown() {
+    var expanded by remember { mutableStateOf(false) }
+
     NumberSystemsTheme {
         Surface {
             RadixExposedDropdown(
-                expanded = false,
-                onExpandedChange = {},
-                onDismissRequest = {},
-                onRadixClicked = {},
+                expanded = expanded,
+                onExpandedChange = { expanded = !expanded },
+                onDismissRequest = { expanded = false },
+                onRadixClicked = { expanded = false },
                 radix = Radix(16),
-                radixes = mutableListOf(),
+                radixes = mutableListOf(Radix(2), Radix(8), Radix(10), Radix(16)),
+                trailingIcon = {
+                    ExposedDropdownMenuDefaults.TrailingIcon(
+                        expanded = expanded
+                    )
+                },
             )
         }
     }
@@ -71,15 +78,22 @@ private fun PreviewRadixExposedDropdown() {
 @Preview
 @Composable
 private fun PreviewRadixExposedDropdownDark() {
+    var expanded by remember { mutableStateOf(false) }
+
     NumberSystemsTheme(darkTheme = true) {
         Surface {
             RadixExposedDropdown(
-                expanded = false,
-                onExpandedChange = {},
-                onDismissRequest = {},
-                onRadixClicked = {},
+                expanded = expanded,
+                onExpandedChange = { expanded = !expanded },
+                onDismissRequest = { expanded = false },
+                onRadixClicked = { expanded = false },
                 radix = Radix(16),
-                radixes = mutableListOf(),
+                radixes = mutableListOf(Radix(2), Radix(8), Radix(10), Radix(16)),
+                trailingIcon = {
+                    ExposedDropdownMenuDefaults.TrailingIcon(
+                        expanded = expanded
+                    )
+                },
             )
         }
     }

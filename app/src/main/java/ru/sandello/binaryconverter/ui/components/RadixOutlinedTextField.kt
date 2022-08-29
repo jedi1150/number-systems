@@ -13,13 +13,14 @@ import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
+import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RadixOutlinedTextField(
-    value: String,
-    onValueChange: (String) -> Unit,
+    radix: Radix,
+    onValueChange: (Radix) -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     readOnly: Boolean = false,
@@ -36,7 +37,7 @@ fun RadixOutlinedTextField(
     maxLines: Int = Int.MAX_VALUE,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape = TextFieldDefaults.outlinedShape,
-    colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors()
+    colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(),
 ) {
     val textColor = textStyle.color.takeOrElse {
         colors.textColor(enabled).value
@@ -44,8 +45,8 @@ fun RadixOutlinedTextField(
     val mergedTextStyle = textStyle.merge(TextStyle(color = textColor))
 
     BasicTextField(
-        value = value,
-        onValueChange = onValueChange,
+        value = radix.value.toString(),
+        onValueChange = { onValueChange(radix) },
         modifier = modifier,
         enabled = enabled,
         readOnly = readOnly,
@@ -58,7 +59,7 @@ fun RadixOutlinedTextField(
         interactionSource = interactionSource,
     ) { innerTextField ->
         TextFieldDefaults.OutlinedTextFieldDecorationBox(
-            value = value,
+            value = radix.value.toString(),
             visualTransformation = visualTransformation,
             innerTextField = innerTextField,
             singleLine = singleLine,
@@ -89,7 +90,7 @@ fun RadixOutlinedTextField(
 private fun PreviewRadixOutlinedTextField() {
     NumberSystemsTheme {
         Surface {
-            RadixOutlinedTextField(value = "16", onValueChange = {})
+            RadixOutlinedTextField(radix = Radix(16), onValueChange = {})
         }
     }
 }
@@ -100,7 +101,7 @@ private fun PreviewRadixOutlinedTextField() {
 private fun PreviewRadixOutlinedTextFieldDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            RadixOutlinedTextField(value = "16", onValueChange = {})
+            RadixOutlinedTextField(radix = Radix(16), onValueChange = {})
         }
     }
 }
