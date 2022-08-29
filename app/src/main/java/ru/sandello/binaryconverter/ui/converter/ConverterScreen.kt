@@ -18,6 +18,7 @@ import androidx.constraintlayout.compose.atMost
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.ui.OperandVisualTransformation
+import ru.sandello.binaryconverter.ui.components.RadixExposedDropdown
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -112,50 +113,29 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                     shape = MaterialTheme.shapes.medium,
                 )
                 var expanded by remember { mutableStateOf(false) }
-                @OptIn(ExperimentalMaterial3Api::class)
-                ExposedDropdownMenuBox(
+                RadixExposedDropdown(
                     expanded = expanded,
-                    onExpandedChange = {
-                        expanded = !expanded
+                    onExpandedChange = { expanded = !expanded },
+                    onDismissRequest = { expanded = false },
+                    onRadixClicked = { radix ->
+                        viewModel.updateCustomRadix(radix)
+                        expanded = false
                     },
+                    radix = viewModel.numberSystemCustom.value.radix,
+                    radixes = viewModel.radixes,
                     modifier = Modifier.constrainAs(exposedDropdown) {
                         start.linkTo(textField.end, margin = 4.dp)
                         end.linkTo(parent.end)
                         width = Dimension.preferredWrapContent.atMost(120.dp)
                     },
-                ) {
-                    OutlinedTextField(
-                        value = viewModel.numberSystemCustom.value.radix.value.toString(),
-                        onValueChange = { },
-                        readOnly = true,
-                        label = {},
-                        trailingIcon = {
-                            ExposedDropdownMenuDefaults.TrailingIcon(
-                                expanded = expanded
-                            )
-                        },
-                        shape = MaterialTheme.shapes.medium,
-                        singleLine = true,
-                    )
-                    ExposedDropdownMenu(
-                        expanded = expanded,
-                        onDismissRequest = {
-                            expanded = false
-                        },
-                    ) {
-                        viewModel.radixes.forEach { radix ->
-                            DropdownMenuItem(
-                                text = {
-                                    Text(text = radix.value.toString())
-                                },
-                                onClick = {
-                                    viewModel.updateCustomRadix(radix)
-                                    expanded = false
-                                },
-                            )
-                        }
-                    }
-                }
+                    isCompact = false,
+                    trailingIcon = {
+                        ExposedDropdownMenuDefaults.TrailingIcon(
+                            expanded = expanded
+                        )
+                    },
+                    shape = MaterialTheme.shapes.medium,
+                )
             }
         }
     }
