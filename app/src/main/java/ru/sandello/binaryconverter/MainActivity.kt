@@ -9,7 +9,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.android.gms.ads.interstitial.InterstitialAd
-import ru.sandello.binaryconverter.ui.main.MainScreen
+import ru.sandello.binaryconverter.ui.NumberSystemsApp
 
 class MainActivity : ComponentActivity() {
     private lateinit var ad: InterstitialAd
@@ -24,10 +24,14 @@ class MainActivity : ComponentActivity() {
             val useDarkIcons = !isSystemInDarkTheme()
 
             SideEffect {
-                systemUiController.setSystemBarsColor(color = Color.Transparent, darkIcons = useDarkIcons)
+                systemUiController.setSystemBarsColor(
+                    color = Color.Transparent,
+                    darkIcons = useDarkIcons,
+                    isNavigationBarContrastEnforced = false,
+                )
             }
 
-            MainScreen()
+            NumberSystemsApp()
         }
 
 //        Shared.resourcesHelper = ResourcesHelper(applicationContext)

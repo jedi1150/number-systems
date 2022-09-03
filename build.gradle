@@ -1,6 +1,7 @@
 buildscript {
     ext {
         kotlin_version = '1.7.10'
+        activity_version = '1.6.0-rc01'
         core_version = '1.7.0'
         multidex_version = '2.0.1'
         lifecycle_version = '2.5.1'
