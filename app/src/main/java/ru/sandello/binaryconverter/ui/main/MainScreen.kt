@@ -187,13 +187,11 @@ fun MainScreen() {
             ) {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
-                val fabVisible by remember {
-                    derivedStateOf {
-                        return@derivedStateOf when (currentDestination?.route) {
-                            Screen.Converter.route -> converterViewModel.hasData.value
-                            Screen.Calculator.route -> calculatorViewModel.hasData.value
-                            else -> false
-                        }
+                val fabVisible by derivedStateOf {
+                    return@derivedStateOf when (currentDestination?.route) {
+                        Screen.Converter.route -> converterViewModel.hasData.value
+                        Screen.Calculator.route -> calculatorViewModel.hasData.value
+                        else -> false
                     }
                 }
 
