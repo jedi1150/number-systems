@@ -46,7 +46,6 @@ import ru.sandello.binaryconverter.ui.theme.ShapesTop
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
 fun MainScreen() {
-    val viewModel: MainViewModel = viewModel()
     val converterViewModel: ConverterViewModel = viewModel()
     val calculatorViewModel: CalculatorViewModel = viewModel()
     val explanationViewModel: ExplanationViewModel = viewModel()
@@ -188,11 +187,13 @@ fun MainScreen() {
             ) {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
-                val fabVisible by derivedStateOf {
-                    return@derivedStateOf when (currentDestination?.route) {
-                        Screen.Converter.route -> converterViewModel.hasData.value
-                        Screen.Calculator.route -> calculatorViewModel.hasData.value
-                        else -> false
+                val fabVisible by remember {
+                    derivedStateOf {
+                        return@derivedStateOf when (currentDestination?.route) {
+                            Screen.Converter.route -> converterViewModel.hasData.value
+                            Screen.Calculator.route -> calculatorViewModel.hasData.value
+                            else -> false
+                        }
                     }
                 }
 
@@ -219,7 +220,7 @@ fun MainScreen() {
                             },
                             elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 6.dp),
                         ) {
-                            Icon(painter = painterResource(ru.sandello.binaryconverter.R.drawable.close), contentDescription = null)
+                            Icon(painter = painterResource(R.drawable.close), contentDescription = null)
                         }
                     }
 
