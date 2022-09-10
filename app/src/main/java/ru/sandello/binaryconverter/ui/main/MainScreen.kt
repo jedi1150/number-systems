@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -96,8 +97,15 @@ fun MainScreen(
                 ) {
                     NavigationBar(
                         modifier = Modifier
-                            .navigationBarsPadding()
-                            .displayCutoutPadding(),
+                            .padding(
+                                start = WindowInsets.displayCutout
+                                    .asPaddingValues()
+                                    .calculateStartPadding(LocalLayoutDirection.current),
+                                end = WindowInsets.displayCutout
+                                    .asPaddingValues()
+                                    .calculateEndPadding(LocalLayoutDirection.current),
+                            )
+                            .navigationBarsPadding(),
                         tonalElevation = 0.dp,
                     ) {
                         val navBackStackEntry by navController.currentBackStackEntryAsState()
