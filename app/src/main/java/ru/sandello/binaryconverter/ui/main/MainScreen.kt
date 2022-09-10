@@ -60,7 +60,7 @@ fun MainScreen() {
     val scope = rememberCoroutineScope()
     val navController = rememberNavController()
 
-    val bottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Expanded)
+    val bottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
 
     LaunchedEffect(converterViewModel.showExplanation.value) {
         if (converterViewModel.showExplanation.value) {
