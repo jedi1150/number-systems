@@ -152,17 +152,23 @@ fun MainScreenContent(
     }
 
     // FAB clear fields
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .padding(bottom = maxOf(
-            WindowInsets.ime
-                .asPaddingValues()
-                .calculateBottomPadding(),
-            WindowInsets.navigationBars
-                .asPaddingValues()
-                .calculateBottomPadding(),
-            contentPadding.calculateBottomPadding(),
-        )), contentAlignment = Alignment.BottomEnd) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .displayCutoutPadding()
+            .padding(
+                bottom = maxOf(
+                    WindowInsets.ime
+                        .asPaddingValues()
+                        .calculateBottomPadding(),
+                    WindowInsets.navigationBars
+                        .asPaddingValues()
+                        .calculateBottomPadding(),
+                    contentPadding.calculateBottomPadding(),
+                ),
+            ),
+        contentAlignment = Alignment.BottomEnd,
+    ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination
         val fabVisible by remember(currentDestination) {
