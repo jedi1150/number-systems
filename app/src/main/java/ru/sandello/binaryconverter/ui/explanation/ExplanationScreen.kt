@@ -26,7 +26,7 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 fun ExplanationScreen(
     viewModel: ExplanationViewModel,
 ) {
-    Column {
+    Column(modifier = Modifier.displayCutoutPadding()) {
         Text(
             text = stringResource(R.string.explanation),
             modifier = Modifier
