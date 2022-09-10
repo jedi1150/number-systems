@@ -6,6 +6,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -27,9 +28,9 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
     LazyColumn(
         modifier = Modifier.imePadding(),
         contentPadding = PaddingValues(
-            start = 8.dp,
+            start = WindowInsets.displayCutout.asPaddingValues().calculateStartPadding(LocalLayoutDirection.current) + 8.dp,
             top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding() + 8.dp,
-            end = 8.dp,
+            end = WindowInsets.displayCutout.asPaddingValues().calculateEndPadding(LocalLayoutDirection.current) + 8.dp,
             bottom = maxOf(mainPadding.calculateBottomPadding() + 64.dp, 72.dp) + 8.dp,
         ),
     ) {
