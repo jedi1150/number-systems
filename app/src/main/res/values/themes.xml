@@ -2,10 +2,31 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.NumberSystems" parent="@android:style/Theme.Material.Light.NoActionBar">
+    <style name="NightAdjusted.Theme.NumberSystems" parent="@android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
+    </style>
+
+    <style name="PlatformAdjusted.Theme.NumberSystems" parent="NightAdjusted.Theme.NumberSystems">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+    </style>
+
+    <style name="Theme.NumberSystems" parent="PlatformAdjusted.Theme.NumberSystems" />
+
+    <style name="NightAdjusted.Theme.Splash" parent="Theme.SplashScreen">
+        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
+    </style>
+
+    <style name="Theme.NumberSystems.Splash" parent="NightAdjusted.Theme.Splash">
+        <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="31">
+            @drawable/splash
+        </item>
+        <item name="android:windowSplashScreenIconBackgroundColor" tools:targetApi="31">
+            @color/colorPrimary
+        </item>
+        <item name="postSplashScreenTheme">@style/Theme.NumberSystems</item>
     </style>
 
 </resources>
