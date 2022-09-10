@@ -95,7 +95,9 @@ fun MainScreen(
                     tonalElevation = NavigationBarDefaults.Elevation,
                 ) {
                     NavigationBar(
-                        modifier = Modifier.navigationBarsPadding(),
+                        modifier = Modifier
+                            .navigationBarsPadding()
+                            .displayCutoutPadding(),
                         tonalElevation = 0.dp,
                     ) {
                         val navBackStackEntry by navController.currentBackStackEntryAsState()
