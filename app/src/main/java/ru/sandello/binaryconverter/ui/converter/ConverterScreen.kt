@@ -31,14 +31,13 @@ fun ConverterScreen(viewModel: ConverterViewModel = hiltViewModel(), mainPadding
             end = WindowInsets.displayCutout.asPaddingValues().calculateEndPadding(LocalLayoutDirection.current) + 8.dp,
             bottom = maxOf(mainPadding.calculateBottomPadding() + 64.dp, 72.dp) + 8.dp,
         ),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         item {
             OutlinedTextField(
                 value = viewModel.numberSystem10.value.value,
                 onValueChange = { textFieldValue -> viewModel.convertFrom(NumberSystem(value = textFieldValue, radix = viewModel.numberSystem10.value.radix)) },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 4.dp),
+                modifier = Modifier.fillMaxWidth(),
                 label = { Text(stringResource(R.string.dec)) },
                 visualTransformation = OperandVisualTransformation(viewModel.numberSystem10.value.radix),
                 isError = viewModel.numberSystem10error.value,
@@ -50,9 +49,7 @@ fun ConverterScreen(viewModel: ConverterViewModel = hiltViewModel(), mainPadding
             OutlinedTextField(
                 value = viewModel.numberSystem2.value.value,
                 onValueChange = { textFieldValue -> viewModel.convertFrom(NumberSystem(value = textFieldValue, radix = viewModel.numberSystem2.value.radix)) },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 4.dp),
+                modifier = Modifier.fillMaxWidth(),
                 label = { Text(stringResource(R.string.bin)) },
                 isError = viewModel.numberSystem2error.value,
                 visualTransformation = OperandVisualTransformation(viewModel.numberSystem2.value.radix),
@@ -64,9 +61,7 @@ fun ConverterScreen(viewModel: ConverterViewModel = hiltViewModel(), mainPadding
             OutlinedTextField(
                 value = viewModel.numberSystem8.value.value,
                 onValueChange = { textFieldValue -> viewModel.convertFrom(NumberSystem(value = textFieldValue, viewModel.numberSystem8.value.radix)) },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 4.dp),
+                modifier = Modifier.fillMaxWidth(),
                 label = { Text(stringResource(R.string.oct)) },
                 isError = viewModel.numberSystem8error.value,
                 visualTransformation = OperandVisualTransformation(viewModel.numberSystem8.value.radix),
@@ -78,9 +73,7 @@ fun ConverterScreen(viewModel: ConverterViewModel = hiltViewModel(), mainPadding
             OutlinedTextField(
                 value = viewModel.numberSystem16.value.value,
                 onValueChange = { textFieldValue -> viewModel.convertFrom(NumberSystem(value = textFieldValue, radix = viewModel.numberSystem16.value.radix)) },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 4.dp),
+                modifier = Modifier.fillMaxWidth(),
                 label = { Text(stringResource(R.string.hex)) },
                 isError = viewModel.numberSystem16error.value,
                 visualTransformation = OperandVisualTransformation(viewModel.numberSystem16.value.radix),

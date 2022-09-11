@@ -39,6 +39,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel = viewModel(), mainPadding: 
             end = WindowInsets.displayCutout.asPaddingValues().calculateEndPadding(LocalLayoutDirection.current) + 8.dp,
             bottom = maxOf(mainPadding.calculateBottomPadding() + 64.dp, 72.dp) + 8.dp,
         ),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         item {
             Row(
@@ -89,9 +90,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel = viewModel(), mainPadding: 
         }
         item {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp),
+                modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
             ) {
                 viewModel.arithmeticOptions.forEach { arithmetic ->
