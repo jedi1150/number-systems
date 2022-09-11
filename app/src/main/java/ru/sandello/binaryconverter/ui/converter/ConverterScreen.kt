@@ -23,12 +23,14 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConverterScreen(viewModel: ConverterViewModel = hiltViewModel(), mainPadding: PaddingValues) {
+    val layoutDirection = LocalLayoutDirection.current
+
     LazyColumn(
         modifier = Modifier.imePadding(),
         contentPadding = PaddingValues(
-            start = WindowInsets.displayCutout.asPaddingValues().calculateStartPadding(LocalLayoutDirection.current) + 8.dp,
+            start = WindowInsets.navigationBars.asPaddingValues().calculateStartPadding(layoutDirection) + WindowInsets.displayCutout.asPaddingValues().calculateStartPadding(layoutDirection) + 8.dp,
             top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding() + 8.dp,
-            end = WindowInsets.displayCutout.asPaddingValues().calculateEndPadding(LocalLayoutDirection.current) + 8.dp,
+            end = WindowInsets.navigationBars.asPaddingValues().calculateEndPadding(layoutDirection) + WindowInsets.displayCutout.asPaddingValues().calculateEndPadding(layoutDirection) + 8.dp,
             bottom = maxOf(mainPadding.calculateBottomPadding() + 64.dp, 72.dp) + 8.dp,
         ),
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -82,10 +84,7 @@ fun ConverterScreen(viewModel: ConverterViewModel = hiltViewModel(), mainPadding
             )
         }
         item {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedTextField(
                     value = viewModel.numberSystemCustom.value.value,
                     onValueChange = { textFieldValue -> viewModel.convertFrom(NumberSystem(value = textFieldValue, radix = viewModel.numberSystemCustom.value.radix)) },
@@ -110,9 +109,7 @@ fun ConverterScreen(viewModel: ConverterViewModel = hiltViewModel(), mainPadding
                     modifier = Modifier.width(96.dp),
                     isCompact = false,
                     trailingIcon = {
-                        ExposedDropdownMenuDefaults.TrailingIcon(
-                            expanded = expanded
-                        )
+                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
                     },
                     shape = MaterialTheme.shapes.medium,
                 )
