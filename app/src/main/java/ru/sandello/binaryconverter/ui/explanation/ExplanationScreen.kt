@@ -11,6 +11,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,7 +28,18 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 fun ExplanationScreen(
     viewModel: ExplanationViewModel = viewModel(),
 ) {
-    Column(modifier = Modifier.displayCutoutPadding()) {
+    Column(
+        modifier = Modifier
+            .displayCutoutPadding()
+            .padding(
+                start = WindowInsets.navigationBars
+                    .asPaddingValues()
+                    .calculateStartPadding(LocalLayoutDirection.current),
+                end = WindowInsets.navigationBars
+                    .asPaddingValues()
+                    .calculateEndPadding(LocalLayoutDirection.current),
+            ),
+    ) {
         Text(
             text = stringResource(R.string.explanation),
             modifier = Modifier
@@ -108,11 +120,7 @@ fun ExplanationScreen(
                         modifier = Modifier.fillMaxWidth(),
                         contentAlignment = Alignment.Center,
                     ) {
-                        CircularProgressIndicator(
-                            modifier = Modifier
-                                .padding(16.dp)
-                                .navigationBarsPadding()
-                        )
+                        CircularProgressIndicator(modifier = Modifier.padding(16.dp))
                     }
                 }
                 is ExplanationState.Complete -> {

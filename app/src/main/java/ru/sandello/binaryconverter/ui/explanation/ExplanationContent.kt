@@ -1,5 +1,6 @@
 package ru.sandello.binaryconverter.ui.explanation
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.navigationBars
@@ -32,7 +33,7 @@ fun ExplanationContent(from: NumberSystem, to: NumberSystem) {
 //    }
 
     LazyColumn(
-        contentPadding = WindowInsets.navigationBars.asPaddingValues()
+        contentPadding = PaddingValues(bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding())
     ) {
         item {
             ExplanationResult(from = from, to = to)
