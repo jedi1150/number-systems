@@ -30,13 +30,14 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CalculatorScreen(viewModel: CalculatorViewModel = viewModel(), mainPadding: PaddingValues) {
+    val layoutDirection = LocalLayoutDirection.current
 
     LazyColumn(
         modifier = Modifier.imePadding(),
         contentPadding = PaddingValues(
-            start = WindowInsets.displayCutout.asPaddingValues().calculateStartPadding(LocalLayoutDirection.current) + 8.dp,
+            start = WindowInsets.navigationBars.asPaddingValues().calculateStartPadding(layoutDirection) + WindowInsets.displayCutout.asPaddingValues().calculateStartPadding(layoutDirection) + 8.dp,
             top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding() + 8.dp,
-            end = WindowInsets.displayCutout.asPaddingValues().calculateEndPadding(LocalLayoutDirection.current) + 8.dp,
+            end = WindowInsets.navigationBars.asPaddingValues().calculateEndPadding(layoutDirection) + WindowInsets.displayCutout.asPaddingValues().calculateEndPadding(layoutDirection) + 8.dp,
             bottom = maxOf(mainPadding.calculateBottomPadding() + 64.dp, 72.dp) + 8.dp,
         ),
         verticalArrangement = Arrangement.spacedBy(8.dp),
