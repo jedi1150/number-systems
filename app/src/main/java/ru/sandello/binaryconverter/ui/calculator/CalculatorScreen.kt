@@ -19,9 +19,6 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
-import androidx.constraintlayout.compose.atMost
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.ui.OperandVisualTransformation
@@ -43,13 +40,10 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
         ),
     ) {
         item {
-            ConstraintLayout(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 4.dp)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                val (textField, exposedDropdown) = createRefs()
-
                 OutlinedTextField(
                     value = viewModel.numberSystemCustom1.value.value,
                     onValueChange = { textFieldValue ->
@@ -58,12 +52,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                             from = NumberSystem(value = textFieldValue, radix = viewModel.numberSystemCustom1.value.radix),
                         )
                     },
-                    modifier = Modifier
-                        .constrainAs(textField) {
-                            start.linkTo(parent.start)
-                            end.linkTo(exposedDropdown.start, margin = 4.dp)
-                            width = Dimension.fillToConstraints
-                        },
+                    modifier = Modifier.weight(1f),
                     label = { Text(stringResource(R.string.radix, viewModel.numberSystemCustom1.value.radix.value)) },
                     isError = viewModel.numberSystem1error.value,
                     visualTransformation = OperandVisualTransformation(viewModel.numberSystemCustom1.value.radix),
@@ -86,11 +75,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                     },
                     radix = viewModel.numberSystemCustom1.value.radix,
                     radixes = viewModel.radixes,
-                    modifier = Modifier.constrainAs(exposedDropdown) {
-                        start.linkTo(textField.end, margin = 4.dp)
-                        end.linkTo(parent.end)
-                        width = Dimension.preferredWrapContent.atMost(120.dp)
-                    },
+                    modifier = Modifier.width(96.dp),
                     isCompact = false,
                     trailingIcon = {
                         ExposedDropdownMenuDefaults.TrailingIcon(
@@ -132,13 +117,10 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
             }
         }
         item {
-            ConstraintLayout(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 4.dp)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                val (textField, exposedDropdown) = createRefs()
-
                 OutlinedTextField(
                     value = viewModel.numberSystemCustom2.value.value,
                     onValueChange = { textFieldValue ->
@@ -147,12 +129,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                             from = NumberSystem(value = textFieldValue, radix = viewModel.numberSystemCustom2.value.radix),
                         )
                     },
-                    modifier = Modifier
-                        .constrainAs(textField) {
-                            start.linkTo(parent.start)
-                            end.linkTo(exposedDropdown.start, margin = 4.dp)
-                            width = Dimension.fillToConstraints
-                        },
+                    modifier = Modifier.weight(1f),
                     label = { Text(stringResource(R.string.radix, viewModel.numberSystemCustom2.value.radix.value)) },
                     isError = viewModel.numberSystem2error.value,
                     visualTransformation = OperandVisualTransformation(viewModel.numberSystemCustom2.value.radix),
@@ -175,11 +152,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                     },
                     radix = viewModel.numberSystemCustom2.value.radix,
                     radixes = viewModel.radixes,
-                    modifier = Modifier.constrainAs(exposedDropdown) {
-                        start.linkTo(textField.end, margin = 4.dp)
-                        end.linkTo(parent.end)
-                        width = Dimension.preferredWrapContent.atMost(120.dp)
-                    },
+                    modifier = Modifier.width(96.dp),
                     isCompact = false,
                     trailingIcon = {
                         ExposedDropdownMenuDefaults.TrailingIcon(
@@ -191,22 +164,14 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
             }
         }
         item {
-            ConstraintLayout(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 4.dp)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                val (textField, exposedDropdown) = createRefs()
-
                 OutlinedTextField(
                     value = viewModel.numberSystemResult.value.value,
                     onValueChange = { },
-                    modifier = Modifier
-                        .constrainAs(textField) {
-                            start.linkTo(parent.start)
-                            end.linkTo(exposedDropdown.start, margin = 4.dp)
-                            width = Dimension.fillToConstraints
-                        },
+                    modifier = Modifier.weight(1f),
                     readOnly = true,
                     label = { Text(stringResource(R.string.radix, viewModel.numberSystemResult.value.radix.value)) },
                     visualTransformation = OperandVisualTransformation(viewModel.numberSystemResult.value.radix),
@@ -224,11 +189,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
                     },
                     radix = viewModel.numberSystemResult.value.radix,
                     radixes = viewModel.radixes,
-                    modifier = Modifier.constrainAs(exposedDropdown) {
-                        start.linkTo(textField.end, margin = 4.dp)
-                        end.linkTo(parent.end)
-                        width = Dimension.preferredWrapContent.atMost(120.dp)
-                    },
+                    modifier = Modifier.width(96.dp),
                     isCompact = false,
                     trailingIcon = {
                         ExposedDropdownMenuDefaults.TrailingIcon(

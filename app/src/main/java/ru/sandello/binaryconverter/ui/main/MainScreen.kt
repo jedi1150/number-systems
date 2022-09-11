@@ -24,7 +24,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -165,6 +164,7 @@ fun MainScreenContent(
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .padding(16.dp)
             .displayCutoutPadding()
             .padding(
                 bottom = maxOf(
@@ -190,16 +190,12 @@ fun MainScreenContent(
                 }
             }
         }
-
-        ConstraintLayout {
-            val (clearFab, explanationFab) = createRefs()
-
+        Column(
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalAlignment = Alignment.End,
+        ) {
             AnimatedVisibility(
                 visible = fabVisible,
-                modifier = Modifier.constrainAs(clearFab) {
-                    end.linkTo(parent.end, margin = 16.dp)
-                    bottom.linkTo(explanationFab.top, margin = 16.dp, goneMargin = 16.dp)
-                },
                 enter = scaleIn(),
                 exit = scaleOut(),
             ) {
@@ -220,10 +216,6 @@ fun MainScreenContent(
 
             AnimatedVisibility(
                 visible = fabVisible,
-                modifier = Modifier.constrainAs(explanationFab) {
-                    end.linkTo(parent.end, margin = 16.dp)
-                    bottom.linkTo(parent.bottom, margin = 16.dp)
-                },
                 enter = scaleIn(),
                 exit = scaleOut(),
             ) {

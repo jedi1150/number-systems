@@ -13,9 +13,6 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
-import androidx.constraintlayout.compose.atMost
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.ui.OperandVisualTransformation
@@ -91,22 +88,14 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
             )
         }
         item {
-            ConstraintLayout(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 4.dp)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                val (textField, exposedDropdown) = createRefs()
-
                 OutlinedTextField(
                     value = viewModel.numberSystemCustom.value.value,
                     onValueChange = { textFieldValue -> viewModel.convertFrom(NumberSystem(value = textFieldValue, radix = viewModel.numberSystemCustom.value.radix)) },
-                    modifier = Modifier
-                        .constrainAs(textField) {
-                            start.linkTo(parent.start)
-                            end.linkTo(exposedDropdown.start, margin = 4.dp)
-                            width = Dimension.fillToConstraints
-                        },
+                    modifier = Modifier.weight(1f),
                     label = { Text(stringResource(R.string.radix, viewModel.numberSystemCustom.value.radix.value)) },
                     isError = viewModel.numberSystemCustomError.value,
                     visualTransformation = OperandVisualTransformation(viewModel.numberSystemCustom.value.radix),
@@ -124,11 +113,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
                     },
                     radix = viewModel.numberSystemCustom.value.radix,
                     radixes = viewModel.radixes,
-                    modifier = Modifier.constrainAs(exposedDropdown) {
-                        start.linkTo(textField.end, margin = 4.dp)
-                        end.linkTo(parent.end)
-                        width = Dimension.preferredWrapContent.atMost(120.dp)
-                    },
+                    modifier = Modifier.width(96.dp),
                     isCompact = false,
                     trailingIcon = {
                         ExposedDropdownMenuDefaults.TrailingIcon(
