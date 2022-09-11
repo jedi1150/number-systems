@@ -66,7 +66,7 @@ fun RadixExposedDropdown(
 
 @Preview
 @Composable
-private fun PreviewRadixExposedDropdownComact() {
+private fun PreviewRadixExposedDropdownCompact() {
     var expanded by remember { mutableStateOf(false) }
 
     NumberSystemsTheme {
