@@ -19,6 +19,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.ui.OperandVisualTransformation
@@ -28,7 +29,7 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues) {
+fun CalculatorScreen(viewModel: CalculatorViewModel = viewModel(), mainPadding: PaddingValues) {
 
     LazyColumn(
         modifier = Modifier.imePadding(),
@@ -208,7 +209,7 @@ fun CalculatorScreen(viewModel: CalculatorViewModel, mainPadding: PaddingValues)
 fun PreviewCalculatorScreen() {
     NumberSystemsTheme {
         Surface {
-            CalculatorScreen(viewModel = CalculatorViewModel(), mainPadding = PaddingValues())
+            CalculatorScreen(mainPadding = PaddingValues())
         }
     }
 }
@@ -218,7 +219,7 @@ fun PreviewCalculatorScreen() {
 fun PreviewCalculatorScreenDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            CalculatorScreen(viewModel = CalculatorViewModel(), mainPadding = PaddingValues())
+            CalculatorScreen(mainPadding = PaddingValues())
         }
     }
 }

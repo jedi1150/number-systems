@@ -17,11 +17,11 @@ import ru.sandello.binaryconverter.ui.explanation.ExplanationViewModel
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterialApi::class)
 @Composable
-fun MainRoute() {
-    val converterViewModel: ConverterViewModel = viewModel()
-    val calculatorViewModel: CalculatorViewModel = viewModel()
-    val explanationViewModel: ExplanationViewModel = viewModel()
-
+fun MainRoute(
+    converterViewModel: ConverterViewModel = viewModel(),
+    calculatorViewModel: CalculatorViewModel = viewModel(),
+    explanationViewModel: ExplanationViewModel = viewModel(),
+) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
     val scope = rememberCoroutineScope()

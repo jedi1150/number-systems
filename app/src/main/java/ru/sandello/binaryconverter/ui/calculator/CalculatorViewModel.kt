@@ -6,6 +6,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.catch
@@ -19,8 +20,9 @@ import ru.sandello.binaryconverter.ui.calculator.OperandType.*
 import ru.sandello.binaryconverter.ui.calculator.RadixType.*
 import ru.sandello.binaryconverter.utils.APP_TAG
 import ru.sandello.binaryconverter.utils.CharRegex
-import ru.sandello.binaryconverter.utils.Shared.converter
+import ru.sandello.binaryconverter.utils.Converter
 import java.math.MathContext.DECIMAL128
+import javax.inject.Inject
 
 enum class OperandType {
     OperandCustom1,
@@ -42,7 +44,8 @@ enum class ArithmeticType {
     Divide,
 }
 
-class CalculatorViewModel : ViewModel() {
+@HiltViewModel
+class CalculatorViewModel @Inject constructor(private val converter: Converter) : ViewModel() {
     private val _numberSystemCustom1 = mutableStateOf(NumberSystem(String(), Radix(10)))
     val numberSystemCustom1: State<NumberSystem> = _numberSystemCustom1
     private val _numberSystemCustom2 = mutableStateOf(NumberSystem(String(), Radix(2)))

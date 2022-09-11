@@ -13,6 +13,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.ui.OperandVisualTransformation
@@ -21,7 +22,7 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
+fun ConverterScreen(viewModel: ConverterViewModel = hiltViewModel(), mainPadding: PaddingValues) {
     LazyColumn(
         modifier = Modifier.imePadding(),
         contentPadding = PaddingValues(
@@ -132,7 +133,7 @@ fun ConverterScreen(viewModel: ConverterViewModel, mainPadding: PaddingValues) {
 private fun PreviewConverterScreen() {
     NumberSystemsTheme {
         Surface {
-            ConverterScreen(viewModel = ConverterViewModel(), mainPadding = PaddingValues())
+            ConverterScreen(mainPadding = PaddingValues())
         }
     }
 }
@@ -143,7 +144,7 @@ private fun PreviewConverterScreen() {
 private fun PreviewConverterScreenDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            ConverterScreen(viewModel = ConverterViewModel(), mainPadding = PaddingValues())
+            ConverterScreen(mainPadding = PaddingValues())
         }
     }
 }

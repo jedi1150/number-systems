@@ -10,8 +10,10 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.android.gms.ads.interstitial.InterstitialAd
+import dagger.hilt.android.AndroidEntryPoint
 import ru.sandello.binaryconverter.ui.NumberSystemsApp
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private lateinit var ad: InterstitialAd
 

@@ -6,6 +6,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.asFlow
@@ -17,9 +18,11 @@ import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.utils.APP_TAG
 import ru.sandello.binaryconverter.utils.CharRegex
-import ru.sandello.binaryconverter.utils.Shared.converter
+import ru.sandello.binaryconverter.utils.Converter
+import javax.inject.Inject
 
-class ConverterViewModel : ViewModel() {
+@HiltViewModel
+class ConverterViewModel @Inject constructor(private val converter: Converter) : ViewModel() {
 
     private val _numberSystem10 = mutableStateOf(NumberSystem(String(), Radix(10)))
     val numberSystem10: State<NumberSystem> = _numberSystem10
@@ -67,15 +70,11 @@ class ConverterViewModel : ViewModel() {
             return
         }
 
-        check(
-            from.value.matches(
-                CharRegex().charsRegex(
-                    index = from.radix.value,
-                    useDelimiterChars = from.value.count { it.toString().contains("[,.]".toRegex()) } <= 1,
-                    useNegativeChar = from.value.count { it.toString().contains("[-]".toRegex()) } <= 1,
-                )
-            )
-        ) {
+        check(from.value.matches(CharRegex().charsRegex(
+            index = from.radix.value,
+            useDelimiterChars = from.value.count { it.toString().contains("[,.]".toRegex()) } <= 1,
+            useNegativeChar = from.value.count { it.toString().contains("[-]".toRegex()) } <= 1,
+        ))) {
             Log.d(APP_TAG, "ConverterViewModel::convert: Invalid character entered")
             when (from.radix) {
                 _numberSystem2.value.radix -> _numberSystem2error.value = true
@@ -96,54 +95,48 @@ class ConverterViewModel : ViewModel() {
         }
 
         viewModelScope.launch {
-            toRadixes
-                .filter { _toRadix ->
-                    (from.radix != _toRadix).also {
-                        if (!it) {
-                            when (_toRadix) {
-                                _numberSystem2.value.radix -> {
-                                    if (_numberSystem2.value.value == from.value) cancel()
-                                    _numberSystem2.value = tempValue
-                                }
-                                _numberSystem8.value.radix -> {
-                                    if (_numberSystem8.value.value == from.value) cancel()
-                                    _numberSystem8.value = tempValue
-                                }
-                                _numberSystem10.value.radix -> {
-                                    if (_numberSystem10.value.value == from.value) cancel()
-                                    _numberSystem10.value = tempValue
-                                }
-                                _numberSystem16.value.radix -> {
-                                    if (_numberSystem16.value.value == from.value) cancel()
-                                    _numberSystem16.value = tempValue
-                                }
-                                _numberSystemCustom.value.radix -> {
-                                    if (_numberSystemCustom.value.value == from.value) cancel()
-                                    _numberSystemCustom.value = tempValue
-                                }
+            toRadixes.filter { _toRadix ->
+                (from.radix != _toRadix).also {
+                    if (!it) {
+                        when (_toRadix) {
+                            _numberSystem2.value.radix -> {
+                                if (_numberSystem2.value.value == from.value) cancel()
+                                _numberSystem2.value = tempValue
+                            }
+                            _numberSystem8.value.radix -> {
+                                if (_numberSystem8.value.value == from.value) cancel()
+                                _numberSystem8.value = tempValue
+                            }
+                            _numberSystem10.value.radix -> {
+                                if (_numberSystem10.value.value == from.value) cancel()
+                                _numberSystem10.value = tempValue
+                            }
+                            _numberSystem16.value.radix -> {
+                                if (_numberSystem16.value.value == from.value) cancel()
+                                _numberSystem16.value = tempValue
+                            }
+                            _numberSystemCustom.value.radix -> {
+                                if (_numberSystemCustom.value.value == from.value) cancel()
+                                _numberSystemCustom.value = tempValue
                             }
                         }
                     }
                 }
-                .asFlow()
-                .flatMapMerge { _toRadix -> converter(from = tempValue, toRadix = _toRadix) }
-                .onCompletion { cause ->
-                    if (cause != null) {
-                        Log.e(APP_TAG, "Flow completed exceptionally: $cause")
-                    } else {
-                        resetErrors()
-                    }
+            }.asFlow().flatMapMerge { _toRadix -> converter(from = tempValue, toRadix = _toRadix) }.onCompletion { cause ->
+                if (cause != null) {
+                    Log.e(APP_TAG, "Flow completed exceptionally: $cause")
+                } else {
+                    resetErrors()
                 }
-                .catch { error -> Log.e(APP_TAG, "ConverterViewModel::convert: catch", error) }
-                .collect { convertedData ->
-                    when (convertedData.result.radix) {
-                        _numberSystem2.value.radix -> _numberSystem2.value = convertedData.result
-                        _numberSystem8.value.radix -> _numberSystem8.value = convertedData.result
-                        _numberSystem10.value.radix -> _numberSystem10.value = convertedData.result
-                        _numberSystem16.value.radix -> _numberSystem16.value = convertedData.result
-                        _numberSystemCustom.value.radix -> _numberSystemCustom.value = convertedData.result
-                    }
+            }.catch { error -> Log.e(APP_TAG, "ConverterViewModel::convert: catch", error) }.collect { convertedData ->
+                when (convertedData.result.radix) {
+                    _numberSystem2.value.radix -> _numberSystem2.value = convertedData.result
+                    _numberSystem8.value.radix -> _numberSystem8.value = convertedData.result
+                    _numberSystem10.value.radix -> _numberSystem10.value = convertedData.result
+                    _numberSystem16.value.radix -> _numberSystem16.value = convertedData.result
+                    _numberSystemCustom.value.radix -> _numberSystemCustom.value = convertedData.result
                 }
+            }
         }
     }
 

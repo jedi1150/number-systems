@@ -1,13 +1,7 @@
 package ru.sandello.binaryconverter
 
 import android.app.Application
-import ru.sandello.binaryconverter.utils.Converter
-import ru.sandello.binaryconverter.utils.Shared.converter
+import dagger.hilt.android.HiltAndroidApp
 
-class NumberSystemsApplication : Application() {
-    override fun onCreate() {
-        super.onCreate()
-
-        converter = Converter()
-    }
-}
+@HiltAndroidApp
+class NumberSystemsApplication : Application()

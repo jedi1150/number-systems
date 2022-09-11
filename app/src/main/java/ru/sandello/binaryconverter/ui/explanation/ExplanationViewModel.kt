@@ -6,6 +6,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -14,7 +15,8 @@ import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.utils.APP_TAG
 import ru.sandello.binaryconverter.utils.CharRegex
-import ru.sandello.binaryconverter.utils.Shared
+import ru.sandello.binaryconverter.utils.Converter
+import javax.inject.Inject
 
 enum class OperandType {
     OperandCustom1,
@@ -26,7 +28,8 @@ enum class RadixType {
     RadixCustom2,
 }
 
-class ExplanationViewModel : ViewModel() {
+@HiltViewModel
+class ExplanationViewModel @Inject constructor(private val converter: Converter) : ViewModel() {
     private val _explanationState = MutableStateFlow<ExplanationState>(ExplanationState.Calculating)
     val explanationState: StateFlow<ExplanationState> = _explanationState
 
@@ -71,7 +74,7 @@ class ExplanationViewModel : ViewModel() {
         viewModelScope.launch {
             toRadixes
                 .asFlow()
-                .flatMapMerge { _toRadix -> Shared.converter(from = from, toRadix = _toRadix) }
+                .flatMapMerge { _toRadix -> converter(from = from, toRadix = _toRadix) }
                 .onCompletion { cause ->
                     if (cause != null) {
                         Log.e(APP_TAG, "ExplanationViewModel::Flow completed exceptionally: $cause")

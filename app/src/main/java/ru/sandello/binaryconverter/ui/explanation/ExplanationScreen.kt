@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.ExplanationState
 import ru.sandello.binaryconverter.ui.components.RadixExposedDropdown
@@ -24,7 +25,7 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class, ExperimentalAnimationGraphicsApi::class)
 @Composable
 fun ExplanationScreen(
-    viewModel: ExplanationViewModel,
+    viewModel: ExplanationViewModel = viewModel(),
 ) {
     Column(modifier = Modifier.displayCutoutPadding()) {
         Text(
@@ -127,7 +128,7 @@ fun ExplanationScreen(
 private fun PreviewExplanationCalculating() {
     NumberSystemsTheme {
         Surface {
-            ExplanationScreen(viewModel = ExplanationViewModel())
+            ExplanationScreen()
         }
     }
 }
@@ -137,7 +138,7 @@ private fun PreviewExplanationCalculating() {
 private fun PreviewExplanationCalculatingDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            ExplanationScreen(viewModel = ExplanationViewModel())
+            ExplanationScreen()
         }
     }
 }

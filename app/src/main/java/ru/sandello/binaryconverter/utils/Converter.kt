@@ -9,9 +9,10 @@ import ru.sandello.binaryconverter.model.ConvertedData
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.model.Radix
 import java.util.*
+import javax.inject.Inject
 import kotlin.math.pow
 
-class Converter {
+class Converter @Inject constructor() {
 
     operator fun invoke(from: NumberSystem, toRadix: Radix): Flow<ConvertedData> = flow {
         Log.d(APP_TAG, "Converter::invoke")

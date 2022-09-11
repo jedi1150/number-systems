@@ -245,9 +245,6 @@ private fun PreviewMainScreen() {
     NumberSystemsTheme {
         Surface {
             MainScreen(
-                converterViewModel = ConverterViewModel(),
-                calculatorViewModel = CalculatorViewModel(),
-                explanationViewModel = ExplanationViewModel(),
                 bottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden),
             )
         }
