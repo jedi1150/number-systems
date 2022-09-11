@@ -44,7 +44,7 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.ui.theme.Shapes
 import ru.sandello.binaryconverter.ui.theme.ShapesTop
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
+@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
     converterViewModel: ConverterViewModel = viewModel(),
@@ -52,6 +52,8 @@ fun MainScreen(
     explanationViewModel: ExplanationViewModel = viewModel(),
     bottomSheetState: ModalBottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden),
 ) {
+    val layoutDirection = LocalLayoutDirection.current
+
     val navController = rememberNavController()
 
     val screens = listOf(
@@ -97,12 +99,16 @@ fun MainScreen(
                     NavigationBar(
                         modifier = Modifier
                             .padding(
-                                start = WindowInsets.displayCutout
+                                start = WindowInsets.navigationBars
                                     .asPaddingValues()
-                                    .calculateStartPadding(LocalLayoutDirection.current),
-                                end = WindowInsets.displayCutout
+                                    .calculateStartPadding(layoutDirection) + WindowInsets.displayCutout
                                     .asPaddingValues()
-                                    .calculateEndPadding(LocalLayoutDirection.current),
+                                    .calculateStartPadding(layoutDirection),
+                                end = WindowInsets.navigationBars
+                                    .asPaddingValues()
+                                    .calculateEndPadding(layoutDirection) + WindowInsets.displayCutout
+                                    .asPaddingValues()
+                                    .calculateEndPadding(layoutDirection),
                             )
                             .navigationBarsPadding(),
                         tonalElevation = 0.dp,
@@ -152,6 +158,8 @@ fun MainScreenContent(
     contentPadding: PaddingValues,
     navController: NavHostController,
 ) {
+    val layoutDirection = LocalLayoutDirection.current
+
     NavHost(
         navController = navController,
         startDestination = Screen.Converter.route,
@@ -167,6 +175,12 @@ fun MainScreenContent(
             .padding(16.dp)
             .displayCutoutPadding()
             .padding(
+                start = WindowInsets.navigationBars
+                    .asPaddingValues()
+                    .calculateStartPadding(layoutDirection),
+                end = WindowInsets.navigationBars
+                    .asPaddingValues()
+                    .calculateEndPadding(layoutDirection),
                 bottom = maxOf(
                     WindowInsets.ime
                         .asPaddingValues()
