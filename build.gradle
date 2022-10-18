@@ -9,9 +9,9 @@ buildscript {
         compose_material3_version = '1.0.0-rc01'
         navigation_compose_version = '2.5.2'
         hilt_navigation_version = '1.0.0'
-        hilt_version = '2.42'
+        hilt_version = '2.44'
         datastore_preferences_version = '1.0.0'
-        accompanist_version = '0.26.2-beta'
+        accompanist_version = '0.26.5-rc'
         firebase_bom_version = '30.0.1'
     }
     repositories {
@@ -19,7 +19,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.0'
+        classpath 'com.android.tools.build:gradle:7.3.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
 //        classpath 'com.google.gms:google-services:4.3.10'
