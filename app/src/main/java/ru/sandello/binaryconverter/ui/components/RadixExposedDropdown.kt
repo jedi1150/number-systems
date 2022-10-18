@@ -32,6 +32,7 @@ fun RadixExposedDropdown(
             OutlinedTextField(
                 value = radix.value.toString(),
                 onValueChange = { },
+                modifier = Modifier.menuAnchor(),
                 readOnly = true,
                 trailingIcon = trailingIcon,
                 singleLine = true,
@@ -41,6 +42,7 @@ fun RadixExposedDropdown(
             OutlinedTextField(
                 value = radix.value.toString(),
                 onValueChange = {},
+                modifier = Modifier.menuAnchor(),
                 readOnly = true,
                 label = {},
                 trailingIcon = trailingIcon,
