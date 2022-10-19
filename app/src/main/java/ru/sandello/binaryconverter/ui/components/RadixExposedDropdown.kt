@@ -96,9 +96,7 @@ private fun PreviewRadixExposedDropdownCompact() {
                 radixes = mutableListOf(Radix(2), Radix(8), Radix(10), Radix(16)),
                 isCompact = true,
                 trailingIcon = {
-                    ExposedDropdownMenuDefaults.TrailingIcon(
-                        expanded = expanded
-                    )
+                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
                 },
             )
         }
@@ -121,9 +119,7 @@ private fun PreviewRadixExposedDropdownDark() {
                 radixes = mutableListOf(Radix(2), Radix(8), Radix(10), Radix(16)),
                 isCompact = false,
                 trailingIcon = {
-                    ExposedDropdownMenuDefaults.TrailingIcon(
-                        expanded = expanded
-                    )
+                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
                 },
             )
         }

@@ -52,7 +52,7 @@ fun ExplanationScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             var customRadix1Expanded by remember { mutableStateOf(false) }
@@ -67,7 +67,7 @@ fun ExplanationScreen(
                 },
                 radix = viewModel.nsFrom.value.radix,
                 radixes = viewModel.radixes,
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.weight(1f, fill = false),
                 isCompact = true,
                 trailingIcon = {
                     ExposedDropdownMenuDefaults.TrailingIcon(
@@ -101,7 +101,7 @@ fun ExplanationScreen(
                 },
                 radix = viewModel.nsTo.value.radix,
                 radixes = viewModel.radixes,
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.weight(1f, fill = false),
                 isCompact = true,
                 trailingIcon = {
                     ExposedDropdownMenuDefaults.TrailingIcon(
