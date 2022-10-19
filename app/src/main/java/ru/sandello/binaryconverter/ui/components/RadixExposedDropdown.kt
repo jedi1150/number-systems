@@ -33,21 +33,35 @@ fun RadixExposedDropdown(
                 value = radix.value.toString(),
                 onValueChange = { },
                 modifier = Modifier.menuAnchor(),
+                enabled = false,
                 readOnly = true,
                 trailingIcon = trailingIcon,
                 singleLine = true,
                 shape = shape,
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    disabledTextColor = MaterialTheme.colorScheme.onSurface,
+                    disabledBorderColor = MaterialTheme.colorScheme.outline,
+                    disabledLeadingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                    disabledTrailingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                ),
             )
         } else {
             OutlinedTextField(
                 value = radix.value.toString(),
                 onValueChange = {},
                 modifier = Modifier.menuAnchor(),
+                enabled = false,
                 readOnly = true,
                 label = {},
                 trailingIcon = trailingIcon,
                 singleLine = true,
                 shape = shape,
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    disabledTextColor = MaterialTheme.colorScheme.onSurface,
+                    disabledBorderColor = MaterialTheme.colorScheme.outline,
+                    disabledLeadingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                    disabledTrailingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                ),
             )
         }
         ExposedDropdownMenu(
