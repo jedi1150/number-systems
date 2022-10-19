@@ -18,15 +18,9 @@ import ru.sandello.binaryconverter.utils.CharRegex
 import ru.sandello.binaryconverter.utils.Converter
 import javax.inject.Inject
 
-enum class OperandType {
-    OperandCustom1,
-    OperandCustom2,
-}
+enum class OperandType { OperandCustom1, OperandCustom2 }
 
-enum class RadixType {
-    RadixCustom1,
-    RadixCustom2,
-}
+enum class RadixType { RadixCustom1, RadixCustom2 }
 
 @HiltViewModel
 class ExplanationViewModel @Inject constructor(private val converter: Converter) : ViewModel() {
@@ -58,8 +52,8 @@ class ExplanationViewModel @Inject constructor(private val converter: Converter)
                     index = from.radix.value,
                     useDelimiterChars = from.value.count { it.toString().contains("[,.]".toRegex()) } <= 1,
                     useNegativeChar = from.value.count { it.toString().contains("[-]".toRegex()) } <= 1,
-                )
-            )
+                ),
+            ),
         ) {
             Log.d(APP_TAG, "ExplanationViewModel::convert: Invalid character entered")
             // TODO(oleg): Add crashlytics report
@@ -72,27 +66,22 @@ class ExplanationViewModel @Inject constructor(private val converter: Converter)
         }
 
         viewModelScope.launch {
-            toRadixes
-                .asFlow()
-                .flatMapMerge { _toRadix -> converter(from = from, toRadix = _toRadix) }
-                .onCompletion { cause ->
-                    if (cause != null) {
-                        Log.e(APP_TAG, "ExplanationViewModel::Flow completed exceptionally: $cause")
-                        // TODO(oleg): Add crashlytics report
-                    }
-                }
-                .catch { error ->
-                    Log.e(APP_TAG, "ExplanationViewModel::convert: catch", error)
+            toRadixes.asFlow().flatMapMerge { _toRadix -> converter(from = from, toRadix = _toRadix) }.onCompletion { cause ->
+                if (cause != null) {
+                    Log.e(APP_TAG, "ExplanationViewModel::Flow completed exceptionally: $cause")
                     // TODO(oleg): Add crashlytics report
                 }
-                .collect { convertedData ->
-                    Log.d(APP_TAG, "ExplanationViewModel::collect: operandType: $operandType, result: ${convertedData.result}")
-                    when (operandType) {
-                        OperandType.OperandCustom1 -> _nsFrom.value = convertedData.result
-                        OperandType.OperandCustom2 -> _nsTo.value = convertedData.result
-                    }
-                    _explanationState.value = ExplanationState.Complete(_nsFrom.value, _nsTo.value)
+            }.catch { error ->
+                Log.e(APP_TAG, "ExplanationViewModel::convert: catch", error)
+                // TODO(oleg): Add crashlytics report
+            }.collect { convertedData ->
+                Log.d(APP_TAG, "ExplanationViewModel::collect: operandType: $operandType, result: ${convertedData.result}")
+                when (operandType) {
+                    OperandType.OperandCustom1 -> _nsFrom.value = convertedData.result
+                    OperandType.OperandCustom2 -> _nsTo.value = convertedData.result
                 }
+                _explanationState.value = ExplanationState.Complete(_nsFrom.value, _nsTo.value)
+            }
         }
     }
 
@@ -112,6 +101,7 @@ class ExplanationViewModel @Inject constructor(private val converter: Converter)
     }
 
     fun radixesViceVersa() {
+        if (_explanationState.value == ExplanationState.Calculating) return
         Log.d(APP_TAG, "ExplanationViewModel::radixesViceVersa")
         updateRadix(radixType = RadixType.RadixCustom1, newRadix = _nsTo.value.radix)
         updateRadix(radixType = RadixType.RadixCustom2, newRadix = _nsFrom.value.radix)
