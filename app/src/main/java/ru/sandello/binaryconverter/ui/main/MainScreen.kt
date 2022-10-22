@@ -30,6 +30,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import ru.sandello.binaryconverter.R
+import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.model.Screen
 import ru.sandello.binaryconverter.ui.calculator.CalculatorScreen
 import ru.sandello.binaryconverter.ui.calculator.CalculatorViewModel
@@ -48,6 +49,7 @@ fun MainScreen(
     calculatorViewModel: CalculatorViewModel = viewModel(),
     explanationViewModel: ExplanationViewModel = viewModel(),
     bottomSheetState: ModalBottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden),
+    showExplanation: (NumberSystem, NumberSystem) -> Unit,
 ) {
     val layoutDirection = LocalLayoutDirection.current
 
@@ -147,6 +149,7 @@ fun MainScreen(
                 calculatorViewModel = calculatorViewModel,
                 navController = navController,
                 contentPadding = contentPadding,
+                showExplanation = showExplanation,
             )
         }
     }
@@ -159,6 +162,7 @@ fun MainScreenContent(
     calculatorViewModel: CalculatorViewModel = viewModel(),
     contentPadding: PaddingValues,
     navController: NavHostController,
+    showExplanation: (NumberSystem, NumberSystem) -> Unit,
 ) {
     val layoutDirection = LocalLayoutDirection.current
 
@@ -197,11 +201,19 @@ fun MainScreenContent(
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination
-        val fabVisible by remember(currentDestination) {
+        val clearFabIsVisible by remember(currentDestination) {
             derivedStateOf {
                 return@derivedStateOf when (currentDestination?.route) {
                     Screen.Converter.route -> converterViewModel.hasData.value
                     Screen.Calculator.route -> calculatorViewModel.hasData.value
+                    else -> false
+                }
+            }
+        }
+        val explanationFabIsVisible by remember(currentDestination) {
+            derivedStateOf {
+                return@derivedStateOf when (currentDestination?.route) {
+                    Screen.Converter.route -> converterViewModel.hasData.value
                     else -> false
                 }
             }
@@ -211,7 +223,7 @@ fun MainScreenContent(
             horizontalAlignment = Alignment.End,
         ) {
             AnimatedVisibility(
-                visible = fabVisible,
+                visible = clearFabIsVisible,
                 enter = scaleIn(),
                 exit = scaleOut(),
             ) {
@@ -231,7 +243,7 @@ fun MainScreenContent(
             }
 
             AnimatedVisibility(
-                visible = fabVisible,
+                visible = explanationFabIsVisible,
                 enter = scaleIn(),
                 exit = scaleOut(),
             ) {
@@ -240,11 +252,8 @@ fun MainScreenContent(
                     icon = { Icon(painter = painterResource(R.drawable.explanation), contentDescription = stringResource(id = R.string.explanation)) },
                     onClick = {
                         if (navController.currentDestination?.route == Screen.Converter.route) {
-                            converterViewModel.showExplanation()
+                            showExplanation(converterViewModel.numberSystem10.value, converterViewModel.numberSystem2.value)
                         }
-//                                if (navController.currentDestination?.route == Screen.Calculator.route) {
-//                                                calculatorViewModel.clear()
-//                                }
                     },
                     elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 6.dp),
                 )
@@ -262,6 +271,7 @@ private fun PreviewMainScreen() {
         Surface {
             MainScreen(
                 bottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden),
+                showExplanation = { _, _ -> },
             )
         }
     }

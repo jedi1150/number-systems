@@ -31,7 +31,6 @@ fun MainRoute(
     LaunchedEffect(converterViewModel.showExplanation.value) {
         if (converterViewModel.showExplanation.value) {
             scope.launch {
-                explanationViewModel.acceptValues(converterViewModel.numberSystem10.value, converterViewModel.numberSystem2.value)
                 keyboardController?.hide()
                 bottomSheetState.show()
             }
@@ -57,5 +56,9 @@ fun MainRoute(
         calculatorViewModel = calculatorViewModel,
         explanationViewModel = explanationViewModel,
         bottomSheetState = bottomSheetState,
+        showExplanation = { nsFrom, nsTo ->
+            converterViewModel.showExplanation()
+            explanationViewModel.acceptValues(nsFrom, nsTo)
+        },
     )
 }
