@@ -100,11 +100,15 @@ class ExplanationViewModel @Inject constructor(private val converter: Converter)
         }
     }
 
-    fun radixesViceVersa() {
-        if (_explanationState.value == ExplanationState.Calculating) return
-        Log.d(APP_TAG, "ExplanationViewModel::radixesViceVersa")
-        updateRadix(radixType = RadixType.RadixCustom1, newRadix = _nsTo.value.radix)
-        updateRadix(radixType = RadixType.RadixCustom2, newRadix = _nsFrom.value.radix)
+    fun swapRadixes() {
+        if (_explanationState.value is ExplanationState.Calculating) return
+        Log.d(APP_TAG, "ExplanationViewModel::swapRadixes")
+
+        val radixFrom: Radix = _nsFrom.value.radix
+        val radixTo: Radix = _nsTo.value.radix
+
+        updateRadix(radixType = RadixType.RadixCustom1, newRadix = radixTo)
+        updateRadix(radixType = RadixType.RadixCustom2, newRadix = radixFrom)
     }
 
 }
