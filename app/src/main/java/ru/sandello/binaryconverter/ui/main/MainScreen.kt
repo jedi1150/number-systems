@@ -1,9 +1,6 @@
 package ru.sandello.binaryconverter.ui.main
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.scaleIn
-import androidx.compose.animation.scaleOut
+import androidx.compose.animation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material3.*
@@ -16,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -174,7 +172,6 @@ fun MainScreenContent(
         composable(Screen.Calculator.route) { CalculatorScreen(calculatorViewModel, contentPadding) }
     }
 
-    // FAB clear fields
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -218,14 +215,13 @@ fun MainScreenContent(
                 }
             }
         }
-        Column(
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            horizontalAlignment = Alignment.End,
-        ) {
+        Column(horizontalAlignment = Alignment.End) {
             AnimatedVisibility(
                 visible = clearFabIsVisible,
-                enter = scaleIn(),
-                exit = scaleOut(),
+                enter = scaleIn(transformOrigin = TransformOrigin(0f, 0f)) +
+                        fadeIn() + expandIn(expandFrom = Alignment.TopStart),
+                exit = scaleOut(transformOrigin = TransformOrigin(0f, 0f)) +
+                        fadeOut() + shrinkOut(shrinkTowards = Alignment.TopStart),
             ) {
                 SmallFloatingActionButton(
                     onClick = {
@@ -236,7 +232,8 @@ fun MainScreenContent(
                             calculatorViewModel.clear()
                         }
                     },
-                    elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 6.dp),
+                    modifier = Modifier.padding(vertical = 8.dp),
+                    elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 0.dp),
                 ) {
                     Icon(painter = painterResource(R.drawable.close), contentDescription = null)
                 }
@@ -244,8 +241,10 @@ fun MainScreenContent(
 
             AnimatedVisibility(
                 visible = explanationFabIsVisible,
-                enter = scaleIn(),
-                exit = scaleOut(),
+                enter = scaleIn(transformOrigin = TransformOrigin(0f, 0f)) +
+                        fadeIn() + expandIn(expandFrom = Alignment.TopStart),
+                exit = scaleOut(transformOrigin = TransformOrigin(0f, 0f)) +
+                        fadeOut() + shrinkOut(shrinkTowards = Alignment.TopStart),
             ) {
                 ExtendedFloatingActionButton(
                     text = { Text(text = stringResource(id = R.string.explanation)) },
@@ -255,7 +254,8 @@ fun MainScreenContent(
                             showExplanation(converterViewModel.numberSystem10.value, converterViewModel.numberSystem2.value)
                         }
                     },
-                    elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 6.dp),
+                    modifier = Modifier.padding(vertical = 8.dp),
+                    elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 0.dp),
                 )
             }
 
