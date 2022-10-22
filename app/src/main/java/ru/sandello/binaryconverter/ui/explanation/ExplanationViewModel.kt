@@ -2,7 +2,6 @@ package ru.sandello.binaryconverter.ui.explanation
 
 import android.annotation.SuppressLint
 import android.util.Log
-import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -25,12 +24,10 @@ enum class RadixType { RadixCustom1, RadixCustom2 }
 @HiltViewModel
 class ExplanationViewModel @Inject constructor(private val converter: Converter) : ViewModel() {
     private val _explanationState = MutableStateFlow<ExplanationState>(ExplanationState.Calculating)
-    val explanationState: StateFlow<ExplanationState> = _explanationState
+    val explanationState = _explanationState.asStateFlow()
 
     private val _nsFrom = mutableStateOf(NumberSystem(String(), Radix.DEC))
-    val nsFrom: State<NumberSystem> = _nsFrom
     private val _nsTo = mutableStateOf(NumberSystem(String(), Radix.BIN))
-    val nsTo: State<NumberSystem> = _nsTo
 
     @SuppressLint("Range")
     val radixes: List<Radix> = Array(36) { radix -> Radix(radix + 1) }.filter { radix -> !listOf(Radix(1)).contains(radix) }

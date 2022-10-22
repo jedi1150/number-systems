@@ -11,10 +11,7 @@ import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -86,7 +83,12 @@ fun MainScreen(
                             color = androidx.compose.material3.MaterialTheme.colorScheme.outline,
                         )
                     }
-                    ExplanationScreen(explanationViewModel)
+                    ExplanationScreen(
+                        explanationState = explanationViewModel.explanationState.collectAsState(),
+                        radixes = explanationViewModel.radixes,
+                        updateRadix = explanationViewModel::updateRadix,
+                        swapRadixes = explanationViewModel::swapRadixes,
+                    )
                 }
             }
         },
