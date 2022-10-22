@@ -112,7 +112,7 @@ private fun longDivision(dividend: BigDecimal, divisor: Int): Division {
 private fun PreviewExplanationDivision() {
     NumberSystemsTheme {
         Surface {
-            ExplanationDivisionBlock(NumberSystem("10.5", Radix(10)), NumberSystem("1010.1", Radix(2)))
+            ExplanationDivisionBlock(NumberSystem("10.5", Radix.DEC), NumberSystem("1010.1", Radix.BIN))
         }
     }
 }
@@ -122,7 +122,7 @@ private fun PreviewExplanationDivision() {
 private fun PreviewExplanationDivisionDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            ExplanationDivisionBlock(NumberSystem("25", Radix(10)), NumberSystem("11001", Radix(2)))
+            ExplanationDivisionBlock(NumberSystem("25", Radix.DEC), NumberSystem("11001", Radix.BIN))
         }
     }
 }

@@ -38,12 +38,12 @@ fun ExplanationContent(from: NumberSystem, to: NumberSystem) {
         item {
             ExplanationResult(from = from, to = to)
         }
-        if (from.radix.value != 10) {
+        if (from.radix != Radix.DEC) {
             item {
                 ExplanationConvertToDecimal(from = from, to = to)
             }
         }
-        if (to.radix != Radix(10)) {
+        if (to.radix != Radix.DEC) {
             item {
                 ExplanationDivisionBlock(from = from, to = to)
             }
@@ -67,7 +67,7 @@ fun ExplanationContent(from: NumberSystem, to: NumberSystem) {
 private fun PreviewExplanationContent() {
     NumberSystemsTheme {
         Surface {
-            ExplanationContent(from = NumberSystem(value = "10.5", Radix(10)), to = NumberSystem(value = "1010.1", Radix(2)))
+            ExplanationContent(from = NumberSystem(value = "10.5", Radix.DEC), to = NumberSystem(value = "1010.1", Radix.BIN))
         }
     }
 }
@@ -77,7 +77,7 @@ private fun PreviewExplanationContent() {
 private fun PreviewExplanationContentDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            ExplanationContent(from = NumberSystem(value = "12.55", Radix(8)), to = NumberSystem(value = "10.703125", Radix(10)))
+            ExplanationContent(from = NumberSystem(value = "12.55", Radix.OCT), to = NumberSystem(value = "10.703125", Radix.DEC))
         }
     }
 }
@@ -87,7 +87,7 @@ private fun PreviewExplanationContentDark() {
 private fun PreviewExplanationContentBinHexDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            ExplanationContent(from = NumberSystem(value = "10.101010", Radix(2)), to = NumberSystem(value = "2.A8", Radix(16)))
+            ExplanationContent(from = NumberSystem(value = "10.101010", Radix.BIN), to = NumberSystem(value = "2.A8", Radix.HEX))
         }
     }
 }

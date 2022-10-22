@@ -24,13 +24,13 @@ import javax.inject.Inject
 @HiltViewModel
 class ConverterViewModel @Inject constructor(private val converter: Converter) : ViewModel() {
 
-    private val _numberSystem10 = mutableStateOf(NumberSystem(String(), Radix(10)))
+    private val _numberSystem10 = mutableStateOf(NumberSystem(String(), Radix.DEC))
     val numberSystem10: State<NumberSystem> = _numberSystem10
-    private val _numberSystem2 = mutableStateOf(NumberSystem(String(), Radix(2)))
+    private val _numberSystem2 = mutableStateOf(NumberSystem(String(), Radix.BIN))
     val numberSystem2: State<NumberSystem> = _numberSystem2
-    private val _numberSystem8 = mutableStateOf(NumberSystem(String(), Radix(8)))
+    private val _numberSystem8 = mutableStateOf(NumberSystem(String(), Radix.OCT))
     val numberSystem8: State<NumberSystem> = _numberSystem8
-    private val _numberSystem16 = mutableStateOf(NumberSystem(String(), Radix(16)))
+    private val _numberSystem16 = mutableStateOf(NumberSystem(String(), Radix.HEX))
     val numberSystem16: State<NumberSystem> = _numberSystem16
     private val _numberSystemCustom = mutableStateOf(NumberSystem(String(), Radix(3)))
     val numberSystemCustom: State<NumberSystem> = _numberSystemCustom

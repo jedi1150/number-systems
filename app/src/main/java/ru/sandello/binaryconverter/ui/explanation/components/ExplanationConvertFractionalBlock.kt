@@ -112,7 +112,7 @@ private fun fractionMultiplier(multiplier: String, multiplicand: Int): FractionM
 private fun PreviewExplanationConvertFractionalBlock() {
     NumberSystemsTheme {
         Surface {
-            ExplanationConvertFractionalBlock(NumberSystem("10.703125", Radix(10)), NumberSystem("A.B4", Radix(16)))
+            ExplanationConvertFractionalBlock(NumberSystem("10.703125", Radix.DEC), NumberSystem("A.B4", Radix.HEX))
         }
     }
 }
@@ -122,7 +122,7 @@ private fun PreviewExplanationConvertFractionalBlock() {
 private fun PreviewExplanationConvertFractionalBlockDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            ExplanationConvertFractionalBlock(NumberSystem("10.703125", Radix(10)), NumberSystem("A.B4", Radix(16)))
+            ExplanationConvertFractionalBlock(NumberSystem("10.703125", Radix.DEC), NumberSystem("A.B4", Radix.HEX))
         }
     }
 }
@@ -132,7 +132,7 @@ private fun PreviewExplanationConvertFractionalBlockDark() {
 private fun PreviewExplanationConvertFractionalBlockDark2() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            ExplanationConvertFractionalBlock(NumberSystem("123.123", Radix(10)), NumberSystem("1111011.000111110111", Radix(2)))
+            ExplanationConvertFractionalBlock(NumberSystem("123.123", Radix.DEC), NumberSystem("1111011.000111110111", Radix.BIN))
         }
     }
 }

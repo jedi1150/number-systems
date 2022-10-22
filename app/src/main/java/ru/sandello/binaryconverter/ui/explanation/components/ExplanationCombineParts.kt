@@ -56,7 +56,7 @@ fun ExplanationCombineParts(from: NumberSystem, to: NumberSystem) {
 fun PreviewExplanationCombineParts() {
     NumberSystemsTheme {
         Surface {
-            ExplanationCombineParts(from = NumberSystem(value = "12.55", radix = Radix(8)), to = NumberSystem(value = "A.B4", Radix(16)))
+            ExplanationCombineParts(from = NumberSystem(value = "12.55", radix = Radix.OCT), to = NumberSystem(value = "A.B4", Radix.HEX))
         }
     }
 }
@@ -66,7 +66,7 @@ fun PreviewExplanationCombineParts() {
 fun PreviewExplanationCombinePartsDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            ExplanationCombineParts(from = NumberSystem(value = "12.55", radix = Radix(8)), to = NumberSystem(value = "A.B4", Radix(16)))
+            ExplanationCombineParts(from = NumberSystem(value = "12.55", radix = Radix.OCT), to = NumberSystem(value = "A.B4", Radix.HEX))
         }
     }
 }

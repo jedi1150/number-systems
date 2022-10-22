@@ -40,9 +40,9 @@ class Converter @Inject constructor() {
 
         var result: NumberSystem
 
-        if (fromNumberSystem.radix != Radix(10)) {
+        if (fromNumberSystem.radix != Radix.DEC) {
             result = toDec(fromNumberSystem)
-            if (toRadix != Radix(10)) {
+            if (toRadix != Radix.DEC) {
                 result = fromDec(result, toRadix)
             }
         } else {
@@ -75,7 +75,7 @@ class Converter @Inject constructor() {
             result = result.split("[,.]".toRegex())[0]
         }
 
-        return NumberSystem(value = result, radix = Radix(10))
+        return NumberSystem(value = result, radix = Radix.DEC)
     }
 
     private fun fromDec(value: NumberSystem, toRadix: Radix): NumberSystem {

@@ -27,9 +27,9 @@ class ExplanationViewModel @Inject constructor(private val converter: Converter)
     private val _explanationState = MutableStateFlow<ExplanationState>(ExplanationState.Calculating)
     val explanationState: StateFlow<ExplanationState> = _explanationState
 
-    private val _nsFrom = mutableStateOf(NumberSystem(String(), Radix(10)))
+    private val _nsFrom = mutableStateOf(NumberSystem(String(), Radix.DEC))
     val nsFrom: State<NumberSystem> = _nsFrom
-    private val _nsTo = mutableStateOf(NumberSystem(String(), Radix(2)))
+    private val _nsTo = mutableStateOf(NumberSystem(String(), Radix.BIN))
     val nsTo: State<NumberSystem> = _nsTo
 
     @SuppressLint("Range")

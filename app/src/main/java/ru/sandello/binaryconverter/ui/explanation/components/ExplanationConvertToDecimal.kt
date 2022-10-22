@@ -68,7 +68,7 @@ fun ExplanationConvertToDecimal(from: NumberSystem, to: NumberSystem) {
 fun PreviewExplanationConvertToDecimal() {
     NumberSystemsTheme {
         Surface {
-            ExplanationConvertToDecimal(from = NumberSystem("12.55", Radix(8)), to = NumberSystem("10.703125", Radix(10)))
+            ExplanationConvertToDecimal(from = NumberSystem("12.55", Radix.OCT), to = NumberSystem("10.703125", Radix.DEC))
         }
     }
 }
@@ -78,7 +78,7 @@ fun PreviewExplanationConvertToDecimal() {
 fun PreviewExplanationConvertToDecimalDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            ExplanationConvertToDecimal(NumberSystem("12.55", Radix(8)), to = NumberSystem("10.703125", Radix(10)))
+            ExplanationConvertToDecimal(NumberSystem("12.55", Radix.OCT), to = NumberSystem("10.703125", Radix.DEC))
         }
     }
 }

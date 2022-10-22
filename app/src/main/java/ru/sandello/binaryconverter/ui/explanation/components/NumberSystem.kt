@@ -29,7 +29,7 @@ fun numberSystem(numberSystem: NumberSystem): AnnotatedString {
 private fun PreviewNumberSystem() {
     NumberSystemsTheme {
         Surface {
-            Text(text = numberSystem(numberSystem = NumberSystem("1024", Radix(10))))
+            Text(text = numberSystem(numberSystem = NumberSystem("1024", Radix.DEC)))
         }
     }
 }
@@ -39,7 +39,7 @@ private fun PreviewNumberSystem() {
 private fun PreviewNumberSystemDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            Text(text = numberSystem(numberSystem = NumberSystem("11100100", Radix(2))))
+            Text(text = numberSystem(numberSystem = NumberSystem("11100100", Radix.BIN)))
         }
     }
 }

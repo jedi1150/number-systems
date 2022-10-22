@@ -92,8 +92,8 @@ private fun PreviewRadixExposedDropdownCompact() {
                 onExpandedChange = { expanded = !expanded },
                 onDismissRequest = { expanded = false },
                 onRadixClicked = { expanded = false },
-                radix = Radix(16),
-                radixes = mutableListOf(Radix(2), Radix(8), Radix(10), Radix(16)),
+                radix = Radix.HEX,
+                radixes = mutableListOf(Radix.BIN, Radix.OCT, Radix.DEC, Radix.HEX),
                 isCompact = true,
                 trailingIcon = {
                     ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
@@ -115,8 +115,8 @@ private fun PreviewRadixExposedDropdownDark() {
                 onExpandedChange = { expanded = !expanded },
                 onDismissRequest = { expanded = false },
                 onRadixClicked = { expanded = false },
-                radix = Radix(16),
-                radixes = mutableListOf(Radix(2), Radix(8), Radix(10), Radix(16)),
+                radix = Radix.HEX,
+                radixes = mutableListOf(Radix.BIN, Radix.OCT, Radix.DEC, Radix.HEX),
                 isCompact = false,
                 trailingIcon = {
                     ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)

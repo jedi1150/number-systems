@@ -46,14 +46,14 @@ enum class ArithmeticType {
 
 @HiltViewModel
 class CalculatorViewModel @Inject constructor(private val converter: Converter) : ViewModel() {
-    private val _numberSystemCustom1 = mutableStateOf(NumberSystem(String(), Radix(10)))
+    private val _numberSystemCustom1 = mutableStateOf(NumberSystem(String(), Radix.DEC))
     val numberSystemCustom1: State<NumberSystem> = _numberSystemCustom1
-    private val _numberSystemCustom2 = mutableStateOf(NumberSystem(String(), Radix(2)))
+    private val _numberSystemCustom2 = mutableStateOf(NumberSystem(String(), Radix.BIN))
     val numberSystemCustom2: State<NumberSystem> = _numberSystemCustom2
-    private val _numberSystemResult = mutableStateOf(NumberSystem(String(), Radix(10)))
+    private val _numberSystemResult = mutableStateOf(NumberSystem(String(), Radix.DEC))
     val numberSystemResult: State<NumberSystem> = _numberSystemResult
 
-    private val _radixCalculation = mutableStateOf(Radix(10))
+    private val _radixCalculation = mutableStateOf(Radix.DEC)
     val radixCalculation: State<Radix> = _radixCalculation
 
     private val _selectedArithmetic = mutableStateOf(Addition)

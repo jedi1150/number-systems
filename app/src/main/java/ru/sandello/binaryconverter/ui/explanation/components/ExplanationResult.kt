@@ -78,7 +78,7 @@ fun ExplanationResult(from: NumberSystem, to: NumberSystem) {
 private fun PreviewExplanationResult() {
     NumberSystemsTheme {
         Surface {
-            ExplanationResult(NumberSystem("256", Radix(10)), (NumberSystem("100", Radix(2))))
+            ExplanationResult(NumberSystem("256", Radix.DEC), (NumberSystem("100", Radix.BIN)))
         }
     }
 }
@@ -88,7 +88,7 @@ private fun PreviewExplanationResult() {
 private fun PreviewExplanationResultDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            ExplanationResult(NumberSystem("256", Radix(10)), (NumberSystem("100", Radix(2))))
+            ExplanationResult(NumberSystem("256", Radix.DEC), (NumberSystem("100", Radix.BIN)))
         }
     }
 }
