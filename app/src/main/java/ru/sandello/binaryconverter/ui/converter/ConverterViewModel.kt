@@ -1,6 +1,5 @@
 package ru.sandello.binaryconverter.ui.converter
 
-import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -23,42 +22,41 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ConverterViewModel @Inject constructor(private val converter: Converter) : ViewModel() {
+    private val numberSystem10 = mutableStateOf(NumberSystem(String(), Radix.DEC))
+    private val numberSystem2 = mutableStateOf(NumberSystem(String(), Radix.BIN))
+    private val numberSystem8 = mutableStateOf(NumberSystem(String(), Radix.OCT))
+    private val numberSystem16 = mutableStateOf(NumberSystem(String(), Radix.HEX))
+    private val numberSystemCustom = mutableStateOf(NumberSystem(String(), Radix(3)))
 
-    private val _numberSystem10 = mutableStateOf(NumberSystem(String(), Radix.DEC))
-    val numberSystem10: State<NumberSystem> = _numberSystem10
-    private val _numberSystem2 = mutableStateOf(NumberSystem(String(), Radix.BIN))
-    val numberSystem2: State<NumberSystem> = _numberSystem2
-    private val _numberSystem8 = mutableStateOf(NumberSystem(String(), Radix.OCT))
-    val numberSystem8: State<NumberSystem> = _numberSystem8
-    private val _numberSystem16 = mutableStateOf(NumberSystem(String(), Radix.HEX))
-    val numberSystem16: State<NumberSystem> = _numberSystem16
-    private val _numberSystemCustom = mutableStateOf(NumberSystem(String(), Radix(3)))
-    val numberSystemCustom: State<NumberSystem> = _numberSystemCustom
-
-    private val _numberSystem10error = mutableStateOf(false)
-    val numberSystem10error: State<Boolean> = _numberSystem10error
-    private val _numberSystem2error = mutableStateOf(false)
-    val numberSystem2error: State<Boolean> = _numberSystem2error
-    private val _numberSystem8error = mutableStateOf(false)
-    val numberSystem8error: State<Boolean> = _numberSystem8error
-    private val _numberSystem16error = mutableStateOf(false)
-    val numberSystem16error: State<Boolean> = _numberSystem16error
-    private val _numberSystemCustomError = mutableStateOf(false)
-    val numberSystemCustomError: State<Boolean> = _numberSystemCustomError
-
-    val hasData: State<Boolean>
-        get() = mutableStateOf(_numberSystem10.value.value.isNotBlank() || _numberSystem2.value.value.isNotBlank() || _numberSystem8.value.value.isNotBlank() || _numberSystem16.value.value.isNotBlank() || _numberSystemCustom.value.value.isNotBlank())
-
-    @SuppressLint("Range")
-    val radixes: List<Radix> = Array(36) { radix -> Radix(radix + 1) }.filter { radix -> !listOf(Radix(1), _numberSystem2.value.radix, _numberSystem8.value.radix, _numberSystem10.value.radix, _numberSystem16.value.radix).contains(radix) }
+    private val numberSystem10error = mutableStateOf(false)
+    private val numberSystem2error = mutableStateOf(false)
+    private val numberSystem8error = mutableStateOf(false)
+    private val numberSystem16error = mutableStateOf(false)
+    private val numberSystemCustomError = mutableStateOf(false)
 
     private var lastNumberSystem: NumberSystem? = null
 
     private val _showExplanation = mutableStateOf(false)
     val showExplanation: State<Boolean> = _showExplanation
 
+    private val _converterUiState = mutableStateOf(
+        ConverterUiState(
+            numberSystem10 = numberSystem10,
+            numberSystem2 = numberSystem2,
+            numberSystem8 = numberSystem8,
+            numberSystem16 = numberSystem16,
+            numberSystemCustom = numberSystemCustom,
+            numberSystem10error = numberSystem10error,
+            numberSystem2error = numberSystem2error,
+            numberSystem8error = numberSystem8error,
+            numberSystem16error = numberSystem16error,
+            numberSystemCustomError = numberSystemCustomError,
+        ),
+    )
+    val converterUiState: State<ConverterUiState> = _converterUiState
+
     fun convertFrom(from: NumberSystem) {
-        convert(from, toRadixes = arrayOf(_numberSystem2.value.radix, _numberSystem8.value.radix, _numberSystem10.value.radix, _numberSystem16.value.radix, _numberSystemCustom.value.radix))
+        convert(from, toRadixes = arrayOf(numberSystem2.value.radix, numberSystem8.value.radix, numberSystem10.value.radix, numberSystem16.value.radix, numberSystemCustom.value.radix))
     }
 
     @OptIn(FlowPreview::class)
@@ -77,21 +75,19 @@ class ConverterViewModel @Inject constructor(private val converter: Converter) :
         ))) {
             Log.d(APP_TAG, "ConverterViewModel::convert: Invalid character entered")
             when (from.radix) {
-                _numberSystem2.value.radix -> _numberSystem2error.value = true
-                _numberSystem8.value.radix -> _numberSystem8error.value = true
-                _numberSystem10.value.radix -> _numberSystem10error.value = true
-                _numberSystem16.value.radix -> _numberSystem16error.value = true
-                _numberSystemCustom.value.radix -> _numberSystemCustomError.value = true
+                numberSystem2.value.radix -> numberSystem2error.value = true
+                numberSystem8.value.radix -> numberSystem8error.value = true
+                numberSystem10.value.radix -> numberSystem10error.value = true
+                numberSystem16.value.radix -> numberSystem16error.value = true
+                numberSystemCustom.value.radix -> numberSystemCustomError.value = true
             }
             return
         }
 
         lastNumberSystem = from
 
-        var tempValue = from
-
-        if (tempValue.value.contains("-".toRegex())) {
-            tempValue.value = tempValue.value.replace("-", "").replaceRange(0, 0, "-")
+        if (from.value.contains("-".toRegex())) {
+            from.value = from.value.replace("-", "").replaceRange(0, 0, "-")
         }
 
         viewModelScope.launch {
@@ -99,30 +95,30 @@ class ConverterViewModel @Inject constructor(private val converter: Converter) :
                 (from.radix != _toRadix).also {
                     if (!it) {
                         when (_toRadix) {
-                            _numberSystem2.value.radix -> {
-                                if (_numberSystem2.value.value == from.value) cancel()
-                                _numberSystem2.value = tempValue
+                            numberSystem2.value.radix -> {
+                                if (numberSystem2.value.value == from.value) cancel()
+                                numberSystem2.value = from
                             }
-                            _numberSystem8.value.radix -> {
-                                if (_numberSystem8.value.value == from.value) cancel()
-                                _numberSystem8.value = tempValue
+                            numberSystem8.value.radix -> {
+                                if (numberSystem8.value.value == from.value) cancel()
+                                numberSystem8.value = from
                             }
-                            _numberSystem10.value.radix -> {
-                                if (_numberSystem10.value.value == from.value) cancel()
-                                _numberSystem10.value = tempValue
+                            numberSystem10.value.radix -> {
+                                if (numberSystem10.value.value == from.value) cancel()
+                                numberSystem10.value = from
                             }
-                            _numberSystem16.value.radix -> {
-                                if (_numberSystem16.value.value == from.value) cancel()
-                                _numberSystem16.value = tempValue
+                            numberSystem16.value.radix -> {
+                                if (numberSystem16.value.value == from.value) cancel()
+                                numberSystem16.value = from
                             }
-                            _numberSystemCustom.value.radix -> {
-                                if (_numberSystemCustom.value.value == from.value) cancel()
-                                _numberSystemCustom.value = tempValue
+                            numberSystemCustom.value.radix -> {
+                                if (numberSystemCustom.value.value == from.value) cancel()
+                                numberSystemCustom.value = from
                             }
                         }
                     }
                 }
-            }.asFlow().flatMapMerge { _toRadix -> converter(from = tempValue, toRadix = _toRadix) }.onCompletion { cause ->
+            }.asFlow().flatMapMerge { _toRadix -> converter(from = from, toRadix = _toRadix) }.onCompletion { cause ->
                 if (cause != null) {
                     Log.e(APP_TAG, "Flow completed exceptionally: $cause")
                 } else {
@@ -130,25 +126,25 @@ class ConverterViewModel @Inject constructor(private val converter: Converter) :
                 }
             }.catch { error -> Log.e(APP_TAG, "ConverterViewModel::convert: catch", error) }.collect { convertedData ->
                 when (convertedData.result.radix) {
-                    _numberSystem2.value.radix -> _numberSystem2.value = convertedData.result
-                    _numberSystem8.value.radix -> _numberSystem8.value = convertedData.result
-                    _numberSystem10.value.radix -> _numberSystem10.value = convertedData.result
-                    _numberSystem16.value.radix -> _numberSystem16.value = convertedData.result
-                    _numberSystemCustom.value.radix -> _numberSystemCustom.value = convertedData.result
+                    numberSystem2.value.radix -> numberSystem2.value = convertedData.result
+                    numberSystem8.value.radix -> numberSystem8.value = convertedData.result
+                    numberSystem10.value.radix -> numberSystem10.value = convertedData.result
+                    numberSystem16.value.radix -> numberSystem16.value = convertedData.result
+                    numberSystemCustom.value.radix -> numberSystemCustom.value = convertedData.result
                 }
             }
         }
     }
 
     fun updateCustomRadix(newRadix: Radix) {
-        Log.d(APP_TAG, "ConverterViewModel::updateCustomRadix ${_numberSystemCustom.value.radix} to $newRadix")
+        Log.d(APP_TAG, "ConverterViewModel::updateCustomRadix ${numberSystemCustom.value.radix} to $newRadix")
 
         val tempNS = lastNumberSystem
-        if (tempNS != null && _numberSystemCustom.value.radix != newRadix) {
-            if (lastNumberSystem?.radix == _numberSystemCustom.value.radix) {
+        if (tempNS != null && numberSystemCustom.value.radix != newRadix) {
+            if (lastNumberSystem?.radix == numberSystemCustom.value.radix) {
                 convert(
                     from = tempNS,
-                    toRadixes = arrayOf(_numberSystem2.value.radix, _numberSystem8.value.radix, _numberSystem10.value.radix, _numberSystem16.value.radix),
+                    toRadixes = arrayOf(numberSystem2.value.radix, numberSystem8.value.radix, numberSystem10.value.radix, numberSystem16.value.radix),
                 )
             } else {
                 convert(
@@ -158,7 +154,7 @@ class ConverterViewModel @Inject constructor(private val converter: Converter) :
             }
         }
 
-        _numberSystemCustom.value.radix = newRadix
+        numberSystemCustom.value.radix = newRadix
     }
 
     fun showExplanation() {
@@ -170,20 +166,20 @@ class ConverterViewModel @Inject constructor(private val converter: Converter) :
     }
 
     fun clear() {
-        _numberSystem10.value = _numberSystem10.value.copy(value = String())
-        _numberSystem2.value = _numberSystem2.value.copy(value = String())
-        _numberSystem8.value = _numberSystem8.value.copy(value = String())
-        _numberSystem16.value = _numberSystem16.value.copy(value = String())
-        _numberSystemCustom.value = _numberSystemCustom.value.copy(value = String())
+        numberSystem10.value = numberSystem10.value.copy(value = String())
+        numberSystem2.value = numberSystem2.value.copy(value = String())
+        numberSystem8.value = numberSystem8.value.copy(value = String())
+        numberSystem16.value = numberSystem16.value.copy(value = String())
+        numberSystemCustom.value = numberSystemCustom.value.copy(value = String())
         resetErrors()
     }
 
     private fun resetErrors() {
-        _numberSystem10error.value = false
-        _numberSystem2error.value = false
-        _numberSystem8error.value = false
-        _numberSystem16error.value = false
-        _numberSystemCustomError.value = false
+        numberSystem10error.value = false
+        numberSystem2error.value = false
+        numberSystem8error.value = false
+        numberSystem16error.value = false
+        numberSystemCustomError.value = false
     }
 
 }

@@ -1,5 +1,6 @@
 package ru.sandello.binaryconverter.ui.converter
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
@@ -13,16 +14,31 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.NumberSystem
+import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.ui.OperandVisualTransformation
 import ru.sandello.binaryconverter.ui.components.RadixExposedDropdown
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ConverterScreen(viewModel: ConverterViewModel = hiltViewModel(), mainPadding: PaddingValues) {
+fun ConverterScreen(
+    radixes: List<Radix>,
+    numberSystem10: NumberSystem,
+    numberSystem2: NumberSystem,
+    numberSystem8: NumberSystem,
+    numberSystem16: NumberSystem,
+    numberSystemCustom: NumberSystem,
+    numberSystem10error: Boolean,
+    numberSystem2error: Boolean,
+    numberSystem8error: Boolean,
+    numberSystem16error: Boolean,
+    numberSystemCustomError: Boolean,
+    mainPadding: PaddingValues,
+    onNumberSystemChange: (NumberSystem) -> Unit,
+    onCustomRadixChanged: (Radix) -> Unit,
+) {
     val layoutDirection = LocalLayoutDirection.current
 
     LazyColumn(
@@ -37,48 +53,48 @@ fun ConverterScreen(viewModel: ConverterViewModel = hiltViewModel(), mainPadding
     ) {
         item {
             OutlinedTextField(
-                value = viewModel.numberSystem10.value.value,
-                onValueChange = { textFieldValue -> viewModel.convertFrom(NumberSystem(value = textFieldValue, radix = viewModel.numberSystem10.value.radix)) },
+                value = numberSystem10.value,
+                onValueChange = { textFieldValue -> onNumberSystemChange(NumberSystem(value = textFieldValue, radix = numberSystem10.radix)) },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text(stringResource(R.string.dec)) },
-                visualTransformation = OperandVisualTransformation(viewModel.numberSystem10.value.radix),
-                isError = viewModel.numberSystem10error.value,
+                visualTransformation = OperandVisualTransformation(numberSystem10.radix),
+                isError = numberSystem10error,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = MaterialTheme.shapes.medium,
             )
         }
         item {
             OutlinedTextField(
-                value = viewModel.numberSystem2.value.value,
-                onValueChange = { textFieldValue -> viewModel.convertFrom(NumberSystem(value = textFieldValue, radix = viewModel.numberSystem2.value.radix)) },
+                value = numberSystem2.value,
+                onValueChange = { textFieldValue -> onNumberSystemChange(NumberSystem(value = textFieldValue, radix = numberSystem2.radix)) },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text(stringResource(R.string.bin)) },
-                isError = viewModel.numberSystem2error.value,
-                visualTransformation = OperandVisualTransformation(viewModel.numberSystem2.value.radix),
+                isError = numberSystem2error,
+                visualTransformation = OperandVisualTransformation(numberSystem2.radix),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = MaterialTheme.shapes.medium,
             )
         }
         item {
             OutlinedTextField(
-                value = viewModel.numberSystem8.value.value,
-                onValueChange = { textFieldValue -> viewModel.convertFrom(NumberSystem(value = textFieldValue, viewModel.numberSystem8.value.radix)) },
+                value = numberSystem8.value,
+                onValueChange = { textFieldValue -> onNumberSystemChange(NumberSystem(value = textFieldValue, numberSystem8.radix)) },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text(stringResource(R.string.oct)) },
-                isError = viewModel.numberSystem8error.value,
-                visualTransformation = OperandVisualTransformation(viewModel.numberSystem8.value.radix),
+                isError = numberSystem8error,
+                visualTransformation = OperandVisualTransformation(numberSystem8.radix),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = MaterialTheme.shapes.medium,
             )
         }
         item {
             OutlinedTextField(
-                value = viewModel.numberSystem16.value.value,
-                onValueChange = { textFieldValue -> viewModel.convertFrom(NumberSystem(value = textFieldValue, radix = viewModel.numberSystem16.value.radix)) },
+                value = numberSystem16.value,
+                onValueChange = { textFieldValue -> onNumberSystemChange(NumberSystem(value = textFieldValue, radix = numberSystem16.radix)) },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text(stringResource(R.string.hex)) },
-                isError = viewModel.numberSystem16error.value,
-                visualTransformation = OperandVisualTransformation(viewModel.numberSystem16.value.radix),
+                isError = numberSystem16error,
+                visualTransformation = OperandVisualTransformation(numberSystem16.radix),
                 keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
                 shape = MaterialTheme.shapes.medium,
             )
@@ -86,12 +102,12 @@ fun ConverterScreen(viewModel: ConverterViewModel = hiltViewModel(), mainPadding
         item {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedTextField(
-                    value = viewModel.numberSystemCustom.value.value,
-                    onValueChange = { textFieldValue -> viewModel.convertFrom(NumberSystem(value = textFieldValue, radix = viewModel.numberSystemCustom.value.radix)) },
+                    value = numberSystemCustom.value,
+                    onValueChange = { textFieldValue -> onNumberSystemChange(NumberSystem(value = textFieldValue, radix = numberSystemCustom.radix)) },
                     modifier = Modifier.weight(1f),
-                    label = { Text(stringResource(R.string.radix, viewModel.numberSystemCustom.value.radix.value)) },
-                    isError = viewModel.numberSystemCustomError.value,
-                    visualTransformation = OperandVisualTransformation(viewModel.numberSystemCustom.value.radix),
+                    label = { Text(stringResource(R.string.radix, numberSystemCustom.radix.value)) },
+                    isError = numberSystemCustomError,
+                    visualTransformation = OperandVisualTransformation(numberSystemCustom.radix),
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
                     shape = MaterialTheme.shapes.medium,
                 )
@@ -101,11 +117,11 @@ fun ConverterScreen(viewModel: ConverterViewModel = hiltViewModel(), mainPadding
                     onExpandedChange = { expanded = !expanded },
                     onDismissRequest = { expanded = false },
                     onRadixClicked = { radix ->
-                        viewModel.updateCustomRadix(radix)
+                        onCustomRadixChanged(radix)
                         expanded = false
                     },
-                    radix = viewModel.numberSystemCustom.value.radix,
-                    radixes = viewModel.radixes,
+                    radix = numberSystemCustom.radix,
+                    radixes = radixes,
                     modifier = Modifier.width(96.dp),
                     isCompact = false,
                     trailingIcon = {
@@ -118,23 +134,55 @@ fun ConverterScreen(viewModel: ConverterViewModel = hiltViewModel(), mainPadding
     }
 }
 
+@SuppressLint("Range")
 @Preview
 @Composable
 private fun PreviewConverterScreen() {
     NumberSystemsTheme {
         Surface {
-            ConverterScreen(mainPadding = PaddingValues())
+            ConverterScreen(
+                radixes = Array(36) { radix -> Radix(radix + 1) }.filter { radix -> !listOf(Radix(1)).contains(radix) },
+                numberSystem10 = NumberSystem(String(), Radix.DEC),
+                numberSystem2 = NumberSystem(String(), Radix.BIN),
+                numberSystem8 = NumberSystem(String(), Radix.OCT),
+                numberSystem16 = NumberSystem(String(), Radix.HEX),
+                numberSystemCustom = NumberSystem(String(), Radix(3)),
+                numberSystem10error = false,
+                numberSystem2error = false,
+                numberSystem8error = false,
+                numberSystem16error = false,
+                numberSystemCustomError = false,
+                mainPadding = PaddingValues(),
+                onNumberSystemChange = {},
+                onCustomRadixChanged = {},
+            )
         }
     }
 }
 
 
+@SuppressLint("Range")
 @Preview
 @Composable
 private fun PreviewConverterScreenDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            ConverterScreen(mainPadding = PaddingValues())
+            ConverterScreen(
+                radixes = Array(36) { radix -> Radix(radix + 1) }.filter { radix -> !listOf(Radix(1)).contains(radix) },
+                numberSystem10 = NumberSystem(String(), Radix.DEC),
+                numberSystem2 = NumberSystem(String(), Radix.BIN),
+                numberSystem8 = NumberSystem(String(), Radix.OCT),
+                numberSystem16 = NumberSystem(String(), Radix.HEX),
+                numberSystemCustom = NumberSystem(String(), Radix(3)),
+                numberSystem10error = false,
+                numberSystem2error = false,
+                numberSystem8error = false,
+                numberSystem16error = false,
+                numberSystemCustomError = false,
+                mainPadding = PaddingValues(),
+                onNumberSystemChange = {},
+                onCustomRadixChanged = {},
+            )
         }
     }
 }

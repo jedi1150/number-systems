@@ -1,5 +1,6 @@
 package ru.sandello.binaryconverter.ui.main
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -29,11 +30,12 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.NumberSystem
+import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.model.Screen
 import ru.sandello.binaryconverter.ui.calculator.CalculatorScreen
 import ru.sandello.binaryconverter.ui.calculator.CalculatorViewModel
 import ru.sandello.binaryconverter.ui.converter.ConverterScreen
-import ru.sandello.binaryconverter.ui.converter.ConverterViewModel
+import ru.sandello.binaryconverter.ui.converter.ConverterUiState
 import ru.sandello.binaryconverter.ui.explanation.ExplanationScreen
 import ru.sandello.binaryconverter.ui.explanation.ExplanationViewModel
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
@@ -43,11 +45,14 @@ import ru.sandello.binaryconverter.ui.theme.ShapesTop
 @OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
-    converterViewModel: ConverterViewModel = viewModel(),
+    converterUiState: ConverterUiState,
     calculatorViewModel: CalculatorViewModel = viewModel(),
     explanationViewModel: ExplanationViewModel = viewModel(),
     bottomSheetState: ModalBottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden),
     showExplanation: (NumberSystem, NumberSystem) -> Unit,
+    onNumberSystemChange: (NumberSystem) -> Unit,
+    onCustomRadixChanged: (Radix) -> Unit,
+    onClearClicked: () -> Unit,
 ) {
     val layoutDirection = LocalLayoutDirection.current
 
@@ -143,11 +148,14 @@ fun MainScreen(
             },
         ) { contentPadding ->
             MainScreenContent(
-                converterViewModel = converterViewModel,
+                converterUiState = converterUiState,
                 calculatorViewModel = calculatorViewModel,
                 navController = navController,
                 contentPadding = contentPadding,
                 showExplanation = showExplanation,
+                onNumberSystemChange = onNumberSystemChange,
+                onCustomRadixChanged = onCustomRadixChanged,
+                onClearClicked = onClearClicked,
             )
         }
     }
@@ -156,11 +164,14 @@ fun MainScreen(
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MainScreenContent(
-    converterViewModel: ConverterViewModel = viewModel(),
+    converterUiState: ConverterUiState,
     calculatorViewModel: CalculatorViewModel = viewModel(),
     contentPadding: PaddingValues,
     navController: NavHostController,
     showExplanation: (NumberSystem, NumberSystem) -> Unit,
+    onNumberSystemChange: (NumberSystem) -> Unit,
+    onCustomRadixChanged: (Radix) -> Unit,
+    onClearClicked: () -> Unit,
 ) {
     val layoutDirection = LocalLayoutDirection.current
 
@@ -168,7 +179,22 @@ fun MainScreenContent(
         navController = navController,
         startDestination = Screen.Converter.route,
     ) {
-        composable(Screen.Converter.route) { ConverterScreen(converterViewModel, contentPadding) }
+        composable(Screen.Converter.route) {
+            ConverterScreen(radixes = converterUiState.radixes,
+                numberSystem10 = converterUiState.numberSystem10.value,
+                numberSystem2 = converterUiState.numberSystem2.value,
+                numberSystem8 = converterUiState.numberSystem8.value,
+                numberSystem16 = converterUiState.numberSystem16.value,
+                numberSystemCustom = converterUiState.numberSystemCustom.value,
+                numberSystem10error = converterUiState.numberSystem10error.value,
+                numberSystem2error = converterUiState.numberSystem2error.value,
+                numberSystem8error = converterUiState.numberSystem8error.value,
+                numberSystem16error = converterUiState.numberSystem16error.value,
+                numberSystemCustomError = converterUiState.numberSystemCustomError.value,
+                mainPadding = contentPadding,
+                onNumberSystemChange = onNumberSystemChange,
+                onCustomRadixChanged = onCustomRadixChanged)
+        }
         composable(Screen.Calculator.route) { CalculatorScreen(calculatorViewModel, contentPadding) }
     }
 
@@ -201,7 +227,7 @@ fun MainScreenContent(
         val clearFabIsVisible by remember(currentDestination) {
             derivedStateOf {
                 return@derivedStateOf when (currentDestination?.route) {
-                    Screen.Converter.route -> converterViewModel.hasData.value
+                    Screen.Converter.route -> converterUiState.hasData.value
                     Screen.Calculator.route -> calculatorViewModel.hasData.value
                     else -> false
                 }
@@ -210,7 +236,7 @@ fun MainScreenContent(
         val explanationFabIsVisible by remember(currentDestination) {
             derivedStateOf {
                 return@derivedStateOf when (currentDestination?.route) {
-                    Screen.Converter.route -> converterViewModel.hasData.value
+                    Screen.Converter.route -> converterUiState.hasData.value
                     else -> false
                 }
             }
@@ -226,7 +252,7 @@ fun MainScreenContent(
                 SmallFloatingActionButton(
                     onClick = {
                         if (navController.currentDestination?.route == Screen.Converter.route) {
-                            converterViewModel.clear()
+                            onClearClicked()
                         }
                         if (navController.currentDestination?.route == Screen.Calculator.route) {
                             calculatorViewModel.clear()
@@ -251,7 +277,7 @@ fun MainScreenContent(
                     icon = { Icon(painter = painterResource(R.drawable.explanation), contentDescription = stringResource(id = R.string.explanation)) },
                     onClick = {
                         if (navController.currentDestination?.route == Screen.Converter.route) {
-                            showExplanation(converterViewModel.numberSystem10.value, converterViewModel.numberSystem2.value)
+                            showExplanation(converterUiState.numberSystem10.value, converterUiState.numberSystem2.value)
                         }
                     },
                     modifier = Modifier.padding(vertical = 8.dp),
@@ -263,6 +289,7 @@ fun MainScreenContent(
     }
 }
 
+@SuppressLint("Range")
 @OptIn(ExperimentalMaterialApi::class)
 @Preview
 @Composable
@@ -270,8 +297,12 @@ private fun PreviewMainScreen() {
     NumberSystemsTheme {
         Surface {
             MainScreen(
+                converterUiState = ConverterUiState(),
                 bottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden),
                 showExplanation = { _, _ -> },
+                onNumberSystemChange = {},
+                onCustomRadixChanged = {},
+                onClearClicked = {},
             )
         }
     }

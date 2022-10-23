@@ -52,13 +52,22 @@ fun MainRoute(
     }
 
     MainScreen(
-        converterViewModel = converterViewModel,
+        converterUiState = converterViewModel.converterUiState.value,
         calculatorViewModel = calculatorViewModel,
         explanationViewModel = explanationViewModel,
         bottomSheetState = bottomSheetState,
         showExplanation = { nsFrom, nsTo ->
             converterViewModel.showExplanation()
             explanationViewModel.acceptValues(nsFrom, nsTo)
+        },
+        onNumberSystemChange = { numberSystem ->
+            converterViewModel.convertFrom(numberSystem)
+        },
+        onCustomRadixChanged = { radix ->
+            converterViewModel.updateCustomRadix(radix)
+        },
+        onClearClicked = {
+            converterViewModel.clear()
         },
     )
 }
