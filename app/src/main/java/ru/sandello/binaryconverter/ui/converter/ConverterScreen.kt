@@ -36,7 +36,7 @@ fun ConverterScreen(
     numberSystem16error: Boolean,
     numberSystemCustomError: Boolean,
     mainPadding: PaddingValues,
-    onNumberSystemChange: (NumberSystem) -> Unit,
+    onNumberSystemChanged: (NumberSystem) -> Unit,
     onCustomRadixChanged: (Radix) -> Unit,
 ) {
     val layoutDirection = LocalLayoutDirection.current
@@ -54,7 +54,7 @@ fun ConverterScreen(
         item {
             OutlinedTextField(
                 value = numberSystem10.value,
-                onValueChange = { textFieldValue -> onNumberSystemChange(NumberSystem(value = textFieldValue, radix = numberSystem10.radix)) },
+                onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue, radix = numberSystem10.radix)) },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text(stringResource(R.string.dec)) },
                 visualTransformation = OperandVisualTransformation(numberSystem10.radix),
@@ -66,7 +66,7 @@ fun ConverterScreen(
         item {
             OutlinedTextField(
                 value = numberSystem2.value,
-                onValueChange = { textFieldValue -> onNumberSystemChange(NumberSystem(value = textFieldValue, radix = numberSystem2.radix)) },
+                onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue, radix = numberSystem2.radix)) },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text(stringResource(R.string.bin)) },
                 isError = numberSystem2error,
@@ -78,7 +78,7 @@ fun ConverterScreen(
         item {
             OutlinedTextField(
                 value = numberSystem8.value,
-                onValueChange = { textFieldValue -> onNumberSystemChange(NumberSystem(value = textFieldValue, numberSystem8.radix)) },
+                onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue, numberSystem8.radix)) },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text(stringResource(R.string.oct)) },
                 isError = numberSystem8error,
@@ -90,7 +90,7 @@ fun ConverterScreen(
         item {
             OutlinedTextField(
                 value = numberSystem16.value,
-                onValueChange = { textFieldValue -> onNumberSystemChange(NumberSystem(value = textFieldValue, radix = numberSystem16.radix)) },
+                onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue, radix = numberSystem16.radix)) },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text(stringResource(R.string.hex)) },
                 isError = numberSystem16error,
@@ -103,7 +103,7 @@ fun ConverterScreen(
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedTextField(
                     value = numberSystemCustom.value,
-                    onValueChange = { textFieldValue -> onNumberSystemChange(NumberSystem(value = textFieldValue, radix = numberSystemCustom.radix)) },
+                    onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue, radix = numberSystemCustom.radix)) },
                     modifier = Modifier.weight(1f),
                     label = { Text(stringResource(R.string.radix, numberSystemCustom.radix.value)) },
                     isError = numberSystemCustomError,
@@ -153,7 +153,7 @@ private fun PreviewConverterScreen() {
                 numberSystem16error = false,
                 numberSystemCustomError = false,
                 mainPadding = PaddingValues(),
-                onNumberSystemChange = {},
+                onNumberSystemChanged = {},
                 onCustomRadixChanged = {},
             )
         }
@@ -180,7 +180,7 @@ private fun PreviewConverterScreenDark() {
                 numberSystem16error = false,
                 numberSystemCustomError = false,
                 mainPadding = PaddingValues(),
-                onNumberSystemChange = {},
+                onNumberSystemChanged = {},
                 onCustomRadixChanged = {},
             )
         }

@@ -19,9 +19,9 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.NumberSystem
+import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.ui.OperandVisualTransformation
 import ru.sandello.binaryconverter.ui.calculator.ArithmeticType.*
 import ru.sandello.binaryconverter.ui.components.RadixExposedDropdown
@@ -29,7 +29,20 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CalculatorScreen(viewModel: CalculatorViewModel = viewModel(), mainPadding: PaddingValues) {
+fun CalculatorScreen(
+    radixes: List<Radix>,
+    arithmeticTypes: List<ArithmeticType>,
+    numberSystemCustom1: NumberSystem,
+    numberSystemCustom2: NumberSystem,
+    numberSystemResult: NumberSystem,
+    numberSystem1error: Boolean,
+    numberSystem2error: Boolean,
+    selectedArithmetic: ArithmeticType,
+    mainPadding: PaddingValues,
+    onNumberSystemChange: (OperandType, NumberSystem) -> Unit,
+    onRadixChange: (RadixType, Radix) -> Unit,
+    onArithmeticChange: (ArithmeticType) -> Unit,
+) {
     val layoutDirection = LocalLayoutDirection.current
 
     LazyColumn(
@@ -43,22 +56,19 @@ fun CalculatorScreen(viewModel: CalculatorViewModel = viewModel(), mainPadding: 
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         item {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedTextField(
-                    value = viewModel.numberSystemCustom1.value.value,
+                    value = numberSystemCustom1.value,
                     onValueChange = { textFieldValue ->
-                        viewModel.convertFrom(
-                            operandType = OperandType.OperandCustom1,
-                            from = NumberSystem(value = textFieldValue, radix = viewModel.numberSystemCustom1.value.radix),
+                        onNumberSystemChange(
+                            OperandType.OperandCustom1,
+                            NumberSystem(value = textFieldValue, radix = numberSystemCustom1.radix),
                         )
                     },
                     modifier = Modifier.weight(1f),
-                    label = { Text(stringResource(R.string.radix, viewModel.numberSystemCustom1.value.radix.value)) },
-                    isError = viewModel.numberSystem1error.value,
-                    visualTransformation = OperandVisualTransformation(viewModel.numberSystemCustom1.value.radix),
+                    label = { Text(stringResource(R.string.radix, numberSystemCustom1.radix.value)) },
+                    isError = numberSystem1error,
+                    visualTransformation = OperandVisualTransformation(numberSystemCustom1.radix),
                     keyboardOptions = KeyboardOptions(
                         capitalization = KeyboardCapitalization.Characters,
                         autoCorrect = false,
@@ -73,17 +83,15 @@ fun CalculatorScreen(viewModel: CalculatorViewModel = viewModel(), mainPadding: 
                     onExpandedChange = { expanded = !expanded },
                     onDismissRequest = { expanded = false },
                     onRadixClicked = { radix ->
-                        viewModel.updateRadix(radixType = RadixType.RadixCustom1, newRadix = radix)
+                        onRadixChange(RadixType.RadixCustom1, radix)
                         expanded = false
                     },
-                    radix = viewModel.numberSystemCustom1.value.radix,
-                    radixes = viewModel.radixes,
+                    radix = numberSystemCustom1.radix,
+                    radixes = radixes,
                     modifier = Modifier.width(96.dp),
                     isCompact = false,
                     trailingIcon = {
-                        ExposedDropdownMenuDefaults.TrailingIcon(
-                            expanded = expanded
-                        )
+                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
                     },
                     shape = MaterialTheme.shapes.medium,
                 )
@@ -94,46 +102,39 @@ fun CalculatorScreen(viewModel: CalculatorViewModel = viewModel(), mainPadding: 
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
             ) {
-                viewModel.arithmeticOptions.forEach { arithmetic ->
-                    val checked = viewModel.selectedArithmetic.value == arithmetic
+                arithmeticTypes.forEach { arithmetic ->
+                    val checked = selectedArithmetic == arithmetic
                     val border by animateDpAsState(if (checked) FocusedBorderThickness else UnfocusedBorderThickness)
                     val borderColor by animateColorAsState(if (checked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline)
-                    OutlinedIconToggleButton(
-                        checked = checked,
-                        onCheckedChange = { if (it) viewModel.selectArithmetic(arithmetic) },
+                    OutlinedIconToggleButton(checked = checked,
+                        onCheckedChange = { if (it) onArithmeticChange(arithmetic) },
                         shape = MaterialTheme.shapes.medium,
                         border = BorderStroke(border, color = borderColor),
-                        colors = IconButtonDefaults.outlinedIconToggleButtonColors(checkedContainerColor = MaterialTheme.colorScheme.primaryContainer)
-                    ) {
-                        Text(
-                            text = when (arithmetic) {
-                                Addition -> "+"
-                                Subtraction -> "−"
-                                Multiply -> "×"
-                                Divide -> "÷"
-                            }
-                        )
+                        colors = IconButtonDefaults.outlinedIconToggleButtonColors(checkedContainerColor = MaterialTheme.colorScheme.primaryContainer)) {
+                        Text(text = when (arithmetic) {
+                            Addition -> "+"
+                            Subtraction -> "−"
+                            Multiply -> "×"
+                            Divide -> "÷"
+                        })
                     }
                 }
             }
         }
         item {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedTextField(
-                    value = viewModel.numberSystemCustom2.value.value,
+                    value = numberSystemCustom2.value,
                     onValueChange = { textFieldValue ->
-                        viewModel.convertFrom(
-                            operandType = OperandType.OperandCustom2,
-                            from = NumberSystem(value = textFieldValue, radix = viewModel.numberSystemCustom2.value.radix),
+                        onNumberSystemChange(
+                            OperandType.OperandCustom2,
+                            NumberSystem(value = textFieldValue, radix = numberSystemCustom2.radix),
                         )
                     },
                     modifier = Modifier.weight(1f),
-                    label = { Text(stringResource(R.string.radix, viewModel.numberSystemCustom2.value.radix.value)) },
-                    isError = viewModel.numberSystem2error.value,
-                    visualTransformation = OperandVisualTransformation(viewModel.numberSystemCustom2.value.radix),
+                    label = { Text(stringResource(R.string.radix, numberSystemCustom2.radix.value)) },
+                    isError = numberSystem2error,
+                    visualTransformation = OperandVisualTransformation(numberSystemCustom2.radix),
                     keyboardOptions = KeyboardOptions(
                         capitalization = KeyboardCapitalization.Characters,
                         autoCorrect = false,
@@ -148,34 +149,29 @@ fun CalculatorScreen(viewModel: CalculatorViewModel = viewModel(), mainPadding: 
                     onExpandedChange = { expanded = !expanded },
                     onDismissRequest = { expanded = false },
                     onRadixClicked = { radix ->
-                        viewModel.updateRadix(radixType = RadixType.RadixCustom2, newRadix = radix)
+                        onRadixChange(RadixType.RadixCustom2, radix)
                         expanded = false
                     },
-                    radix = viewModel.numberSystemCustom2.value.radix,
-                    radixes = viewModel.radixes,
+                    radix = numberSystemCustom2.radix,
+                    radixes = radixes,
                     modifier = Modifier.width(96.dp),
                     isCompact = false,
                     trailingIcon = {
-                        ExposedDropdownMenuDefaults.TrailingIcon(
-                            expanded = expanded
-                        )
+                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
                     },
                     shape = MaterialTheme.shapes.medium,
                 )
             }
         }
         item {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedTextField(
-                    value = viewModel.numberSystemResult.value.value,
+                    value = numberSystemResult.value,
                     onValueChange = { },
                     modifier = Modifier.weight(1f),
                     readOnly = true,
-                    label = { Text(stringResource(R.string.radix, viewModel.numberSystemResult.value.radix.value)) },
-                    visualTransformation = OperandVisualTransformation(viewModel.numberSystemResult.value.radix),
+                    label = { Text(stringResource(R.string.radix, numberSystemResult.radix.value)) },
+                    visualTransformation = OperandVisualTransformation(numberSystemResult.radix),
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
                     shape = MaterialTheme.shapes.medium,
                 )
@@ -185,17 +181,15 @@ fun CalculatorScreen(viewModel: CalculatorViewModel = viewModel(), mainPadding: 
                     onExpandedChange = { expanded = !expanded },
                     onDismissRequest = { expanded = false },
                     onRadixClicked = { radix ->
-                        viewModel.updateRadix(radixType = RadixType.RadixResult, newRadix = radix)
+                        onRadixChange(RadixType.RadixResult, radix)
                         expanded = false
                     },
-                    radix = viewModel.numberSystemResult.value.radix,
-                    radixes = viewModel.radixes,
+                    radix = numberSystemResult.radix,
+                    radixes = radixes,
                     modifier = Modifier.width(96.dp),
                     isCompact = false,
                     trailingIcon = {
-                        ExposedDropdownMenuDefaults.TrailingIcon(
-                            expanded = expanded
-                        )
+                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
                     },
                     shape = MaterialTheme.shapes.medium,
                 )
@@ -209,7 +203,20 @@ fun CalculatorScreen(viewModel: CalculatorViewModel = viewModel(), mainPadding: 
 fun PreviewCalculatorScreen() {
     NumberSystemsTheme {
         Surface {
-            CalculatorScreen(mainPadding = PaddingValues())
+            CalculatorScreen(
+                radixes = CalculatorUiState().radixes,
+                arithmeticTypes = CalculatorUiState().arithmeticTypes,
+                numberSystemCustom1 = CalculatorUiState().numberSystemCustom1.value,
+                numberSystemCustom2 = CalculatorUiState().numberSystemCustom2.value,
+                numberSystemResult = CalculatorUiState().numberSystemResult.value,
+                numberSystem1error = CalculatorUiState().numberSystemCustom1error.value,
+                numberSystem2error = CalculatorUiState().numberSystemCustom2error.value,
+                selectedArithmetic = CalculatorUiState().selectedArithmetic.value,
+                mainPadding = PaddingValues(),
+                onNumberSystemChange = { _, _ -> },
+                onRadixChange = { _, _ -> },
+                onArithmeticChange = {},
+            )
         }
     }
 }
@@ -219,7 +226,20 @@ fun PreviewCalculatorScreen() {
 fun PreviewCalculatorScreenDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            CalculatorScreen(mainPadding = PaddingValues())
+            CalculatorScreen(
+                radixes = CalculatorUiState().radixes,
+                arithmeticTypes = CalculatorUiState().arithmeticTypes,
+                numberSystemCustom1 = CalculatorUiState().numberSystemCustom1.value,
+                numberSystemCustom2 = CalculatorUiState().numberSystemCustom2.value,
+                numberSystemResult = CalculatorUiState().numberSystemResult.value,
+                numberSystem1error = CalculatorUiState().numberSystemCustom1error.value,
+                numberSystem2error = CalculatorUiState().numberSystemCustom2error.value,
+                selectedArithmetic = CalculatorUiState().selectedArithmetic.value,
+                mainPadding = PaddingValues(),
+                onNumberSystemChange = { _, _ -> },
+                onRadixChange = { _, _ -> },
+                onArithmeticChange = {},
+            )
         }
     }
 }

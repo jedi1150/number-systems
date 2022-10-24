@@ -32,8 +32,7 @@ import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.model.Screen
-import ru.sandello.binaryconverter.ui.calculator.CalculatorScreen
-import ru.sandello.binaryconverter.ui.calculator.CalculatorViewModel
+import ru.sandello.binaryconverter.ui.calculator.*
 import ru.sandello.binaryconverter.ui.converter.ConverterScreen
 import ru.sandello.binaryconverter.ui.converter.ConverterUiState
 import ru.sandello.binaryconverter.ui.explanation.ExplanationScreen
@@ -46,12 +45,15 @@ import ru.sandello.binaryconverter.ui.theme.ShapesTop
 @Composable
 fun MainScreen(
     converterUiState: ConverterUiState,
-    calculatorViewModel: CalculatorViewModel = viewModel(),
+    calculatorUiState: CalculatorUiState,
     explanationViewModel: ExplanationViewModel = viewModel(),
     bottomSheetState: ModalBottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden),
     showExplanation: (NumberSystem, NumberSystem) -> Unit,
-    onNumberSystemChange: (NumberSystem) -> Unit,
-    onCustomRadixChanged: (Radix) -> Unit,
+    onConverterNumberSystemChanged: (NumberSystem) -> Unit,
+    onConverterRadixChanged: (Radix) -> Unit,
+    onCalculatorNumberSystemChanged: (OperandType, NumberSystem) -> Unit,
+    onCalculatorRadixChanged: (RadixType, Radix) -> Unit,
+    onCalculatorArithmeticChange: (ArithmeticType) -> Unit,
     onClearClicked: () -> Unit,
 ) {
     val layoutDirection = LocalLayoutDirection.current
@@ -149,12 +151,15 @@ fun MainScreen(
         ) { contentPadding ->
             MainScreenContent(
                 converterUiState = converterUiState,
-                calculatorViewModel = calculatorViewModel,
+                calculatorUiState = calculatorUiState,
                 navController = navController,
                 contentPadding = contentPadding,
                 showExplanation = showExplanation,
-                onNumberSystemChange = onNumberSystemChange,
-                onCustomRadixChanged = onCustomRadixChanged,
+                onConverterNumberSystemChanged = onConverterNumberSystemChanged,
+                onConverterRadixChanged = onConverterRadixChanged,
+                onCalculatorNumberSystemChanged = onCalculatorNumberSystemChanged,
+                onCalculatorRadixChanged = onCalculatorRadixChanged,
+                onCalculatorArithmeticChange = onCalculatorArithmeticChange,
                 onClearClicked = onClearClicked,
             )
         }
@@ -165,12 +170,15 @@ fun MainScreen(
 @Composable
 fun MainScreenContent(
     converterUiState: ConverterUiState,
-    calculatorViewModel: CalculatorViewModel = viewModel(),
+    calculatorUiState: CalculatorUiState,
     contentPadding: PaddingValues,
     navController: NavHostController,
     showExplanation: (NumberSystem, NumberSystem) -> Unit,
-    onNumberSystemChange: (NumberSystem) -> Unit,
-    onCustomRadixChanged: (Radix) -> Unit,
+    onConverterNumberSystemChanged: (NumberSystem) -> Unit,
+    onConverterRadixChanged: (Radix) -> Unit,
+    onCalculatorNumberSystemChanged: (OperandType, NumberSystem) -> Unit,
+    onCalculatorRadixChanged: (RadixType, Radix) -> Unit,
+    onCalculatorArithmeticChange: (ArithmeticType) -> Unit,
     onClearClicked: () -> Unit,
 ) {
     val layoutDirection = LocalLayoutDirection.current
@@ -180,7 +188,8 @@ fun MainScreenContent(
         startDestination = Screen.Converter.route,
     ) {
         composable(Screen.Converter.route) {
-            ConverterScreen(radixes = converterUiState.radixes,
+            ConverterScreen(
+                radixes = converterUiState.radixes,
                 numberSystem10 = converterUiState.numberSystem10.value,
                 numberSystem2 = converterUiState.numberSystem2.value,
                 numberSystem8 = converterUiState.numberSystem8.value,
@@ -192,10 +201,26 @@ fun MainScreenContent(
                 numberSystem16error = converterUiState.numberSystem16error.value,
                 numberSystemCustomError = converterUiState.numberSystemCustomError.value,
                 mainPadding = contentPadding,
-                onNumberSystemChange = onNumberSystemChange,
-                onCustomRadixChanged = onCustomRadixChanged)
+                onNumberSystemChanged = onConverterNumberSystemChanged,
+                onCustomRadixChanged = onConverterRadixChanged,
+            )
         }
-        composable(Screen.Calculator.route) { CalculatorScreen(calculatorViewModel, contentPadding) }
+        composable(Screen.Calculator.route) {
+            CalculatorScreen(
+                radixes = calculatorUiState.radixes,
+                arithmeticTypes = calculatorUiState.arithmeticTypes,
+                numberSystemCustom1 = calculatorUiState.numberSystemCustom1.value,
+                numberSystemCustom2 = calculatorUiState.numberSystemCustom2.value,
+                numberSystemResult = calculatorUiState.numberSystemResult.value,
+                numberSystem1error = calculatorUiState.numberSystemCustom1error.value,
+                numberSystem2error = calculatorUiState.numberSystemCustom2error.value,
+                selectedArithmetic = calculatorUiState.selectedArithmetic.value,
+                mainPadding = contentPadding,
+                onNumberSystemChange = onCalculatorNumberSystemChanged,
+                onRadixChange = onCalculatorRadixChanged,
+                onArithmeticChange = onCalculatorArithmeticChange,
+            )
+        }
     }
 
     Box(
@@ -228,7 +253,7 @@ fun MainScreenContent(
             derivedStateOf {
                 return@derivedStateOf when (currentDestination?.route) {
                     Screen.Converter.route -> converterUiState.hasData.value
-                    Screen.Calculator.route -> calculatorViewModel.hasData.value
+                    Screen.Calculator.route -> calculatorUiState.hasData.value
                     else -> false
                 }
             }
@@ -244,18 +269,17 @@ fun MainScreenContent(
         Column(horizontalAlignment = Alignment.End) {
             AnimatedVisibility(
                 visible = clearFabIsVisible,
-                enter = scaleIn(transformOrigin = TransformOrigin(0f, 0f)) +
-                        fadeIn() + expandIn(expandFrom = Alignment.TopStart),
-                exit = scaleOut(transformOrigin = TransformOrigin(0f, 0f)) +
-                        fadeOut() + shrinkOut(shrinkTowards = Alignment.TopStart),
+                enter = scaleIn(transformOrigin = TransformOrigin(0f, 0f)) + fadeIn() + expandIn(expandFrom = Alignment.TopStart),
+                exit = scaleOut(transformOrigin = TransformOrigin(0f, 0f)) + fadeOut() + shrinkOut(shrinkTowards = Alignment.TopStart),
             ) {
                 SmallFloatingActionButton(
                     onClick = {
+                        // TODO(oleg): Move to MainRoute
                         if (navController.currentDestination?.route == Screen.Converter.route) {
                             onClearClicked()
                         }
                         if (navController.currentDestination?.route == Screen.Calculator.route) {
-                            calculatorViewModel.clear()
+                            onClearClicked()
                         }
                     },
                     modifier = Modifier.padding(vertical = 8.dp),
@@ -267,10 +291,8 @@ fun MainScreenContent(
 
             AnimatedVisibility(
                 visible = explanationFabIsVisible,
-                enter = scaleIn(transformOrigin = TransformOrigin(0f, 0f)) +
-                        fadeIn() + expandIn(expandFrom = Alignment.TopStart),
-                exit = scaleOut(transformOrigin = TransformOrigin(0f, 0f)) +
-                        fadeOut() + shrinkOut(shrinkTowards = Alignment.TopStart),
+                enter = scaleIn(transformOrigin = TransformOrigin(0f, 0f)) + fadeIn() + expandIn(expandFrom = Alignment.TopStart),
+                exit = scaleOut(transformOrigin = TransformOrigin(0f, 0f)) + fadeOut() + shrinkOut(shrinkTowards = Alignment.TopStart),
             ) {
                 ExtendedFloatingActionButton(
                     text = { Text(text = stringResource(id = R.string.explanation)) },
@@ -298,10 +320,14 @@ private fun PreviewMainScreen() {
         Surface {
             MainScreen(
                 converterUiState = ConverterUiState(),
+                calculatorUiState = CalculatorUiState(),
                 bottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden),
                 showExplanation = { _, _ -> },
-                onNumberSystemChange = {},
-                onCustomRadixChanged = {},
+                onConverterNumberSystemChanged = {},
+                onConverterRadixChanged = {},
+                onCalculatorNumberSystemChanged = { _, _ -> },
+                onCalculatorRadixChanged = { _, _ -> },
+                onCalculatorArithmeticChange = {},
                 onClearClicked = {},
             )
         }
