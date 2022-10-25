@@ -15,8 +15,8 @@ import kotlinx.coroutines.launch
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.ui.calculator.ArithmeticType.*
-import ru.sandello.binaryconverter.ui.calculator.OperandType.*
-import ru.sandello.binaryconverter.ui.calculator.RadixType.*
+import ru.sandello.binaryconverter.ui.calculator.CalculatorOperandType.*
+import ru.sandello.binaryconverter.ui.calculator.CalculatorRadixType.*
 import ru.sandello.binaryconverter.utils.APP_TAG
 import ru.sandello.binaryconverter.utils.CharRegex
 import ru.sandello.binaryconverter.utils.Converter
@@ -53,19 +53,19 @@ class CalculatorViewModel @Inject constructor(private val converter: Converter) 
 
     private var lastValueFrom: NumberSystem? = null
 
-    fun convertFrom(operandType: OperandType, from: NumberSystem) {
-        convert(operandType, from, toRadixes = arrayOf(radixCalculation.value))
+    fun convertFrom(calculatorOperandType: CalculatorOperandType, from: NumberSystem) {
+        convert(calculatorOperandType, from, toRadixes = arrayOf(radixCalculation.value))
     }
 
-    fun updateRadix(radixType: RadixType, newRadix: Radix) {
-        when (radixType) {
+    fun updateRadix(calculatorRadixType: CalculatorRadixType, newRadix: Radix) {
+        when (calculatorRadixType) {
             RadixCustom1 -> {
                 numberSystemCustom1.value.run {
                     if (radix == newRadix) return
                     radix = newRadix
                 }
                 Log.d(APP_TAG, "CalculatorViewModel::updateRadix: numberSystemCustom1.radix from ${numberSystemCustom1.value.radix.value} to ${newRadix.value}")
-                convert(operandType = OperandCustom1, from = numberSystemCustom1.value, toRadixes = arrayOf(radixCalculation.value))
+                convert(calculatorOperandType = OperandCustom1, from = numberSystemCustom1.value, toRadixes = arrayOf(radixCalculation.value))
             }
             RadixCustom2 -> {
                 numberSystemCustom2.value.run {
@@ -73,7 +73,7 @@ class CalculatorViewModel @Inject constructor(private val converter: Converter) 
                     radix = newRadix
                 }
                 Log.d(APP_TAG, "CalculatorViewModel::updateRadix: numberSystemCustom2.radix from ${numberSystemCustom2.value.radix.value} to ${newRadix.value}")
-                convert(operandType = OperandCustom2, from = numberSystemCustom2.value, toRadixes = arrayOf(radixCalculation.value))
+                convert(calculatorOperandType = OperandCustom2, from = numberSystemCustom2.value, toRadixes = arrayOf(radixCalculation.value))
             }
             RadixResult -> {
                 numberSystemResult.value.run {
@@ -106,10 +106,10 @@ class CalculatorViewModel @Inject constructor(private val converter: Converter) 
 
 
     @OptIn(FlowPreview::class)
-    private fun convert(operandType: OperandType, from: NumberSystem, toRadixes: Array<Radix>) {
+    private fun convert(calculatorOperandType: CalculatorOperandType, from: NumberSystem, toRadixes: Array<Radix>) {
         Log.d(APP_TAG, "CalculatorViewModel::convert: textFieldVal: ${from.value}, from radix: ${from.radix.value}")
 
-        when (operandType) {
+        when (calculatorOperandType) {
             OperandCustom1 -> {
                 numberSystemCustom1.value = from
             }
@@ -129,7 +129,7 @@ class CalculatorViewModel @Inject constructor(private val converter: Converter) 
             )
         ) {
             Log.e(APP_TAG, "CalculatorViewModel::convert: Invalid character entered")
-            when (operandType) {
+            when (calculatorOperandType) {
                 OperandCustom1 -> numberSystem1error.value = true
                 OperandCustom2 -> numberSystem2error.value = true
                 else -> {}
@@ -145,7 +145,7 @@ class CalculatorViewModel @Inject constructor(private val converter: Converter) 
             tempValue = tempValue.replace("-", "").replaceRange(0, 0, "-")
         }
 
-        when (operandType) {
+        when (calculatorOperandType) {
             OperandCustom1 -> {
                 numberSystemCustom1.value.value = tempValue
             }
@@ -164,13 +164,13 @@ class CalculatorViewModel @Inject constructor(private val converter: Converter) 
                         Log.d(APP_TAG, "Flow completed exceptionally")
                     } else {
                         resetErrors()
-                        if (operandType != OperandResult) calculate()
+                        if (calculatorOperandType != OperandResult) calculate()
                     }
                 }
                 .catch { error -> Log.e(APP_TAG, "CalculatorViewModel::convert: catch", error) }
                 .collect { convertedData ->
-                    Log.d(APP_TAG, "CalculatorViewModel::collect: operandType: $operandType, result: ${convertedData.result}")
-                    when (operandType) {
+                    Log.d(APP_TAG, "CalculatorViewModel::collect: operandType: $calculatorOperandType, result: ${convertedData.result}")
+                    when (calculatorOperandType) {
                         OperandCustom1 -> numberSystem1Temp.value = convertedData.result
                         OperandCustom2 -> numberSystem2Temp.value = convertedData.result
                         OperandResult -> numberSystemResult.value = convertedData.result
@@ -198,7 +198,7 @@ class CalculatorViewModel @Inject constructor(private val converter: Converter) 
             }
         }
 
-        convert(operandType = OperandResult, from = numberSystemResultTemp.value, toRadixes = arrayOf(numberSystemResult.value.radix))
+        convert(calculatorOperandType = OperandResult, from = numberSystemResultTemp.value, toRadixes = arrayOf(numberSystemResult.value.radix))
     }
 
     fun clear() {

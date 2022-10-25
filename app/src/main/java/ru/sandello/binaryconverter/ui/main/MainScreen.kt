@@ -20,7 +20,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -35,8 +34,9 @@ import ru.sandello.binaryconverter.model.Screen
 import ru.sandello.binaryconverter.ui.calculator.*
 import ru.sandello.binaryconverter.ui.converter.ConverterScreen
 import ru.sandello.binaryconverter.ui.converter.ConverterUiState
+import ru.sandello.binaryconverter.ui.explanation.ExplanationRadixType
 import ru.sandello.binaryconverter.ui.explanation.ExplanationScreen
-import ru.sandello.binaryconverter.ui.explanation.ExplanationViewModel
+import ru.sandello.binaryconverter.ui.explanation.ExplanationUiState
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.ui.theme.Shapes
 import ru.sandello.binaryconverter.ui.theme.ShapesTop
@@ -46,14 +46,16 @@ import ru.sandello.binaryconverter.ui.theme.ShapesTop
 fun MainScreen(
     converterUiState: ConverterUiState,
     calculatorUiState: CalculatorUiState,
-    explanationViewModel: ExplanationViewModel = viewModel(),
+    explanationUiState: ExplanationUiState,
     bottomSheetState: ModalBottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden),
     showExplanation: (NumberSystem, NumberSystem) -> Unit,
     onConverterNumberSystemChanged: (NumberSystem) -> Unit,
     onConverterRadixChanged: (Radix) -> Unit,
-    onCalculatorNumberSystemChanged: (OperandType, NumberSystem) -> Unit,
-    onCalculatorRadixChanged: (RadixType, Radix) -> Unit,
+    onCalculatorNumberSystemChanged: (CalculatorOperandType, NumberSystem) -> Unit,
+    onCalculatorRadixChanged: (CalculatorRadixType, Radix) -> Unit,
     onCalculatorArithmeticChange: (ArithmeticType) -> Unit,
+    onExplanationRadixChanged: (ExplanationRadixType, Radix) -> Unit,
+    onExplanationRadixSwapClicked: () -> Unit,
     onClearClicked: () -> Unit,
 ) {
     val layoutDirection = LocalLayoutDirection.current
@@ -91,10 +93,9 @@ fun MainScreen(
                         )
                     }
                     ExplanationScreen(
-                        explanationState = explanationViewModel.explanationState.collectAsState(),
-                        radixes = explanationViewModel.radixes,
-                        updateRadix = explanationViewModel::updateRadix,
-                        swapRadixes = explanationViewModel::swapRadixes,
+                        explanationUiState = explanationUiState,
+                        updateRadix = onExplanationRadixChanged,
+                        swapRadixes = onExplanationRadixSwapClicked,
                     )
                 }
             }
@@ -176,8 +177,8 @@ fun MainScreenContent(
     showExplanation: (NumberSystem, NumberSystem) -> Unit,
     onConverterNumberSystemChanged: (NumberSystem) -> Unit,
     onConverterRadixChanged: (Radix) -> Unit,
-    onCalculatorNumberSystemChanged: (OperandType, NumberSystem) -> Unit,
-    onCalculatorRadixChanged: (RadixType, Radix) -> Unit,
+    onCalculatorNumberSystemChanged: (CalculatorOperandType, NumberSystem) -> Unit,
+    onCalculatorRadixChanged: (CalculatorRadixType, Radix) -> Unit,
     onCalculatorArithmeticChange: (ArithmeticType) -> Unit,
     onClearClicked: () -> Unit,
 ) {
@@ -321,7 +322,7 @@ private fun PreviewMainScreen() {
             MainScreen(
                 converterUiState = ConverterUiState(),
                 calculatorUiState = CalculatorUiState(),
-                bottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden),
+                explanationUiState = ExplanationUiState.Calculating,
                 showExplanation = { _, _ -> },
                 onConverterNumberSystemChanged = {},
                 onConverterRadixChanged = {},
@@ -329,6 +330,8 @@ private fun PreviewMainScreen() {
                 onCalculatorRadixChanged = { _, _ -> },
                 onCalculatorArithmeticChange = {},
                 onClearClicked = {},
+                onExplanationRadixChanged = { _, _ -> },
+                onExplanationRadixSwapClicked = {},
             )
         }
     }

@@ -6,25 +6,11 @@ import androidx.compose.runtime.mutableStateOf
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.model.Radix
 
-enum class OperandType {
-    OperandCustom1,
-    OperandCustom2,
-    OperandResult,
-}
+enum class CalculatorOperandType { OperandCustom1, OperandCustom2, OperandResult }
 
-enum class RadixType {
-    RadixCustom1,
-    RadixCustom2,
-    RadixResult,
-    RadixCalculation,
-}
+enum class CalculatorRadixType { RadixCustom1, RadixCustom2, RadixResult, RadixCalculation }
 
-enum class ArithmeticType {
-    Addition,
-    Subtraction,
-    Multiply,
-    Divide,
-}
+enum class ArithmeticType { Addition, Subtraction, Multiply, Divide }
 
 data class CalculatorUiState(
     val numberSystemCustom1: State<NumberSystem> = mutableStateOf(NumberSystem(String(), Radix.DEC)),

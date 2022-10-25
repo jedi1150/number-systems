@@ -54,7 +54,7 @@ fun MainRoute(
     MainScreen(
         converterUiState = converterViewModel.converterUiState.value,
         calculatorUiState = calculatorViewModel.calculatorUiState.value,
-        explanationViewModel = explanationViewModel,
+        explanationUiState = explanationViewModel.explanationUiState.value,
         bottomSheetState = bottomSheetState,
         showExplanation = { nsFrom, nsTo ->
             converterViewModel.showExplanation()
@@ -66,5 +66,7 @@ fun MainRoute(
         onCalculatorRadixChanged = calculatorViewModel::updateRadix,
         onCalculatorArithmeticChange = calculatorViewModel::selectArithmetic,
         onClearClicked = converterViewModel::clear,
+        onExplanationRadixChanged = explanationViewModel::updateRadix,
+        onExplanationRadixSwapClicked = explanationViewModel::swapRadixes,
     )
 }

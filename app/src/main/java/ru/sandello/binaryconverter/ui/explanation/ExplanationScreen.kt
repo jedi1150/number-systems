@@ -19,7 +19,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.sandello.binaryconverter.R
-import ru.sandello.binaryconverter.model.ExplanationState
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.ui.components.RadixExposedDropdown
@@ -28,16 +27,15 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class, ExperimentalAnimationGraphicsApi::class)
 @Composable
 fun ExplanationScreen(
-    explanationState: State<ExplanationState>,
-    radixes: List<Radix>,
-    updateRadix: (RadixType, Radix) -> Unit,
+    explanationUiState: ExplanationUiState,
+    updateRadix: (ExplanationRadixType, Radix) -> Unit,
     swapRadixes: () -> Unit,
 ) {
     AnimatedContent(
-        targetState = explanationState.value,
+        targetState = explanationUiState,
     ) { state ->
         when (state) {
-            ExplanationState.Calculating -> {
+            ExplanationUiState.Calculating -> {
                 Box(
                     modifier = Modifier.fillMaxWidth(),
                     contentAlignment = Alignment.Center,
@@ -45,7 +43,7 @@ fun ExplanationScreen(
                     CircularProgressIndicator(modifier = Modifier.padding(16.dp))
                 }
             }
-            is ExplanationState.Complete -> {
+            is ExplanationUiState.Complete -> {
                 Column(
                     modifier = Modifier
                         .displayCutoutPadding()
@@ -80,11 +78,11 @@ fun ExplanationScreen(
                             onExpandedChange = { customRadix1Expanded = !customRadix1Expanded },
                             onDismissRequest = { customRadix1Expanded = false },
                             onRadixClicked = { radix ->
-                                updateRadix.invoke(RadixType.RadixCustom1, radix)
+                                updateRadix.invoke(ExplanationRadixType.RadixCustom1, radix)
                                 customRadix1Expanded = false
                             },
                             radix = state.from.radix,
-                            radixes = radixes,
+                            radixes = state.radixes,
                             modifier = Modifier.weight(1f, fill = false),
                             isCompact = true,
                             trailingIcon = {
@@ -112,11 +110,11 @@ fun ExplanationScreen(
                             onExpandedChange = { customRadix2Expanded = !customRadix2Expanded },
                             onDismissRequest = { customRadix2Expanded = false },
                             onRadixClicked = { radix ->
-                                updateRadix(RadixType.RadixCustom2, radix)
+                                updateRadix(ExplanationRadixType.RadixCustom2, radix)
                                 customRadix2Expanded = false
                             },
                             radix = state.to.radix,
-                            radixes = radixes,
+                            radixes = state.radixes,
                             modifier = Modifier.weight(1f, fill = false),
                             isCompact = true,
                             trailingIcon = {
@@ -142,8 +140,7 @@ private fun PreviewExplanationComplete() {
     NumberSystemsTheme {
         Surface {
             ExplanationScreen(
-                explanationState = remember { mutableStateOf(ExplanationState.Complete(from = nsFrom, to = nsTo)) },
-                radixes = Array(36) { radix -> Radix(radix + 1) }.filter { radix -> !listOf(Radix(1)).contains(radix) },
+                explanationUiState = ExplanationUiState.Complete(from = nsFrom, to = nsTo),
                 updateRadix = { _, _ -> },
                 swapRadixes = {},
             )
@@ -161,8 +158,7 @@ private fun PreviewExplanationCompleteDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
             ExplanationScreen(
-                explanationState = remember { mutableStateOf(ExplanationState.Complete(from = nsFrom, to = nsTo)) },
-                radixes = Array(36) { radix -> Radix(radix + 1) }.filter { radix -> !listOf(Radix(1)).contains(radix) },
+                explanationUiState = ExplanationUiState.Complete(from = nsFrom, to = nsTo),
                 updateRadix = { _, _ -> },
                 swapRadixes = {},
             )
@@ -177,8 +173,7 @@ private fun PreviewExplanationCalculating() {
     NumberSystemsTheme {
         Surface {
             ExplanationScreen(
-                explanationState = remember { mutableStateOf(ExplanationState.Calculating) },
-                radixes = Array(36) { radix -> Radix(radix + 1) }.filter { radix -> !listOf(Radix(1)).contains(radix) },
+                explanationUiState = ExplanationUiState.Calculating,
                 updateRadix = { _, _ -> },
                 swapRadixes = {},
             )
@@ -193,8 +188,7 @@ private fun PreviewExplanationCalculatingDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
             ExplanationScreen(
-                explanationState = remember { mutableStateOf(ExplanationState.Calculating) },
-                radixes = Array(36) { radix -> Radix(radix + 1) }.filter { radix -> !listOf(Radix(1)).contains(radix) },
+                explanationUiState = ExplanationUiState.Calculating,
                 updateRadix = { _, _ -> },
                 swapRadixes = {},
             )

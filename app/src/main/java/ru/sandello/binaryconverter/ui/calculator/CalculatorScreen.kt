@@ -39,8 +39,8 @@ fun CalculatorScreen(
     numberSystem2error: Boolean,
     selectedArithmetic: ArithmeticType,
     mainPadding: PaddingValues,
-    onNumberSystemChange: (OperandType, NumberSystem) -> Unit,
-    onRadixChange: (RadixType, Radix) -> Unit,
+    onNumberSystemChange: (CalculatorOperandType, NumberSystem) -> Unit,
+    onRadixChange: (CalculatorRadixType, Radix) -> Unit,
     onArithmeticChange: (ArithmeticType) -> Unit,
 ) {
     val layoutDirection = LocalLayoutDirection.current
@@ -61,7 +61,7 @@ fun CalculatorScreen(
                     value = numberSystemCustom1.value,
                     onValueChange = { textFieldValue ->
                         onNumberSystemChange(
-                            OperandType.OperandCustom1,
+                            CalculatorOperandType.OperandCustom1,
                             NumberSystem(value = textFieldValue, radix = numberSystemCustom1.radix),
                         )
                     },
@@ -83,7 +83,7 @@ fun CalculatorScreen(
                     onExpandedChange = { expanded = !expanded },
                     onDismissRequest = { expanded = false },
                     onRadixClicked = { radix ->
-                        onRadixChange(RadixType.RadixCustom1, radix)
+                        onRadixChange(CalculatorRadixType.RadixCustom1, radix)
                         expanded = false
                     },
                     radix = numberSystemCustom1.radix,
@@ -127,7 +127,7 @@ fun CalculatorScreen(
                     value = numberSystemCustom2.value,
                     onValueChange = { textFieldValue ->
                         onNumberSystemChange(
-                            OperandType.OperandCustom2,
+                            CalculatorOperandType.OperandCustom2,
                             NumberSystem(value = textFieldValue, radix = numberSystemCustom2.radix),
                         )
                     },
@@ -149,7 +149,7 @@ fun CalculatorScreen(
                     onExpandedChange = { expanded = !expanded },
                     onDismissRequest = { expanded = false },
                     onRadixClicked = { radix ->
-                        onRadixChange(RadixType.RadixCustom2, radix)
+                        onRadixChange(CalculatorRadixType.RadixCustom2, radix)
                         expanded = false
                     },
                     radix = numberSystemCustom2.radix,
@@ -181,7 +181,7 @@ fun CalculatorScreen(
                     onExpandedChange = { expanded = !expanded },
                     onDismissRequest = { expanded = false },
                     onRadixClicked = { radix ->
-                        onRadixChange(RadixType.RadixResult, radix)
+                        onRadixChange(CalculatorRadixType.RadixResult, radix)
                         expanded = false
                     },
                     radix = numberSystemResult.radix,
