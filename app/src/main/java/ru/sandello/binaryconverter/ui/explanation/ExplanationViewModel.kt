@@ -7,8 +7,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.model.Radix
@@ -31,8 +31,7 @@ class ExplanationViewModel @Inject constructor(private val converter: Converter)
         explanationUiState = ExplanationUiState(ExplanationState.Completed, from, to)
     }
 
-    @OptIn(FlowPreview::class)
-    private fun convert(explanationOperandType: ExplanationOperandType, from: NumberSystem, toRadixes: Array<Radix>) {
+    private fun convert(explanationOperandType: ExplanationOperandType, from: NumberSystem, toRadix: Radix) {
         Log.d(APP_TAG, "ExplanationViewModel::convert: value: ${from.value}, from radix: ${from.radix.value}")
 
         check(
@@ -55,7 +54,7 @@ class ExplanationViewModel @Inject constructor(private val converter: Converter)
         }
 
         viewModelScope.launch {
-            toRadixes.asFlow().flatMapMerge { _toRadix -> converter(from = from, toRadix = _toRadix) }.onCompletion { cause ->
+            converter(from = from, toRadix = toRadix).onCompletion { cause ->
                 if (cause != null) {
                     Log.e(APP_TAG, "ExplanationViewModel::Flow completed exceptionally: $cause")
                     // TODO(oleg): Add crashlytics report
@@ -84,11 +83,11 @@ class ExplanationViewModel @Inject constructor(private val converter: Converter)
         when (explanationRadixType) {
             ExplanationRadixType.RadixCustom1 -> {
                 Log.d(APP_TAG, "ExplanationViewModel::updateRadix: from.radix from ${explanationUiState.from.radix.value} to ${newRadix.value}")
-                convert(explanationOperandType = ExplanationOperandType.OperandCustom1, from = explanationUiState.from, toRadixes = arrayOf(newRadix))
+                convert(explanationOperandType = ExplanationOperandType.OperandCustom1, from = explanationUiState.from, toRadix = newRadix)
             }
             ExplanationRadixType.RadixCustom2 -> {
                 Log.d(APP_TAG, "ExplanationViewModel::updateRadix: to.radix from ${explanationUiState.to.radix.value} to ${newRadix.value}")
-                convert(explanationOperandType = ExplanationOperandType.OperandCustom2, from = explanationUiState.to, toRadixes = arrayOf(newRadix))
+                convert(explanationOperandType = ExplanationOperandType.OperandCustom2, from = explanationUiState.to, toRadix = newRadix)
             }
         }
     }
