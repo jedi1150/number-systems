@@ -36,6 +36,7 @@ import ru.sandello.binaryconverter.ui.converter.ConverterScreen
 import ru.sandello.binaryconverter.ui.converter.ConverterUiState
 import ru.sandello.binaryconverter.ui.explanation.ExplanationRadixType
 import ru.sandello.binaryconverter.ui.explanation.ExplanationScreen
+import ru.sandello.binaryconverter.ui.explanation.ExplanationState
 import ru.sandello.binaryconverter.ui.explanation.ExplanationUiState
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.ui.theme.Shapes
@@ -322,7 +323,7 @@ private fun PreviewMainScreen() {
             MainScreen(
                 converterUiState = ConverterUiState(),
                 calculatorUiState = CalculatorUiState(),
-                explanationUiState = ExplanationUiState.Calculating,
+                explanationUiState = ExplanationUiState(state = ExplanationState.Calculating),
                 showExplanation = { _, _ -> },
                 onConverterNumberSystemChanged = {},
                 onConverterRadixChanged = {},

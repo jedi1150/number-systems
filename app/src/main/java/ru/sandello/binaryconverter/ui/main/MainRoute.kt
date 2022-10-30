@@ -54,7 +54,7 @@ fun MainRoute(
     MainScreen(
         converterUiState = converterViewModel.converterUiState.value,
         calculatorUiState = calculatorViewModel.calculatorUiState.value,
-        explanationUiState = explanationViewModel.explanationUiState.value,
+        explanationUiState = explanationViewModel.explanationUiState,
         bottomSheetState = bottomSheetState,
         showExplanation = { nsFrom, nsTo ->
             converterViewModel.showExplanation()

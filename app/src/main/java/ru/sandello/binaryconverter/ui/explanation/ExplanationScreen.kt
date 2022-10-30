@@ -32,10 +32,10 @@ fun ExplanationScreen(
     swapRadixes: () -> Unit,
 ) {
     AnimatedContent(
-        targetState = explanationUiState,
+        targetState = explanationUiState.state,
     ) { state ->
         when (state) {
-            ExplanationUiState.Calculating -> {
+            ExplanationState.Calculating -> {
                 Box(
                     modifier = Modifier.fillMaxWidth(),
                     contentAlignment = Alignment.Center,
@@ -43,7 +43,7 @@ fun ExplanationScreen(
                     CircularProgressIndicator(modifier = Modifier.padding(16.dp))
                 }
             }
-            is ExplanationUiState.Complete -> {
+            is ExplanationState.Completed -> {
                 Column(
                     modifier = Modifier
                         .displayCutoutPadding()
@@ -81,8 +81,8 @@ fun ExplanationScreen(
                                 updateRadix.invoke(ExplanationRadixType.RadixCustom1, radix)
                                 customRadix1Expanded = false
                             },
-                            radix = state.from.radix,
-                            radixes = state.radixes,
+                            radix = explanationUiState.from.radix,
+                            radixes = explanationUiState.radixes,
                             modifier = Modifier.weight(1f, fill = false),
                             isCompact = true,
                             trailingIcon = {
@@ -113,8 +113,8 @@ fun ExplanationScreen(
                                 updateRadix(ExplanationRadixType.RadixCustom2, radix)
                                 customRadix2Expanded = false
                             },
-                            radix = state.to.radix,
-                            radixes = state.radixes,
+                            radix = explanationUiState.to.radix,
+                            radixes = explanationUiState.radixes,
                             modifier = Modifier.weight(1f, fill = false),
                             isCompact = true,
                             trailingIcon = {
@@ -123,7 +123,7 @@ fun ExplanationScreen(
                             shape = MaterialTheme.shapes.medium,
                         )
                     }
-                    ExplanationContent(from = state.from, to = state.to)
+                    ExplanationContent(from = explanationUiState.from, to = explanationUiState.to)
                 }
             }
         }
@@ -132,15 +132,18 @@ fun ExplanationScreen(
 
 @SuppressLint("Range")
 @Composable
-@Preview(name = "ExplanationScreen", group = "Complete")
-private fun PreviewExplanationComplete() {
-    val nsFrom = NumberSystem("10", Radix.BIN)
-    val nsTo = NumberSystem("2", Radix.DEC)
+@Preview(name = "ExplanationScreen", group = "Completed")
+private fun PreviewExplanationCompleted() {
+    val explanationUiState = ExplanationUiState(
+        state = ExplanationState.Completed,
+        from = NumberSystem("10", Radix.BIN),
+        to = NumberSystem("2", Radix.DEC),
+    )
 
     NumberSystemsTheme {
         Surface {
             ExplanationScreen(
-                explanationUiState = ExplanationUiState.Complete(from = nsFrom, to = nsTo),
+                explanationUiState = explanationUiState,
                 updateRadix = { _, _ -> },
                 swapRadixes = {},
             )
@@ -150,15 +153,18 @@ private fun PreviewExplanationComplete() {
 
 @SuppressLint("Range")
 @Composable
-@Preview(name = "ExplanationScreen Dark", group = "Complete")
-private fun PreviewExplanationCompleteDark() {
-    val nsFrom = NumberSystem("10", Radix.BIN)
-    val nsTo = NumberSystem("2", Radix.DEC)
+@Preview(name = "ExplanationScreen Dark", group = "Completed")
+private fun PreviewExplanationCompletedDark() {
+    val explanationUiState = ExplanationUiState(
+        state = ExplanationState.Completed,
+        from = NumberSystem("10", Radix.BIN),
+        to = NumberSystem("2", Radix.DEC),
+    )
 
     NumberSystemsTheme(darkTheme = true) {
         Surface {
             ExplanationScreen(
-                explanationUiState = ExplanationUiState.Complete(from = nsFrom, to = nsTo),
+                explanationUiState = explanationUiState,
                 updateRadix = { _, _ -> },
                 swapRadixes = {},
             )
@@ -173,7 +179,7 @@ private fun PreviewExplanationCalculating() {
     NumberSystemsTheme {
         Surface {
             ExplanationScreen(
-                explanationUiState = ExplanationUiState.Calculating,
+                explanationUiState = ExplanationUiState(state = ExplanationState.Calculating),
                 updateRadix = { _, _ -> },
                 swapRadixes = {},
             )
@@ -188,7 +194,7 @@ private fun PreviewExplanationCalculatingDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
             ExplanationScreen(
-                explanationUiState = ExplanationUiState.Calculating,
+                explanationUiState = ExplanationUiState(state = ExplanationState.Calculating),
                 updateRadix = { _, _ -> },
                 swapRadixes = {},
             )
