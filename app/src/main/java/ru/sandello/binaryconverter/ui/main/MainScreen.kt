@@ -56,7 +56,6 @@ fun MainScreen(
     onCalculatorRadixChanged: (CalculatorRadixType, Radix) -> Unit,
     onCalculatorArithmeticChange: (ArithmeticType) -> Unit,
     onExplanationRadixChanged: (ExplanationRadixType, Radix) -> Unit,
-    onExplanationRadixSwapClicked: () -> Unit,
     onClearClicked: () -> Unit,
 ) {
     val layoutDirection = LocalLayoutDirection.current
@@ -95,8 +94,7 @@ fun MainScreen(
                     }
                     ExplanationScreen(
                         explanationUiState = explanationUiState,
-                        updateRadix = onExplanationRadixChanged,
-                        swapRadixes = onExplanationRadixSwapClicked,
+                        onRadixChanged = onExplanationRadixChanged,
                     )
                 }
             }
@@ -332,7 +330,6 @@ private fun PreviewMainScreen() {
                 onCalculatorArithmeticChange = {},
                 onClearClicked = {},
                 onExplanationRadixChanged = { _, _ -> },
-                onExplanationRadixSwapClicked = {},
             )
         }
     }

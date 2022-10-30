@@ -28,8 +28,7 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 @Composable
 fun ExplanationScreen(
     explanationUiState: ExplanationUiState,
-    updateRadix: (ExplanationRadixType, Radix) -> Unit,
-    swapRadixes: () -> Unit,
+    onRadixChanged: (ExplanationRadixType, Radix) -> Unit,
 ) {
     AnimatedContent(
         targetState = explanationUiState.state,
@@ -78,7 +77,7 @@ fun ExplanationScreen(
                             onExpandedChange = { customRadix1Expanded = !customRadix1Expanded },
                             onDismissRequest = { customRadix1Expanded = false },
                             onRadixClicked = { radix ->
-                                updateRadix.invoke(ExplanationRadixType.RadixCustom1, radix)
+                                onRadixChanged.invoke(ExplanationRadixType.RadixCustom1, radix)
                                 customRadix1Expanded = false
                             },
                             radix = explanationUiState.from.radix,
@@ -93,7 +92,8 @@ fun ExplanationScreen(
                         var atEnd by remember { mutableStateOf(false) }
                         IconButton(
                             onClick = {
-                                swapRadixes()
+                                onRadixChanged.invoke(ExplanationRadixType.RadixCustom1, explanationUiState.to.radix)
+                                onRadixChanged.invoke(ExplanationRadixType.RadixCustom2, explanationUiState.from.radix)
                                 atEnd = !atEnd
                             },
                         ) {
@@ -110,7 +110,7 @@ fun ExplanationScreen(
                             onExpandedChange = { customRadix2Expanded = !customRadix2Expanded },
                             onDismissRequest = { customRadix2Expanded = false },
                             onRadixClicked = { radix ->
-                                updateRadix(ExplanationRadixType.RadixCustom2, radix)
+                                onRadixChanged(ExplanationRadixType.RadixCustom2, radix)
                                 customRadix2Expanded = false
                             },
                             radix = explanationUiState.to.radix,
@@ -144,8 +144,7 @@ private fun PreviewExplanationCompleted() {
         Surface {
             ExplanationScreen(
                 explanationUiState = explanationUiState,
-                updateRadix = { _, _ -> },
-                swapRadixes = {},
+                onRadixChanged = { _, _ -> },
             )
         }
     }
@@ -165,8 +164,7 @@ private fun PreviewExplanationCompletedDark() {
         Surface {
             ExplanationScreen(
                 explanationUiState = explanationUiState,
-                updateRadix = { _, _ -> },
-                swapRadixes = {},
+                onRadixChanged = { _, _ -> },
             )
         }
     }
@@ -180,8 +178,7 @@ private fun PreviewExplanationCalculating() {
         Surface {
             ExplanationScreen(
                 explanationUiState = ExplanationUiState(state = ExplanationState.Calculating),
-                updateRadix = { _, _ -> },
-                swapRadixes = {},
+                onRadixChanged = { _, _ -> },
             )
         }
     }
@@ -195,8 +192,7 @@ private fun PreviewExplanationCalculatingDark() {
         Surface {
             ExplanationScreen(
                 explanationUiState = ExplanationUiState(state = ExplanationState.Calculating),
-                updateRadix = { _, _ -> },
-                swapRadixes = {},
+                onRadixChanged = { _, _ -> },
             )
         }
     }

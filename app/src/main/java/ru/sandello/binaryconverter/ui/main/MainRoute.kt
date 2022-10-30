@@ -67,6 +67,5 @@ fun MainRoute(
         onCalculatorArithmeticChange = calculatorViewModel::selectArithmetic,
         onClearClicked = converterViewModel::clear,
         onExplanationRadixChanged = explanationViewModel::updateRadix,
-        onExplanationRadixSwapClicked = explanationViewModel::swapRadixes,
     )
 }

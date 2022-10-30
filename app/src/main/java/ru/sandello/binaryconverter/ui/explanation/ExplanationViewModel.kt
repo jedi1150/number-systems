@@ -93,12 +93,4 @@ class ExplanationViewModel @Inject constructor(private val converter: Converter)
         }
     }
 
-    fun swapRadixes() {
-        if (explanationUiState.state is ExplanationState.Calculating) return
-        Log.d(APP_TAG, "ExplanationViewModel::swapRadixes")
-
-        updateRadix(explanationRadixType = ExplanationRadixType.RadixCustom1, newRadix = explanationUiState.to.radix)
-        updateRadix(explanationRadixType = ExplanationRadixType.RadixCustom2, newRadix = explanationUiState.from.radix)
-    }
-
 }
