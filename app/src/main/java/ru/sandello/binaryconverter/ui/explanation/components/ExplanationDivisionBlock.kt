@@ -6,6 +6,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -15,29 +17,39 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.flow.single
+import kotlinx.coroutines.launch
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.Division
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
+import ru.sandello.binaryconverter.utils.Converter
 import ru.sandello.binaryconverter.utils.NS_DELIMITER
 import java.math.BigDecimal
 import java.math.RoundingMode
 
 @Composable
 fun ExplanationDivisionBlock(from: NumberSystem, to: NumberSystem) {
+    val scope = rememberCoroutineScope()
+
     val fromDecimal = from.value.substringBefore(NS_DELIMITER)
 
     if (fromDecimal.isBlank()) return
 
     val divisionList: MutableList<Division> = mutableListOf()
-    do {
-        if (divisionList.isEmpty()) {
-            divisionList.add(longDivision(dividend = fromDecimal.toBigDecimal(), divisor = to.radix.value))
-        } else {
-            divisionList.add(longDivision(dividend = divisionList.last().quotient, divisor = divisionList.last().divisor))
+
+    LaunchedEffect(Unit) {
+        scope.launch {
+            do {
+                if (divisionList.isEmpty()) {
+                    divisionList.add(longDivision(dividend = Converter().invoke(NumberSystem(fromDecimal, from.radix), to.radix).single().result.value.toBigDecimal(), divisor = to.radix.value))
+                } else {
+                    divisionList.add(longDivision(dividend = divisionList.last().quotient, divisor = divisionList.last().divisor))
+                }
+            } while (divisionList.last().quotient > BigDecimal("0"))
         }
-    } while (divisionList.last().quotient > BigDecimal("0"))
+    }
 
     Column {
         Text(
