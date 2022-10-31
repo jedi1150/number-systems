@@ -86,7 +86,7 @@ class Converter @Inject constructor() {
             var fractionalPart = value.value
             var i = 0
             var convertedFraction = ""
-            while (i < Shared.FRACTION_COUNT) {
+            while (i < Shared.FRACTIONAL_LENGTH) {
                 if (fractionalPart.split("[,.]".toRegex())[1].toBigDecimal() == "0".toBigDecimal()) break
                 fractionalPart = (".${fractionalPart.split("[,.]".toRegex())[1]}".toBigDecimal() * toRadix.value.toBigDecimal()).toString()
                 i++

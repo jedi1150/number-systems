@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.tooling.preview.Preview
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.model.Radix
@@ -21,16 +20,6 @@ fun ExplanationContent(from: NumberSystem, to: NumberSystem) {
     if (from.value.isBlank()) {
         return
     }
-
-    val scope = rememberCoroutineScope()
-    lateinit var decimalResult: NumberSystem
-//    LaunchedEffect(Unit) {
-//        scope.launch {
-//            converter(from = fromNumberSystem, toRadix = toRadix).first().let { convertedData ->
-//                decimalResult = convertedData.result
-//            }
-//        }
-//    }
 
     LazyColumn(
         contentPadding = PaddingValues(bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding())
