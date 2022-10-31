@@ -52,11 +52,12 @@ fun MainScreen(
     showExplanation: (NumberSystem, NumberSystem) -> Unit,
     onConverterNumberSystemChanged: (NumberSystem) -> Unit,
     onConverterRadixChanged: (Radix) -> Unit,
+    onConverterClearClicked: () -> Unit,
     onCalculatorNumberSystemChanged: (CalculatorOperandType, NumberSystem) -> Unit,
     onCalculatorRadixChanged: (CalculatorRadixType, Radix) -> Unit,
     onCalculatorArithmeticChange: (ArithmeticType) -> Unit,
+    onCalculatorClearClicked: () -> Unit,
     onExplanationRadixChanged: (ExplanationRadixType, Radix) -> Unit,
-    onClearClicked: () -> Unit,
 ) {
     val layoutDirection = LocalLayoutDirection.current
 
@@ -157,10 +158,11 @@ fun MainScreen(
                 showExplanation = showExplanation,
                 onConverterNumberSystemChanged = onConverterNumberSystemChanged,
                 onConverterRadixChanged = onConverterRadixChanged,
+                onConverterClearClicked = onConverterClearClicked,
                 onCalculatorNumberSystemChanged = onCalculatorNumberSystemChanged,
                 onCalculatorRadixChanged = onCalculatorRadixChanged,
                 onCalculatorArithmeticChange = onCalculatorArithmeticChange,
-                onClearClicked = onClearClicked,
+                onCalculatorClearClicked = onCalculatorClearClicked,
             )
         }
     }
@@ -176,10 +178,11 @@ fun MainScreenContent(
     showExplanation: (NumberSystem, NumberSystem) -> Unit,
     onConverterNumberSystemChanged: (NumberSystem) -> Unit,
     onConverterRadixChanged: (Radix) -> Unit,
+    onConverterClearClicked: () -> Unit,
     onCalculatorNumberSystemChanged: (CalculatorOperandType, NumberSystem) -> Unit,
     onCalculatorRadixChanged: (CalculatorRadixType, Radix) -> Unit,
     onCalculatorArithmeticChange: (ArithmeticType) -> Unit,
-    onClearClicked: () -> Unit,
+    onCalculatorClearClicked: () -> Unit,
 ) {
     val layoutDirection = LocalLayoutDirection.current
 
@@ -197,14 +200,7 @@ fun MainScreenContent(
         }
         composable(Screen.Calculator.route) {
             CalculatorScreen(
-                radixes = calculatorUiState.radixes,
-                arithmeticTypes = calculatorUiState.arithmeticTypes,
-                numberSystemCustom1 = calculatorUiState.numberSystemCustom1.value,
-                numberSystemCustom2 = calculatorUiState.numberSystemCustom2.value,
-                numberSystemResult = calculatorUiState.numberSystemResult.value,
-                numberSystem1error = calculatorUiState.numberSystemCustom1error.value,
-                numberSystem2error = calculatorUiState.numberSystemCustom2error.value,
-                selectedArithmetic = calculatorUiState.selectedArithmetic.value,
+                calculatorUiState = calculatorUiState,
                 mainPadding = contentPadding,
                 onNumberSystemChange = onCalculatorNumberSystemChanged,
                 onRadixChange = onCalculatorRadixChanged,
@@ -239,16 +235,16 @@ fun MainScreenContent(
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination
-        val clearFabIsVisible by remember(converterUiState) {
+        val clearFabIsVisible by remember(currentDestination, converterUiState, calculatorUiState) {
             derivedStateOf {
                 return@derivedStateOf when (currentDestination?.route) {
                     Screen.Converter.route -> converterUiState.hasData
-                    Screen.Calculator.route -> calculatorUiState.hasData.value
+                    Screen.Calculator.route -> calculatorUiState.hasData
                     else -> false
                 }
             }
         }
-        val explanationFabIsVisible by remember(converterUiState) {
+        val explanationFabIsVisible by remember(currentDestination, converterUiState, calculatorUiState) {
             derivedStateOf {
                 return@derivedStateOf when (currentDestination?.route) {
                     Screen.Converter.route -> converterUiState.hasData
@@ -267,10 +263,10 @@ fun MainScreenContent(
                     onClick = {
                         // TODO(oleg): Move to MainRoute
                         if (navController.currentDestination?.route == Screen.Converter.route) {
-                            onClearClicked()
+                            onConverterClearClicked()
                         }
                         if (navController.currentDestination?.route == Screen.Calculator.route) {
-                            onClearClicked()
+                            onCalculatorClearClicked()
                         }
                     },
                     modifier = Modifier.padding(vertical = 8.dp),
@@ -316,10 +312,11 @@ private fun PreviewMainScreen() {
                 showExplanation = { _, _ -> },
                 onConverterNumberSystemChanged = {},
                 onConverterRadixChanged = {},
+                onConverterClearClicked = {},
                 onCalculatorNumberSystemChanged = { _, _ -> },
                 onCalculatorRadixChanged = { _, _ -> },
                 onCalculatorArithmeticChange = {},
-                onClearClicked = {},
+                onCalculatorClearClicked = {},
                 onExplanationRadixChanged = { _, _ -> },
             )
         }

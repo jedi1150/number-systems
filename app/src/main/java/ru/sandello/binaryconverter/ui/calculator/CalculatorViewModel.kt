@@ -1,8 +1,9 @@
 package ru.sandello.binaryconverter.ui.calculator
 
 import android.util.Log
-import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,31 +26,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CalculatorViewModel @Inject constructor(private val converter: Converter) : ViewModel() {
-    private val numberSystemCustom1 = mutableStateOf(NumberSystem(String(), Radix.DEC))
-    private val numberSystemCustom2 = mutableStateOf(NumberSystem(String(), Radix.BIN))
-    private val numberSystemResult = mutableStateOf(NumberSystem(String(), Radix.DEC))
-
-    private val numberSystem1error = mutableStateOf(false)
-    private val numberSystem2error = mutableStateOf(false)
-
-    private val selectedArithmetic = mutableStateOf(Addition)
-
     private val radixCalculation = mutableStateOf(Radix.DEC)
     private val numberSystem1Temp = mutableStateOf(NumberSystem(String(), radixCalculation.value))
     private val numberSystem2Temp = mutableStateOf(NumberSystem(String(), radixCalculation.value))
     private val numberSystemResultTemp = mutableStateOf(NumberSystem(String(), radixCalculation.value))
 
-    private val _calculatorUiState = mutableStateOf(
-        CalculatorUiState(
-            numberSystemCustom1 = numberSystemCustom1,
-            numberSystemCustom2 = numberSystemCustom2,
-            numberSystemResult = numberSystemResult,
-            numberSystemCustom1error = numberSystem1error,
-            numberSystemCustom2error = numberSystem2error,
-            selectedArithmetic = selectedArithmetic,
-        ),
-    )
-    val calculatorUiState: State<CalculatorUiState> = _calculatorUiState
+    var calculatorUiState by mutableStateOf(CalculatorUiState())
+        private set
 
     private var lastValueFrom: NumberSystem? = null
 
@@ -60,27 +43,27 @@ class CalculatorViewModel @Inject constructor(private val converter: Converter) 
     fun updateRadix(calculatorRadixType: CalculatorRadixType, newRadix: Radix) {
         when (calculatorRadixType) {
             RadixCustom1 -> {
-                numberSystemCustom1.value.run {
+                calculatorUiState.numberSystemCustom1.run {
                     if (radix == newRadix) return
                     radix = newRadix
                 }
-                Log.d(APP_TAG, "CalculatorViewModel::updateRadix: numberSystemCustom1.radix from ${numberSystemCustom1.value.radix.value} to ${newRadix.value}")
-                convert(calculatorOperandType = OperandCustom1, from = numberSystemCustom1.value, toRadixes = arrayOf(radixCalculation.value))
+                Log.d(APP_TAG, "CalculatorViewModel::updateRadix: numberSystemCustom1.radix from ${calculatorUiState.numberSystemCustom1.radix.value} to ${newRadix.value}")
+                convert(calculatorOperandType = OperandCustom1, from = calculatorUiState.numberSystemCustom1, toRadixes = arrayOf(radixCalculation.value))
             }
             RadixCustom2 -> {
-                numberSystemCustom2.value.run {
+                calculatorUiState.numberSystemCustom2.run {
                     if (radix == newRadix) return
                     radix = newRadix
                 }
-                Log.d(APP_TAG, "CalculatorViewModel::updateRadix: numberSystemCustom2.radix from ${numberSystemCustom2.value.radix.value} to ${newRadix.value}")
-                convert(calculatorOperandType = OperandCustom2, from = numberSystemCustom2.value, toRadixes = arrayOf(radixCalculation.value))
+                Log.d(APP_TAG, "CalculatorViewModel::updateRadix: numberSystemCustom2.radix from ${calculatorUiState.numberSystemCustom2.radix.value} to ${newRadix.value}")
+                convert(calculatorOperandType = OperandCustom2, from = calculatorUiState.numberSystemCustom2, toRadixes = arrayOf(radixCalculation.value))
             }
             RadixResult -> {
-                numberSystemResult.value.run {
+                calculatorUiState.numberSystemResult.run {
                     if (radix == newRadix) return
                     radix = newRadix
                 }
-                Log.d(APP_TAG, "CalculatorViewModel::updateRadix: numberSystemResult.radix from ${numberSystemResult.value.radix.value} to ${newRadix.value}")
+                Log.d(APP_TAG, "CalculatorViewModel::updateRadix: numberSystemResult.radix from ${calculatorUiState.numberSystemResult.radix.value} to ${newRadix.value}")
                 calculate()
             }
             RadixCalculation -> {
@@ -97,9 +80,9 @@ class CalculatorViewModel @Inject constructor(private val converter: Converter) 
     fun selectArithmetic(arithmeticType: ArithmeticType) {
         Log.d(APP_TAG, "CalculatorViewModel::selectArithmetic: arithmeticType: $arithmeticType")
 
-        selectedArithmetic.run {
-            if (value == arithmeticType) return
-            value = arithmeticType
+        calculatorUiState.selectedArithmetic.run {
+            if (this == arithmeticType) return
+            calculatorUiState = calculatorUiState.copy(selectedArithmetic = arithmeticType)
             calculate()
         }
     }
@@ -111,27 +94,23 @@ class CalculatorViewModel @Inject constructor(private val converter: Converter) 
 
         when (calculatorOperandType) {
             OperandCustom1 -> {
-                numberSystemCustom1.value = from
+                calculatorUiState = calculatorUiState.copy(numberSystemCustom1 = from)
             }
             OperandCustom2 -> {
-                numberSystemCustom2.value = from
+                calculatorUiState = calculatorUiState.copy(numberSystemCustom2 = from)
             }
             else -> {}
         }
 
-        check(
-            from.value.matches(
-                CharRegex().charsRegex(
-                    index = from.radix.value,
-                    useDelimiterChars = from.value.count { it.toString().contains("[,.]".toRegex()) } <= 1,
-                    useNegativeChar = from.value.count { it.toString().contains("[-]".toRegex()) } <= 1,
-                )
-            )
-        ) {
+        check(from.value.matches(CharRegex().charsRegex(
+            index = from.radix.value,
+            useDelimiterChars = from.value.count { it.toString().contains("[,.]".toRegex()) } <= 1,
+            useNegativeChar = from.value.count { it.toString().contains("[-]".toRegex()) } <= 1,
+        ))) {
             Log.e(APP_TAG, "CalculatorViewModel::convert: Invalid character entered")
             when (calculatorOperandType) {
-                OperandCustom1 -> numberSystem1error.value = true
-                OperandCustom2 -> numberSystem2error.value = true
+                OperandCustom1 -> calculatorUiState = calculatorUiState.copy(numberSystemCustom1Error = true)
+                OperandCustom2 -> calculatorUiState = calculatorUiState.copy(numberSystemCustom2Error = true)
                 else -> {}
             }
             return
@@ -146,36 +125,27 @@ class CalculatorViewModel @Inject constructor(private val converter: Converter) 
         }
 
         when (calculatorOperandType) {
-            OperandCustom1 -> {
-                numberSystemCustom1.value.value = tempValue
-            }
-            OperandCustom2 -> {
-                numberSystemCustom2.value.value = tempValue
-            }
+            OperandCustom1 -> calculatorUiState = calculatorUiState.copy(numberSystemCustom1 = calculatorUiState.numberSystemCustom1.copy(value = tempValue))
+            OperandCustom2 -> calculatorUiState = calculatorUiState.copy(numberSystemCustom1 = calculatorUiState.numberSystemCustom2.copy(value = tempValue))
             else -> {}
         }
 
         viewModelScope.launch {
-            toRadixes
-                .asFlow()
-                .flatMapMerge { _toRadix -> converter(from = from, toRadix = _toRadix) }
-                .onCompletion { cause ->
-                    if (cause != null) {
-                        Log.d(APP_TAG, "Flow completed exceptionally")
-                    } else {
-                        resetErrors()
-                        if (calculatorOperandType != OperandResult) calculate()
-                    }
+            toRadixes.asFlow().flatMapMerge { _toRadix -> converter(from = from, toRadix = _toRadix) }.onCompletion { cause ->
+                if (cause != null) {
+                    Log.d(APP_TAG, "Flow completed exceptionally")
+                } else {
+                    resetErrors()
+                    if (calculatorOperandType != OperandResult) calculate()
                 }
-                .catch { error -> Log.e(APP_TAG, "CalculatorViewModel::convert: catch", error) }
-                .collect { convertedData ->
-                    Log.d(APP_TAG, "CalculatorViewModel::collect: operandType: $calculatorOperandType, result: ${convertedData.result}")
-                    when (calculatorOperandType) {
-                        OperandCustom1 -> numberSystem1Temp.value = convertedData.result
-                        OperandCustom2 -> numberSystem2Temp.value = convertedData.result
-                        OperandResult -> numberSystemResult.value = convertedData.result
-                    }
+            }.catch { error -> Log.e(APP_TAG, "CalculatorViewModel::convert: catch", error) }.collect { convertedData ->
+                Log.d(APP_TAG, "CalculatorViewModel::collect: operandType: $calculatorOperandType, result: ${convertedData.result}")
+                when (calculatorOperandType) {
+                    OperandCustom1 -> numberSystem1Temp.value = convertedData.result
+                    OperandCustom2 -> numberSystem2Temp.value = convertedData.result
+                    OperandResult -> calculatorUiState = calculatorUiState.copy(numberSystemResult = convertedData.result)
                 }
+            }
         }
     }
 
@@ -185,32 +155,31 @@ class CalculatorViewModel @Inject constructor(private val converter: Converter) 
         }
         Log.d(APP_TAG, "CalculatorViewModel::calculate")
 
-        numberSystemResultTemp.value.value = when (selectedArithmetic.value) {
+        numberSystemResultTemp.value.value = when (calculatorUiState.selectedArithmetic) {
             Addition -> (numberSystem1Temp.value.value.toBigDecimal().plus(numberSystem2Temp.value.value.toBigDecimal())).toString()
             Subtraction -> (numberSystem1Temp.value.value.toBigDecimal().minus(numberSystem2Temp.value.value.toBigDecimal())).toString()
             Multiply -> (numberSystem1Temp.value.value.toBigDecimal().multiply(numberSystem2Temp.value.value.toBigDecimal(), DECIMAL128)).toString()
             Divide -> {
                 if (numberSystem2Temp.value.value.toFloatOrNull() == 0.0f) {
-                    numberSystem2error.value = true
+                    calculatorUiState = calculatorUiState.copy(numberSystemCustom2Error = true)
                     return
                 }
                 (numberSystem1Temp.value.value.toBigDecimal().divide(numberSystem2Temp.value.value.toBigDecimal(), DECIMAL128)).toString()
             }
         }
 
-        convert(calculatorOperandType = OperandResult, from = numberSystemResultTemp.value, toRadixes = arrayOf(numberSystemResult.value.radix))
+        convert(calculatorOperandType = OperandResult, from = numberSystemResultTemp.value, toRadixes = arrayOf(calculatorUiState.numberSystemResult.radix))
     }
 
     fun clear() {
-        numberSystemCustom1.value = numberSystemCustom1.value.copy(value = String())
-        numberSystemCustom2.value = numberSystemCustom2.value.copy(value = String())
-        numberSystemResult.value = numberSystemResult.value.copy(value = String())
-        resetErrors()
+        calculatorUiState = CalculatorUiState()
     }
 
     private fun resetErrors() {
-        numberSystem1error.value = false
-        numberSystem2error.value = false
+        calculatorUiState = calculatorUiState.copy(
+            numberSystemCustom1Error = false,
+            numberSystemCustom2Error = false,
+        )
     }
 
 }

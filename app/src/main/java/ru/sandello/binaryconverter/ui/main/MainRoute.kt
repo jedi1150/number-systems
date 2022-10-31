@@ -53,7 +53,7 @@ fun MainRoute(
 
     MainScreen(
         converterUiState = converterViewModel.converterUiState,
-        calculatorUiState = calculatorViewModel.calculatorUiState.value,
+        calculatorUiState = calculatorViewModel.calculatorUiState,
         explanationUiState = explanationViewModel.explanationUiState,
         bottomSheetState = bottomSheetState,
         showExplanation = { nsFrom, nsTo ->
@@ -62,10 +62,11 @@ fun MainRoute(
         },
         onConverterNumberSystemChanged = converterViewModel::convertFrom,
         onConverterRadixChanged = converterViewModel::updateCustomRadix,
+        onConverterClearClicked = converterViewModel::clear,
         onCalculatorNumberSystemChanged = calculatorViewModel::convertFrom,
         onCalculatorRadixChanged = calculatorViewModel::updateRadix,
         onCalculatorArithmeticChange = calculatorViewModel::selectArithmetic,
-        onClearClicked = converterViewModel::clear,
+        onCalculatorClearClicked = calculatorViewModel::clear,
         onExplanationRadixChanged = explanationViewModel::updateRadix,
     )
 }
