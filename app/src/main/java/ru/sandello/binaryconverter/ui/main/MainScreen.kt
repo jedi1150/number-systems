@@ -189,17 +189,7 @@ fun MainScreenContent(
     ) {
         composable(Screen.Converter.route) {
             ConverterScreen(
-                radixes = converterUiState.radixes,
-                numberSystem10 = converterUiState.numberSystem10.value,
-                numberSystem2 = converterUiState.numberSystem2.value,
-                numberSystem8 = converterUiState.numberSystem8.value,
-                numberSystem16 = converterUiState.numberSystem16.value,
-                numberSystemCustom = converterUiState.numberSystemCustom.value,
-                numberSystem10error = converterUiState.numberSystem10error.value,
-                numberSystem2error = converterUiState.numberSystem2error.value,
-                numberSystem8error = converterUiState.numberSystem8error.value,
-                numberSystem16error = converterUiState.numberSystem16error.value,
-                numberSystemCustomError = converterUiState.numberSystemCustomError.value,
+                converterUiState = converterUiState,
                 mainPadding = contentPadding,
                 onNumberSystemChanged = onConverterNumberSystemChanged,
                 onCustomRadixChanged = onConverterRadixChanged,
@@ -249,23 +239,24 @@ fun MainScreenContent(
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination
-        val clearFabIsVisible by remember(currentDestination) {
+        val clearFabIsVisible by remember(converterUiState) {
             derivedStateOf {
                 return@derivedStateOf when (currentDestination?.route) {
-                    Screen.Converter.route -> converterUiState.hasData.value
+                    Screen.Converter.route -> converterUiState.hasData
                     Screen.Calculator.route -> calculatorUiState.hasData.value
                     else -> false
                 }
             }
         }
-        val explanationFabIsVisible by remember(currentDestination) {
+        val explanationFabIsVisible by remember(converterUiState) {
             derivedStateOf {
                 return@derivedStateOf when (currentDestination?.route) {
-                    Screen.Converter.route -> converterUiState.hasData.value
+                    Screen.Converter.route -> converterUiState.hasData
                     else -> false
                 }
             }
         }
+
         Column(horizontalAlignment = Alignment.End) {
             AnimatedVisibility(
                 visible = clearFabIsVisible,
@@ -299,7 +290,7 @@ fun MainScreenContent(
                     icon = { Icon(painter = painterResource(R.drawable.explanation), contentDescription = stringResource(id = R.string.explanation)) },
                     onClick = {
                         if (navController.currentDestination?.route == Screen.Converter.route) {
-                            showExplanation(converterUiState.numberSystem10.value, converterUiState.numberSystem2.value)
+                            showExplanation(converterUiState.numberSystem10, converterUiState.numberSystem2)
                         }
                     },
                     modifier = Modifier.padding(vertical = 8.dp),

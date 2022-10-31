@@ -24,17 +24,7 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConverterScreen(
-    radixes: List<Radix>,
-    numberSystem10: NumberSystem,
-    numberSystem2: NumberSystem,
-    numberSystem8: NumberSystem,
-    numberSystem16: NumberSystem,
-    numberSystemCustom: NumberSystem,
-    numberSystem10error: Boolean,
-    numberSystem2error: Boolean,
-    numberSystem8error: Boolean,
-    numberSystem16error: Boolean,
-    numberSystemCustomError: Boolean,
+    converterUiState: ConverterUiState,
     mainPadding: PaddingValues,
     onNumberSystemChanged: (NumberSystem) -> Unit,
     onCustomRadixChanged: (Radix) -> Unit,
@@ -53,48 +43,48 @@ fun ConverterScreen(
     ) {
         item {
             OutlinedTextField(
-                value = numberSystem10.value,
-                onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue, radix = numberSystem10.radix)) },
+                value = converterUiState.numberSystem10.value,
+                onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue, radix = converterUiState.numberSystem10.radix)) },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text(stringResource(R.string.dec)) },
-                visualTransformation = OperandVisualTransformation(numberSystem10.radix),
-                isError = numberSystem10error,
+                visualTransformation = OperandVisualTransformation(converterUiState.numberSystem10.radix),
+                isError = converterUiState.numberSystem10Error,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = MaterialTheme.shapes.medium,
             )
         }
         item {
             OutlinedTextField(
-                value = numberSystem2.value,
-                onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue, radix = numberSystem2.radix)) },
+                value = converterUiState.numberSystem2.value,
+                onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue, radix = converterUiState.numberSystem2.radix)) },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text(stringResource(R.string.bin)) },
-                isError = numberSystem2error,
-                visualTransformation = OperandVisualTransformation(numberSystem2.radix),
+                isError = converterUiState.numberSystem2Error,
+                visualTransformation = OperandVisualTransformation(converterUiState.numberSystem2.radix),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = MaterialTheme.shapes.medium,
             )
         }
         item {
             OutlinedTextField(
-                value = numberSystem8.value,
-                onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue, numberSystem8.radix)) },
+                value = converterUiState.numberSystem8.value,
+                onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue, converterUiState.numberSystem8.radix)) },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text(stringResource(R.string.oct)) },
-                isError = numberSystem8error,
-                visualTransformation = OperandVisualTransformation(numberSystem8.radix),
+                isError = converterUiState.numberSystem8Error,
+                visualTransformation = OperandVisualTransformation(converterUiState.numberSystem8.radix),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = MaterialTheme.shapes.medium,
             )
         }
         item {
             OutlinedTextField(
-                value = numberSystem16.value,
-                onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue, radix = numberSystem16.radix)) },
+                value = converterUiState.numberSystem16.value,
+                onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue, radix = converterUiState.numberSystem16.radix)) },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text(stringResource(R.string.hex)) },
-                isError = numberSystem16error,
-                visualTransformation = OperandVisualTransformation(numberSystem16.radix),
+                isError = converterUiState.numberSystem16Error,
+                visualTransformation = OperandVisualTransformation(converterUiState.numberSystem16.radix),
                 keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
                 shape = MaterialTheme.shapes.medium,
             )
@@ -102,12 +92,12 @@ fun ConverterScreen(
         item {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedTextField(
-                    value = numberSystemCustom.value,
-                    onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue, radix = numberSystemCustom.radix)) },
+                    value = converterUiState.numberSystemCustom.value,
+                    onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue, radix = converterUiState.numberSystemCustom.radix)) },
                     modifier = Modifier.weight(1f),
-                    label = { Text(stringResource(R.string.radix, numberSystemCustom.radix.value)) },
-                    isError = numberSystemCustomError,
-                    visualTransformation = OperandVisualTransformation(numberSystemCustom.radix),
+                    label = { Text(stringResource(R.string.radix, converterUiState.numberSystemCustom.radix.value)) },
+                    isError = converterUiState.numberSystemCustomError,
+                    visualTransformation = OperandVisualTransformation(converterUiState.numberSystemCustom.radix),
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
                     shape = MaterialTheme.shapes.medium,
                 )
@@ -120,8 +110,8 @@ fun ConverterScreen(
                         onCustomRadixChanged(radix)
                         expanded = false
                     },
-                    radix = numberSystemCustom.radix,
-                    radixes = radixes,
+                    radix = converterUiState.numberSystemCustom.radix,
+                    radixes = converterUiState.radixes,
                     modifier = Modifier.width(96.dp),
                     isCompact = false,
                     trailingIcon = {
@@ -141,17 +131,7 @@ private fun PreviewConverterScreen() {
     NumberSystemsTheme {
         Surface {
             ConverterScreen(
-                radixes = Array(36) { radix -> Radix(radix + 1) }.filter { radix -> !listOf(Radix(1)).contains(radix) },
-                numberSystem10 = NumberSystem(String(), Radix.DEC),
-                numberSystem2 = NumberSystem(String(), Radix.BIN),
-                numberSystem8 = NumberSystem(String(), Radix.OCT),
-                numberSystem16 = NumberSystem(String(), Radix.HEX),
-                numberSystemCustom = NumberSystem(String(), Radix(3)),
-                numberSystem10error = false,
-                numberSystem2error = false,
-                numberSystem8error = false,
-                numberSystem16error = false,
-                numberSystemCustomError = false,
+                converterUiState = ConverterUiState(),
                 mainPadding = PaddingValues(),
                 onNumberSystemChanged = {},
                 onCustomRadixChanged = {},
@@ -168,17 +148,7 @@ private fun PreviewConverterScreenDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
             ConverterScreen(
-                radixes = Array(36) { radix -> Radix(radix + 1) }.filter { radix -> !listOf(Radix(1)).contains(radix) },
-                numberSystem10 = NumberSystem(String(), Radix.DEC),
-                numberSystem2 = NumberSystem(String(), Radix.BIN),
-                numberSystem8 = NumberSystem(String(), Radix.OCT),
-                numberSystem16 = NumberSystem(String(), Radix.HEX),
-                numberSystemCustom = NumberSystem(String(), Radix(3)),
-                numberSystem10error = false,
-                numberSystem2error = false,
-                numberSystem8error = false,
-                numberSystem16error = false,
-                numberSystemCustomError = false,
+                converterUiState = ConverterUiState(),
                 mainPadding = PaddingValues(),
                 onNumberSystemChanged = {},
                 onCustomRadixChanged = {},

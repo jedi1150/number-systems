@@ -2,7 +2,9 @@ package ru.sandello.binaryconverter.ui.converter
 
 import android.util.Log
 import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,41 +24,17 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ConverterViewModel @Inject constructor(private val converter: Converter) : ViewModel() {
-    private val numberSystem10 = mutableStateOf(NumberSystem(String(), Radix.DEC))
-    private val numberSystem2 = mutableStateOf(NumberSystem(String(), Radix.BIN))
-    private val numberSystem8 = mutableStateOf(NumberSystem(String(), Radix.OCT))
-    private val numberSystem16 = mutableStateOf(NumberSystem(String(), Radix.HEX))
-    private val numberSystemCustom = mutableStateOf(NumberSystem(String(), Radix(3)))
-
-    private val numberSystem10error = mutableStateOf(false)
-    private val numberSystem2error = mutableStateOf(false)
-    private val numberSystem8error = mutableStateOf(false)
-    private val numberSystem16error = mutableStateOf(false)
-    private val numberSystemCustomError = mutableStateOf(false)
 
     private var lastNumberSystem: NumberSystem? = null
 
     private val _showExplanation = mutableStateOf(false)
     val showExplanation: State<Boolean> = _showExplanation
 
-    private val _converterUiState = mutableStateOf(
-        ConverterUiState(
-            numberSystem10 = numberSystem10,
-            numberSystem2 = numberSystem2,
-            numberSystem8 = numberSystem8,
-            numberSystem16 = numberSystem16,
-            numberSystemCustom = numberSystemCustom,
-            numberSystem10error = numberSystem10error,
-            numberSystem2error = numberSystem2error,
-            numberSystem8error = numberSystem8error,
-            numberSystem16error = numberSystem16error,
-            numberSystemCustomError = numberSystemCustomError,
-        ),
-    )
-    val converterUiState: State<ConverterUiState> = _converterUiState
+    var converterUiState by mutableStateOf(ConverterUiState())
+        private set
 
     fun convertFrom(from: NumberSystem) {
-        convert(from, toRadixes = arrayOf(numberSystem2.value.radix, numberSystem8.value.radix, numberSystem10.value.radix, numberSystem16.value.radix, numberSystemCustom.value.radix))
+        convert(from, toRadixes = arrayOf(converterUiState.numberSystem2.radix, converterUiState.numberSystem8.radix, converterUiState.numberSystem10.radix, converterUiState.numberSystem16.radix, converterUiState.numberSystemCustom.radix))
     }
 
     @OptIn(FlowPreview::class)
@@ -75,11 +53,11 @@ class ConverterViewModel @Inject constructor(private val converter: Converter) :
         ))) {
             Log.d(APP_TAG, "ConverterViewModel::convert: Invalid character entered")
             when (from.radix) {
-                numberSystem2.value.radix -> numberSystem2error.value = true
-                numberSystem8.value.radix -> numberSystem8error.value = true
-                numberSystem10.value.radix -> numberSystem10error.value = true
-                numberSystem16.value.radix -> numberSystem16error.value = true
-                numberSystemCustom.value.radix -> numberSystemCustomError.value = true
+                converterUiState.numberSystem2.radix -> converterUiState = converterUiState.copy(numberSystem2Error = true)
+                converterUiState.numberSystem8.radix -> converterUiState = converterUiState.copy(numberSystem8Error = true)
+                converterUiState.numberSystem10.radix -> converterUiState = converterUiState.copy(numberSystem10Error = true)
+                converterUiState.numberSystem16.radix -> converterUiState = converterUiState.copy(numberSystem16Error = true)
+                converterUiState.numberSystemCustom.radix -> converterUiState = converterUiState.copy(numberSystemCustomError = true)
             }
             return
         }
@@ -95,25 +73,25 @@ class ConverterViewModel @Inject constructor(private val converter: Converter) :
                 (from.radix != _toRadix).also {
                     if (!it) {
                         when (_toRadix) {
-                            numberSystem2.value.radix -> {
-                                if (numberSystem2.value.value == from.value) cancel()
-                                numberSystem2.value = from
+                            converterUiState.numberSystem2.radix -> {
+                                if (converterUiState.numberSystem2.value == from.value) cancel()
+                                converterUiState = converterUiState.copy(numberSystem2 = from)
                             }
-                            numberSystem8.value.radix -> {
-                                if (numberSystem8.value.value == from.value) cancel()
-                                numberSystem8.value = from
+                            converterUiState.numberSystem8.radix -> {
+                                if (converterUiState.numberSystem8.value == from.value) cancel()
+                                converterUiState = converterUiState.copy(numberSystem8 = from)
                             }
-                            numberSystem10.value.radix -> {
-                                if (numberSystem10.value.value == from.value) cancel()
-                                numberSystem10.value = from
+                            converterUiState.numberSystem10.radix -> {
+                                if (converterUiState.numberSystem10.value == from.value) cancel()
+                                converterUiState = converterUiState.copy(numberSystem10 = from)
                             }
-                            numberSystem16.value.radix -> {
-                                if (numberSystem16.value.value == from.value) cancel()
-                                numberSystem16.value = from
+                            converterUiState.numberSystem16.radix -> {
+                                if (converterUiState.numberSystem16.value == from.value) cancel()
+                                converterUiState = converterUiState.copy(numberSystem16 = from)
                             }
-                            numberSystemCustom.value.radix -> {
-                                if (numberSystemCustom.value.value == from.value) cancel()
-                                numberSystemCustom.value = from
+                            converterUiState.numberSystemCustom.radix -> {
+                                if (converterUiState.numberSystemCustom.value == from.value) cancel()
+                                converterUiState = converterUiState.copy(numberSystemCustom = from)
                             }
                         }
                     }
@@ -126,25 +104,25 @@ class ConverterViewModel @Inject constructor(private val converter: Converter) :
                 }
             }.catch { error -> Log.e(APP_TAG, "ConverterViewModel::convert: catch", error) }.collect { convertedData ->
                 when (convertedData.result.radix) {
-                    numberSystem2.value.radix -> numberSystem2.value = convertedData.result
-                    numberSystem8.value.radix -> numberSystem8.value = convertedData.result
-                    numberSystem10.value.radix -> numberSystem10.value = convertedData.result
-                    numberSystem16.value.radix -> numberSystem16.value = convertedData.result
-                    numberSystemCustom.value.radix -> numberSystemCustom.value = convertedData.result
+                    converterUiState.numberSystem2.radix -> converterUiState = converterUiState.copy(numberSystem2 = convertedData.result)
+                    converterUiState.numberSystem8.radix -> converterUiState = converterUiState.copy(numberSystem8 = convertedData.result)
+                    converterUiState.numberSystem10.radix -> converterUiState = converterUiState.copy(numberSystem10 = convertedData.result)
+                    converterUiState.numberSystem16.radix -> converterUiState = converterUiState.copy(numberSystem16 = convertedData.result)
+                    converterUiState.numberSystemCustom.radix -> converterUiState = converterUiState.copy(numberSystemCustom = convertedData.result)
                 }
             }
         }
     }
 
     fun updateCustomRadix(newRadix: Radix) {
-        Log.d(APP_TAG, "ConverterViewModel::updateCustomRadix ${numberSystemCustom.value.radix} to $newRadix")
+        Log.d(APP_TAG, "ConverterViewModel::updateCustomRadix ${converterUiState.numberSystemCustom.radix} to $newRadix")
 
         val tempNS = lastNumberSystem
-        if (tempNS != null && numberSystemCustom.value.radix != newRadix) {
-            if (lastNumberSystem?.radix == numberSystemCustom.value.radix) {
+        if (tempNS != null && converterUiState.numberSystemCustom.radix != newRadix) {
+            if (lastNumberSystem?.radix == converterUiState.numberSystemCustom.radix) {
                 convert(
                     from = tempNS,
-                    toRadixes = arrayOf(numberSystem2.value.radix, numberSystem8.value.radix, numberSystem10.value.radix, numberSystem16.value.radix),
+                    toRadixes = arrayOf(converterUiState.numberSystem2.radix, converterUiState.numberSystem8.radix, converterUiState.numberSystem10.radix, converterUiState.numberSystem16.radix),
                 )
             } else {
                 convert(
@@ -154,7 +132,7 @@ class ConverterViewModel @Inject constructor(private val converter: Converter) :
             }
         }
 
-        numberSystemCustom.value.radix = newRadix
+        converterUiState.numberSystemCustom.radix = newRadix
     }
 
     fun showExplanation() {
@@ -166,20 +144,17 @@ class ConverterViewModel @Inject constructor(private val converter: Converter) :
     }
 
     fun clear() {
-        numberSystem10.value = numberSystem10.value.copy(value = String())
-        numberSystem2.value = numberSystem2.value.copy(value = String())
-        numberSystem8.value = numberSystem8.value.copy(value = String())
-        numberSystem16.value = numberSystem16.value.copy(value = String())
-        numberSystemCustom.value = numberSystemCustom.value.copy(value = String())
-        resetErrors()
+        converterUiState = ConverterUiState()
     }
 
     private fun resetErrors() {
-        numberSystem10error.value = false
-        numberSystem2error.value = false
-        numberSystem8error.value = false
-        numberSystem16error.value = false
-        numberSystemCustomError.value = false
+        converterUiState = converterUiState.copy(
+            numberSystem2Error = false,
+            numberSystem8Error = false,
+            numberSystem10Error = false,
+            numberSystem16Error = false,
+            numberSystemCustomError = false,
+        )
     }
 
 }

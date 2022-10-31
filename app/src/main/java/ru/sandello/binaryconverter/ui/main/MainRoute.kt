@@ -52,7 +52,7 @@ fun MainRoute(
     }
 
     MainScreen(
-        converterUiState = converterViewModel.converterUiState.value,
+        converterUiState = converterViewModel.converterUiState,
         calculatorUiState = calculatorViewModel.calculatorUiState.value,
         explanationUiState = explanationViewModel.explanationUiState,
         bottomSheetState = bottomSheetState,
