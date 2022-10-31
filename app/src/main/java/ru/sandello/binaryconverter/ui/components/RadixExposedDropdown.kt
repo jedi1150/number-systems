@@ -93,7 +93,7 @@ private fun PreviewRadixExposedDropdownCompact() {
                 onDismissRequest = { expanded = false },
                 onRadixClicked = { expanded = false },
                 radix = Radix.HEX,
-                radixes = mutableListOf(Radix.BIN, Radix.OCT, Radix.DEC, Radix.HEX),
+                radixes = listOf(Radix.BIN, Radix.OCT, Radix.DEC, Radix.HEX),
                 isCompact = true,
                 trailingIcon = {
                     ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
@@ -116,7 +116,7 @@ private fun PreviewRadixExposedDropdownDark() {
                 onDismissRequest = { expanded = false },
                 onRadixClicked = { expanded = false },
                 radix = Radix.HEX,
-                radixes = mutableListOf(Radix.BIN, Radix.OCT, Radix.DEC, Radix.HEX),
+                radixes = listOf(Radix.BIN, Radix.OCT, Radix.DEC, Radix.HEX),
                 isCompact = false,
                 trailingIcon = {
                     ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)

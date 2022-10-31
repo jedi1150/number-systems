@@ -21,7 +21,7 @@ data class CalculatorUiState(
     @SuppressLint("Range")
     val radixes: List<Radix> = Array(36) { radix -> Radix(radix + 1) }.filter { radix -> !listOf(Radix(1)).contains(radix) }
 
-    val arithmeticTypes = listOf(ArithmeticType.Addition, ArithmeticType.Subtraction, ArithmeticType.Multiply, ArithmeticType.Divide)
+    val arithmeticTypes = arrayOf(ArithmeticType.Addition, ArithmeticType.Subtraction, ArithmeticType.Multiply, ArithmeticType.Divide)
 
     val hasData: Boolean
         get() = numberSystemCustom1.value.isNotBlank() || numberSystemCustom2.value.isNotBlank()

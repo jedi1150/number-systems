@@ -63,7 +63,7 @@ fun MainScreen(
 
     val navController = rememberNavController()
 
-    val screens = listOf(
+    val screens: Array<Screen> = arrayOf(
         Screen.Converter,
         Screen.Calculator,
     )
