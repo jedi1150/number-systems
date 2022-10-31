@@ -4,11 +4,6 @@ import android.annotation.SuppressLint
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.model.Radix
 
-sealed class ExplanationState {
-    object Calculating : ExplanationState()
-    object Completed : ExplanationState()
-}
-
 data class ExplanationUiState(
     val state: ExplanationState,
     val from: NumberSystem = NumberSystem(String(), Radix.DEC),
