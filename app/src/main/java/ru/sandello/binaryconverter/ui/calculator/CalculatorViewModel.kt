@@ -128,7 +128,6 @@ class CalculatorViewModel @Inject constructor(private val numSys: NumSys) : View
         }
 
         viewModelScope.launch {
-            // TODO (Oleg): Skip empty value
             toRadixes.map { _toRadix ->
                 try {
                     numSys.convert(value = from, toRadix = _toRadix)
