@@ -3,8 +3,8 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
-//    id("com.google.gms.google-services") // Uncomment this line to use google-services
-//    id("com.google.firebase.crashlytics")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -71,12 +71,12 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.github.jedi1150.numsys)
 
-//    implementation "androidx.browser:browser:1.4.0"
-
     // Firebase
-//    implementation platform("com.google.firebase:firebase-bom:$firebase_bom_version")
-//    implementation "com.google.firebase:firebase-crashlytics-ktx"
-//    implementation "com.google.firebase:firebase-analytics-ktx"
+    implementation(platform(libs.google.firebase.bom))
+    implementation(libs.google.firebase.crashlytics.ktx)
+    implementation(libs.google.firebase.analytics.ktx)
+
+//    implementation "androidx.browser:browser:1.4.0"
 
     // Play Core
 //    implementation "com.google.android.play:core:1.10.3"
