@@ -14,9 +14,9 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import numsys.model.NumberSystem
+import numsys.model.Radix
 import ru.sandello.binaryconverter.R
-import ru.sandello.binaryconverter.model.NumberSystem
-import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.ui.OperandVisualTransformation
 import ru.sandello.binaryconverter.ui.components.RadixExposedDropdown
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme

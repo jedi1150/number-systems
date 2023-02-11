@@ -17,14 +17,13 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.launch
+import numsys.NumSys
+import numsys.model.NumberSystem
+import numsys.model.Radix
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.Division
-import ru.sandello.binaryconverter.model.NumberSystem
-import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
-import ru.sandello.binaryconverter.utils.Converter
 import ru.sandello.binaryconverter.utils.NS_DELIMITER
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -43,7 +42,8 @@ fun ExplanationDivisionBlock(from: NumberSystem, to: NumberSystem) {
         scope.launch {
             do {
                 if (divisionList.isEmpty()) {
-                    divisionList.add(longDivision(dividend = Converter().invoke(NumberSystem(fromDecimal, from.radix), to.radix).single().result.value.toBigDecimal(), divisor = to.radix.value))
+                    // TODO (Oleg): inject NymSys ???
+                    divisionList.add(longDivision(dividend = NumSys.convert(NumberSystem(fromDecimal, from.radix), to.radix).value.toBigDecimal(), divisor = to.radix.value))
                 } else {
                     divisionList.add(longDivision(dividend = divisionList.last().quotient, divisor = divisionList.last().divisor))
                 }

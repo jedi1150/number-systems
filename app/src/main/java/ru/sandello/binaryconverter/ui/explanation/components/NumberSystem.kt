@@ -9,15 +9,15 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
-import ru.sandello.binaryconverter.model.NumberSystem
-import ru.sandello.binaryconverter.model.Radix
-import ru.sandello.binaryconverter.model.formattedValue
+import numsys.model.NumberSystem
+import numsys.model.Radix
+import numsys.model.pretty
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @Composable
 fun numberSystem(numberSystem: NumberSystem): AnnotatedString {
     return buildAnnotatedString {
-        append(numberSystem.formattedValue())
+        append(numberSystem.pretty())
         withStyle(style = MaterialTheme.typography.labelMedium.toSpanStyle().copy(baselineShift = BaselineShift.Subscript)) {
             append(numberSystem.radix.value.toString())
         }

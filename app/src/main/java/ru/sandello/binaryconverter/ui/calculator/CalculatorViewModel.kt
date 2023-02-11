@@ -10,22 +10,21 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
-import ru.sandello.binaryconverter.model.NumberSystem
-import ru.sandello.binaryconverter.model.Radix
+import numsys.NumSys
+import numsys.model.NumberSystem
+import numsys.model.Radix
 import ru.sandello.binaryconverter.ui.calculator.ArithmeticType.*
 import ru.sandello.binaryconverter.ui.calculator.CalculatorOperandType.*
 import ru.sandello.binaryconverter.ui.calculator.CalculatorRadixType.*
 import ru.sandello.binaryconverter.utils.APP_TAG
 import ru.sandello.binaryconverter.utils.CharRegex
-import ru.sandello.binaryconverter.utils.Converter
 import java.math.MathContext.DECIMAL128
 import javax.inject.Inject
 
 @HiltViewModel
-class CalculatorViewModel @Inject constructor(private val converter: Converter) : ViewModel() {
+class CalculatorViewModel @Inject constructor(private val numSys: NumSys) : ViewModel() {
     private val radixCalculation = mutableStateOf(Radix.DEC)
     private val numberSystem1Temp = mutableStateOf(NumberSystem(String(), radixCalculation.value))
     private val numberSystem2Temp = mutableStateOf(NumberSystem(String(), radixCalculation.value))
@@ -131,7 +130,7 @@ class CalculatorViewModel @Inject constructor(private val converter: Converter) 
         }
 
         viewModelScope.launch {
-            toRadixes.asFlow().flatMapMerge { _toRadix -> converter(from = from, toRadix = _toRadix) }.onCompletion { cause ->
+            toRadixes.map { _toRadix -> numSys.convert(value = from, toRadix = _toRadix) }.asFlow().onCompletion { cause ->
                 if (cause != null) {
                     Log.d(APP_TAG, "Flow completed exceptionally")
                 } else {
@@ -139,11 +138,11 @@ class CalculatorViewModel @Inject constructor(private val converter: Converter) 
                     if (calculatorOperandType != OperandResult) calculate()
                 }
             }.catch { error -> Log.e(APP_TAG, "CalculatorViewModel::convert: catch", error) }.collect { convertedData ->
-                Log.d(APP_TAG, "CalculatorViewModel::collect: operandType: $calculatorOperandType, result: ${convertedData.result}")
+                Log.d(APP_TAG, "CalculatorViewModel::collect: operandType: $calculatorOperandType, result: $convertedData")
                 when (calculatorOperandType) {
-                    OperandCustom1 -> numberSystem1Temp.value = convertedData.result
-                    OperandCustom2 -> numberSystem2Temp.value = convertedData.result
-                    OperandResult -> calculatorUiState = calculatorUiState.copy(numberSystemResult = convertedData.result)
+                    OperandCustom1 -> numberSystem1Temp.value = convertedData
+                    OperandCustom2 -> numberSystem2Temp.value = convertedData
+                    OperandResult -> calculatorUiState = calculatorUiState.copy(numberSystemResult = convertedData)
                 }
             }
         }

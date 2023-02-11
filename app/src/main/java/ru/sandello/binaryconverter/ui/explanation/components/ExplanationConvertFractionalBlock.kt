@@ -17,14 +17,13 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.launch
+import numsys.NumSys
+import numsys.model.NumberSystem
+import numsys.model.Radix
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.FractionMultiplier
-import ru.sandello.binaryconverter.model.NumberSystem
-import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
-import ru.sandello.binaryconverter.utils.Converter
 import ru.sandello.binaryconverter.utils.NS_DELIMITER
 import ru.sandello.binaryconverter.utils.getFractional
 import java.math.BigDecimal
@@ -41,7 +40,8 @@ fun ExplanationConvertFractionalBlock(from: NumberSystem, to: NumberSystem) {
 
     LaunchedEffect(Unit) {
         scope.launch {
-            val fromDecimal = Converter().invoke(NumberSystem(fromFractional, from.radix), to.radix).single().result.value
+            // TODO (Oleg): inject NumSys ???
+            val fromDecimal = NumSys.convert(NumberSystem(fromFractional, from.radix), to.radix).value
 
             do {
                 if (fractionMultiplierList.isEmpty()) {
@@ -63,10 +63,12 @@ fun ExplanationConvertFractionalBlock(from: NumberSystem, to: NumberSystem) {
             fontSize = 20.sp,
             fontWeight = FontWeight.Medium,
         )
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .horizontalScroll(rememberScrollState())
-            .padding(horizontal = 16.dp, vertical = 8.dp)) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+        ) {
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(6.dp),

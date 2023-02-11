@@ -75,6 +75,7 @@ dependencies {
     implementation "androidx.datastore:datastore-preferences:$datastore_preferences_version"
 
     implementation "com.google.dagger:hilt-android:$hilt_version"
+    implementation files('numsys.jar')
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
     implementation "androidx.hilt:hilt-navigation-compose:$hilt_navigation_version"
 

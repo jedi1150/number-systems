@@ -7,7 +7,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
-import ru.sandello.binaryconverter.model.Radix
+import numsys.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @Composable

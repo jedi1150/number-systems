@@ -27,9 +27,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import numsys.model.NumberSystem
+import numsys.model.Radix
 import ru.sandello.binaryconverter.R
-import ru.sandello.binaryconverter.model.NumberSystem
-import ru.sandello.binaryconverter.model.Radix
 import ru.sandello.binaryconverter.model.Screen
 import ru.sandello.binaryconverter.ui.calculator.*
 import ru.sandello.binaryconverter.ui.converter.ConverterScreen

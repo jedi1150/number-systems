@@ -12,18 +12,17 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
-import ru.sandello.binaryconverter.model.NumberSystem
-import ru.sandello.binaryconverter.model.Radix
+import numsys.NumSys
+import numsys.model.NumberSystem
+import numsys.model.Radix
 import ru.sandello.binaryconverter.utils.APP_TAG
 import ru.sandello.binaryconverter.utils.CharRegex
-import ru.sandello.binaryconverter.utils.Converter
 import javax.inject.Inject
 
 @HiltViewModel
-class ConverterViewModel @Inject constructor(private val converter: Converter) : ViewModel() {
+class ConverterViewModel @Inject constructor(private val numSys: NumSys) : ViewModel() {
 
     private var lastNumberSystem: NumberSystem? = null
 
@@ -96,19 +95,19 @@ class ConverterViewModel @Inject constructor(private val converter: Converter) :
                         }
                     }
                 }
-            }.asFlow().flatMapMerge { _toRadix -> converter(from = from, toRadix = _toRadix) }.onCompletion { cause ->
+            }.map { _toRadix -> numSys.convert(value = from, toRadix = _toRadix) }.asFlow().onCompletion { cause ->
                 if (cause != null) {
                     Log.e(APP_TAG, "Flow completed exceptionally: $cause")
                 } else {
                     resetErrors()
                 }
             }.catch { error -> Log.e(APP_TAG, "ConverterViewModel::convert: catch", error) }.collect { convertedData ->
-                when (convertedData.result.radix) {
-                    converterUiState.numberSystem2.radix -> converterUiState = converterUiState.copy(numberSystem2 = convertedData.result)
-                    converterUiState.numberSystem8.radix -> converterUiState = converterUiState.copy(numberSystem8 = convertedData.result)
-                    converterUiState.numberSystem10.radix -> converterUiState = converterUiState.copy(numberSystem10 = convertedData.result)
-                    converterUiState.numberSystem16.radix -> converterUiState = converterUiState.copy(numberSystem16 = convertedData.result)
-                    converterUiState.numberSystemCustom.radix -> converterUiState = converterUiState.copy(numberSystemCustom = convertedData.result)
+                when (convertedData.radix) {
+                    converterUiState.numberSystem2.radix -> converterUiState = converterUiState.copy(numberSystem2 = convertedData)
+                    converterUiState.numberSystem8.radix -> converterUiState = converterUiState.copy(numberSystem8 = convertedData)
+                    converterUiState.numberSystem10.radix -> converterUiState = converterUiState.copy(numberSystem10 = convertedData)
+                    converterUiState.numberSystem16.radix -> converterUiState = converterUiState.copy(numberSystem16 = convertedData)
+                    converterUiState.numberSystemCustom.radix -> converterUiState = converterUiState.copy(numberSystemCustom = convertedData)
                 }
             }
         }
