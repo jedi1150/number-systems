@@ -54,12 +54,15 @@ fun ExplanationConvertFractionalBlock(from: NumberSystem, to: NumberSystem) {
         }
     }
 
-    Column {
+    Column(
+        modifier = Modifier.padding(vertical = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
         Text(
             text = stringResource(id = R.string.explanation_convert_fractional),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp),
+                .padding(horizontal = 16.dp),
             fontSize = 20.sp,
             fontWeight = FontWeight.Medium,
         )
@@ -67,7 +70,7 @@ fun ExplanationConvertFractionalBlock(from: NumberSystem, to: NumberSystem) {
             modifier = Modifier
                 .fillMaxWidth()
                 .horizontalScroll(rememberScrollState())
-                .padding(horizontal = 16.dp, vertical = 8.dp)
+                .padding(horizontal = 16.dp)
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -83,20 +86,26 @@ fun ExplanationConvertFractionalBlock(from: NumberSystem, to: NumberSystem) {
             text = "Write the result from top to bottom",
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp),
+                .padding(horizontal = 16.dp),
         )
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .horizontalScroll(rememberScrollState())
-            .padding(horizontal = 16.dp, vertical = 8.dp), horizontalArrangement = Arrangement.spacedBy(16.dp), content = {
-            Text(text = buildAnnotatedString {
-                append(numberSystem(numberSystem = NumberSystem(value = fromFractional, radix = from.radix)))
-                withStyle(SpanStyle(letterSpacing = 6.sp)) {
-                    append("=")
-                }
-                append(numberSystem(numberSystem = NumberSystem(value = "0." + to.value.substringAfter(NS_DELIMITER), radix = to.radix)))
-            })
-        })
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            content = {
+                Text(
+                    text = buildAnnotatedString {
+                        append(numberSystem(numberSystem = NumberSystem(value = fromFractional, radix = from.radix)))
+                        withStyle(SpanStyle(letterSpacing = 6.sp)) {
+                            append("=")
+                        }
+                        append(numberSystem(numberSystem = NumberSystem(value = "0." + to.value.substringAfter(NS_DELIMITER), radix = to.radix)))
+                    },
+                )
+            },
+        )
     }
 }
 

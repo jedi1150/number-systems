@@ -1,10 +1,7 @@
 package ru.sandello.binaryconverter.ui.explanation.components
 
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
@@ -42,20 +39,23 @@ fun ExplanationResult(from: NumberSystem, to: NumberSystem) {
                 Placeholder(
                     width = 12.sp,
                     height = 12.sp,
-                    placeholderVerticalAlign = PlaceholderVerticalAlign.AboveBaseline
+                    placeholderVerticalAlign = PlaceholderVerticalAlign.AboveBaseline,
                 )
             ) {
                 Icon(painterResource(R.drawable.arrow_right), null)
-            }
+            },
         )
     )
 
-    Column {
+    Column(
+        modifier = Modifier.padding(vertical = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
         Text(
             text = stringResource(id = R.string.explanation_result),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp),
+                .padding(horizontal = 16.dp),
             fontSize = 20.sp,
             fontWeight = FontWeight.Medium,
         )
@@ -63,7 +63,7 @@ fun ExplanationResult(from: NumberSystem, to: NumberSystem) {
             modifier = Modifier
                 .fillMaxWidth()
                 .horizontalScroll(rememberScrollState())
-                .padding(horizontal = 16.dp, vertical = 8.dp),
+                .padding(horizontal = 16.dp),
         ) {
             Text(
                 text = text,

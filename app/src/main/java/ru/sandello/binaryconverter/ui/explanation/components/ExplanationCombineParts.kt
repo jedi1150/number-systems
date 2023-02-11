@@ -1,10 +1,7 @@
 package ru.sandello.binaryconverter.ui.explanation.components
 
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -24,19 +21,22 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @Composable
 fun ExplanationCombineParts(from: NumberSystem, to: NumberSystem) {
-    Column {
+    Column(
+        modifier = Modifier.padding(vertical = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
         Text(
             text = stringResource(id = R.string.explanation_convert_combine_decimal_fractional),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp),
+                .padding(horizontal = 16.dp),
         )
 
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .horizontalScroll(rememberScrollState())
-                .padding(horizontal = 16.dp, vertical = 8.dp),
+                .padding(horizontal = 16.dp),
         ) {
             Text(
                 text = buildAnnotatedString {
@@ -45,7 +45,7 @@ fun ExplanationCombineParts(from: NumberSystem, to: NumberSystem) {
                         append("=")
                     }
                     append(numberSystem(numberSystem = to))
-                }
+                },
             )
         }
     }

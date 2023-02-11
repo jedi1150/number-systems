@@ -51,12 +51,15 @@ fun ExplanationDivisionBlock(from: NumberSystem, to: NumberSystem) {
         }
     }
 
-    Column {
+    Column(
+        modifier = Modifier.padding(vertical = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
         Text(
             text = stringResource(id = R.string.explanation_perform_division),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp),
+                .padding(horizontal = 16.dp),
             fontSize = 20.sp,
             fontWeight = FontWeight.Medium,
         )
@@ -65,7 +68,7 @@ fun ExplanationDivisionBlock(from: NumberSystem, to: NumberSystem) {
             modifier = Modifier
                 .fillMaxWidth()
                 .horizontalScroll(rememberScrollState())
-                .padding(horizontal = 16.dp, vertical = 8.dp)
+                .padding(horizontal = 16.dp)
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -81,14 +84,14 @@ fun ExplanationDivisionBlock(from: NumberSystem, to: NumberSystem) {
             text = stringResource(id = R.string.explanation_reverse_result),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp),
+                .padding(horizontal = 16.dp),
         )
 
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .horizontalScroll(rememberScrollState())
-                .padding(horizontal = 16.dp, vertical = 8.dp),
+                .padding(horizontal = 16.dp),
             content = {
                 Text(
                     text = buildAnnotatedString {
@@ -97,9 +100,9 @@ fun ExplanationDivisionBlock(from: NumberSystem, to: NumberSystem) {
                             append("=")
                         }
                         append(numberSystem(numberSystem = NumberSystem(value = to.value.substringBefore(NS_DELIMITER), radix = to.radix)))
-                    }
+                    },
                 )
-            }
+            },
         )
     }
 

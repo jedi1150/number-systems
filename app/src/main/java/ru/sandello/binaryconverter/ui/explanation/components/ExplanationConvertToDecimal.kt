@@ -1,10 +1,7 @@
 package ru.sandello.binaryconverter.ui.explanation.components
 
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -29,12 +26,15 @@ fun ExplanationConvertToDecimal(from: NumberSystem, to: NumberSystem) {
     val position = from.value.substringBefore(NS_DELIMITER).length
     val filteredValue = from.value.toList().filterNot { it == NS_DELIMITER }
 
-    Column {
+    Column(
+        modifier = Modifier.padding(vertical = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
         Text(
             text = stringResource(id = R.string.explanation_convert_to_decimal),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp),
+                .padding(horizontal = 16.dp),
             fontSize = 20.sp,
             fontWeight = FontWeight.Medium,
         )
@@ -43,7 +43,7 @@ fun ExplanationConvertToDecimal(from: NumberSystem, to: NumberSystem) {
             modifier = Modifier
                 .fillMaxWidth()
                 .horizontalScroll(rememberScrollState())
-                .padding(horizontal = 16.dp, vertical = 8.dp),
+                .padding(horizontal = 16.dp),
         ) {
             Text(
                 text = buildAnnotatedString {
