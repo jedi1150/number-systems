@@ -8,7 +8,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.catch
@@ -36,7 +35,6 @@ class ConverterViewModel @Inject constructor(private val numSys: NumSys) : ViewM
         convert(from, toRadixes = arrayOf(converterUiState.numberSystem2.radix, converterUiState.numberSystem8.radix, converterUiState.numberSystem10.radix, converterUiState.numberSystem16.radix, converterUiState.numberSystemCustom.radix))
     }
 
-    @OptIn(FlowPreview::class)
     private fun convert(from: NumberSystem, toRadixes: Array<Radix>) {
         Log.d(APP_TAG, "ConverterViewModel::convert: value: ${from.value}, from radix: ${from.radix.value}")
 
@@ -95,7 +93,14 @@ class ConverterViewModel @Inject constructor(private val numSys: NumSys) : ViewM
                         }
                     }
                 }
-            }.map { _toRadix -> numSys.convert(value = from, toRadix = _toRadix) }.asFlow().onCompletion { cause ->
+            }.map { _toRadix ->
+                try {
+                    numSys.convert(value = from, toRadix = _toRadix)
+                } catch (exception: NumberFormatException) {
+                    cancel()
+                    return@launch
+                }
+            }.asFlow().onCompletion { cause ->
                 if (cause != null) {
                     Log.e(APP_TAG, "Flow completed exceptionally: $cause")
                 } else {

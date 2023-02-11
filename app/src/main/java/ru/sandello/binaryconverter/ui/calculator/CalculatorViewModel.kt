@@ -7,7 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onCompletion
@@ -86,8 +86,6 @@ class CalculatorViewModel @Inject constructor(private val numSys: NumSys) : View
         }
     }
 
-
-    @OptIn(FlowPreview::class)
     private fun convert(calculatorOperandType: CalculatorOperandType, from: NumberSystem, toRadixes: Array<Radix>) {
         Log.d(APP_TAG, "CalculatorViewModel::convert: textFieldVal: ${from.value}, from radix: ${from.radix.value}")
 
@@ -131,7 +129,20 @@ class CalculatorViewModel @Inject constructor(private val numSys: NumSys) : View
 
         viewModelScope.launch {
             // TODO (Oleg): Skip empty value
-            toRadixes.map { _toRadix -> numSys.convert(value = from, toRadix = _toRadix) }.asFlow().onCompletion { cause ->
+            toRadixes.map { _toRadix ->
+                try {
+                    numSys.convert(value = from, toRadix = _toRadix)
+                } catch (exception: UnsupportedOperationException) {
+                    when (calculatorOperandType) {
+                        OperandCustom1 -> numberSystem1Temp.value = numberSystem1Temp.value.copy(value = "")
+                        OperandCustom2 -> numberSystem2Temp.value = numberSystem2Temp.value.copy(value = "")
+                        else -> {}
+                    }
+                    calculatorUiState = calculatorUiState.copy(numberSystemResult = calculatorUiState.numberSystemResult.copy(value = ""))
+                    cancel()
+                    return@launch
+                }
+            }.asFlow().onCompletion { cause ->
                 if (cause != null) {
                     Log.d(APP_TAG, "Flow completed exceptionally")
                 } else {
