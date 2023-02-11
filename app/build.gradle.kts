@@ -69,8 +69,7 @@ dependencies {
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-
-    implementation(files("numsys.jar"))
+    implementation(libs.github.jedi1150.numsys)
 
 //    implementation "androidx.browser:browser:1.4.0"
 
