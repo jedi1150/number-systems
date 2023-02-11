@@ -46,9 +46,10 @@ class ConverterViewModel @Inject constructor(private val numSys: NumSys) : ViewM
         check(from.value.matches(CharRegex().charsRegex(
             index = from.radix.value,
             useDelimiterChars = from.value.count { it.toString().contains("[,.]".toRegex()) } <= 1,
-            useNegativeChar = from.value.count { it.toString().contains("[-]".toRegex()) } <= 1,
+            useNegativeChar = from.value.count { it.toString().contains("-".toRegex()) } <= 1,
         ))) {
             Log.d(APP_TAG, "ConverterViewModel::convert: Invalid character entered")
+
             when (from.radix) {
                 converterUiState.numberSystem2.radix -> converterUiState = converterUiState.copy(numberSystem2Error = true)
                 converterUiState.numberSystem8.radix -> converterUiState = converterUiState.copy(numberSystem8Error = true)

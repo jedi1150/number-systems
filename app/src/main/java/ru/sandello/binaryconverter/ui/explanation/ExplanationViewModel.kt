@@ -37,7 +37,7 @@ class ExplanationViewModel @Inject constructor(private val numSys: NumSys) : Vie
                 CharRegex().charsRegex(
                     index = from.radix.value,
                     useDelimiterChars = from.value.count { it.toString().contains("[,.]".toRegex()) } <= 1,
-                    useNegativeChar = from.value.count { it.toString().contains("[-]".toRegex()) } <= 1,
+                    useNegativeChar = from.value.count { it.toString().contains("-".toRegex()) } <= 1,
                 ),
             ),
         ) {
@@ -62,26 +62,6 @@ class ExplanationViewModel @Inject constructor(private val numSys: NumSys) : Vie
                 }
                 explanationUiState = ExplanationUiState(state = ExplanationState.Completed, finalFrom, finalTo)
             }
-//                .onCompletion { cause ->
-//                if (cause != null) {
-//                    Log.e(APP_TAG, "ExplanationViewModel::Flow completed exceptionally: $cause")
-//                    // TODO(oleg): Add crashlytics report
-//                }
-//            }.catch { error ->
-//                Log.e(APP_TAG, "ExplanationViewModel::convert: catch", error)
-//                // TODO(oleg): Add crashlytics report
-//            }.collect { convertedData ->
-//                Log.d(APP_TAG, "ExplanationViewModel::collect: operandType: $explanationOperandType, result: ${convertedData.result}")
-//
-//                var finalFrom: NumberSystem = explanationUiState.from
-//                var finalTo: NumberSystem = explanationUiState.to
-//
-//                when (explanationOperandType) {
-//                    ExplanationOperandType.OperandCustom1 -> finalFrom = convertedData.result
-//                    ExplanationOperandType.OperandCustom2 -> finalTo = convertedData.result
-//                }
-//                explanationUiState = ExplanationUiState(state = ExplanationState.Completed, finalFrom, finalTo)
-//            }
         }
     }
 

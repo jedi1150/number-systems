@@ -102,7 +102,7 @@ class CalculatorViewModel @Inject constructor(private val numSys: NumSys) : View
         check(from.value.matches(CharRegex().charsRegex(
             index = from.radix.value,
             useDelimiterChars = from.value.count { it.toString().contains("[,.]".toRegex()) } <= 1,
-            useNegativeChar = from.value.count { it.toString().contains("[-]".toRegex()) } <= 1,
+            useNegativeChar = from.value.count { it.toString().contains("-".toRegex()) } <= 1,
         ))) {
             Log.e(APP_TAG, "CalculatorViewModel::convert: Invalid character entered")
             when (calculatorOperandType) {
