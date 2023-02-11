@@ -125,11 +125,12 @@ class CalculatorViewModel @Inject constructor(private val numSys: NumSys) : View
 
         when (calculatorOperandType) {
             OperandCustom1 -> calculatorUiState = calculatorUiState.copy(numberSystemCustom1 = calculatorUiState.numberSystemCustom1.copy(value = tempValue))
-            OperandCustom2 -> calculatorUiState = calculatorUiState.copy(numberSystemCustom1 = calculatorUiState.numberSystemCustom2.copy(value = tempValue))
+            OperandCustom2 -> calculatorUiState = calculatorUiState.copy(numberSystemCustom2 = calculatorUiState.numberSystemCustom2.copy(value = tempValue))
             else -> {}
         }
 
         viewModelScope.launch {
+            // TODO (Oleg): Skip empty value
             toRadixes.map { _toRadix -> numSys.convert(value = from, toRadix = _toRadix) }.asFlow().onCompletion { cause ->
                 if (cause != null) {
                     Log.d(APP_TAG, "Flow completed exceptionally")
