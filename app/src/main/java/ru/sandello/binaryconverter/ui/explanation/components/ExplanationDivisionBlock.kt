@@ -42,7 +42,6 @@ fun ExplanationDivisionBlock(from: NumberSystem, to: NumberSystem) {
         scope.launch {
             do {
                 if (divisionList.isEmpty()) {
-                    // TODO (Oleg): inject NymSys ???
                     divisionList.add(longDivision(dividend = NumSys.convert(NumberSystem(fromDecimal, from.radix), to.radix).value.toBigDecimal(), divisor = to.radix.value))
                 } else {
                     divisionList.add(longDivision(dividend = divisionList.last().quotient, divisor = divisionList.last().divisor))

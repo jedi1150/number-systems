@@ -40,7 +40,6 @@ fun ExplanationConvertFractionalBlock(from: NumberSystem, to: NumberSystem) {
 
     LaunchedEffect(Unit) {
         scope.launch {
-            // TODO (Oleg): inject NumSys ???
             val fromDecimal = NumSys.convert(NumberSystem(fromFractional, from.radix), to.radix).value
 
             do {
