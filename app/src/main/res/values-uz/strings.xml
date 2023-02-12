@@ -10,7 +10,7 @@
   <string name="explanation_result">Natija</string>
   <string name="explanation">Izoh</string>
   <string name="explanation_convert_integer_part_to_decimal">Butun son qismini kasrga aylantiring.</string>
-  <string name="explanation_perform_division">Bo\'linish ustunini bajaring</string>
+  <string name="explanation_integer_division">Butun son bo'linishi</string>
   <string name="explanation_reverse_result">Natijani teskari tartibda yozing</string>
   <string name="screen_settings">Sozlamalar</string>
   <string name="explanation_convert_fractional">Raqamning kasr qismi yangi bazaga ko\'paytiriladi</string>

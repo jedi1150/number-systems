@@ -15,7 +15,7 @@
     <string name="explanation">Explanation</string>
     <string name="explanation_result">Result</string>
     <string name="explanation_convert_integer_part_to_decimal">Convert integer part to decimal</string>
-    <string name="explanation_perform_division">Perform the division column</string>
+    <string name="explanation_integer_division">Integer division</string>
     <string name="explanation_reverse_result">Write the result in reverse order</string>
     <string name="explanation_convert_fractional">The fractional part of the number is multiplied by the radix of the new</string>
     <string name="explanation_convert_fractional_write_result">Write the result from top to bottom</string>

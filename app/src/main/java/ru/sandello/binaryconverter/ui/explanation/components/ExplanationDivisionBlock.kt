@@ -49,7 +49,7 @@ fun ExplanationDivisionBlock(from: NumberSystem, to: NumberSystem) {
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Text(
-            text = stringResource(id = R.string.explanation_perform_division),
+            text = stringResource(id = R.string.explanation_integer_division),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
