@@ -15,6 +15,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import numsys.NumSys.toRadix
 import numsys.model.NumberSystem
 import numsys.model.Radix
 import ru.sandello.binaryconverter.R
@@ -36,7 +37,7 @@ fun ExplanationDivisionBlock(from: NumberSystem, to: NumberSystem) {
 
     do {
         if (divisionList.isEmpty()) {
-            divisionList.add(longDivision(dividend = fromDecimal.toBigDecimal(), divisor = to.radix.value))
+            divisionList.add(longDivision(dividend = NumberSystem(fromDecimal, from.radix).toRadix(Radix.DEC).value.toBigDecimal(), divisor = to.radix.value))
         } else {
             divisionList.add(longDivision(dividend = divisionList.last().quotient, divisor = divisionList.last().divisor))
         }
@@ -66,6 +67,7 @@ fun ExplanationDivisionBlock(from: NumberSystem, to: NumberSystem) {
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(6.dp),
             ) {
+                // TODO (Oleg): fix Zero dividend
                 divisionList.forEach { longDivision ->
                     ExplanationDivision(longDivision)
                 }
