@@ -15,7 +15,7 @@
   <string name="screen_settings">Настройки</string>
   <string name="explanation_convert_fractional">Дробная часть числа находится умножением на основание новой</string>
   <string name="explanation_convert_fractional_write_result">Запишите результат сверху вниз</string>
-  <string name="explanation_convert_combine_decimal_fractional">Соедините целую и дробную части</string>
+  <string name="explanation_convert_combine_integer_and_fractional_parts">Сложить целую и дробную части</string>
   <string name="theme_light">Светлая</string>
   <string name="theme_dark">Темная</string>
   <string name="theme_system">Как в системе</string>

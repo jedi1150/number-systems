@@ -27,5 +27,5 @@
   <string name="adWatch">глядзець рэкламу</string>
   <string name="adMessage">Прывітанне!\nМы сапраўды не хацелі дадаваць рэкламу, але нам патрэбна фінансавая падтрымка. Такім чынам, вы можаце глядзець рэкламу альбо адмовіцца ад яе.\nДзякуй за ўвагу!</string>
   <string name="explanation_convert_fractional_write_result">Запішыце вынік зверху ўніз</string>
-  <string name="explanation_convert_combine_decimal_fractional">Злучыце цэлую і дробавую часткі</string>
+  <string name="explanation_convert_combine_integer_and_fractional_parts">Скласці цэлую і дробавую часткі</string>
 </resources>

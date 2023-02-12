@@ -18,15 +18,23 @@ import numsys.model.NumberSystem
 import numsys.model.Radix
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
+import ru.sandello.binaryconverter.utils.NS_DELIMITER
+import ru.sandello.binaryconverter.utils.getFractional
 
 @Composable
-fun ExplanationCombineParts(from: NumberSystem, to: NumberSystem) {
+fun ExplanationAddIntegerAndFractionalParts(to: NumberSystem) {
+    val integerPart: String = to.value.substringBefore(NS_DELIMITER)
+    val fractionalPart: String = getFractional(to.value)
+
+    val decimalInteger = NumberSystem(value = integerPart, radix = to.radix)
+    val decimalFractional = NumberSystem(value = fractionalPart, radix = to.radix)
+
     Column(
         modifier = Modifier.padding(vertical = 8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Text(
-            text = stringResource(id = R.string.explanation_convert_combine_decimal_fractional),
+            text = stringResource(id = R.string.explanation_convert_combine_integer_and_fractional_parts),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
@@ -40,7 +48,11 @@ fun ExplanationCombineParts(from: NumberSystem, to: NumberSystem) {
         ) {
             Text(
                 text = buildAnnotatedString {
-                    append(numberSystem(numberSystem = from))
+                    append(numberSystem(numberSystem = decimalInteger))
+                    withStyle(SpanStyle(letterSpacing = 6.sp)) {
+                        append("+")
+                    }
+                    append(numberSystem(numberSystem = decimalFractional))
                     withStyle(SpanStyle(letterSpacing = 6.sp)) {
                         append("=")
                     }
@@ -56,7 +68,7 @@ fun ExplanationCombineParts(from: NumberSystem, to: NumberSystem) {
 fun PreviewExplanationCombineParts() {
     NumberSystemsTheme {
         Surface {
-            ExplanationCombineParts(from = NumberSystem(value = "12.55", radix = Radix.OCT), to = NumberSystem(value = "A.B4", Radix.HEX))
+            ExplanationAddIntegerAndFractionalParts(to = NumberSystem(value = "A.B4", Radix.HEX))
         }
     }
 }
@@ -66,7 +78,7 @@ fun PreviewExplanationCombineParts() {
 fun PreviewExplanationCombinePartsDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            ExplanationCombineParts(from = NumberSystem(value = "12.55", radix = Radix.OCT), to = NumberSystem(value = "A.B4", Radix.HEX))
+            ExplanationAddIntegerAndFractionalParts(to = NumberSystem(value = "A.B4", Radix.HEX))
         }
     }
 }

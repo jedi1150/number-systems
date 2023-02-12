@@ -41,7 +41,7 @@ fun ExplanationContent(from: NumberSystem, to: NumberSystem) {
                     ExplanationConvertFractionalBlock(from = from, to = to)
                 }
                 item {
-                    ExplanationCombineParts(from = from, to = to)
+                    ExplanationAddIntegerAndFractionalParts(to = to)
                 }
             }
         }
