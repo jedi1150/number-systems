@@ -38,7 +38,7 @@ fun ExplanationConvertToDecimal(from: NumberSystem) {
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Text(
-            text = stringResource(id = R.string.explanation_convert_to_decimal),
+            text = stringResource(id = R.string.explanation_convert_integer_part_to_decimal),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),

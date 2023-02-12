@@ -9,7 +9,7 @@
   <string name="screen_calculator">Калькулятор</string>
   <string name="explanation_result">Результат</string>
   <string name="explanation">Пояснення</string>
-  <string name="explanation_convert_to_decimal">Перетворити в десяткову систему числення</string>
+  <string name="explanation_convert_integer_part_to_decimal">Перетворення цілої частини в десяткову</string>
   <string name="explanation_perform_division">Виконайте стовпчик поділу</string>
   <string name="explanation_reverse_result">Результат запишіть у зворотному порядку</string>
   <string name="screen_settings">Налаштування</string>

@@ -9,7 +9,7 @@
     <string name="screen_calculator">Калькулятор</string>
     <string name="explanation_result">Нәтиже</string>
     <string name="explanation">Түсіндіру</string>
-    <string name="explanation_convert_to_decimal">Ондық сандар жүйесіне түрлендіру</string>
+    <string name="explanation_convert_integer_part_to_decimal">Бүтін бөлікті ондық жүйеге түрлендіру.</string>
     <string name="explanation_perform_division">Бөлу бағанын орындаңыз</string>
     <string name="explanation_reverse_result">Нәтижені кері ретпен жазыңыз</string>
     <string name="screen_settings">Параметрлер</string>
