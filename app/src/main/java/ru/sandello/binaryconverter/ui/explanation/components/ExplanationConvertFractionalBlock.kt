@@ -6,8 +6,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -17,8 +15,6 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kotlinx.coroutines.launch
-import numsys.NumSys
 import numsys.model.NumberSystem
 import numsys.model.Radix
 import ru.sandello.binaryconverter.R
@@ -30,28 +26,20 @@ import java.math.BigDecimal
 
 @Composable
 fun ExplanationConvertFractionalBlock(from: NumberSystem, to: NumberSystem) {
-    val scope = rememberCoroutineScope()
-
     val fromFractional = getFractional(from.value)
     var iterations = 0
     val maxIterations = 12
 
     val fractionMultiplierList: MutableList<FractionMultiplier> = mutableListOf()
 
-    LaunchedEffect(Unit) {
-        scope.launch {
-            val fromDecimal = NumSys.convert(NumberSystem(fromFractional, from.radix), to.radix).value
-
-            do {
-                if (fractionMultiplierList.isEmpty()) {
-                    fractionMultiplierList.add(fractionMultiplier(multiplier = fromDecimal, multiplicand = to.radix.value))
-                } else {
-                    fractionMultiplierList.add(fractionMultiplier(multiplier = getFractional(fractionMultiplierList.last().product), multiplicand = to.radix.value))
-                }
-                iterations++
-            } while (fractionMultiplierList.last().product.toBigDecimal().scale() > 0 && (iterations < fromDecimal.toBigDecimal().scale() || iterations < maxIterations))
+    do {
+        if (fractionMultiplierList.isEmpty()) {
+            fractionMultiplierList.add(fractionMultiplier(multiplier = fromFractional, multiplicand = to.radix.value))
+        } else {
+            fractionMultiplierList.add(fractionMultiplier(multiplier = getFractional(fractionMultiplierList.last().product), multiplicand = to.radix.value))
         }
-    }
+        iterations++
+    } while (fractionMultiplierList.last().product.toBigDecimal().scale() > 0 && (iterations < fromFractional.toBigDecimal().scale() && iterations < maxIterations))
 
     Column(
         modifier = Modifier.padding(vertical = 8.dp),
@@ -82,7 +70,7 @@ fun ExplanationConvertFractionalBlock(from: NumberSystem, to: NumberSystem) {
         }
 
         Text(
-            text = "Write the result from top to bottom",
+            text = stringResource(id = R.string.explanation_convert_fractional_write_result),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
