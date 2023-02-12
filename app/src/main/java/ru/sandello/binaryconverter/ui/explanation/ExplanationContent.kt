@@ -29,7 +29,7 @@ fun ExplanationContent(from: NumberSystem, to: NumberSystem) {
         }
         if (from.radix != Radix.DEC) {
             item {
-                ExplanationConvertToDecimal(from = from, to = to)
+                ExplanationConvertToDecimal(from = from)
             }
         }
         if (to.radix != Radix.DEC) {
