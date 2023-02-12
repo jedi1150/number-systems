@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="app_name">Системи числення</string>
+  <string name="dec">Десяткові (10)</string>
+  <string name="bin">Двійкові (2)</string>
+  <string name="oct">Октал (8)</string>
+  <string name="hex">Шестидесятковий (16)</string>
+  <string name="screen_converter">Перетворювач</string>
+  <string name="screen_calculator">Калькулятор</string>
+  <string name="explanation_result">Результат</string>
+  <string name="explanation">Пояснення</string>
+  <string name="explanation_convert_to_decimal">Перетворити в десяткову систему числення</string>
+  <string name="explanation_perform_division">Виконайте стовпчик поділу</string>
+  <string name="explanation_reverse_result">Результат запишіть у зворотному порядку</string>
+  <string name="screen_settings">Налаштування</string>
+  <string name="explanation_convert_fractional">Дробова частина числа множиться на базу нового</string>
+  <string name="theme_light">Світло</string>
+  <string name="theme_dark">Темний</string>
+  <string name="theme_system">Система за замовчуванням</string>
+  <string name="cancel">Скасувати</string>
+  <string name="settings_language">Мову</string>
+  <string name="settings_help_with_translate">Довідка з перекладом</string>
+  <string name="radix">База (%d)</string>
+  <string name="settings_theme">Тема</string>
+  <string name="review">Оцініть додаток та огляд</string>
+  <string name="ad">Оголошення</string>
+  <string name="adWatch">дивитися рекламу</string>
+  <string name="adMessage">Привіт!\nМи дійсно не хотіли додавати рекламу, але нам потрібна фінансова підтримка. Тож ви можете переглядати рекламу або відмовитись.\nДякую за увагу!</string>
+  <string name="explanation_convert_fractional_write_result">Запишіть результат зверху донизу</string>
+  <string name="explanation_convert_combine_decimal_fractional">З\'єднайте цілу та дробову частини</string>
+</resources>

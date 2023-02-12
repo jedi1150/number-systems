@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_name">Сандық жүйелер</string>
+    <string name="dec">Ондық (10)</string>
+    <string name="bin">Екілік (2)</string>
+    <string name="oct">Қазан (8)</string>
+    <string name="hex">Оналтылық (16)</string>
+    <string name="screen_converter">Конвертер</string>
+    <string name="screen_calculator">Калькулятор</string>
+    <string name="explanation_result">Нәтиже</string>
+    <string name="explanation">Түсіндіру</string>
+    <string name="explanation_convert_to_decimal">Ондық сандар жүйесіне түрлендіру</string>
+    <string name="explanation_perform_division">Бөлу бағанын орындаңыз</string>
+    <string name="explanation_reverse_result">Нәтижені кері ретпен жазыңыз</string>
+    <string name="screen_settings">Параметрлер</string>
+    <string name="explanation_convert_fractional">Санның бөлшек бөлігі жаңаның негізіне көбейтіледі</string>
+    <string name="theme_light">Жарық</string>
+    <string name="theme_dark">Қараңғы</string>
+    <string name="theme_system">Жүйе әдепкі</string>
+    <string name="cancel">Болдырмау</string>
+    <string name="settings_language">Тіл</string>
+    <string name="settings_help_with_translate">Аударма бойынша көмек</string>
+    <string name="radix">Негіз (%d)</string>
+    <string name="settings_theme">Тақырып</string>
+    <string name="review">Қолданбаға баға беріңіз және шолыңыз</string>
+    <string name="ad">Жарнама</string>
+    <string name="adWatch">қарау Ad</string>
+    <string name="adMessage">Сәлем!\nБіз шынымен де жарнама қосқымыз келмеді, бірақ бізге қаржылық қолдау қажет. Сонымен, сіз жарнамаларды көре аласыз немесе одан бас тарта аласыз.\nНазар аударғаныңызға рақмет!</string>
+    <string name="explanation_convert_fractional_write_result">Нәтижені жоғарыдан төменге жазыңыз</string>
+    <string name="explanation_convert_combine_decimal_fractional">Бүтін және бөлшек бөлшектерді біріктіру</string>
+</resources>
