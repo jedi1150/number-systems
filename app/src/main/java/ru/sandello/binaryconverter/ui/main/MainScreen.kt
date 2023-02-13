@@ -7,6 +7,7 @@ import androidx.compose.material.*
 import androidx.compose.material3.*
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -75,22 +76,23 @@ fun MainScreen(
         sheetContent = {
             Surface(
                 modifier = Modifier
-                    .padding(top = 12.dp)
                     .statusBarsPadding()
                     .imePadding(),
                 shape = ShapesTop.extraLarge,
                 tonalElevation = 16.dp,
             ) {
-                Column(modifier = Modifier.padding(top = 16.dp)) {
+                Column {
                     Box(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 16.dp),
                         contentAlignment = Alignment.Center,
                     ) {
                         Divider(
                             modifier = Modifier
                                 .size(width = 50.dp, height = 4.dp)
                                 .clip(Shapes.small),
-                            color = androidx.compose.material3.MaterialTheme.colorScheme.outline,
+                            color = MaterialTheme.colorScheme.outline,
                         )
                     }
                     ExplanationScreen(

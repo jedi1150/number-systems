@@ -13,11 +13,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import numsys.model.NumberSystem
 import numsys.model.Radix
 import ru.sandello.binaryconverter.R
@@ -55,14 +52,6 @@ fun ExplanationScreen(
                                 .calculateEndPadding(LocalLayoutDirection.current),
                         ),
                 ) {
-                    Text(
-                        text = stringResource(R.string.explanation),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.Medium,
-                    )
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()

@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,7 +24,7 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.utils.NS_DELIMITER
 
 @Composable
-fun ExplanationConvertToDecimal(from: NumberSystem) {
+fun ExplanationIntegerToDecimal(from: NumberSystem) {
     val integerPart: NumberSystem = from.copy(value = from.value.substringBefore(NS_DELIMITER))
 
     val position = integerPart.value.substringBefore(NS_DELIMITER).length
@@ -37,14 +36,7 @@ fun ExplanationConvertToDecimal(from: NumberSystem) {
         modifier = Modifier.padding(vertical = 8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        Text(
-            text = stringResource(id = R.string.explanation_convert_integer_part_to_decimal),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Medium,
-        )
+        ExplanationDescription(stringResource(id = R.string.explanation_convert_integer_part_to_decimal))
 
         Row(
             modifier = Modifier
@@ -77,10 +69,10 @@ fun ExplanationConvertToDecimal(from: NumberSystem) {
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun PreviewExplanationConvertToDecimal() {
+private fun PreviewExplanationIntegerToDecimal() {
     NumberSystemsTheme {
         Surface {
-            ExplanationConvertToDecimal(from = NumberSystem("12.55", Radix.OCT))
+            ExplanationIntegerToDecimal(from = NumberSystem("12.55", Radix.OCT))
         }
     }
 }
@@ -88,10 +80,10 @@ fun PreviewExplanationConvertToDecimal() {
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun PreviewExplanationConvertHexToDec() {
+private fun PreviewExplanationIntegerToDecimalHexToDec() {
     NumberSystemsTheme {
         Surface {
-            ExplanationConvertToDecimal(NumberSystem("D4.D4", Radix.HEX))
+            ExplanationIntegerToDecimal(from = NumberSystem("D4.D4", Radix.HEX))
         }
     }
 }

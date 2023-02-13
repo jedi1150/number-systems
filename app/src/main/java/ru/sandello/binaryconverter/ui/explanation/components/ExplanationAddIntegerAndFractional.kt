@@ -1,5 +1,6 @@
 package ru.sandello.binaryconverter.ui.explanation.components
 
+import android.content.res.Configuration
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -22,7 +23,7 @@ import ru.sandello.binaryconverter.utils.NS_DELIMITER
 import ru.sandello.binaryconverter.utils.getFractional
 
 @Composable
-fun ExplanationAddIntegerAndFractionalParts(to: NumberSystem) {
+fun ExplanationAddIntegerAndFractional(to: NumberSystem) {
     val integerPart: String = to.value.substringBefore(NS_DELIMITER)
     val fractionalPart: String = getFractional(to.value)
 
@@ -33,12 +34,7 @@ fun ExplanationAddIntegerAndFractionalParts(to: NumberSystem) {
         modifier = Modifier.padding(vertical = 8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        Text(
-            text = stringResource(id = R.string.explanation_convert_combine_integer_and_fractional_parts),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-        )
+        ExplanationDescription(stringResource(id = R.string.explanation_convert_combine_integer_and_fractional_parts))
 
         Row(
             modifier = Modifier
@@ -63,22 +59,13 @@ fun ExplanationAddIntegerAndFractionalParts(to: NumberSystem) {
     }
 }
 
-@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewExplanationCombineParts() {
     NumberSystemsTheme {
         Surface {
-            ExplanationAddIntegerAndFractionalParts(to = NumberSystem(value = "A.B4", Radix.HEX))
-        }
-    }
-}
-
-@Preview
-@Composable
-fun PreviewExplanationCombinePartsDark() {
-    NumberSystemsTheme(darkTheme = true) {
-        Surface {
-            ExplanationAddIntegerAndFractionalParts(to = NumberSystem(value = "A.B4", Radix.HEX))
+            ExplanationAddIntegerAndFractional(to = NumberSystem(value = "A.B4", Radix.HEX))
         }
     }
 }

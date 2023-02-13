@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -15,7 +16,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -42,23 +42,16 @@ fun ExplanationResult(from: NumberSystem, to: NumberSystem) {
                     placeholderVerticalAlign = PlaceholderVerticalAlign.AboveBaseline,
                 )
             ) {
+                // TODO (Oleg): Set horizontal paddings bigger
                 Icon(painterResource(R.drawable.arrow_right), null)
             },
         )
     )
 
     Column(
-        modifier = Modifier.padding(vertical = 8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        Text(
-            text = stringResource(id = R.string.explanation_result),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Medium,
-        )
+        ExplanationTitle(stringResource(id = R.string.explanation_result))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -70,6 +63,7 @@ fun ExplanationResult(from: NumberSystem, to: NumberSystem) {
                 inlineContent = inlineContent,
             )
         }
+        Divider(thickness = 1.dp)
     }
 }
 

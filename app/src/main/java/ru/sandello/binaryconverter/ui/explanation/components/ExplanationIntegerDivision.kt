@@ -1,5 +1,6 @@
 package ru.sandello.binaryconverter.ui.explanation.components
 
+import android.content.res.Configuration
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -8,13 +9,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import numsys.NumSys.toRadix
 import numsys.model.NumberSystem
 import numsys.model.Radix
@@ -26,7 +22,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 @Composable
-fun ExplanationDivisionBlock(from: NumberSystem, to: NumberSystem) {
+fun ExplanationIntegerDivision(from: NumberSystem, to: NumberSystem) {
     val fromDecimal = from.value.substringBefore(NS_DELIMITER)
     var iterations = 0
     val maxIterations = 12
@@ -48,14 +44,7 @@ fun ExplanationDivisionBlock(from: NumberSystem, to: NumberSystem) {
         modifier = Modifier.padding(vertical = 8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        Text(
-            text = stringResource(id = R.string.explanation_integer_division),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Medium,
-        )
+        ExplanationDescription(stringResource(id = R.string.explanation_integer_division))
 
         Row(
             modifier = Modifier
@@ -67,37 +56,22 @@ fun ExplanationDivisionBlock(from: NumberSystem, to: NumberSystem) {
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(6.dp),
             ) {
-                // TODO (Oleg): fix Zero dividend
                 divisionList.forEach { longDivision ->
                     ExplanationDivision(longDivision)
                 }
             }
         }
 
-        Text(
-            text = stringResource(id = R.string.explanation_reverse_result),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-        )
+        ExplanationDescription(stringResource(id = R.string.explanation_reverse_result))
 
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .horizontalScroll(rememberScrollState())
                 .padding(horizontal = 16.dp),
-            content = {
-                Text(
-                    text = buildAnnotatedString {
-                        append(numberSystem(numberSystem = NumberSystem(value = fromDecimal, radix = from.radix)))
-                        withStyle(SpanStyle(letterSpacing = 6.sp)) {
-                            append("=")
-                        }
-                        append(numberSystem(numberSystem = NumberSystem(value = to.value.substringBefore(NS_DELIMITER), radix = to.radix)))
-                    },
-                )
-            },
-        )
+        ) {
+            Text(text = numberSystem(numberSystem = NumberSystem(value = to.value.substringBefore(NS_DELIMITER), radix = to.radix)))
+        }
     }
 
 }
@@ -116,22 +90,22 @@ private fun longDivision(dividend: BigDecimal, divisor: Int): Division {
     )
 }
 
-@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
-private fun PreviewExplanationDivision() {
+private fun PreviewExplanationIntegerDivision() {
     NumberSystemsTheme {
         Surface {
-            ExplanationDivisionBlock(NumberSystem("10.5", Radix.DEC), NumberSystem("1010.1", Radix.BIN))
+            ExplanationIntegerDivision(NumberSystem("10.5", Radix.DEC), NumberSystem("1010.1", Radix.BIN))
         }
     }
 }
 
-@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun PreviewExplanationDivisionDark() {
+private fun PreviewExplanationIntegerDivisionDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            ExplanationDivisionBlock(NumberSystem("25", Radix.DEC), NumberSystem("11001", Radix.BIN))
+            ExplanationIntegerDivision(NumberSystem("25", Radix.DEC), NumberSystem("11001", Radix.BIN))
         }
     }
 }
