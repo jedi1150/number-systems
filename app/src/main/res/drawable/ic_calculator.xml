@@ -1,0 +1,15 @@
+<vector android:height="24dp" android:viewportHeight="48"
+    android:viewportWidth="48" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#555770" android:pathData="M30,36L44,36A1,1 0,0 1,45 37L45,37A1,1 0,0 1,44 38L30,38A1,1 0,0 1,29 37L29,37A1,1 0,0 1,30 36z"/>
+    <path android:fillColor="#555770" android:pathData="M37,31L37,31A1,1 0,0 1,38 32L38,32A1,1 0,0 1,37 33L37,33A1,1 0,0 1,36 32L36,32A1,1 0,0 1,37 31z"/>
+    <path android:fillColor="#555770" android:pathData="M37,41L37,41A1,1 0,0 1,38 42L38,42A1,1 0,0 1,37 43L37,43A1,1 0,0 1,36 42L36,42A1,1 0,0 1,37 41z"/>
+    <path android:fillColor="#555770" android:pathData="M5.3431,42.6569C4.9526,42.2664 4.9526,41.6332 5.3431,41.2427L15.2426,31.3432C15.6331,30.9526 16.2663,30.9526 16.6568,31.3432V31.3432C17.0474,31.7337 17.0474,32.3669 16.6568,32.7574L6.7573,42.6569C6.3668,43.0474 5.7337,43.0474 5.3431,42.6569V42.6569Z"/>
+    <path android:fillColor="#555770" android:pathData="M15.2426,42.6569L5.3431,32.7574A1,1 107.3476,0 1,5.3431 31.3432L5.3431,31.3432A1,1 107.3476,0 1,6.7573 31.3432L16.6568,41.2427A1,1 84.4176,0 1,16.6568 42.6569L16.6568,42.6569A1,1 85.8972,0 1,15.2426 42.6569z"/>
+    <path android:fillColor="#555770" android:pathData="M30,10L44,10A1,1 0,0 1,45 11L45,11A1,1 0,0 1,44 12L30,12A1,1 0,0 1,29 11L29,11A1,1 0,0 1,30 10z"/>
+    <path android:fillColor="#555770" android:pathData="M3,11C3,10.4477 3.4477,10 4,10H18C18.5523,10 19,10.4477 19,11V11C19,11.5523 18.5523,12 18,12H4C3.4477,12 3,11.5523 3,11V11Z"/>
+    <path android:fillColor="#555770" android:pathData="M10,18L10,4A1,1 0,0 1,11 3L11,3A1,1 0,0 1,12 4L12,18A1,1 0,0 1,11 19L11,19A1,1 0,0 1,10 18z"/>
+    <path android:fillColor="#00000000" android:pathData="M1,24L47,24"
+        android:strokeColor="#555770" android:strokeLineCap="round" android:strokeWidth="2"/>
+    <path android:fillColor="#00000000" android:pathData="M24,1L24,47"
+        android:strokeColor="#555770" android:strokeLineCap="round" android:strokeWidth="2"/>
+</vector>
