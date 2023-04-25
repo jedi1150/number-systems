@@ -18,14 +18,16 @@
   <string name="theme_dark">Qorong\'i</string>
   <string name="theme_system">Tizim birlamchi</string>
   <string name="cancel">Bekor qilish</string>
-  <string name="settings_language">Til</string>
-  <string name="settings_help_with_translate">Tarjimada yordam bering</string>
-  <string name="radix">Baza (%d)</string>
-  <string name="settings_theme">Mavzu</string>
-  <string name="review">Ilovani baholang va ko\'rib chiqing</string>
-  <string name="ad">E\'lon</string>
-  <string name="adWatch">tomosha qiling Ad</string>
-  <string name="adMessage">Salom!\nBiz haqiqatan ham reklama qo\'shishni xohlamadik, ammo moliyaviy yordamga muhtojmiz. Shunday qilib, siz reklamalarni tomosha qilishingiz yoki rad qilishingiz mumkin.\nE\'tiboringiz uchun tashakkur!</string>
-  <string name="explanation_convert_fractional_write_result">Natijani yuqoridan pastgacha yozib oling</string>
-  <string name="explanation_convert_combine_integer_and_fractional_parts">Butun va kasr qismlarni qo\'shing</string>
+    <string name="settings_language">Til</string>
+    <string name="settings_help_with_translate">Tarjimada yordam bering</string>
+    <string name="radix">Baza (%d)</string>
+    <string name="settings_theme">Mavzu</string>
+    <string name="review">Ilovani baholang va ko\'rib chiqing</string>
+    <string name="ad">E\'lon</string>
+    <string name="adWatch">tomosha qiling Ad</string>
+    <string name="adMessage">Salom!\nBiz haqiqatan ham reklama qo\'shishni xohlamadik, ammo moliyaviy yordamga muhtojmiz. Shunday qilib, siz reklamalarni tomosha qilishingiz yoki rad qilishingiz mumkin.\nE\'tiboringiz uchun tashakkur!</string>
+    <string name="explanation_convert_fractional_write_result">Natijani yuqoridan pastgacha yozib oling</string>
+    <string name="explanation_convert_combine_integer_and_fractional_parts">Butun va kasr qismlarni qo\'shing</string>
+    <string name="integer_part">Butun sonli qism</string>
+    <string name="fractional_part">Fraksiyonel qism</string>
 </resources>

@@ -28,4 +28,6 @@
     <string name="adMessage">Сәлем!\nБіз шынымен де жарнама қосқымыз келмеді, бірақ бізге қаржылық қолдау қажет. Сонымен, сіз жарнамаларды көре аласыз немесе одан бас тарта аласыз.\nНазар аударғаныңызға рақмет!</string>
     <string name="explanation_convert_fractional_write_result">Нәтижені жоғарыдан төменге жазыңыз</string>
     <string name="explanation_convert_combine_integer_and_fractional_parts">Бүтін және бөлшек бөлшектерді қосыңыз</string>
+    <string name="integer_part">Бүтін бөлігі</string>
+    <string name="fractional_part">Бөлшек бөлігі</string>
 </resources>
