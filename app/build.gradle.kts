@@ -14,7 +14,7 @@ android {
         applicationId = "ru.sandello.binaryconverter"
         minSdk = 21
         targetSdk = 33
-        versionCode = 113
+        versionCode = 114
         versionName = "2.0.0"
         vectorDrawables {
             useSupportLibrary = true
@@ -46,7 +46,10 @@ android {
     buildFeatures {
         compose = true
     }
-
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
@@ -76,12 +79,4 @@ dependencies {
     implementation(libs.google.firebase.crashlytics.ktx)
     implementation(libs.google.firebase.analytics.ktx)
 
-//    implementation "androidx.browser:browser:1.4.0"
-
-    // Play Core
-//    implementation "com.google.android.play:core:1.10.3"
-//    implementation "com.google.android.play:core-ktx:1.8.1"
-
-    // Ads
-//    implementation "com.google.android.gms:play-services-ads:20.6.0"
 }
