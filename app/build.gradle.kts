@@ -14,7 +14,7 @@ android {
         applicationId = "ru.sandello.binaryconverter"
         minSdk = 21
         targetSdk = 33
-        versionCode = 114
+        versionCode = 115
         versionName = "2.0.0"
         vectorDrawables {
             useSupportLibrary = true
