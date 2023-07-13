@@ -1,11 +1,14 @@
 package ru.sandello.binaryconverter.ui.main
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ModalBottomSheetValue
-import androidx.compose.material.rememberModalBottomSheetState
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.SheetValue
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -15,7 +18,7 @@ import ru.sandello.binaryconverter.ui.calculator.CalculatorViewModel
 import ru.sandello.binaryconverter.ui.converter.ConverterViewModel
 import ru.sandello.binaryconverter.ui.explanation.ExplanationViewModel
 
-@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterialApi::class)
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun MainRoute(
     converterViewModel: ConverterViewModel = viewModel(),
@@ -26,7 +29,10 @@ fun MainRoute(
 
     val scope = rememberCoroutineScope()
 
-    val bottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
+    val skipPartiallyExpanded by remember { mutableStateOf(true) }
+    val bottomSheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = skipPartiallyExpanded
+    )
 
     LaunchedEffect(converterViewModel.showExplanation.value) {
         if (converterViewModel.showExplanation.value) {
@@ -47,7 +53,7 @@ fun MainRoute(
         }
     }
 
-    BackHandler(bottomSheetState.targetValue != ModalBottomSheetValue.Hidden) {
+    BackHandler(bottomSheetState.targetValue != SheetValue.Hidden) {
         converterViewModel.hideExplanation()
     }
 

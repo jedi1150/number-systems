@@ -3,18 +3,24 @@ package ru.sandello.binaryconverter.ui.main
 import android.annotation.SuppressLint
 import androidx.compose.animation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
-import androidx.compose.material3.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarDefaults
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SheetState
+import androidx.compose.material3.SheetValue
+import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
@@ -28,6 +34,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.launch
 import numsys.model.NumberSystem
 import numsys.model.Radix
 import ru.sandello.binaryconverter.R
@@ -40,16 +47,14 @@ import ru.sandello.binaryconverter.ui.explanation.ExplanationScreen
 import ru.sandello.binaryconverter.ui.explanation.ExplanationState
 import ru.sandello.binaryconverter.ui.explanation.ExplanationUiState
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
-import ru.sandello.binaryconverter.ui.theme.Shapes
-import ru.sandello.binaryconverter.ui.theme.ShapesTop
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
     converterUiState: ConverterUiState,
     calculatorUiState: CalculatorUiState,
     explanationUiState: ExplanationUiState,
-    bottomSheetState: ModalBottomSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden),
+    bottomSheetState: SheetState = rememberModalBottomSheetState(),
     showExplanation: (NumberSystem, NumberSystem) -> Unit,
     onConverterNumberSystemChanged: (NumberSystem) -> Unit,
     onConverterRadixChanged: (Radix) -> Unit,
@@ -60,6 +65,7 @@ fun MainScreen(
     onCalculatorClearClicked: () -> Unit,
     onExplanationRadixChanged: (ExplanationRadixType, Radix) -> Unit,
 ) {
+    val scope = rememberCoroutineScope()
     val layoutDirection = LocalLayoutDirection.current
 
     val navController = rememberNavController()
@@ -69,40 +75,7 @@ fun MainScreen(
         Screen.Calculator,
     )
 
-    ModalBottomSheetLayout(
-        sheetState = bottomSheetState,
-        sheetElevation = 0.dp,
-        sheetBackgroundColor = Color.Transparent,
-        sheetContent = {
-            Surface(
-                modifier = Modifier
-                    .statusBarsPadding()
-                    .imePadding(),
-                shape = ShapesTop.extraLarge,
-                tonalElevation = 16.dp,
-            ) {
-                Column {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 16.dp),
-                        contentAlignment = Alignment.Center,
-                    ) {
-                        Divider(
-                            modifier = Modifier
-                                .size(width = 50.dp, height = 4.dp)
-                                .clip(Shapes.small),
-                            color = MaterialTheme.colorScheme.outline,
-                        )
-                    }
-                    ExplanationScreen(
-                        explanationUiState = explanationUiState,
-                        onRadixChanged = onExplanationRadixChanged,
-                    )
-                }
-            }
-        },
-    ) {
+    Column {
         Scaffold(
             bottomBar = {
                 Surface(
@@ -166,6 +139,23 @@ fun MainScreen(
                 onCalculatorArithmeticChange = onCalculatorArithmeticChange,
                 onCalculatorClearClicked = onCalculatorClearClicked,
             )
+        }
+        if (bottomSheetState.targetValue != SheetValue.Hidden || bottomSheetState.currentValue != SheetValue.Hidden) {
+            ModalBottomSheet(
+                onDismissRequest = {
+                    scope.launch {
+                        bottomSheetState.hide()
+                    }
+                },
+                modifier = Modifier.statusBarsPadding(),
+                sheetState = bottomSheetState,
+                windowInsets = WindowInsets(0),
+            ) {
+                ExplanationScreen(
+                    explanationUiState = explanationUiState,
+                    onRadixChanged = onExplanationRadixChanged,
+                )
+            }
         }
     }
 }
@@ -300,8 +290,8 @@ fun MainScreenContent(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("Range")
-@OptIn(ExperimentalMaterialApi::class)
 @Preview
 @Composable
 private fun PreviewMainScreen() {
@@ -319,8 +309,7 @@ private fun PreviewMainScreen() {
                 onCalculatorRadixChanged = { _, _ -> },
                 onCalculatorArithmeticChange = {},
                 onCalculatorClearClicked = {},
-                onExplanationRadixChanged = { _, _ -> },
-            )
+            ) { _, _ -> }
         }
     }
 }
