@@ -147,9 +147,8 @@ fun MainScreen(
                         bottomSheetState.hide()
                     }
                 },
-                modifier = Modifier.statusBarsPadding(),
+                modifier = Modifier,
                 sheetState = bottomSheetState,
-                windowInsets = WindowInsets(0),
             ) {
                 ExplanationScreen(
                     explanationUiState = explanationUiState,
