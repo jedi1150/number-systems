@@ -19,6 +19,10 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: gradle
+    - name: Create Google Services JSON File
+      env:
+        GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES }}
+      run: echo $GOOGLE_SERVICES | base64 -di > ./app/google-services.json
     - name: Build APK
       run: bash ./gradlew assembleDevDebug --stacktrace
     - name: Upload APK
