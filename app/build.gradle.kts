@@ -14,8 +14,8 @@ android {
         applicationId = "ru.sandello.binaryconverter"
         minSdk = 21
         targetSdk = 33
-        versionCode = 115
-        versionName = "2.0.0"
+        versionCode = 116
+        versionName = "2.0.1"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -24,7 +24,7 @@ android {
         named("release") {
             isMinifyEnabled = true
             isShrinkResources = true
-            setProguardFiles(listOf(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"))
+            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
     flavorDimensions += listOf("flavor-type")

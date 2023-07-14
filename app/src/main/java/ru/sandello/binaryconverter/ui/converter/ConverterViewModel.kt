@@ -97,7 +97,7 @@ class ConverterViewModel @Inject constructor(private val numSys: NumSys) : ViewM
             }.map { _toRadix ->
                 try {
                     numSys.convert(value = from, toRadix = _toRadix)
-                } catch (exception: NumberFormatException) {
+                } catch (exception: IllegalArgumentException) {
                     cancel()
                     return@launch
                 }

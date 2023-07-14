@@ -3,6 +3,7 @@ package ru.sandello.binaryconverter.ui.explanation
 import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
 import androidx.compose.animation.graphics.res.animatedVectorResource
 import androidx.compose.animation.graphics.res.rememberAnimatedVectorPainter
@@ -29,6 +30,7 @@ fun ExplanationScreen(
 ) {
     AnimatedContent(
         targetState = explanationUiState.state,
+        modifier = Modifier.animateContentSize(),
     ) { state ->
         when (state) {
             ExplanationState.Calculating -> {
@@ -39,10 +41,10 @@ fun ExplanationScreen(
                     CircularProgressIndicator(modifier = Modifier.padding(16.dp))
                 }
             }
+
             is ExplanationState.Completed -> {
                 Column(
                     modifier = Modifier
-                        .displayCutoutPadding()
                         .padding(
                             start = WindowInsets.navigationBars
                                 .asPaddingValues()

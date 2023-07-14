@@ -20,6 +20,8 @@ import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.ui.OperandVisualTransformation
 import ru.sandello.binaryconverter.ui.components.RadixExposedDropdown
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
+import ru.sandello.binaryconverter.utils.COMMA
+import ru.sandello.binaryconverter.utils.NS_DELIMITER
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,7 +46,7 @@ fun ConverterScreen(
         item {
             OutlinedTextField(
                 value = converterUiState.numberSystem10.value,
-                onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue, radix = converterUiState.numberSystem10.radix)) },
+                onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue.replace(COMMA, NS_DELIMITER), radix = converterUiState.numberSystem10.radix)) },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text(stringResource(R.string.dec)) },
                 visualTransformation = OperandVisualTransformation(converterUiState.numberSystem10.radix),
@@ -56,7 +58,7 @@ fun ConverterScreen(
         item {
             OutlinedTextField(
                 value = converterUiState.numberSystem2.value,
-                onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue, radix = converterUiState.numberSystem2.radix)) },
+                onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue.replace(COMMA, NS_DELIMITER), radix = converterUiState.numberSystem2.radix)) },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text(stringResource(R.string.bin)) },
                 isError = converterUiState.numberSystem2Error,
@@ -68,7 +70,7 @@ fun ConverterScreen(
         item {
             OutlinedTextField(
                 value = converterUiState.numberSystem8.value,
-                onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue, converterUiState.numberSystem8.radix)) },
+                onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue.replace(COMMA, NS_DELIMITER), converterUiState.numberSystem8.radix)) },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text(stringResource(R.string.oct)) },
                 isError = converterUiState.numberSystem8Error,
@@ -80,7 +82,7 @@ fun ConverterScreen(
         item {
             OutlinedTextField(
                 value = converterUiState.numberSystem16.value,
-                onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue, radix = converterUiState.numberSystem16.radix)) },
+                onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue.replace(COMMA, NS_DELIMITER), radix = converterUiState.numberSystem16.radix)) },
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text(stringResource(R.string.hex)) },
                 isError = converterUiState.numberSystem16Error,
@@ -93,7 +95,7 @@ fun ConverterScreen(
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedTextField(
                     value = converterUiState.numberSystemCustom.value,
-                    onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue, radix = converterUiState.numberSystemCustom.radix)) },
+                    onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue.replace(COMMA, NS_DELIMITER), radix = converterUiState.numberSystemCustom.radix)) },
                     modifier = Modifier.weight(1f),
                     label = { Text(stringResource(R.string.radix, converterUiState.numberSystemCustom.radix.value)) },
                     isError = converterUiState.numberSystemCustomError,
