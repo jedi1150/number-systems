@@ -41,7 +41,7 @@ class ExplanationViewModel @Inject constructor(private val numSys: NumSys) : Vie
                 ),
             ),
         ) {
-            Log.d(APP_TAG, "ExplanationViewModel::convert: Invalid character entered")
+            Log.w(APP_TAG, "ExplanationViewModel::convert: Invalid character entered")
             // TODO(oleg): Add crashlytics report
             return
         }

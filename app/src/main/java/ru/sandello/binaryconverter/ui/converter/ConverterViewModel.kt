@@ -48,7 +48,7 @@ class ConverterViewModel @Inject constructor(private val numSys: NumSys) : ViewM
             useDelimiterChars = from.value.count { it.toString().contains("[,.]".toRegex()) } <= 1,
             useNegativeChar = from.value.count { it.toString().contains("-".toRegex()) } <= 1,
         ))) {
-            Log.d(APP_TAG, "ConverterViewModel::convert: Invalid character entered")
+            Log.w(APP_TAG, "ConverterViewModel::convert: Invalid character entered")
 
             when (from.radix) {
                 converterUiState.numberSystem2.radix -> converterUiState = converterUiState.copy(numberSystem2Error = true)
@@ -67,18 +67,20 @@ class ConverterViewModel @Inject constructor(private val numSys: NumSys) : ViewM
         }
 
         viewModelScope.launch {
-            toRadixes.filter { _toRadix ->
-                (from.radix != _toRadix).also {
+            toRadixes.filter { radix ->
+                (from.radix != radix).also {
                     if (!it) {
-                        when (_toRadix) {
+                        when (radix) {
                             converterUiState.numberSystem2.radix -> {
                                 if (converterUiState.numberSystem2.value == from.value) cancel()
                                 converterUiState = converterUiState.copy(numberSystem2 = from)
                             }
+
                             converterUiState.numberSystem8.radix -> {
                                 if (converterUiState.numberSystem8.value == from.value) cancel()
                                 converterUiState = converterUiState.copy(numberSystem8 = from)
                             }
+
                             converterUiState.numberSystem10.radix -> {
                                 if (converterUiState.numberSystem10.value == from.value) cancel()
                                 converterUiState = converterUiState.copy(numberSystem10 = from)
@@ -87,6 +89,7 @@ class ConverterViewModel @Inject constructor(private val numSys: NumSys) : ViewM
                                 if (converterUiState.numberSystem16.value == from.value) cancel()
                                 converterUiState = converterUiState.copy(numberSystem16 = from)
                             }
+
                             converterUiState.numberSystemCustom.radix -> {
                                 if (converterUiState.numberSystemCustom.value == from.value) cancel()
                                 converterUiState = converterUiState.copy(numberSystemCustom = from)
@@ -94,9 +97,9 @@ class ConverterViewModel @Inject constructor(private val numSys: NumSys) : ViewM
                         }
                     }
                 }
-            }.map { _toRadix ->
+            }.map { toRadix ->
                 try {
-                    numSys.convert(value = from, toRadix = _toRadix)
+                    numSys.convert(value = from, toRadix = toRadix)
                 } catch (exception: IllegalArgumentException) {
                     cancel()
                     return@launch
@@ -149,7 +152,9 @@ class ConverterViewModel @Inject constructor(private val numSys: NumSys) : ViewM
     }
 
     fun clear() {
-        converterUiState = ConverterUiState()
+        converterUiState = ConverterUiState(
+            numberSystemCustom = NumberSystem(value = String(), radix = converterUiState.numberSystemCustom.radix),
+        )
     }
 
     private fun resetErrors() {
