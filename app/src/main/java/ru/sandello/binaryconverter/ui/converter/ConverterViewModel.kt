@@ -152,7 +152,9 @@ class ConverterViewModel @Inject constructor(private val numSys: NumSys) : ViewM
     }
 
     fun clear() {
-        converterUiState = ConverterUiState()
+        converterUiState = ConverterUiState(
+            numberSystemCustom = NumberSystem(value = String(), radix = converterUiState.numberSystemCustom.radix),
+        )
     }
 
     private fun resetErrors() {

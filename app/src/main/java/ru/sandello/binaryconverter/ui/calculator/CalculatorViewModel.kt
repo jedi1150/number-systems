@@ -210,7 +210,12 @@ class CalculatorViewModel @Inject constructor(private val numSys: NumSys) : View
     }
 
     fun clear() {
-        calculatorUiState = CalculatorUiState()
+        calculatorUiState = CalculatorUiState(
+            numberSystemCustom1 = NumberSystem(value = String(), radix = calculatorUiState.numberSystemCustom1.radix),
+            numberSystemCustom2 = NumberSystem(value = String(), radix = calculatorUiState.numberSystemCustom2.radix),
+            numberSystemResult = NumberSystem(value = String(), radix = calculatorUiState.numberSystemResult.radix),
+            selectedArithmetic = calculatorUiState.selectedArithmetic,
+        )
     }
 
     private fun resetErrors() {
