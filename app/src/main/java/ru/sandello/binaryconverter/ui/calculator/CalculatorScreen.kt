@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
-import androidx.compose.material3.TextFieldDefaults.FocusedBorderThickness
-import androidx.compose.material3.TextFieldDefaults.UnfocusedBorderThickness
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,6 +24,8 @@ import ru.sandello.binaryconverter.ui.OperandVisualTransformation
 import ru.sandello.binaryconverter.ui.calculator.ArithmeticType.*
 import ru.sandello.binaryconverter.ui.components.RadixExposedDropdown
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
+import ru.sandello.binaryconverter.utils.COMMA
+import ru.sandello.binaryconverter.utils.NS_DELIMITER
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -55,7 +55,7 @@ fun CalculatorScreen(
                     onValueChange = { textFieldValue ->
                         onNumberSystemChange(
                             CalculatorOperandType.OperandCustom1,
-                            NumberSystem(value = textFieldValue, radix = calculatorUiState.numberSystemCustom1.radix),
+                            NumberSystem(value = textFieldValue.replace(COMMA, NS_DELIMITER), radix = calculatorUiState.numberSystemCustom1.radix),
                         )
                     },
                     modifier = Modifier.weight(1f),
@@ -97,7 +97,7 @@ fun CalculatorScreen(
             ) {
                 calculatorUiState.arithmeticTypes.forEach { arithmetic ->
                     val checked = calculatorUiState.selectedArithmetic == arithmetic
-                    val border by animateDpAsState(if (checked) FocusedBorderThickness else UnfocusedBorderThickness)
+                    val border by animateDpAsState(if (checked) TextFieldDefaults.FocusedIndicatorThickness else TextFieldDefaults.UnfocusedIndicatorThickness)
                     val borderColor by animateColorAsState(if (checked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline)
                     OutlinedIconToggleButton(
                         checked = checked,
@@ -125,7 +125,7 @@ fun CalculatorScreen(
                     onValueChange = { textFieldValue ->
                         onNumberSystemChange(
                             CalculatorOperandType.OperandCustom2,
-                            NumberSystem(value = textFieldValue, radix = calculatorUiState.numberSystemCustom2.radix),
+                            NumberSystem(value = textFieldValue.replace(COMMA, NS_DELIMITER), radix = calculatorUiState.numberSystemCustom2.radix),
                         )
                     },
                     modifier = Modifier.weight(1f),
