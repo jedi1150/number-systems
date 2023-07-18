@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -12,11 +14,13 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 //import com.google.android.gms.ads.interstitial.InterstitialAd
 import dagger.hilt.android.AndroidEntryPoint
 import ru.sandello.binaryconverter.ui.NumberSystemsApp
+import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 //    private lateinit var ad: InterstitialAd
 
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     public override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
@@ -35,7 +39,11 @@ class MainActivity : ComponentActivity() {
                 )
             }
 
-            NumberSystemsApp()
+            NumberSystemsTheme {
+                NumberSystemsApp(
+                    windowSizeClass = calculateWindowSizeClass(this),
+                )
+            }
         }
 
 //        Shared.resourcesHelper = ResourcesHelper(applicationContext)
