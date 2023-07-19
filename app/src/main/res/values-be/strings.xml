@@ -9,7 +9,7 @@
   <string name="screen_calculator">Калькулятар</string>
   <string name="explanation_result">Вынік</string>
   <string name="explanation">Тлумачэнне</string>
-  <string name="explanation_convert_integer_part_to_decimal">Пераўтварэнне цэлай часткі ў дзесятковую</string>
+  <string name="explanation_convert_to_decimal">Пераўтварэнне ў дзесятковую</string>
   <string name="explanation_integer_division">Цэлы дзяленне</string>
   <string name="explanation_reverse_result">Выпішыце вынік у зваротным парадку</string>
   <string name="screen_settings">Налады</string>

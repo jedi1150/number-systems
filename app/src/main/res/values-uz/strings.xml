@@ -9,7 +9,7 @@
   <string name="screen_calculator">Kalkulyator</string>
   <string name="explanation_result">Natija</string>
   <string name="explanation">Izoh</string>
-  <string name="explanation_convert_integer_part_to_decimal">Butun son qismini kasrga aylantiring.</string>
+  <string name="explanation_convert_to_decimal">O\'nlik kasrga aylantirish</string>
   <string name="explanation_integer_division">Butun son bo\'linishi</string>
   <string name="explanation_reverse_result">Natijani teskari tartibda yozing</string>
   <string name="screen_settings">Sozlamalar</string>

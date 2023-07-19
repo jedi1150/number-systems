@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import numsys.model.NumberSystem
 import numsys.model.Radix
 import ru.sandello.binaryconverter.ui.explanation.components.ExplanationResult
+import ru.sandello.binaryconverter.ui.explanation.components.ExplanationToDecimal
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.utils.NS_DELIMITER
 
@@ -27,10 +28,15 @@ fun ExplanationContent(from: NumberSystem, to: NumberSystem) {
                 ExplanationResult(from = from, to = to)
             }
         }
-        item {
-            ExplanationInteger(from, to)
+        if (from.radix != Radix.DEC) {
+            item {
+                ExplanationToDecimal(from = from)
+            }
         }
         if (to.radix != Radix.DEC && from.value.contains(NS_DELIMITER)) {
+            item {
+                ExplanationInteger(from, to)
+            }
             item {
                 Divider()
             }

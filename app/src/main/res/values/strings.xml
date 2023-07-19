@@ -16,7 +16,7 @@
     <string name="explanation_result">Result</string>
     <string name="integer_part">Integer part</string>
     <string name="fractional_part">Fractional part</string>
-    <string name="explanation_convert_integer_part_to_decimal">Convert integer part to decimal</string>
+    <string name="explanation_convert_to_decimal">Convert to decimal</string>
     <string name="explanation_integer_division">Integer division</string>
     <string name="explanation_reverse_result">Write the result in reverse order</string>
     <string name="explanation_convert_fractional">The fractional part of the number is multiplied by the radix of the new</string>
