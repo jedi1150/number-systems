@@ -1,8 +1,6 @@
 package ru.sandello.binaryconverter.ui.explanation.components
 
 import android.content.res.Configuration
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -30,9 +28,8 @@ import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.utils.NS_DELIMITER
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun ExplanationToDecimal(from: NumberSystem, showTitle: Boolean = true) {
+fun ExplanationToDecimal(from: NumberSystem) {
     val integerPart: NumberSystem = from.copy(value = from.value.substringBefore(NS_DELIMITER))
 
     val position = from.value.substringBefore(NS_DELIMITER).length
@@ -44,10 +41,7 @@ fun ExplanationToDecimal(from: NumberSystem, showTitle: Boolean = true) {
         modifier = Modifier.padding(vertical = 8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        Text(text = "showTitle: $showTitle")
-        AnimatedVisibility(visible = showTitle) {
-            ExplanationTitle(stringResource(id = R.string.explanation_convert_to_decimal))
-        }
+        ExplanationTitle(stringResource(id = R.string.explanation_convert_to_decimal))
 
         Row(
             modifier = Modifier
