@@ -3,19 +3,21 @@ package ru.sandello.binaryconverter.ui.explanation
 import android.content.res.Configuration
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.unit.dp
 import numsys.model.NumberSystem
 import numsys.model.Radix
+import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.ui.explanation.components.ExplanationResult
+import ru.sandello.binaryconverter.ui.explanation.components.ExplanationTitle
 import ru.sandello.binaryconverter.ui.explanation.components.ExplanationToDecimal
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.utils.NS_DELIMITER
@@ -28,9 +30,19 @@ fun ExplanationContent(from: NumberSystem, to: NumberSystem) {
     val delimiterExists = from.value.contains(NS_DELIMITER)
     val showFromDecimalWithDelimiter = to.radix != Radix.DEC || delimiterExists
 
-    LazyColumn(
-        contentPadding = PaddingValues(bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding())
-    ) {
+    val lazyListState = rememberLazyListState()
+
+    LazyColumn(state = lazyListState) {
+        stickyHeader {
+            ExplanationTitle(
+                stringResource(id = R.string.explanation_result),
+                contentPaddingValues = PaddingValues(
+                    start = 16.dp,
+                    top = 8.dp,
+                    end = 16.dp,
+                )
+            )
+        }
         stickyHeader {
             Surface {
                 ExplanationResult(from = from, to = to)
