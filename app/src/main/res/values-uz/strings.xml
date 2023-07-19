@@ -10,10 +10,9 @@
   <string name="explanation_result">Natija</string>
   <string name="explanation">Izoh</string>
   <string name="explanation_convert_to_decimal">O\'nlik kasrga aylantirish</string>
-  <string name="explanation_integer_division">Butun son bo\'linishi</string>
   <string name="explanation_reverse_result">Natijani teskari tartibda yozing</string>
   <string name="screen_settings">Sozlamalar</string>
-  <string name="explanation_convert_fractional">Raqamning kasr qismi yangi bazaga ko\'paytiriladi</string>
+  <string name="explanation_convert_fractional">O\'n oltilik sonning kasr qismini kerakli asosga bo\'ling</string>
   <string name="theme_light">Yorug\'lik</string>
   <string name="theme_dark">Qorong\'i</string>
   <string name="theme_system">Tizim birlamchi</string>
@@ -30,4 +29,5 @@
     <string name="explanation_convert_combine_integer_and_fractional_parts">Butun va kasr qismlarni qo\'shing</string>
     <string name="integer_part">Butun sonli qism</string>
     <string name="fractional_part">Fraksiyonel qism</string>
+  <string name="explanation_integer_division">O\'nlik sonning butun qismini kerakli sanoq sistemasiga bo\'ling</string>
 </resources>

@@ -17,9 +17,7 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 fun ExplanationInteger(from: NumberSystem, to: NumberSystem) {
     Column {
         ExplanationTitle(stringResource(R.string.integer_part))
-        if (to.radix != Radix.DEC) {
-            ExplanationIntegerDivision(from = from, to = to)
-        }
+        ExplanationIntegerDivision(from = from, to = to)
     }
 }
 
