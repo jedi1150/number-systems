@@ -9,11 +9,10 @@
   <string name="screen_calculator">Калькулятар</string>
   <string name="explanation_result">Вынік</string>
   <string name="explanation">Тлумачэнне</string>
-  <string name="explanation_convert_integer_part_to_decimal">Пераўтварэнне цэлай часткі ў дзесятковую</string>
-  <string name="explanation_integer_division">Цэлы дзяленне</string>
+  <string name="explanation_convert_to_decimal">Пераўтварэнне ў дзесятковую</string>
   <string name="explanation_reverse_result">Выпішыце вынік у зваротным парадку</string>
   <string name="screen_settings">Налады</string>
-  <string name="explanation_convert_fractional">Дробавая частка ліку памнажаецца на аснову новага</string>
+  <string name="explanation_convert_fractional">Падзяліце дробавую частку шаснаццатковага ліку на падставу патрэбнага</string>
   <string name="theme_light">Святло</string>
   <string name="theme_dark">Цёмны</string>
   <string name="theme_system">Сістэма па змаўчанні</string>
@@ -30,4 +29,5 @@
     <string name="explanation_convert_combine_integer_and_fractional_parts">Скласці цэлую і дробавую часткі</string>
     <string name="integer_part">Суцэльная частка</string>
     <string name="fractional_part">Дробавая частка</string>
+  <string name="explanation_integer_division">Падзяліце цэлую частку дзесятковага ліку на жаданую сістэму злічэння</string>
 </resources>

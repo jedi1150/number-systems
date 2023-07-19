@@ -1,6 +1,7 @@
 package ru.sandello.binaryconverter.ui.explanation.components
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -15,12 +16,15 @@ import androidx.compose.ui.unit.sp
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @Composable
-fun ExplanationTitle(text: String) {
+fun ExplanationTitle(
+    text: String,
+    contentPaddingValues: PaddingValues = PaddingValues(horizontal = 16.dp, vertical = 4.dp),
+) {
     Text(
         text = text,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 4.dp),
+            .padding(contentPaddingValues),
         color = MaterialTheme.colorScheme.onSurface,
         fontSize = 24.sp,
         fontWeight = FontWeight.Medium,

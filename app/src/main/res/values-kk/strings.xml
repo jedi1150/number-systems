@@ -9,11 +9,10 @@
     <string name="screen_calculator">Калькулятор</string>
     <string name="explanation_result">Нәтиже</string>
     <string name="explanation">Түсіндіру</string>
-    <string name="explanation_convert_integer_part_to_decimal">Бүтін бөлікті ондық жүйеге түрлендіру.</string>
-    <string name="explanation_integer_division">Бүтін бөлу</string>
+    <string name="explanation_convert_to_decimal">Ондық санды түрлендіру</string>
     <string name="explanation_reverse_result">Нәтижені кері ретпен жазыңыз</string>
     <string name="screen_settings">Параметрлер</string>
-    <string name="explanation_convert_fractional">Санның бөлшек бөлігі жаңаның негізіне көбейтіледі</string>
+    <string name="explanation_convert_fractional">Он алтылық санның бөлшек бөлігін қалағанның негізіне бөліңіз</string>
     <string name="theme_light">Жарық</string>
     <string name="theme_dark">Қараңғы</string>
     <string name="theme_system">Жүйе әдепкі</string>
@@ -30,4 +29,5 @@
     <string name="explanation_convert_combine_integer_and_fractional_parts">Бүтін және бөлшек бөлшектерді қосыңыз</string>
     <string name="integer_part">Бүтін бөлігі</string>
     <string name="fractional_part">Бөлшек бөлігі</string>
+    <string name="explanation_integer_division">Ондық санның бүтін бөлігін қажетті санау жүйесіне бөліңіз</string>
 </resources>

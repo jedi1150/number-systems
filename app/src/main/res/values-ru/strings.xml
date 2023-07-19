@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-  <string name="app_name">Системы Счисления</string>
-  <string name="dec">Десятичная (10)</string>
-  <string name="bin">Двоичная (2)</string>
-  <string name="oct">Восьмеричная (8)</string>
-  <string name="hex">Шестнадцатеричная (16)</string>
-  <string name="screen_converter">Конвертер</string>
-  <string name="screen_calculator">Калькулятор</string>
-  <string name="explanation_result">Результат</string>
-  <string name="explanation">Решение</string>
-  <string name="explanation_convert_integer_part_to_decimal">Преобразование целой части в десятичную.</string>
-  <string name="explanation_integer_division">Целочисленное деление</string>
-  <string name="explanation_reverse_result">Полученный результат записать в обратной последовательности</string>
-  <string name="screen_settings">Настройки</string>
-  <string name="explanation_convert_fractional">Дробная часть числа находится умножением на основание новой</string>
-  <string name="explanation_convert_fractional_write_result">Запишите результат сверху вниз</string>
-  <string name="explanation_convert_combine_integer_and_fractional_parts">Сложить целую и дробную части</string>
-  <string name="theme_light">Светлая</string>
-  <string name="theme_dark">Темная</string>
+    <string name="app_name">Системы Счисления</string>
+    <string name="dec">Десятичная (10)</string>
+    <string name="bin">Двоичная (2)</string>
+    <string name="oct">Восьмеричная (8)</string>
+    <string name="hex">Шестнадцатеричная (16)</string>
+    <string name="screen_converter">Конвертер</string>
+    <string name="screen_calculator">Калькулятор</string>
+    <string name="explanation_result">Результат</string>
+    <string name="explanation">Решение</string>
+    <string name="explanation_convert_to_decimal">Преобразование в десятичную</string>
+    <string name="explanation_reverse_result">Полученный результат записать в обратной последовательности</string>
+    <string name="screen_settings">Настройки</string>
+    <string name="explanation_convert_fractional">Разделите дробную часть шестнадцатеричного числа на основание нужного</string>
+    <string name="explanation_convert_fractional_write_result">Запишите результат сверху вниз</string>
+    <string name="explanation_convert_combine_integer_and_fractional_parts">Сложить целую и дробную части</string>
+    <string name="theme_light">Светлая</string>
+    <string name="theme_dark">Темная</string>
     <string name="theme_system">Как в системе</string>
     <string name="cancel">Отмена</string>
     <string name="settings_language">Язык</string>
@@ -30,4 +29,5 @@
     <string name="adMessage">Привет!\nМы действительно не хотели добавлять рекламу, но нам нужна финансовая поддержка. Так что вы можете смотреть рекламу или отказаться от нее.\nСпасибо за внимание!</string>
     <string name="integer_part">Целая часть</string>
     <string name="fractional_part">Дробная часть</string>
+    <string name="explanation_integer_division">Разделите целую десятичного числа часть на нужное основание</string>
 </resources>

@@ -10,7 +10,6 @@ import numsys.model.NumberSystem
 import numsys.model.Radix
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.ui.explanation.components.ExplanationIntegerDivision
-import ru.sandello.binaryconverter.ui.explanation.components.ExplanationIntegerToDecimal
 import ru.sandello.binaryconverter.ui.explanation.components.ExplanationTitle
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
@@ -18,12 +17,7 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 fun ExplanationInteger(from: NumberSystem, to: NumberSystem) {
     Column {
         ExplanationTitle(stringResource(R.string.integer_part))
-        if (from.radix != Radix.DEC) {
-            ExplanationIntegerToDecimal(from = from)
-        }
-        if (to.radix != Radix.DEC) {
-            ExplanationIntegerDivision(from = from, to = to)
-        }
+        ExplanationIntegerDivision(from = from, to = to)
     }
 }
 
