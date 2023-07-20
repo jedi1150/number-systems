@@ -1,12 +1,12 @@
 package ru.sandello.binaryconverter.ui.explanation
 
 import android.util.Log
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import numsys.NumSys
 import numsys.model.NumberSystem
@@ -21,12 +21,12 @@ enum class ExplanationRadixType { RadixCustom1, RadixCustom2 }
 @HiltViewModel
 class ExplanationViewModel @Inject constructor(private val numSys: NumSys) : ViewModel() {
 
-    var explanationUiState by mutableStateOf(ExplanationUiState(state = ExplanationState.Calculating))
-        private set
+    private val _explanationUiState: MutableStateFlow<ExplanationUiState> = MutableStateFlow(ExplanationUiState(state = ExplanationState.Calculating))
+    val explanationUiState: StateFlow<ExplanationUiState> = _explanationUiState.asStateFlow()
 
     fun acceptValues(from: NumberSystem, to: NumberSystem) {
-        explanationUiState = ExplanationUiState(ExplanationState.Calculating)
-        explanationUiState = ExplanationUiState(ExplanationState.Completed, from, to)
+        _explanationUiState.value = ExplanationUiState(ExplanationState.Calculating)
+        _explanationUiState.value = ExplanationUiState(ExplanationState.Completed, from, to)
     }
 
     private fun convert(explanationOperandType: ExplanationOperandType, from: NumberSystem, toRadix: Radix) {
@@ -53,29 +53,30 @@ class ExplanationViewModel @Inject constructor(private val numSys: NumSys) : Vie
 
         viewModelScope.launch {
             numSys.convert(value = from, toRadix = toRadix).let { convertedData ->
-                var finalFrom: NumberSystem = explanationUiState.from
-                var finalTo: NumberSystem = explanationUiState.to
+                var finalFrom: NumberSystem = explanationUiState.value.from
+                var finalTo: NumberSystem = explanationUiState.value.to
 
                 when (explanationOperandType) {
                     ExplanationOperandType.OperandCustom1 -> finalFrom = convertedData
                     ExplanationOperandType.OperandCustom2 -> finalTo = convertedData
                 }
-                explanationUiState = ExplanationUiState(state = ExplanationState.Completed, finalFrom, finalTo)
+                _explanationUiState.value = ExplanationUiState(state = ExplanationState.Completed, finalFrom, finalTo)
             }
         }
     }
 
     fun updateRadix(explanationRadixType: ExplanationRadixType, newRadix: Radix) {
-        explanationUiState = explanationUiState.copy(state = ExplanationState.Calculating)
+        _explanationUiState.value = explanationUiState.value.copy(state = ExplanationState.Calculating)
 
         when (explanationRadixType) {
             ExplanationRadixType.RadixCustom1 -> {
-                Log.d(APP_TAG, "ExplanationViewModel::updateRadix: from.radix from ${explanationUiState.from.radix.value} to ${newRadix.value}")
-                convert(explanationOperandType = ExplanationOperandType.OperandCustom1, from = explanationUiState.from, toRadix = newRadix)
+                Log.d(APP_TAG, "ExplanationViewModel::updateRadix: from.radix from ${explanationUiState.value.from.radix.value} to ${newRadix.value}")
+                convert(explanationOperandType = ExplanationOperandType.OperandCustom1, from = explanationUiState.value.from, toRadix = newRadix)
             }
+
             ExplanationRadixType.RadixCustom2 -> {
-                Log.d(APP_TAG, "ExplanationViewModel::updateRadix: to.radix from ${explanationUiState.to.radix.value} to ${newRadix.value}")
-                convert(explanationOperandType = ExplanationOperandType.OperandCustom2, from = explanationUiState.to, toRadix = newRadix)
+                Log.d(APP_TAG, "ExplanationViewModel::updateRadix: to.radix from ${explanationUiState.value.to.radix.value} to ${newRadix.value}")
+                convert(explanationOperandType = ExplanationOperandType.OperandCustom2, from = explanationUiState.value.to, toRadix = newRadix)
             }
         }
     }

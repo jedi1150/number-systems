@@ -2,14 +2,15 @@ package ru.sandello.binaryconverter.ui.converter
 
 import android.util.Log
 import androidx.compose.runtime.State
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
@@ -28,11 +29,11 @@ class ConverterViewModel @Inject constructor(private val numSys: NumSys) : ViewM
     private val _showExplanation = mutableStateOf(false)
     val showExplanation: State<Boolean> = _showExplanation
 
-    var converterUiState by mutableStateOf(ConverterUiState())
-        private set
+    private val _converterUiState: MutableStateFlow<ConverterUiState> = MutableStateFlow(ConverterUiState())
+    val converterUiState: StateFlow<ConverterUiState> = _converterUiState.asStateFlow()
 
     fun convertFrom(from: NumberSystem) {
-        convert(from, toRadixes = arrayOf(converterUiState.numberSystem2.radix, converterUiState.numberSystem8.radix, converterUiState.numberSystem10.radix, converterUiState.numberSystem16.radix, converterUiState.numberSystemCustom.radix))
+        convert(from, toRadixes = arrayOf(converterUiState.value.numberSystem2.radix, converterUiState.value.numberSystem8.radix, converterUiState.value.numberSystem10.radix, converterUiState.value.numberSystem16.radix, converterUiState.value.numberSystemCustom.radix))
     }
 
     private fun convert(from: NumberSystem, toRadixes: Array<Radix>) {
@@ -51,11 +52,11 @@ class ConverterViewModel @Inject constructor(private val numSys: NumSys) : ViewM
             Log.w(APP_TAG, "ConverterViewModel::convert: Invalid character entered")
 
             when (from.radix) {
-                converterUiState.numberSystem2.radix -> converterUiState = converterUiState.copy(numberSystem2Error = true)
-                converterUiState.numberSystem8.radix -> converterUiState = converterUiState.copy(numberSystem8Error = true)
-                converterUiState.numberSystem10.radix -> converterUiState = converterUiState.copy(numberSystem10Error = true)
-                converterUiState.numberSystem16.radix -> converterUiState = converterUiState.copy(numberSystem16Error = true)
-                converterUiState.numberSystemCustom.radix -> converterUiState = converterUiState.copy(numberSystemCustomError = true)
+                converterUiState.value.numberSystem2.radix -> _converterUiState.value = converterUiState.value.copy(numberSystem2Error = true)
+                converterUiState.value.numberSystem8.radix -> _converterUiState.value = converterUiState.value.copy(numberSystem8Error = true)
+                converterUiState.value.numberSystem10.radix -> _converterUiState.value = converterUiState.value.copy(numberSystem10Error = true)
+                converterUiState.value.numberSystem16.radix -> _converterUiState.value = converterUiState.value.copy(numberSystem16Error = true)
+                converterUiState.value.numberSystemCustom.radix -> _converterUiState.value = converterUiState.value.copy(numberSystemCustomError = true)
             }
             return
         }
@@ -71,28 +72,29 @@ class ConverterViewModel @Inject constructor(private val numSys: NumSys) : ViewM
                 (from.radix != radix).also {
                     if (!it) {
                         when (radix) {
-                            converterUiState.numberSystem2.radix -> {
-                                if (converterUiState.numberSystem2.value == from.value) cancel()
-                                converterUiState = converterUiState.copy(numberSystem2 = from)
+                            converterUiState.value.numberSystem2.radix -> {
+                                if (converterUiState.value.numberSystem2.value == from.value) cancel()
+                                _converterUiState.value = converterUiState.value.copy(numberSystem2 = from)
                             }
 
-                            converterUiState.numberSystem8.radix -> {
-                                if (converterUiState.numberSystem8.value == from.value) cancel()
-                                converterUiState = converterUiState.copy(numberSystem8 = from)
+                            converterUiState.value.numberSystem8.radix -> {
+                                if (converterUiState.value.numberSystem8.value == from.value) cancel()
+                                _converterUiState.value = converterUiState.value.copy(numberSystem8 = from)
                             }
 
-                            converterUiState.numberSystem10.radix -> {
-                                if (converterUiState.numberSystem10.value == from.value) cancel()
-                                converterUiState = converterUiState.copy(numberSystem10 = from)
-                            }
-                            converterUiState.numberSystem16.radix -> {
-                                if (converterUiState.numberSystem16.value == from.value) cancel()
-                                converterUiState = converterUiState.copy(numberSystem16 = from)
+                            converterUiState.value.numberSystem10.radix -> {
+                                if (converterUiState.value.numberSystem10.value == from.value) cancel()
+                                _converterUiState.value = converterUiState.value.copy(numberSystem10 = from)
                             }
 
-                            converterUiState.numberSystemCustom.radix -> {
-                                if (converterUiState.numberSystemCustom.value == from.value) cancel()
-                                converterUiState = converterUiState.copy(numberSystemCustom = from)
+                            converterUiState.value.numberSystem16.radix -> {
+                                if (converterUiState.value.numberSystem16.value == from.value) cancel()
+                                _converterUiState.value = converterUiState.value.copy(numberSystem16 = from)
+                            }
+
+                            converterUiState.value.numberSystemCustom.radix -> {
+                                if (converterUiState.value.numberSystemCustom.value == from.value) cancel()
+                                _converterUiState.value = converterUiState.value.copy(numberSystemCustom = from)
                             }
                         }
                     }
@@ -112,25 +114,25 @@ class ConverterViewModel @Inject constructor(private val numSys: NumSys) : ViewM
                 }
             }.catch { error -> Log.e(APP_TAG, "ConverterViewModel::convert: catch", error) }.collect { convertedData ->
                 when (convertedData.radix) {
-                    converterUiState.numberSystem2.radix -> converterUiState = converterUiState.copy(numberSystem2 = convertedData)
-                    converterUiState.numberSystem8.radix -> converterUiState = converterUiState.copy(numberSystem8 = convertedData)
-                    converterUiState.numberSystem10.radix -> converterUiState = converterUiState.copy(numberSystem10 = convertedData)
-                    converterUiState.numberSystem16.radix -> converterUiState = converterUiState.copy(numberSystem16 = convertedData)
-                    converterUiState.numberSystemCustom.radix -> converterUiState = converterUiState.copy(numberSystemCustom = convertedData)
+                    converterUiState.value.numberSystem2.radix -> _converterUiState.value = converterUiState.value.copy(numberSystem2 = convertedData)
+                    converterUiState.value.numberSystem8.radix -> _converterUiState.value = converterUiState.value.copy(numberSystem8 = convertedData)
+                    converterUiState.value.numberSystem10.radix -> _converterUiState.value = converterUiState.value.copy(numberSystem10 = convertedData)
+                    converterUiState.value.numberSystem16.radix -> _converterUiState.value = converterUiState.value.copy(numberSystem16 = convertedData)
+                    converterUiState.value.numberSystemCustom.radix -> _converterUiState.value = converterUiState.value.copy(numberSystemCustom = convertedData)
                 }
             }
         }
     }
 
     fun updateCustomRadix(newRadix: Radix) {
-        Log.d(APP_TAG, "ConverterViewModel::updateCustomRadix ${converterUiState.numberSystemCustom.radix} to $newRadix")
+        Log.d(APP_TAG, "ConverterViewModel::updateCustomRadix ${converterUiState.value.numberSystemCustom.radix} to $newRadix")
 
         val tempNS = lastNumberSystem
-        if (tempNS != null && converterUiState.numberSystemCustom.radix != newRadix) {
-            if (lastNumberSystem?.radix == converterUiState.numberSystemCustom.radix) {
+        if (tempNS != null && converterUiState.value.numberSystemCustom.radix != newRadix) {
+            if (lastNumberSystem?.radix == converterUiState.value.numberSystemCustom.radix) {
                 convert(
                     from = tempNS,
-                    toRadixes = arrayOf(converterUiState.numberSystem2.radix, converterUiState.numberSystem8.radix, converterUiState.numberSystem10.radix, converterUiState.numberSystem16.radix),
+                    toRadixes = arrayOf(converterUiState.value.numberSystem2.radix, converterUiState.value.numberSystem8.radix, converterUiState.value.numberSystem10.radix, converterUiState.value.numberSystem16.radix),
                 )
             } else {
                 convert(
@@ -140,7 +142,7 @@ class ConverterViewModel @Inject constructor(private val numSys: NumSys) : ViewM
             }
         }
 
-        converterUiState.numberSystemCustom.radix = newRadix
+        converterUiState.value.numberSystemCustom.radix = newRadix
     }
 
     fun showExplanation() {
@@ -152,13 +154,13 @@ class ConverterViewModel @Inject constructor(private val numSys: NumSys) : ViewM
     }
 
     fun clear() {
-        converterUiState = ConverterUiState(
-            numberSystemCustom = NumberSystem(value = String(), radix = converterUiState.numberSystemCustom.radix),
+        _converterUiState.value = ConverterUiState(
+            numberSystemCustom = NumberSystem(value = String(), radix = converterUiState.value.numberSystemCustom.radix),
         )
     }
 
     private fun resetErrors() {
-        converterUiState = converterUiState.copy(
+        _converterUiState.value = converterUiState.value.copy(
             numberSystem2Error = false,
             numberSystem8Error = false,
             numberSystem10Error = false,
