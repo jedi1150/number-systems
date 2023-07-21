@@ -14,5 +14,8 @@ enum class TopLevelDestination(
         iconId = R.drawable.ic_calculator,
         titleTextId = R.string.screen_calculator,
     ),
-    /* SETTINGS */
+    SETTINGS(
+        iconId = R.drawable.ic_settings,
+        titleTextId = R.string.screen_settings,
+    ),
 }

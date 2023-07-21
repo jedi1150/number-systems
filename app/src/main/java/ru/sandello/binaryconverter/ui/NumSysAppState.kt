@@ -20,6 +20,8 @@ import ru.sandello.binaryconverter.ui.converter.navigation.navigateToConverter
 import ru.sandello.binaryconverter.ui.navigation.TopLevelDestination
 import ru.sandello.binaryconverter.ui.navigation.TopLevelDestination.CALCULATOR
 import ru.sandello.binaryconverter.ui.navigation.TopLevelDestination.CONVERTER
+import ru.sandello.binaryconverter.ui.navigation.TopLevelDestination.SETTINGS
+import ru.sandello.binaryconverter.ui.settings.navigation.navigateToSettings
 
 @Composable
 fun rememberNumSysAppState(
@@ -74,6 +76,7 @@ class NumSysAppState(
         when (topLevelDestination) {
             CONVERTER -> navController.navigateToConverter(topLevelNavOptions)
             CALCULATOR -> navController.navigateToCalculator(topLevelNavOptions)
+            SETTINGS -> navController.navigateToSettings(topLevelNavOptions)
         }
     }
 

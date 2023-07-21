@@ -10,6 +10,7 @@ import ru.sandello.binaryconverter.ui.calculator.navigation.calculatorScreen
 import ru.sandello.binaryconverter.ui.converter.ConverterViewModel
 import ru.sandello.binaryconverter.ui.converter.navigation.converterRoute
 import ru.sandello.binaryconverter.ui.converter.navigation.converterScreen
+import ru.sandello.binaryconverter.ui.settings.navigation.settingsScreen
 
 @Composable
 fun NumSysNavHost(
@@ -25,5 +26,6 @@ fun NumSysNavHost(
     ) {
         converterScreen(viewModel = converterViewModel)
         calculatorScreen(viewModel = calculatorViewModel)
+        settingsScreen()
     }
 }
