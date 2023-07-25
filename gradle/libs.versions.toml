@@ -1,5 +1,5 @@
 [versions]
-androidGradlePlugin = "8.0.2"
+androidGradlePlugin = "8.1.0"
 kotlin = "1.8.22"
 androidxComposeBom = "2023.06.01"
 compose-compiler = "1.4.8"

@@ -15,7 +15,7 @@
   <string name="explanation_convert_fractional">O\'n oltilik sonning kasr qismini kerakli asosga bo\'ling</string>
   <string name="theme_light">Yorug\'lik</string>
   <string name="theme_dark">Qorong\'i</string>
-  <string name="theme_system">Tizim birlamchi</string>
+  <string name="theme_system_default">Tizim birlamchi</string>
   <string name="cancel">Bekor qilish</string>
     <string name="settings_language">Til</string>
     <string name="settings_help_with_translate">Tarjimada yordam bering</string>

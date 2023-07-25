@@ -15,7 +15,7 @@
     <string name="explanation_convert_fractional">Он алтылық санның бөлшек бөлігін қалағанның негізіне бөліңіз</string>
     <string name="theme_light">Жарық</string>
     <string name="theme_dark">Қараңғы</string>
-    <string name="theme_system">Жүйе әдепкі</string>
+    <string name="theme_system_default">Жүйе әдепкі</string>
     <string name="cancel">Болдырмау</string>
     <string name="settings_language">Тіл</string>
     <string name="settings_help_with_translate">Аударма бойынша көмек</string>

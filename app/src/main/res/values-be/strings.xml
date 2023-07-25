@@ -15,7 +15,7 @@
   <string name="explanation_convert_fractional">Падзяліце дробавую частку шаснаццатковага ліку на падставу патрэбнага</string>
   <string name="theme_light">Святло</string>
   <string name="theme_dark">Цёмны</string>
-  <string name="theme_system">Сістэма па змаўчанні</string>
+  <string name="theme_system_default">Сістэма па змаўчанні</string>
   <string name="cancel">Адмяніць</string>
     <string name="settings_language">Мова</string>
     <string name="settings_help_with_translate">Даведка з перакладам</string>

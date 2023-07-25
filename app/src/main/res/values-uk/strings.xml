@@ -15,7 +15,7 @@
   <string name="explanation_convert_fractional">Розділіть дробову частину шістнадцяткового числа на основу потрібного</string>
   <string name="theme_light">Світло</string>
   <string name="theme_dark">Темний</string>
-  <string name="theme_system">Система за замовчуванням</string>
+  <string name="theme_system_default">Система за замовчуванням</string>
   <string name="cancel">Скасувати</string>
     <string name="settings_language">Мову</string>
     <string name="settings_help_with_translate">Довідка з перекладом</string>

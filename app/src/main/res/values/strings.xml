@@ -23,10 +23,10 @@
     <string name="explanation_convert_fractional_write_result">Write the result from top to bottom</string>
     <string name="explanation_convert_combine_integer_and_fractional_parts">Add the integer and fractional parts</string>
 
+    <string name="settings_theme">Theme</string>
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>
-    <string name="theme_system">System default</string>
-    <string name="settings_theme">Theme</string>
+    <string name="theme_system_default">System default</string>
     <string name="cancel">Cancel</string>
     <string name="settings_language">Language</string>
     <string name="settings_help_with_translate">Help with translation</string>

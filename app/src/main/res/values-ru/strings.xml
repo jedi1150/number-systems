@@ -17,7 +17,7 @@
     <string name="explanation_convert_combine_integer_and_fractional_parts">Сложить целую и дробную части</string>
     <string name="theme_light">Светлая</string>
     <string name="theme_dark">Темная</string>
-    <string name="theme_system">Как в системе</string>
+    <string name="theme_system_default">Как в системе</string>
     <string name="cancel">Отмена</string>
     <string name="settings_language">Язык</string>
     <string name="settings_help_with_translate">Помочь с переводом</string>
