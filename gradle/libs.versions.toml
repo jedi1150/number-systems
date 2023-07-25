@@ -12,8 +12,8 @@ hilt = "2.46.1"
 datastore = "1.0.0"
 accompanist = "0.30.1"
 numsys = "0.0.3-rc"
-firebaseBom = "32.1.1"
-firebaseGradlePlugin = "2.9.2"
+firebaseBom = "32.2.0"
+crashlyticsGradlePlugin = "2.9.7"
 googleServices = "4.3.15"
 protobuf = "3.23.0"
 protobufPlugin = "0.9.4"
@@ -45,7 +45,7 @@ google-firebase-analytics-ktx = { group = "com.google.firebase", name = "firebas
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 hilt-gradlePlugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "hilt" }
-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebaseGradlePlugin" }
+crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "crashlyticsGradlePlugin" }
 google-services = { group = "com.google.gms", name = "google-services", version.ref = "googleServices" }
 protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protobuf" }
 protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-lite", version.ref = "protobuf" }
