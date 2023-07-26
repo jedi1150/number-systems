@@ -22,7 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.data.ThemeType
-import ru.sandello.binaryconverter.ui.settings.components.SettingsLocaleDialog
+import ru.sandello.binaryconverter.ui.settings.components.SettingsLanguageDialog
 import ru.sandello.binaryconverter.ui.settings.components.SettingsThemeDialog
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import java.util.Locale
@@ -76,7 +76,7 @@ fun SettingsScreen(
         )
     }
     if (showLocaleDialog) {
-        SettingsLocaleDialog(
+        SettingsLanguageDialog(
             onDismiss = { showLocaleDialog = false },
             settingsUiState = settingsUiState,
             onChangeLocale = onChangeLocale,

@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.AlertDialogDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -30,7 +32,7 @@ import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun SettingsLocaleDialog(
+internal fun SettingsLanguageDialog(
     onDismiss: () -> Unit,
     settingsUiState: SettingsUiState,
     onChangeLocale: (Locale) -> Unit,
@@ -45,8 +47,8 @@ internal fun SettingsLocaleDialog(
             modifier = Modifier
                 .wrapContentWidth()
                 .wrapContentHeight(),
-            shape = MaterialTheme.shapes.large,
-            tonalElevation = AlertDialogDefaults.TonalElevation
+            shape = MaterialTheme.shapes.extraLarge,
+            tonalElevation = AlertDialogDefaults.TonalElevation,
         ) {
             Column(
                 modifier = Modifier
@@ -54,7 +56,9 @@ internal fun SettingsLocaleDialog(
                     .selectableGroup(),
             ) {
                 SettingsDialogTitle(stringResource(R.string.settings_language))
-                Column {
+                Column(modifier = Modifier
+                    .weight(weight = 1f, fill = false)
+                    .verticalScroll(rememberScrollState())) {
                     settingsUiState.availableLocales.forEach { locale ->
                         val language = if (locale != Locale.ROOT) {
                             locale.getDisplayLanguage(locale).replaceFirstChar { letter -> if (letter.isLowerCase()) letter.titlecase(locale) else letter.toString() }

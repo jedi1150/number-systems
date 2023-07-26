@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 internal fun SettingsDialogTitle(text: String) {
     Text(
         text = text,
-        style = MaterialTheme.typography.titleMedium,
-        modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 8.dp),
+        style = MaterialTheme.typography.titleLarge,
+        modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
     )
 }
