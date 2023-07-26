@@ -2,9 +2,9 @@ package ru.sandello.binaryconverter
 
 //import com.google.android.gms.ads.interstitial.InterstitialAd
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
@@ -21,7 +21,7 @@ import ru.sandello.binaryconverter.ui.NumberSystemsApp
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
 //    private lateinit var ad: InterstitialAd
 
     private val viewModel: MainActivityViewModel by viewModels()

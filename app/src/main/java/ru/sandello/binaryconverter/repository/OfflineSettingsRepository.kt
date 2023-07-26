@@ -3,6 +3,7 @@ package ru.sandello.binaryconverter.repository
 import kotlinx.coroutines.flow.Flow
 import ru.sandello.binaryconverter.model.SettingsData
 import ru.sandello.binaryconverter.model.data.ThemeType
+import java.util.Locale
 import javax.inject.Inject
 
 class OfflineSettingsRepository @Inject constructor(
@@ -11,4 +12,7 @@ class OfflineSettingsRepository @Inject constructor(
     override val settingsData: Flow<SettingsData> = settingsDataSource.settingsData
 
     override suspend fun setThemeType(themeType: ThemeType) = settingsDataSource.setThemeType(themeType)
+
+    override suspend fun setLocale(locale: Locale) = settingsDataSource.setLocale(locale)
+
 }

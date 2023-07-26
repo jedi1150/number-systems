@@ -7,4 +7,5 @@ import "ru/sandello/binaryconverter/theme_type.proto";
 
 message Settings {
   ThemeTypeProto theme_type = 1;
+  string language_tag = 2;
 }

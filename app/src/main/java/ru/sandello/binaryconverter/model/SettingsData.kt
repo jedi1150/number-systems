@@ -17,7 +17,9 @@
 package ru.sandello.binaryconverter.model
 
 import ru.sandello.binaryconverter.model.data.ThemeType
+import java.util.Locale
 
 data class SettingsData(
-    val themeType: ThemeType,
+    val themeType: ThemeType = ThemeType.SYSTEM,
+    val locale: Locale = Locale.ROOT,
 )

@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 import ru.sandello.binaryconverter.model.SettingsData
 import ru.sandello.binaryconverter.model.data.ThemeType
 import ru.sandello.binaryconverter.repository.SettingsRepository
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,7 +20,7 @@ class SettingsViewModel @Inject constructor(
 ) : ViewModel() {
     val settingsUiState: StateFlow<SettingsUiState> =
         settingsRepository.settingsData.map { userData: SettingsData ->
-            SettingsUiState(themeType = userData.themeType)
+            SettingsUiState(themeType = userData.themeType, locale = userData.locale)
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
@@ -29,6 +30,12 @@ class SettingsViewModel @Inject constructor(
     fun updateThemeType(themeType: ThemeType) {
         viewModelScope.launch {
             settingsRepository.setThemeType(themeType)
+        }
+    }
+
+    fun updateLocale(locale: Locale) {
+        viewModelScope.launch {
+            settingsRepository.setLocale(locale)
         }
     }
 }

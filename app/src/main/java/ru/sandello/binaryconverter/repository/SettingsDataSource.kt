@@ -7,6 +7,7 @@ import ru.sandello.binaryconverter.ThemeTypeProto
 import ru.sandello.binaryconverter.copy
 import ru.sandello.binaryconverter.model.SettingsData
 import ru.sandello.binaryconverter.model.data.ThemeType
+import java.util.Locale
 import javax.inject.Inject
 
 class SettingsDataSource @Inject constructor(
@@ -20,7 +21,8 @@ class SettingsDataSource @Inject constructor(
                 ThemeTypeProto.DARK -> ThemeType.DARK
                 ThemeTypeProto.UNRECOGNIZED -> ThemeType.SYSTEM
                 null -> ThemeType.SYSTEM
-            }
+            },
+            locale = Locale.forLanguageTag(settings.languageTag),
         )
     }
 
@@ -32,6 +34,14 @@ class SettingsDataSource @Inject constructor(
                     ThemeType.LIGHT -> ThemeTypeProto.LIGHT
                     ThemeType.DARK -> ThemeTypeProto.DARK
                 }
+            }
+        }
+    }
+
+    suspend fun setLocale(locale: Locale) {
+        settingsDataStore.updateData { settings ->
+            settings.copy {
+                this.languageTag = locale.toLanguageTag()
             }
         }
     }
