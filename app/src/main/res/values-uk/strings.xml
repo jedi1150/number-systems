@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-  <string name="app_name">Системи числення</string>
-  <string name="dec">Десяткові (10)</string>
-  <string name="bin">Двійкові (2)</string>
-  <string name="oct">Октал (8)</string>
-  <string name="hex">Шестидесятковий (16)</string>
-  <string name="screen_converter">Перетворювач</string>
-  <string name="screen_calculator">Калькулятор</string>
-  <string name="explanation_result">Результат</string>
-  <string name="explanation">Пояснення</string>
-  <string name="explanation_convert_to_decimal">Перетворення на десяткову</string>
-  <string name="explanation_reverse_result">Результат запишіть у зворотному порядку</string>
-  <string name="screen_settings">Налаштування</string>
-  <string name="explanation_convert_fractional">Розділіть дробову частину шістнадцяткового числа на основу потрібного</string>
-  <string name="theme_light">Світло</string>
-  <string name="theme_dark">Темний</string>
-  <string name="theme_system_default">Система за замовчуванням</string>
-  <string name="cancel">Скасувати</string>
+    <string name="app_name">Системи числення</string>
+    <string name="dec">Десяткові (10)</string>
+    <string name="bin">Двійкові (2)</string>
+    <string name="oct">Октал (8)</string>
+    <string name="hex">Шестидесятковий (16)</string>
+    <string name="screen_converter">Перетворювач</string>
+    <string name="screen_calculator">Калькулятор</string>
+    <string name="explanation_result">Результат</string>
+    <string name="explanation">Пояснення</string>
+    <string name="explanation_convert_to_decimal">Перетворення на десяткову</string>
+    <string name="explanation_reverse_result">Результат запишіть у зворотному порядку</string>
+    <string name="screen_settings">Налаштування</string>
+    <string name="explanation_convert_fractional">Розділіть дробову частину шістнадцяткового числа на основу потрібного</string>
+    <string name="theme_light">Світло</string>
+    <string name="theme_dark">Темний</string>
+    <string name="theme_system_default">Система за замовчуванням</string>
+    <string name="cancel">Скасувати</string>
     <string name="settings_language">Мову</string>
     <string name="settings_help_with_translate">Довідка з перекладом</string>
     <string name="radix">База (%d)</string>
@@ -29,5 +29,6 @@
     <string name="explanation_convert_combine_integer_and_fractional_parts">Скласти цілу та дробову частини</string>
     <string name="integer_part">Ціла частина</string>
     <string name="fractional_part">Дробова частина</string>
-  <string name="explanation_integer_division">Розділіть цілу частину десяткового числа на бажану систему числення</string>
+    <string name="explanation_integer_division">Розділіть цілу частину десяткового числа на бажану систему числення</string>
+    <string name="locale_system">Мова системи</string>
 </resources>

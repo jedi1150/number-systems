@@ -30,4 +30,5 @@
     <string name="integer_part">Бүтін бөлігі</string>
     <string name="fractional_part">Бөлшек бөлігі</string>
     <string name="explanation_integer_division">Ондық санның бүтін бөлігін қажетті санау жүйесіне бөліңіз</string>
+    <string name="locale_system">Жүйе тілі</string>
 </resources>

@@ -22,7 +22,7 @@ class SettingsDataSource @Inject constructor(
                 ThemeTypeProto.UNRECOGNIZED -> ThemeType.SYSTEM
                 null -> ThemeType.SYSTEM
             },
-            locale = Locale.forLanguageTag(settings.languageTag),
+            locale = Locale(settings.languageTag),
         )
     }
 
@@ -41,7 +41,7 @@ class SettingsDataSource @Inject constructor(
     suspend fun setLocale(locale: Locale) {
         settingsDataStore.updateData { settings ->
             settings.copy {
-                this.languageTag = locale.toLanguageTag()
+                this.languageTag = locale.language
             }
         }
     }

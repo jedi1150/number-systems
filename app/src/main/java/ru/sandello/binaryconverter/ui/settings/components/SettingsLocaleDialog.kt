@@ -55,11 +55,16 @@ internal fun SettingsLocaleDialog(
             ) {
                 SettingsDialogTitle(stringResource(R.string.settings_language))
                 Column {
-                    settingsUiState.availableLocales.forEach { (locale, languageTextId) ->
+                    settingsUiState.availableLocales.forEach { locale ->
+                        val language = if (locale != Locale.ROOT) {
+                            locale.getDisplayLanguage(locale).replaceFirstChar { letter -> if (letter.isLowerCase()) letter.titlecase(locale) else letter.toString() }
+                        } else {
+                            stringResource(id = R.string.locale_system)
+                        }
                         SettingsDialogThemeChooserRow(
-                            text = stringResource(id = languageTextId),
-                            selected = selectedLocale == Locale.forLanguageTag(locale),
-                            onClick = { selectedLocale = Locale.forLanguageTag(locale) },
+                            text = language,
+                            selected = selectedLocale == locale,
+                            onClick = { selectedLocale = locale },
                         )
                     }
                 }
@@ -75,10 +80,12 @@ internal fun SettingsLocaleDialog(
                     TextButton(onClick = onDismiss) {
                         Text(text = stringResource(id = android.R.string.cancel))
                     }
-                    TextButton(onClick = {
-                        onDismiss()
-                        onChangeLocale(selectedLocale)
-                    }) {
+                    TextButton(
+                        onClick = {
+                            onDismiss()
+                            onChangeLocale(selectedLocale)
+                        },
+                    ) {
                         Text(text = stringResource(id = android.R.string.ok))
                     }
                 }

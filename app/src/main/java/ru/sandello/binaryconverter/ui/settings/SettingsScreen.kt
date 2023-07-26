@@ -109,11 +109,18 @@ fun SettingsScreen(
                 showLocaleDialog = true
             },
             supportingContent = {
-                val currentLocale = settingsUiState.availableLocales.entries.firstOrNull { it.key == settingsUiState.locale.toLanguageTag() }
-                Text(text = when (settingsUiState.locale.toLanguageTag()) {
-                    currentLocale?.key -> currentLocale?.value?.let { stringResource(id = it) } ?: stringResource(id = R.string.locale_system)
-                    else -> stringResource(id = R.string.locale_system)
-                })
+                val currentLocale = settingsUiState.availableLocales.firstOrNull { locales -> locales == settingsUiState.locale }
+                val language = if (currentLocale != null && currentLocale != Locale.ROOT) {
+                    currentLocale.getDisplayLanguage(currentLocale).replaceFirstChar { letter -> if (letter.isLowerCase()) letter.titlecase(currentLocale) else letter.toString() }
+                } else {
+                    stringResource(id = R.string.locale_system)
+                }
+                Text(
+                    text = when (settingsUiState.locale) {
+                        currentLocale -> language
+                        else -> stringResource(id = R.string.locale_system)
+                    },
+                )
             },
         )
     }
