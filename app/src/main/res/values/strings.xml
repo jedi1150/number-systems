@@ -27,16 +27,10 @@
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>
     <string name="theme_system_default">System default</string>
-    <string name="cancel">Cancel</string>
     <string name="settings_language">Language</string>
-    <string name="settings_localization">Localization</string>
     <string name="settings_github" translatable="false">GitHub</string>
     <string name="app_version">Version %s</string>
 
     <string name="locale_system">System language</string>
 
-    <string name="review">Rate app and review</string>
-    <string name="ad">Ad</string>
-    <string name="adWatch">watch ad</string>
-    <string name="adMessage">Hi!\nWe really didn\'t want to add ads, but we need financial support. So you can watch ads or opt out.\nThanks for the attention!</string>
 </resources>

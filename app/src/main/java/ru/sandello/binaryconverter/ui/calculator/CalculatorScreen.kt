@@ -30,7 +30,6 @@ import ru.sandello.binaryconverter.utils.NS_DELIMITER
 
 @Composable
 fun CalculatorRoute(
-    modifier: Modifier = Modifier,
     viewModel: CalculatorViewModel = hiltViewModel(),
 ) {
     val calculatorUiState by viewModel.calculatorUiState.collectAsStateWithLifecycle()
@@ -110,8 +109,8 @@ fun CalculatorScreen(
             ) {
                 calculatorUiState.arithmeticTypes.forEach { arithmetic ->
                     val checked = calculatorUiState.selectedArithmetic == arithmetic
-                    val border by animateDpAsState(if (checked) TextFieldDefaults.FocusedIndicatorThickness else TextFieldDefaults.UnfocusedIndicatorThickness)
-                    val borderColor by animateColorAsState(if (checked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline)
+                    val border by animateDpAsState(if (checked) TextFieldDefaults.FocusedIndicatorThickness else TextFieldDefaults.UnfocusedIndicatorThickness, label = "borderWidth")
+                    val borderColor by animateColorAsState(if (checked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline, label = "borderColor")
                     OutlinedIconToggleButton(
                         checked = checked,
                         onCheckedChange = { if (it) onArithmeticChange(arithmetic) },

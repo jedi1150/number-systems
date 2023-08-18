@@ -46,7 +46,7 @@ fun ExplanationResult(from: NumberSystem, to: NumberSystem) {
                 )
             ) {
                 // TODO (Oleg): Set horizontal paddings bigger
-                Icon(painterResource(R.drawable.arrow_right), null)
+                Icon(painterResource(R.drawable.ic_arrow_right), null)
             },
         )
     )

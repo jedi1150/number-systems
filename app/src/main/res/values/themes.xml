@@ -20,7 +20,7 @@
 
     <style name="Theme.NumberSystems.Splash" parent="NightAdjusted.Theme.Splash">
         <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="31">
-            @drawable/splash
+            @drawable/ic_splash
         </item>
         <item name="android:windowSplashScreenIconBackgroundColor" tools:targetApi="31">
             @color/colorPrimary

@@ -36,7 +36,6 @@ fun rememberNumSysAppState(
     ) {
         NumSysAppState(
             navController,
-            coroutineScope,
             windowSizeClass,
         )
     }
@@ -45,8 +44,7 @@ fun rememberNumSysAppState(
 @Stable
 class NumSysAppState(
     val navController: NavHostController,
-    val coroutineScope: CoroutineScope,
-    val windowSizeClass: WindowSizeClass,
+    private val windowSizeClass: WindowSizeClass,
 ) {
     val currentDestination: NavDestination?
         @Composable get() = navController.currentBackStackEntryAsState().value?.destination

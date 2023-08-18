@@ -31,6 +31,7 @@ fun ExplanationScreen(
     AnimatedContent(
         targetState = explanationUiState.state,
         modifier = Modifier.animateContentSize(),
+        label = "contentSize",
     ) { state ->
         when (state) {
             ExplanationState.Calculating -> {
@@ -90,7 +91,7 @@ fun ExplanationScreen(
                         ) {
                             Icon(
                                 painter = rememberAnimatedVectorPainter(
-                                    AnimatedImageVector.animatedVectorResource(id = R.drawable.rotate),
+                                    AnimatedImageVector.animatedVectorResource(id = R.drawable.ic_rotate),
                                     atEnd = atEnd,
                                 ),
                                 contentDescription = null,

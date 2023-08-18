@@ -16,15 +16,9 @@
     <string name="theme_light">Святло</string>
     <string name="theme_dark">Цёмны</string>
     <string name="theme_system_default">Сістэма па змаўчанні</string>
-    <string name="cancel">Адмяніць</string>
     <string name="settings_language">Мова</string>
-    <string name="settings_localization">Лакалізацыя</string>
     <string name="radix">База (%d)</string>
     <string name="settings_theme">Тэма</string>
-    <string name="review">Ацаніце прыкладанне і агляд</string>
-    <string name="ad">Рэклама</string>
-    <string name="adWatch">глядзець рэкламу</string>
-    <string name="adMessage">Прывітанне!\nМы сапраўды не хацелі дадаваць рэкламу, але нам патрэбна фінансавая падтрымка. Такім чынам, вы можаце глядзець рэкламу альбо адмовіцца ад яе.\nДзякуй за ўвагу!</string>
     <string name="explanation_convert_fractional_write_result">Запішыце вынік зверху ўніз</string>
     <string name="explanation_convert_combine_integer_and_fractional_parts">Скласці цэлую і дробавую часткі</string>
     <string name="integer_part">Суцэльная частка</string>

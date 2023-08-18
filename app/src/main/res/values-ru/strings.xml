@@ -18,15 +18,9 @@
     <string name="theme_light">Светлая</string>
     <string name="theme_dark">Темная</string>
     <string name="theme_system_default">Как в системе</string>
-    <string name="cancel">Отмена</string>
     <string name="settings_language">Язык</string>
-    <string name="settings_localization">Локализация</string>
     <string name="radix">Основание (%d)</string>
     <string name="settings_theme">Тема</string>
-    <string name="review">Оценить приложение и оставить отзыв</string>
-    <string name="ad">Объявление</string>
-    <string name="adWatch">смотреть рекламу</string>
-    <string name="adMessage">Привет!\nМы действительно не хотели добавлять рекламу, но нам нужна финансовая поддержка. Так что вы можете смотреть рекламу или отказаться от нее.\nСпасибо за внимание!</string>
     <string name="integer_part">Целая часть</string>
     <string name="fractional_part">Дробная часть</string>
     <string name="explanation_integer_division">Разделите целую десятичного числа часть на нужное основание</string>

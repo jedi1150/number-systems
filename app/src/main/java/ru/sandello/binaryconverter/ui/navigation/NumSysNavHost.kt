@@ -1,7 +1,6 @@
 package ru.sandello.binaryconverter.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import ru.sandello.binaryconverter.ui.NumSysAppState
@@ -15,7 +14,6 @@ import ru.sandello.binaryconverter.ui.settings.navigation.settingsScreen
 @Composable
 fun NumSysNavHost(
     appState: NumSysAppState,
-    modifier: Modifier = Modifier,
     converterViewModel: ConverterViewModel = hiltViewModel(),
     calculatorViewModel: CalculatorViewModel = hiltViewModel(),
     startDestination: String = converterRoute,

@@ -236,7 +236,7 @@ fun NumberSystemsApp(
                             modifier = Modifier.padding(vertical = 8.dp),
                             elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 0.dp),
                         ) {
-                            Icon(painter = painterResource(R.drawable.close), contentDescription = null)
+                            Icon(painter = painterResource(R.drawable.ic_close), contentDescription = null)
                         }
                     }
 
@@ -247,7 +247,7 @@ fun NumberSystemsApp(
                     ) {
                         ExtendedFloatingActionButton(
                             text = { Text(text = stringResource(id = R.string.explanation)) },
-                            icon = { Icon(painter = painterResource(R.drawable.explanation), contentDescription = stringResource(id = R.string.explanation)) },
+                            icon = { Icon(painter = painterResource(R.drawable.ic_explanation), contentDescription = stringResource(id = R.string.explanation)) },
                             onClick = {
                                 if (currentTopLevelDestination == CONVERTER) {
                                     converterViewModel.showExplanation()

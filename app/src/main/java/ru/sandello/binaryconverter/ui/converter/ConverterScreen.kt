@@ -26,7 +26,6 @@ import ru.sandello.binaryconverter.utils.NS_DELIMITER
 
 @Composable
 fun ConverterRoute(
-    modifier: Modifier = Modifier,
     viewModel: ConverterViewModel = hiltViewModel(),
 ) {
     val converterUiState by viewModel.converterUiState.collectAsStateWithLifecycle()
