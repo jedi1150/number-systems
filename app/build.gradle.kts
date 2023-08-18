@@ -94,6 +94,7 @@ dependencies {
     implementation(libs.androidx.datastore.proto)
     implementation(libs.hilt.android)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.browser)
     kapt(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.accompanist.systemuicontroller)

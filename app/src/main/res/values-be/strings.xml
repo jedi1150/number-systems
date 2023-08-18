@@ -18,7 +18,7 @@
     <string name="theme_system_default">Сістэма па змаўчанні</string>
     <string name="cancel">Адмяніць</string>
     <string name="settings_language">Мова</string>
-    <string name="settings_help_with_translate">Даведка з перакладам</string>
+    <string name="settings_localization">Лакалізацыя</string>
     <string name="radix">База (%d)</string>
     <string name="settings_theme">Тэма</string>
     <string name="review">Ацаніце прыкладанне і агляд</string>

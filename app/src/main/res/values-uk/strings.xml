@@ -18,7 +18,7 @@
     <string name="theme_system_default">Система за замовчуванням</string>
     <string name="cancel">Скасувати</string>
     <string name="settings_language">Мову</string>
-    <string name="settings_help_with_translate">Довідка з перекладом</string>
+    <string name="settings_localization">Локалізація</string>
     <string name="radix">База (%d)</string>
     <string name="settings_theme">Тема</string>
     <string name="review">Оцініть додаток та огляд</string>

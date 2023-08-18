@@ -20,7 +20,7 @@
     <string name="theme_system_default">Как в системе</string>
     <string name="cancel">Отмена</string>
     <string name="settings_language">Язык</string>
-    <string name="settings_help_with_translate">Помочь с переводом</string>
+    <string name="settings_localization">Локализация</string>
     <string name="radix">Основание (%d)</string>
     <string name="settings_theme">Тема</string>
     <string name="review">Оценить приложение и оставить отзыв</string>

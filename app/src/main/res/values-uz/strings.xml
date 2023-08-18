@@ -18,7 +18,7 @@
     <string name="theme_system_default">Tizim birlamchi</string>
     <string name="cancel">Bekor qilish</string>
     <string name="settings_language">Til</string>
-    <string name="settings_help_with_translate">Tarjimada yordam bering</string>
+    <string name="settings_localization">Mahalliylashtirish</string>
     <string name="radix">Baza (%d)</string>
     <string name="settings_theme">Mavzu</string>
     <string name="review">Ilovani baholang va ko\'rib chiqing</string>

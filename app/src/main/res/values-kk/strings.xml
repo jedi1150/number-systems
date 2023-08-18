@@ -18,7 +18,7 @@
     <string name="theme_system_default">Жүйе әдепкі</string>
     <string name="cancel">Болдырмау</string>
     <string name="settings_language">Тіл</string>
-    <string name="settings_help_with_translate">Аударма бойынша көмек</string>
+    <string name="settings_localization">Локализация</string>
     <string name="radix">Негіз (%d)</string>
     <string name="settings_theme">Тақырып</string>
     <string name="review">Қолданбаға баға беріңіз және шолыңыз</string>

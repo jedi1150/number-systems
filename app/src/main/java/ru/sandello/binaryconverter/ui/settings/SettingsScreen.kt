@@ -1,12 +1,19 @@
 package ru.sandello.binaryconverter.ui.settings
 
 import android.app.LocaleManager
+import android.content.Context
+import android.net.Uri
 import android.os.Build
 import android.os.LocaleList
+import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.browser.customtabs.CustomTabColorSchemeParams
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -14,6 +21,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,6 +33,7 @@ import ru.sandello.binaryconverter.model.data.ThemeType
 import ru.sandello.binaryconverter.ui.settings.components.SettingsLanguageDialog
 import ru.sandello.binaryconverter.ui.settings.components.SettingsThemeDialog
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
+import ru.sandello.binaryconverter.utils.GITHUB_URL
 import java.util.Locale
 
 @Composable
@@ -32,6 +41,7 @@ fun SettingsRoute(viewModel: SettingsViewModel = hiltViewModel()) {
     val context = LocalContext.current
 
     val settingsUiState by viewModel.settingsUiState.collectAsStateWithLifecycle()
+    val backgroundColor = MaterialTheme.colorScheme.background.toArgb()
 
     SettingsScreen(
         settingsUiState = settingsUiState,
@@ -52,6 +62,9 @@ fun SettingsRoute(viewModel: SettingsViewModel = hiltViewModel()) {
                 }
             }
         },
+        onLinkClicked = { url ->
+            launchCustomChromeTab(context, Uri.parse(url), backgroundColor)
+        },
     )
 }
 
@@ -60,6 +73,7 @@ fun SettingsScreen(
     settingsUiState: SettingsUiState,
     onChangeThemeType: (ThemeType) -> Unit,
     onChangeLocale: (Locale) -> Unit,
+    onLinkClicked: (String) -> Unit,
 ) {
     var showThemeDialog by rememberSaveable {
         mutableStateOf(false)
@@ -123,7 +137,26 @@ fun SettingsScreen(
                 )
             },
         )
+        Divider()
+        ListItem(
+            headlineContent = {
+                Text(text = stringResource(id = R.string.settings_github))
+            },
+            modifier = Modifier.clickable {
+                onLinkClicked(GITHUB_URL)
+            },
+        )
     }
+}
+
+private fun launchCustomChromeTab(context: Context, uri: Uri, @ColorInt toolbarColor: Int) {
+    val customTabBarColor = CustomTabColorSchemeParams.Builder()
+        .setToolbarColor(toolbarColor).build()
+    val customTabsIntent = CustomTabsIntent.Builder()
+        .setDefaultColorSchemeParams(customTabBarColor)
+        .build()
+
+    customTabsIntent.launchUrl(context, uri)
 }
 
 @Preview
@@ -134,6 +167,7 @@ private fun PreviewSettingScreen() {
             settingsUiState = SettingsUiState(),
             onChangeThemeType = {},
             onChangeLocale = {},
+            onLinkClicked = {},
         )
     }
 }

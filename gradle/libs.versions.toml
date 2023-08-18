@@ -18,6 +18,7 @@ googleServices = "4.3.15"
 protobuf = "3.23.0"
 protobufPlugin = "0.9.4"
 appcompat = "1.6.1"
+browser = "1.5.0"
 
 [libraries]
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity" }
@@ -52,6 +53,7 @@ protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref 
 protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-lite", version.ref = "protobuf" }
 github-jedi1150-numsys = { group = "com.github.jedi1150", name = "numsys", version.ref = "numsys" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "browser" }
 
 [plugins]
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
