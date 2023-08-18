@@ -1,19 +1,21 @@
 package ru.sandello.binaryconverter.ui.converter
 
-import android.annotation.SuppressLint
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Wallpapers
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import numsys.model.NumberSystem
 import numsys.model.Radix
 import ru.sandello.binaryconverter.R
@@ -23,23 +25,35 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.utils.COMMA
 import ru.sandello.binaryconverter.utils.NS_DELIMITER
 
+@Composable
+fun ConverterRoute(
+    viewModel: ConverterViewModel = hiltViewModel(),
+) {
+    val converterUiState by viewModel.converterUiState.collectAsStateWithLifecycle()
+
+    ConverterScreen(
+        converterUiState = converterUiState,
+        onNumberSystemChanged = viewModel::convertFrom,
+        onCustomRadixChanged = viewModel::updateCustomRadix,
+    )
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConverterScreen(
     converterUiState: ConverterUiState,
-    mainPadding: PaddingValues,
     onNumberSystemChanged: (NumberSystem) -> Unit,
     onCustomRadixChanged: (Radix) -> Unit,
 ) {
-    val layoutDirection = LocalLayoutDirection.current
-
     LazyColumn(
-        modifier = Modifier.imePadding(),
+        modifier = Modifier
+            .fillMaxSize()
+            .imePadding(),
         contentPadding = PaddingValues(
-            start = WindowInsets.navigationBars.asPaddingValues().calculateStartPadding(layoutDirection) + WindowInsets.displayCutout.asPaddingValues().calculateStartPadding(layoutDirection) + 8.dp,
-            top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding() + 8.dp,
-            end = WindowInsets.navigationBars.asPaddingValues().calculateEndPadding(layoutDirection) + WindowInsets.displayCutout.asPaddingValues().calculateEndPadding(layoutDirection) + 8.dp,
-            bottom = maxOf(mainPadding.calculateBottomPadding() + 64.dp, 72.dp) + 8.dp,
+            start = 8.dp,
+            top = 8.dp,
+            end = 8.dp,
+            bottom = 72.dp,
         ),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
@@ -126,35 +140,16 @@ fun ConverterScreen(
     }
 }
 
-@SuppressLint("Range")
-@Preview
+@Preview(device = "spec:width=411dp,height=891dp", wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE, uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL)
+@Preview(device = "spec:width=411dp,height=891dp", wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE, uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL)
 @Composable
 private fun PreviewConverterScreen() {
     NumberSystemsTheme {
         Surface {
             ConverterScreen(
                 converterUiState = ConverterUiState(),
-                mainPadding = PaddingValues(),
                 onNumberSystemChanged = {},
-                onCustomRadixChanged = {},
-            )
-        }
-    }
-}
-
-
-@SuppressLint("Range")
-@Preview
-@Composable
-private fun PreviewConverterScreenDark() {
-    NumberSystemsTheme(darkTheme = true) {
-        Surface {
-            ConverterScreen(
-                converterUiState = ConverterUiState(),
-                mainPadding = PaddingValues(),
-                onNumberSystemChanged = {},
-                onCustomRadixChanged = {},
-            )
+            ) {}
         }
     }
 }

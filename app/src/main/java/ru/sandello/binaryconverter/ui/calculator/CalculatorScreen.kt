@@ -1,5 +1,6 @@
 package ru.sandello.binaryconverter.ui.calculator
 
+import android.content.res.Configuration
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.BorderStroke
@@ -10,13 +11,15 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Wallpapers
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import numsys.model.NumberSystem
 import numsys.model.Radix
 import ru.sandello.binaryconverter.R
@@ -27,24 +30,37 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.utils.COMMA
 import ru.sandello.binaryconverter.utils.NS_DELIMITER
 
+@Composable
+fun CalculatorRoute(
+    viewModel: CalculatorViewModel = hiltViewModel(),
+) {
+    val calculatorUiState by viewModel.calculatorUiState.collectAsStateWithLifecycle()
+
+    CalculatorScreen(
+        calculatorUiState = calculatorUiState,
+        onNumberSystemChange = viewModel::convertFrom,
+        onRadixChange = viewModel::updateRadix,
+        onArithmeticChange = viewModel::selectArithmetic,
+    )
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CalculatorScreen(
     calculatorUiState: CalculatorUiState,
-    mainPadding: PaddingValues,
     onNumberSystemChange: (CalculatorOperandType, NumberSystem) -> Unit,
     onRadixChange: (CalculatorRadixType, Radix) -> Unit,
     onArithmeticChange: (ArithmeticType) -> Unit,
 ) {
-    val layoutDirection = LocalLayoutDirection.current
-
     LazyColumn(
-        modifier = Modifier.imePadding(),
+        modifier = Modifier
+            .fillMaxSize()
+            .imePadding(),
         contentPadding = PaddingValues(
-            start = WindowInsets.navigationBars.asPaddingValues().calculateStartPadding(layoutDirection) + WindowInsets.displayCutout.asPaddingValues().calculateStartPadding(layoutDirection) + 8.dp,
-            top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding() + 8.dp,
-            end = WindowInsets.navigationBars.asPaddingValues().calculateEndPadding(layoutDirection) + WindowInsets.displayCutout.asPaddingValues().calculateEndPadding(layoutDirection) + 8.dp,
-            bottom = maxOf(mainPadding.calculateBottomPadding() + 64.dp, 72.dp) + 8.dp,
+            start = 8.dp,
+            top = 8.dp,
+            end = 8.dp,
+            bottom = 72.dp,
         ),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
@@ -97,8 +113,8 @@ fun CalculatorScreen(
             ) {
                 calculatorUiState.arithmeticTypes.forEach { arithmetic ->
                     val checked = calculatorUiState.selectedArithmetic == arithmetic
-                    val border by animateDpAsState(if (checked) TextFieldDefaults.FocusedIndicatorThickness else TextFieldDefaults.UnfocusedIndicatorThickness)
-                    val borderColor by animateColorAsState(if (checked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline)
+                    val border by animateDpAsState(if (checked) TextFieldDefaults.FocusedIndicatorThickness else TextFieldDefaults.UnfocusedIndicatorThickness, label = "borderWidth")
+                    val borderColor by animateColorAsState(if (checked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline, label = "borderColor")
                     OutlinedIconToggleButton(
                         checked = checked,
                         onCheckedChange = { if (it) onArithmeticChange(arithmetic) },
@@ -195,34 +211,17 @@ fun CalculatorScreen(
     }
 }
 
+@Preview(device = "spec:width=411dp,height=891dp", wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE, uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL)
+@Preview(device = "spec:width=411dp,height=891dp", wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE, uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL)
 @Composable
-@Preview
 fun PreviewCalculatorScreen() {
     NumberSystemsTheme {
         Surface {
             CalculatorScreen(
                 calculatorUiState = CalculatorUiState(),
-                mainPadding = PaddingValues(),
                 onNumberSystemChange = { _, _ -> },
                 onRadixChange = { _, _ -> },
-                onArithmeticChange = {},
-            )
-        }
-    }
-}
-
-@Preview
-@Composable
-fun PreviewCalculatorScreenDark() {
-    NumberSystemsTheme(darkTheme = true) {
-        Surface {
-            CalculatorScreen(
-                calculatorUiState = CalculatorUiState(),
-                mainPadding = PaddingValues(),
-                onNumberSystemChange = { _, _ -> },
-                onRadixChange = { _, _ -> },
-                onArithmeticChange = {},
-            )
+            ) {}
         }
     }
 }

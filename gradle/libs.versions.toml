@@ -1,20 +1,24 @@
 [versions]
-androidGradlePlugin = "8.0.2"
-kotlin = "1.8.22"
-androidxComposeBom = "2023.06.01"
-compose-compiler = "1.4.8"
+androidGradlePlugin = "8.1.0"
+kotlin = "1.9.0"
+androidxComposeBom = "2023.08.00"
+compose-compiler = "1.5.0"
 activity = "1.7.2"
 splashscreen = "1.0.1"
 lifecycle = "2.6.1"
-navigation_compose = "2.6.0"
+navigation_compose = "2.7.0"
 hilt_navigation = "1.0.0"
-hilt = "2.46.1"
-datastore_preferences = "1.0.0"
+hilt = "2.47"
+datastore = "1.0.0"
 accompanist = "0.30.1"
 numsys = "0.0.3-rc"
-firebaseBom = "32.1.1"
-firebaseGradlePlugin = "2.9.2"
+firebaseBom = "32.2.2"
+crashlyticsGradlePlugin = "2.9.8"
 googleServices = "4.3.15"
+protobuf = "3.23.4"
+protobufPlugin = "0.9.4"
+appcompat = "1.6.1"
+browser = "1.6.0"
 
 [libraries]
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity" }
@@ -25,11 +29,14 @@ androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-material = { group = "androidx.compose.material", name = "material" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-material3-window-size = { group = "androidx.compose.material3", name = "material3-window-size-class" }
 androidx-compose-animation-graphics = { group = "androidx.compose.animation", name = "animation-graphics" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation_compose" }
-androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore_preferences" }
+androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
+androidx-datastore-proto = { group = "androidx.datastore", name = "datastore", version.ref = "datastore" }
 androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt_navigation" }
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+androidx-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose" }
 androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle" }
 accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanist" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
@@ -40,6 +47,13 @@ google-firebase-analytics-ktx = { group = "com.google.firebase", name = "firebas
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 hilt-gradlePlugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "hilt" }
-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebaseGradlePlugin" }
+crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "crashlyticsGradlePlugin" }
 google-services = { group = "com.google.gms", name = "google-services", version.ref = "googleServices" }
+protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protobuf" }
+protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-lite", version.ref = "protobuf" }
 github-jedi1150-numsys = { group = "com.github.jedi1150", name = "numsys", version.ref = "numsys" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "browser" }
+
+[plugins]
+protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }

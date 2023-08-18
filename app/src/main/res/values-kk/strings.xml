@@ -15,19 +15,15 @@
     <string name="explanation_convert_fractional">Он алтылық санның бөлшек бөлігін қалағанның негізіне бөліңіз</string>
     <string name="theme_light">Жарық</string>
     <string name="theme_dark">Қараңғы</string>
-    <string name="theme_system">Жүйе әдепкі</string>
-    <string name="cancel">Болдырмау</string>
+    <string name="theme_system_default">Жүйе әдепкі</string>
     <string name="settings_language">Тіл</string>
-    <string name="settings_help_with_translate">Аударма бойынша көмек</string>
     <string name="radix">Негіз (%d)</string>
     <string name="settings_theme">Тақырып</string>
-    <string name="review">Қолданбаға баға беріңіз және шолыңыз</string>
-    <string name="ad">Жарнама</string>
-    <string name="adWatch">қарау Ad</string>
-    <string name="adMessage">Сәлем!\nБіз шынымен де жарнама қосқымыз келмеді, бірақ бізге қаржылық қолдау қажет. Сонымен, сіз жарнамаларды көре аласыз немесе одан бас тарта аласыз.\nНазар аударғаныңызға рақмет!</string>
     <string name="explanation_convert_fractional_write_result">Нәтижені жоғарыдан төменге жазыңыз</string>
     <string name="explanation_convert_combine_integer_and_fractional_parts">Бүтін және бөлшек бөлшектерді қосыңыз</string>
     <string name="integer_part">Бүтін бөлігі</string>
     <string name="fractional_part">Бөлшек бөлігі</string>
     <string name="explanation_integer_division">Ондық санның бүтін бөлігін қажетті санау жүйесіне бөліңіз</string>
+    <string name="app_version">Нұсқа %s</string>
+    <string name="locale_system">Жүйе тілі</string>
 </resources>

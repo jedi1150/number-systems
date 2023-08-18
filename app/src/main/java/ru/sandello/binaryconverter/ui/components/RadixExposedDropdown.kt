@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package ru.sandello.binaryconverter.ui.components
 
 import androidx.compose.material3.*
@@ -10,6 +8,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import numsys.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RadixExposedDropdown(
     expanded: Boolean,
@@ -21,7 +20,7 @@ fun RadixExposedDropdown(
     modifier: Modifier = Modifier,
     isCompact: Boolean,
     trailingIcon: @Composable (() -> Unit)? = null,
-    shape: Shape = TextFieldDefaults.outlinedShape,
+    shape: Shape = OutlinedTextFieldDefaults.shape,
 ) {
     ExposedDropdownMenuBox(
         expanded = expanded,
@@ -38,7 +37,7 @@ fun RadixExposedDropdown(
                 trailingIcon = trailingIcon,
                 singleLine = true,
                 shape = shape,
-                colors = TextFieldDefaults.outlinedTextFieldColors(
+                colors = OutlinedTextFieldDefaults.colors(
                     disabledTextColor = MaterialTheme.colorScheme.onSurface,
                     disabledBorderColor = MaterialTheme.colorScheme.outline,
                     disabledLeadingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -56,7 +55,7 @@ fun RadixExposedDropdown(
                 trailingIcon = trailingIcon,
                 singleLine = true,
                 shape = shape,
-                colors = TextFieldDefaults.outlinedTextFieldColors(
+                colors = OutlinedTextFieldDefaults.colors(
                     disabledTextColor = MaterialTheme.colorScheme.onSurface,
                     disabledBorderColor = MaterialTheme.colorScheme.outline,
                     disabledLeadingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -80,6 +79,7 @@ fun RadixExposedDropdown(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
 private fun PreviewRadixExposedDropdownCompact() {
@@ -103,6 +103,7 @@ private fun PreviewRadixExposedDropdownCompact() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
 private fun PreviewRadixExposedDropdownDark() {
