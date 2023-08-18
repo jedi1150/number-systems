@@ -1,6 +1,5 @@
 package ru.sandello.binaryconverter
 
-//import com.google.android.gms.ads.interstitial.InterstitialAd
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -22,7 +21,6 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-//    private lateinit var ad: InterstitialAd
 
     private val viewModel: MainActivityViewModel by viewModels()
 
@@ -51,38 +49,6 @@ class MainActivity : AppCompatActivity() {
                 )
             }
         }
-
-//        Shared.resourcesHelper = ResourcesHelper(applicationContext)
-//        Shared.preferencesHelper = PreferencesHelper(applicationContext)
-
-        /*val adDialog = AlertDialog.Builder(this)
-        adDialog.setTitle(getString(R.string.ad))
-        adDialog.setMessage(getString(R.string.adMessage))
-        adDialog.setCancelable(false)
-        adDialog.setPositiveButton(getString(R.string.adWatch)) { _, _ ->
-            ad.show(this)
-        }
-        adDialog.setNeutralButton(android.R.string.cancel) { _, _ ->
-        }
-
-        val adRequest = AdRequest.Builder().build()
-
-        MobileAds.setRequestConfiguration(RequestConfiguration.Builder().setTestDeviceIds(listOf("E391F97E4B9B64A011FDEE11C58AEECF")).build())
-        InterstitialAd.load(this, "ca-app-pub-3591700046184217/4193658783", adRequest, object : InterstitialAdLoadCallback() {
-            override fun onAdFailedToLoad(adError: LoadAdError) {
-                Log.d("adMob", adError.message)
-                ad
-            }
-
-            override fun onAdLoaded(interstitialAd: InterstitialAd) {
-                Log.d("adMob", "Ad was loaded.")
-                ad = interstitialAd
-                GlobalScope.launch(Dispatchers.Main) {
-                    delay(DurationUnit.SECONDS.toMillis(30))
-                    adDialog.show()
-                }
-            }
-        })*/
     }
 
 }

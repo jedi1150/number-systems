@@ -2,7 +2,6 @@ package ru.sandello.binaryconverter.ui
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.expandIn
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -67,7 +66,7 @@ import ru.sandello.binaryconverter.ui.navigation.TopLevelDestination
 import ru.sandello.binaryconverter.ui.navigation.TopLevelDestination.CALCULATOR
 import ru.sandello.binaryconverter.ui.navigation.TopLevelDestination.CONVERTER
 
-@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class, ExperimentalAnimationApi::class)
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun NumberSystemsApp(
     windowSizeClass: WindowSizeClass,

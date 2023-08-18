@@ -2,7 +2,6 @@ package ru.sandello.binaryconverter.ui.explanation
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
 import androidx.compose.animation.graphics.res.animatedVectorResource
@@ -22,7 +21,7 @@ import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.ui.components.RadixExposedDropdown
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class, ExperimentalAnimationGraphicsApi::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationGraphicsApi::class)
 @Composable
 fun ExplanationScreen(
     explanationUiState: ExplanationUiState,
