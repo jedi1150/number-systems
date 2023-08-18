@@ -21,8 +21,8 @@ jobs:
         cache: gradle
     - name: Create Google Services JSON File
       env:
-        GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES }}
-      run: echo $GOOGLE_SERVICES | base64 -di > ${{ github.workspace }}/app/google-services.json
+        GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+      run: echo $GOOGLE_SERVICES_JSON | base64 -di > ${{ github.workspace }}/app/google-services.json
     - name: Build APK
       run: bash ./gradlew assembleDevDebug --stacktrace
     - name: Upload APK
