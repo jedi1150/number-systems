@@ -1,5 +1,6 @@
 package ru.sandello.binaryconverter.ui.calculator
 
+import android.content.res.Configuration
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.BorderStroke
@@ -15,6 +16,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Wallpapers
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -51,7 +53,9 @@ fun CalculatorScreen(
     onArithmeticChange: (ArithmeticType) -> Unit,
 ) {
     LazyColumn(
-        modifier = Modifier.imePadding(),
+        modifier = Modifier
+            .fillMaxSize()
+            .imePadding(),
         contentPadding = PaddingValues(
             start = 8.dp,
             top = 8.dp,
@@ -207,24 +211,11 @@ fun CalculatorScreen(
     }
 }
 
+@Preview(device = "spec:width=411dp,height=891dp", wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE, uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL)
+@Preview(device = "spec:width=411dp,height=891dp", wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE, uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL)
 @Composable
-@Preview
 fun PreviewCalculatorScreen() {
     NumberSystemsTheme {
-        Surface {
-            CalculatorScreen(
-                calculatorUiState = CalculatorUiState(),
-                onNumberSystemChange = { _, _ -> },
-                onRadixChange = { _, _ -> },
-            ) {}
-        }
-    }
-}
-
-@Preview
-@Composable
-fun PreviewCalculatorScreenDark() {
-    NumberSystemsTheme(darkTheme = true) {
         Surface {
             CalculatorScreen(
                 calculatorUiState = CalculatorUiState(),
