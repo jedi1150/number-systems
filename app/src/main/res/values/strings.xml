@@ -31,6 +31,7 @@
     <string name="settings_language">Language</string>
     <string name="settings_localization">Localization</string>
     <string name="settings_github" translatable="false">GitHub</string>
+    <string name="app_version">Version %s</string>
 
     <string name="locale_system">System language</string>
 

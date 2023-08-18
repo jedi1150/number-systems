@@ -30,5 +30,6 @@
     <string name="integer_part">Суцэльная частка</string>
     <string name="fractional_part">Дробавая частка</string>
     <string name="explanation_integer_division">Падзяліце цэлую частку дзесятковага ліку на жаданую сістэму злічэння</string>
+    <string name="app_version">Версія %s</string>
     <string name="locale_system">Мова сістэмы</string>
 </resources>

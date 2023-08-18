@@ -30,5 +30,6 @@
     <string name="integer_part">Butun sonli qism</string>
     <string name="fractional_part">Fraksiyonel qism</string>
     <string name="explanation_integer_division">O\'nlik sonning butun qismini kerakli sanoq sistemasiga bo\'ling</string>
+    <string name="app_version">Versiya %s</string>
     <string name="locale_system">Tizim tili</string>
 </resources>
