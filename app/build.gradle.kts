@@ -24,10 +24,6 @@ android {
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
-        named("debug") {
-            isMinifyEnabled = true
-            isShrinkResources = true
-        }
     }
     flavorDimensions += listOf("flavor-type")
     productFlavors {
