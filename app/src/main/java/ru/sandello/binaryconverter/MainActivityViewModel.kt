@@ -14,11 +14,11 @@ import javax.inject.Inject
 class MainActivityViewModel @Inject constructor(
     settingsRepository: OfflineSettingsRepository,
 ) : ViewModel() {
-    val uiState: StateFlow<MainUiState> = settingsRepository.settingsData.map {
-        MainUiState(it)
+    val uiState: StateFlow<MainUiState> = settingsRepository.settingsData.map { settingsData ->
+        MainUiState.Success(settingsData)
     }.stateIn(
         scope = viewModelScope,
-        initialValue = MainUiState(),
+        initialValue = MainUiState.Loading,
         started = SharingStarted.WhileSubscribed(5_000)
     )
 }

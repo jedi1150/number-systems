@@ -2,6 +2,7 @@ package ru.sandello.binaryconverter
 
 import ru.sandello.binaryconverter.model.SettingsData
 
-data class MainUiState(
-    val settings: SettingsData = SettingsData(),
-)
+sealed interface MainUiState {
+    data object Loading : MainUiState
+    data class Success(val settings: SettingsData = SettingsData()) : MainUiState
+}

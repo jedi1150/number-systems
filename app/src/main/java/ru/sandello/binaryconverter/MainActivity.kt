@@ -1,20 +1,27 @@
 package ru.sandello.binaryconverter
 
 import android.os.Bundle
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.core.view.WindowCompat
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import ru.sandello.binaryconverter.model.data.ThemeType
 import ru.sandello.binaryconverter.ui.NumberSystemsApp
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
@@ -26,19 +33,43 @@ class MainActivity : AppCompatActivity() {
 
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     public override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
+        val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
 
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+        var uiState: MainUiState by mutableStateOf(MainUiState.Loading)
+
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState
+                    .onEach { state ->
+                        uiState = state
+                    }
+                    .collect()
+            }
+        }
+
+        splashScreen.setKeepOnScreenCondition {
+            when (uiState) {
+                MainUiState.Loading -> true
+                is MainUiState.Success -> false
+            }
+        }
 
         setContent {
-            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
-            val systemUiController = rememberSystemUiController()
             val darkTheme = shouldUseDarkTheme(uiState)
 
-            LaunchedEffect(systemUiController, darkTheme) {
-                systemUiController.systemBarsDarkContentEnabled = !darkTheme
+            DisposableEffect(darkTheme) {
+                enableEdgeToEdge(
+                    statusBarStyle = SystemBarStyle.auto(
+                        android.graphics.Color.TRANSPARENT,
+                        android.graphics.Color.TRANSPARENT,
+                    ) { darkTheme },
+                    navigationBarStyle = SystemBarStyle.auto(
+                        android.graphics.Color.argb(0xe6, 0xFF, 0xFF, 0xFF),
+                        android.graphics.Color.argb(0x80, 0x1b, 0x1b, 0x1b),
+                    ) { darkTheme },
+                )
+                onDispose {}
             }
 
             NumberSystemsTheme(
@@ -56,8 +87,11 @@ class MainActivity : AppCompatActivity() {
 @Composable
 private fun shouldUseDarkTheme(
     uiState: MainUiState,
-): Boolean = when (uiState.settings.themeType) {
-    ThemeType.SYSTEM -> isSystemInDarkTheme()
-    ThemeType.LIGHT -> false
-    ThemeType.DARK -> true
+): Boolean = when (uiState) {
+    MainUiState.Loading -> isSystemInDarkTheme()
+    is MainUiState.Success -> when (uiState.settings.themeType) {
+        ThemeType.SYSTEM -> isSystemInDarkTheme()
+        ThemeType.LIGHT -> false
+        ThemeType.DARK -> true
+    }
 }
