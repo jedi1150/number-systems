@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.gms)
-    alias(libs.plugins.ksp)
     alias(libs.plugins.protobuf)
     alias(libs.plugins.hilt)
 }
