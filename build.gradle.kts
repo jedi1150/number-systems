@@ -3,20 +3,15 @@ buildscript {
         google()
         mavenCentral()
     }
-    dependencies {
-        classpath(libs.android.gradlePlugin)
-        classpath(libs.kotlin.gradlePlugin)
-        classpath(libs.hilt.gradlePlugin)
-        classpath(libs.crashlytics.gradlePlugin)
-        classpath(libs.google.services)
-        classpath(libs.google.services)
-    }
 }
 
-subprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven { setUrl("https://jitpack.io") }
-    }
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.kotlin) apply false
+    alias(libs.plugins.android.kapt) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.firebase.crashlytics) apply false
+    alias(libs.plugins.gms) apply false
+    alias(libs.plugins.hilt) apply false
+    alias(libs.plugins.ksp) apply false
 }

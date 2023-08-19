@@ -1,11 +1,13 @@
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.kotlin)
+    alias(libs.plugins.android.kapt)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.gms)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.protobuf)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -106,5 +108,8 @@ dependencies {
     implementation(platform(libs.google.firebase.bom))
     implementation(libs.google.firebase.crashlytics.ktx)
     implementation(libs.google.firebase.analytics.ktx)
+}
 
+kapt {
+    correctErrorTypes = true
 }
