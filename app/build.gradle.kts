@@ -16,7 +16,7 @@ android {
         applicationId = "ru.sandello.binaryconverter"
         minSdk = 21
         targetSdk = 34
-        versionCode = 123
+        versionCode = 124
         versionName = "2.1.0"
     }
     buildTypes {
