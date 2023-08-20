@@ -38,6 +38,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.Wallpapers
 import androidx.compose.ui.unit.dp
+import androidx.core.content.pm.PackageInfoCompat
 import androidx.core.os.LocaleListCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -56,18 +57,19 @@ fun SettingsRoute(viewModel: SettingsViewModel = hiltViewModel()) {
     val context = LocalContext.current
     val packageManager = context.packageManager
     val packageName = context.packageName
-    val versionName = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+    val packageInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         packageManager.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(0))
     } else {
         packageManager.getPackageInfo(packageName, 0)
-    }.versionName
+    }
+    val appVersion = stringResource(R.string.app_version, packageInfo.versionName, PackageInfoCompat.getLongVersionCode(packageInfo))
 
     val settingsUiState by viewModel.settingsUiState.collectAsStateWithLifecycle()
     val backgroundColor = MaterialTheme.colorScheme.background.toArgb()
 
     SettingsScreen(
         settingsUiState = settingsUiState,
-        appVersion = versionName,
+        appVersion = appVersion,
         onChangeThemeType = viewModel::updateThemeType,
         onChangeLocale = { locale ->
             viewModel.updateLocale(locale)
@@ -190,7 +192,7 @@ fun SettingsScreen(
                 contentAlignment = Alignment.BottomCenter,
             ) {
                 Text(
-                    text = stringResource(R.string.app_version, appVersion),
+                    text = appVersion,
                     modifier = Modifier.padding(16.dp),
                     style = Typography.bodySmall,
                 )

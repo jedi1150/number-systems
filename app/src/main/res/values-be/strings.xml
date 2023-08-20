@@ -25,6 +25,6 @@
     <string name="fractional_part">Дробавая частка</string>
     <string name="explanation_integer_division">Падзяліце цэлую частку дзесятковага ліку на жаданую сістэму злічэння</string>
     <string name="settings_privacy_policy">Палітыка прыватнасці</string>
-    <string name="app_version">Версія %s</string>
+    <string name="app_version">Версія %1$s (%2$d)</string>
     <string name="locale_system">Мова сістэмы</string>
 </resources>
