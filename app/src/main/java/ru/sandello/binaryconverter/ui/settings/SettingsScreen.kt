@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -47,6 +48,7 @@ import ru.sandello.binaryconverter.ui.settings.components.SettingsThemeDialog
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.ui.theme.Typography
 import ru.sandello.binaryconverter.utils.GITHUB_URL
+import ru.sandello.binaryconverter.utils.PRIVACY_POLICY_URL
 import java.util.Locale
 
 @Composable
@@ -164,12 +166,21 @@ fun SettingsScreen(
                         )
                     },
                 )
+                Divider()
                 ListItem(
                     headlineContent = {
                         Text(text = stringResource(id = R.string.settings_github))
                     },
                     modifier = Modifier.clickable {
                         onLinkClicked(GITHUB_URL)
+                    },
+                )
+                ListItem(
+                    headlineContent = {
+                        Text(text = stringResource(id = R.string.settings_privacy_policy))
+                    },
+                    modifier = Modifier.clickable {
+                        onLinkClicked(PRIVACY_POLICY_URL)
                     },
                 )
             }

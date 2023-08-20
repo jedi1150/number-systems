@@ -29,6 +29,7 @@
     <string name="theme_system_default">System default</string>
     <string name="settings_language">Language</string>
     <string name="settings_github" translatable="false">GitHub</string>
+    <string name="settings_privacy_policy">Privacy policy</string>
     <string name="app_version">Version %s</string>
 
     <string name="locale_system">System language</string>
