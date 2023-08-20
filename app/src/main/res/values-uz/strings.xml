@@ -27,4 +27,5 @@
     <string name="settings_privacy_policy">Maxfiylik siyosati</string>
     <string name="app_version">Versiya %1$s (%2$d)</string>
     <string name="locale_system">Tizim tili</string>
+    <string name="settings_contribute_description">Ilovaga hissa qo\'shing</string>
 </resources>

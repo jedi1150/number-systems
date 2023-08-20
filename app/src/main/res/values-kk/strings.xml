@@ -27,4 +27,5 @@
     <string name="settings_privacy_policy">Құпиялылық саясаты</string>
     <string name="app_version">Нұсқа %1$s (%2$d)</string>
     <string name="locale_system">Жүйе тілі</string>
+    <string name="settings_contribute_description">Қолданбаға үлес қосыңыз</string>
 </resources>

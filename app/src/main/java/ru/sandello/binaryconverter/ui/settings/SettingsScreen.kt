@@ -176,6 +176,11 @@ fun SettingsScreen(
                     modifier = Modifier.clickable {
                         onLinkClicked(GITHUB_URL)
                     },
+                    supportingContent = {
+                        Text(
+                            text = stringResource(R.string.settings_contribute_description),
+                        )
+                    },
                 )
                 ListItem(
                     headlineContent = {
