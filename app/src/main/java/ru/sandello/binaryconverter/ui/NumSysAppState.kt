@@ -22,6 +22,7 @@ import ru.sandello.binaryconverter.ui.navigation.TopLevelDestination.CALCULATOR
 import ru.sandello.binaryconverter.ui.navigation.TopLevelDestination.CONVERTER
 import ru.sandello.binaryconverter.ui.navigation.TopLevelDestination.SETTINGS
 import ru.sandello.binaryconverter.ui.settings.navigation.navigateToSettings
+import ru.sandello.binaryconverter.ui.settings.navigation.settingsRoute
 
 @Composable
 fun rememberNumSysAppState(
@@ -53,6 +54,7 @@ class NumSysAppState(
         @Composable get() = when (currentDestination?.route) {
             converterRoute -> CONVERTER
             calculatorRoute -> CALCULATOR
+            settingsRoute -> SETTINGS
             else -> null
         }
 
