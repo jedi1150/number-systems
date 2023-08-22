@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.android.kotlin)
     alias(libs.plugins.android.kapt)
-    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.gms)
     alias(libs.plugins.protobuf)
