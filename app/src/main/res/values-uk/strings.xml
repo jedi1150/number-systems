@@ -12,7 +12,7 @@
     <string name="explanation_convert_to_decimal">Перетворення на десяткову</string>
     <string name="explanation_reverse_result">Результат запишіть у зворотному порядку</string>
     <string name="screen_settings">Налаштування</string>
-    <string name="explanation_convert_fractional">Розділіть дрібну частину десяткового числа на основу потрібного</string>
+    <string name="explanation_convert_fractional">Помножте дробову частину десяткового числа на основу шуканого</string>
     <string name="theme_light">Світло</string>
     <string name="theme_dark">Темний</string>
     <string name="theme_system_default">Система за замовчуванням</string>

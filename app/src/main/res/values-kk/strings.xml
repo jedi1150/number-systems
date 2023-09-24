@@ -12,7 +12,7 @@
     <string name="explanation_convert_to_decimal">Ондық санды түрлендіру</string>
     <string name="explanation_reverse_result">Нәтижені кері ретпен жазыңыз</string>
     <string name="screen_settings">Параметрлер</string>
-    <string name="explanation_convert_fractional">Ондық санның бөлшек бөлігін дұрыс негізге бөліңіз</string>
+    <string name="explanation_convert_fractional">Ондық санның бөлшек бөлігін қажетті санның негізіне көбейтіңіз</string>
     <string name="theme_light">Жарық</string>
     <string name="theme_dark">Қараңғы</string>
     <string name="theme_system_default">Жүйе әдепкі</string>

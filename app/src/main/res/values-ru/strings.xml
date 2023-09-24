@@ -12,7 +12,7 @@
     <string name="explanation_convert_to_decimal">Преобразование в десятичную</string>
     <string name="explanation_reverse_result">Полученный результат записать в обратной последовательности</string>
     <string name="screen_settings">Настройки</string>
-    <string name="explanation_convert_fractional">Разделите дробную часть десятичного числа на основание нужного</string>
+    <string name="explanation_convert_fractional">Умножьте дробную часть десятичного числа на основание искомого</string>
     <string name="explanation_convert_fractional_write_result">Запишите результат сверху вниз</string>
     <string name="explanation_convert_combine_integer_and_fractional_parts">Сложить целую и дробную части</string>
     <string name="theme_light">Светлая</string>

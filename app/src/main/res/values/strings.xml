@@ -19,7 +19,7 @@
     <string name="explanation_convert_to_decimal">Convert to decimal</string>
     <string name="explanation_integer_division">Divide the integer part of the decimal number by the desired radix</string>
     <string name="explanation_reverse_result">Write the result in reverse order</string>
-    <string name="explanation_convert_fractional">Divide the fractional part of the decimal number by the radix of the desired</string>
+    <string name="explanation_convert_fractional">Multiply the fractional part of the decimal number by the radix of the desired</string>
     <string name="explanation_convert_fractional_write_result">Write the result from top to bottom</string>
     <string name="explanation_convert_combine_integer_and_fractional_parts">Add the integer and fractional parts</string>
 
