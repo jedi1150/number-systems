@@ -12,7 +12,7 @@
     <string name="explanation_convert_to_decimal">Пераўтварэнне ў дзесятковую</string>
     <string name="explanation_reverse_result">Выпішыце вынік у зваротным парадку</string>
     <string name="screen_settings">Налады</string>
-    <string name="explanation_convert_fractional">Падзяліце дробавую частку шаснаццатковага ліку на падставу патрэбнага</string>
+    <string name="explanation_convert_fractional">Падзяліце дробавую частку дзесятковага ліку на неабходную аснову</string>
     <string name="theme_light">Святло</string>
     <string name="theme_dark">Цёмны</string>
     <string name="theme_system_default">Сістэма па змаўчанні</string>

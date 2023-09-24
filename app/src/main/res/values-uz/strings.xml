@@ -12,7 +12,7 @@
     <string name="explanation_convert_to_decimal">O\'nlik kasrga aylantirish</string>
     <string name="explanation_reverse_result">Natijani teskari tartibda yozing</string>
     <string name="screen_settings">Sozlamalar</string>
-    <string name="explanation_convert_fractional">O\'n oltilik sonning kasr qismini kerakli asosga bo\'ling</string>
+    <string name="explanation_convert_fractional">O\'nlik sonning kasr qismini kerakli sonning asosiga bo\'ling</string>
     <string name="theme_light">Yorug\'lik</string>
     <string name="theme_dark">Qorong\'i</string>
     <string name="theme_system_default">Tizim birlamchi</string>
