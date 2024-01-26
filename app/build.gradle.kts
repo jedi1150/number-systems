@@ -1,11 +1,11 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.android.kotlin)
-    alias(libs.plugins.android.kapt)
-    alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.firebaseCrashlytics)
     alias(libs.plugins.gms)
-    alias(libs.plugins.protobuf)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.protobuf)
 }
 
 android {
@@ -80,15 +80,30 @@ protobuf {
     }
 }
 
+androidComponents {
+    onVariants(selector().all()) { variant ->
+        afterEvaluate {
+            val protoTask =
+                project.tasks.getByName("generate" + variant.name.replaceFirstChar { it.uppercaseChar() } + "Proto") as com.google.protobuf.gradle.GenerateProtoTask
+
+            project.tasks.getByName("ksp" + variant.name.replaceFirstChar { it.uppercaseChar() } + "Kotlin") {
+                dependsOn(protoTask)
+                (this as org.jetbrains.kotlin.gradle.tasks.AbstractKotlinCompileTool<*>).setSource(
+                    protoTask.outputBaseDir
+                )
+            }
+        }
+    }
+}
+
 dependencies {
-    implementation(libs.androidx.activity.ktx)
+    implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.tooling)
-    implementation(libs.androidx.compose.material)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material3.window.size)
     implementation(libs.androidx.compose.animation.graphics)
@@ -96,23 +111,19 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.datastore.proto)
-    implementation(libs.hilt.android)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.browser)
-    implementation(libs.material)
-    kapt(libs.hilt.compiler)
+    implementation(libs.android.material)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.protobuf.kotlin.lite)
-    implementation(libs.github.jedi1150.numsys)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    implementation(libs.numsys)
 
     // Firebase
     implementation(platform(libs.google.firebase.bom))
     implementation(libs.google.firebase.crashlytics.ktx)
     implementation(libs.google.firebase.analytics.ktx)
-}
-
-kapt {
-    correctErrorTypes = true
 }

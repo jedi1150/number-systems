@@ -1,38 +1,39 @@
 [versions]
 androidGradlePlugin = "8.2.2"
-kotlin = "1.9.0"
-androidxComposeBom = "2023.08.00"
-androidxComposeCompiler = "1.5.0"
-androidxActivity = "1.8.0-alpha06"
-androidxCore = "1.10.1"
-androidxCoreSplashscreen = "1.0.1"
-androidxLifecycle = "2.6.1"
-androidxHiltNavigationCompose = "1.0.0"
-androidxDataStore = "1.0.0"
+androidMaterial = "1.11.0"
+androidxActivity = "1.8.2"
 androidxAppCompat = "1.6.1"
-androidxBrowser = "1.6.0"
-androidxNavigation = "2.7.0"
-material = "1.9.0"
-hilt = "2.47"
+androidxBrowser = "1.7.0"
+androidxComposeBom = "2024.01.00"
+androidxComposeCompiler = "1.5.8"
+androidxCore = "1.12.0"
+androidxCoreSplashscreen = "1.0.1"
+androidxDataStore = "1.0.0"
+androidxHiltNavigationCompose = "1.1.0"
+androidxLifecycle = "2.7.0"
+androidxNavigation = "2.7.6"
+firebaseBom = "32.7.1"
+firebaseCrashlyticsPlugin = "2.9.9"
+gmsPlugin = "4.4.0"
+hilt = "2.50"
 numsys = "0.0.3-rc"
-firebaseBom = "32.2.2"
-firebaseCrashlyticsPlugin = "2.9.8"
-gmsPlugin = "4.3.15"
-protobuf = "3.23.4"
+kotlin = "1.9.22"
+ksp = "1.9.22-1.0.16"
+protobuf = "3.25.1"
 protobufPlugin = "0.9.4"
 
 [libraries]
-androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidxActivity" }
-androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
-androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxCoreSplashscreen" }
+android-material = { group = "com.google.android.material", name = "material", version.ref = "androidMaterial" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
-androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
-androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
-androidx-compose-material = { group = "androidx.compose.material", name = "material" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-compose-material3-window-size = { group = "androidx.compose.material3", name = "material3-window-size-class" }
 androidx-compose-animation-graphics = { group = "androidx.compose.animation", name = "animation-graphics" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
+androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxCoreSplashscreen" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigation" }
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "androidxDataStore" }
 androidx-datastore-proto = { group = "androidx.datastore", name = "datastore", version.ref = "androidxDataStore" }
@@ -45,25 +46,17 @@ hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", v
 google-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
 google-firebase-crashlytics-ktx = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
 google-firebase-analytics-ktx = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
-hilt-gradlePlugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "hilt" }
-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebaseCrashlyticsPlugin" }
-google-services = { group = "com.google.gms", name = "google-services", version.ref = "gmsPlugin" }
 protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protobuf" }
 protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-lite", version.ref = "protobuf" }
-github-jedi1150-numsys = { group = "com.github.jedi1150", name = "numsys", version.ref = "numsys" }
+numsys = { group = "com.github.jedi1150", name = "numsys", version.ref = "numsys" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
 androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "androidxBrowser" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-
-android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
-firebase-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebaseCrashlyticsPlugin" }
-kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 
 [plugins]
-android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
-android-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-android-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
+androidApplication = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+firebaseCrashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
 gms = { id = "com.google.gms.google-services", version.ref = "gmsPlugin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
