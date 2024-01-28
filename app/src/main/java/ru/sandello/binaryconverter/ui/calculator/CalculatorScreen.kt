@@ -1,10 +1,8 @@
 package ru.sandello.binaryconverter.ui.calculator
 
 import android.content.res.Configuration
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,13 +14,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedIconToggleButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -132,33 +130,32 @@ fun CalculatorScreen(
             }
         }
         item {
-            Row(
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+                contentAlignment = Alignment.Center,
             ) {
-                calculatorUiState.arithmeticTypes.forEach { arithmetic ->
-                    val checked = calculatorUiState.selectedArithmetic == arithmetic
-                    val border by animateDpAsState(if (checked) TextFieldDefaults.FocusedIndicatorThickness else TextFieldDefaults.UnfocusedIndicatorThickness, label = "borderWidth")
-                    val borderColor by animateColorAsState(if (checked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline, label = "borderColor")
-                    OutlinedIconToggleButton(
-                        checked = checked,
-                        onCheckedChange = { if (it) onArithmeticChange(arithmetic) },
-                        shape = MaterialTheme.shapes.medium,
-                        border = BorderStroke(border, color = borderColor),
-                        colors = IconButtonDefaults.outlinedIconToggleButtonColors(checkedContainerColor = MaterialTheme.colorScheme.primaryContainer)
-                    ) {
-                        Text(
-                            text = when (arithmetic) {
-                                Addition -> "+"
-                                Subtraction -> "-"
-                                Multiply -> "×"
-                                Divide -> "÷"
-                            },
-                            fontFamily = RobotoMonoFamily,
-                            style = MaterialTheme.typography.bodyLarge,
-                        )
+                SingleChoiceSegmentedButtonRow {
+                    calculatorUiState.arithmeticTypes.forEachIndexed { index, arithmeticType ->
+                        val checked = calculatorUiState.selectedArithmetic == arithmeticType
+                        SegmentedButton(
+                            shape = SegmentedButtonDefaults.itemShape(index = index, count = calculatorUiState.arithmeticTypes.size),
+                            onClick = { onArithmeticChange(arithmeticType) },
+                            selected = checked,
+                            icon = {},
+                        ) {
+                            Text(
+                                text = when (arithmeticType) {
+                                    Addition -> "+"
+                                    Subtraction -> "-"
+                                    Multiply -> "×"
+                                    Divide -> "÷"
+                                },
+                                fontFamily = RobotoMonoFamily,
+                                style = MaterialTheme.typography.bodyLarge,
+                            )
+                        }
                     }
                 }
             }
