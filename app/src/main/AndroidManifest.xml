@@ -17,6 +17,7 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.NumberSystems.Splash"
+            android:windowSoftInputMode="adjustResize"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
