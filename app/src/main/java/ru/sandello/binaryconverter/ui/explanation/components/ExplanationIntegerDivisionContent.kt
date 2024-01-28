@@ -26,7 +26,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 @Composable
-fun ExplanationIntegerDivision(from: NumberSystem, to: NumberSystem) {
+fun ExplanationIntegerDivisionContent(from: NumberSystem, to: NumberSystem) {
     val fromDecimal = from.value.substringBefore(NS_DELIMITER)
     var iterations = 0
     val maxIterations = 12
@@ -45,7 +45,7 @@ fun ExplanationIntegerDivision(from: NumberSystem, to: NumberSystem) {
     } while (divisionList.last().quotient > BigDecimal("0") && iterations < maxIterations)
 
     Column(
-        modifier = Modifier.padding(vertical = 8.dp),
+        modifier = Modifier.padding(bottom = 8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         ExplanationDescription(stringResource(id = R.string.explanation_integer_division))
@@ -99,7 +99,7 @@ private fun longDivision(dividend: BigDecimal, divisor: Int): Division {
 private fun PreviewExplanationIntegerDivision() {
     NumberSystemsTheme {
         Surface {
-            ExplanationIntegerDivision(NumberSystem("10.5", Radix.DEC), NumberSystem("1010.1", Radix.BIN))
+            ExplanationIntegerDivisionContent(NumberSystem("10.5", Radix.DEC), NumberSystem("1010.1", Radix.BIN))
         }
     }
 }
@@ -109,7 +109,7 @@ private fun PreviewExplanationIntegerDivision() {
 private fun PreviewExplanationIntegerDivisionDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            ExplanationIntegerDivision(NumberSystem("25", Radix.DEC), NumberSystem("11001", Radix.BIN))
+            ExplanationIntegerDivisionContent(NumberSystem("25", Radix.DEC), NumberSystem("11001", Radix.BIN))
         }
     }
 }

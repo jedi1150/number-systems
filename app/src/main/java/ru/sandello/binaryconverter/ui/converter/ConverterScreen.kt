@@ -1,13 +1,29 @@
 package ru.sandello.binaryconverter.ui.converter
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -22,6 +38,7 @@ import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.ui.OperandVisualTransformation
 import ru.sandello.binaryconverter.ui.components.RadixExposedDropdown
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
+import ru.sandello.binaryconverter.ui.theme.RobotoMonoFamily
 import ru.sandello.binaryconverter.utils.COMMA
 import ru.sandello.binaryconverter.utils.NS_DELIMITER
 
@@ -62,6 +79,7 @@ fun ConverterScreen(
                 value = converterUiState.numberSystem10.value,
                 onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue.replace(COMMA, NS_DELIMITER), radix = converterUiState.numberSystem10.radix)) },
                 modifier = Modifier.fillMaxWidth(),
+                textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                 label = { Text(stringResource(R.string.dec)) },
                 visualTransformation = OperandVisualTransformation(converterUiState.numberSystem10.radix),
                 isError = converterUiState.numberSystem10Error,
@@ -74,6 +92,7 @@ fun ConverterScreen(
                 value = converterUiState.numberSystem2.value,
                 onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue.replace(COMMA, NS_DELIMITER), radix = converterUiState.numberSystem2.radix)) },
                 modifier = Modifier.fillMaxWidth(),
+                textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                 label = { Text(stringResource(R.string.bin)) },
                 isError = converterUiState.numberSystem2Error,
                 visualTransformation = OperandVisualTransformation(converterUiState.numberSystem2.radix),
@@ -86,6 +105,7 @@ fun ConverterScreen(
                 value = converterUiState.numberSystem8.value,
                 onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue.replace(COMMA, NS_DELIMITER), converterUiState.numberSystem8.radix)) },
                 modifier = Modifier.fillMaxWidth(),
+                textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                 label = { Text(stringResource(R.string.oct)) },
                 isError = converterUiState.numberSystem8Error,
                 visualTransformation = OperandVisualTransformation(converterUiState.numberSystem8.radix),
@@ -98,6 +118,7 @@ fun ConverterScreen(
                 value = converterUiState.numberSystem16.value,
                 onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue.replace(COMMA, NS_DELIMITER), radix = converterUiState.numberSystem16.radix)) },
                 modifier = Modifier.fillMaxWidth(),
+                textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                 label = { Text(stringResource(R.string.hex)) },
                 isError = converterUiState.numberSystem16Error,
                 visualTransformation = OperandVisualTransformation(converterUiState.numberSystem16.radix),
@@ -111,6 +132,7 @@ fun ConverterScreen(
                     value = converterUiState.numberSystemCustom.value,
                     onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue.replace(COMMA, NS_DELIMITER), radix = converterUiState.numberSystemCustom.radix)) },
                     modifier = Modifier.weight(1f),
+                    textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                     label = { Text(stringResource(R.string.radix, converterUiState.numberSystemCustom.radix.value)) },
                     isError = converterUiState.numberSystemCustomError,
                     visualTransformation = OperandVisualTransformation(converterUiState.numberSystemCustom.radix),

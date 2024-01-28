@@ -35,12 +35,8 @@ fun ExplanationContent(from: NumberSystem, to: NumberSystem) {
     LazyColumn(state = lazyListState) {
         stickyHeader {
             ExplanationTitle(
-                stringResource(id = R.string.explanation_result),
-                contentPaddingValues = PaddingValues(
-                    start = 16.dp,
-                    top = 8.dp,
-                    end = 16.dp,
-                )
+                text = stringResource(id = R.string.explanation_result),
+                contentPaddingValues = PaddingValues(start = 16.dp, top = 16.dp, end = 16.dp)
             )
         }
         stickyHeader {

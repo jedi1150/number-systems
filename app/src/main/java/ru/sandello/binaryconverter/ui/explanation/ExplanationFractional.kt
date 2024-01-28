@@ -9,8 +9,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import numsys.model.NumberSystem
 import numsys.model.Radix
 import ru.sandello.binaryconverter.R
-import ru.sandello.binaryconverter.ui.explanation.components.ExplanationAddIntegerAndFractional
-import ru.sandello.binaryconverter.ui.explanation.components.ExplanationFractionalMultiplier
+import ru.sandello.binaryconverter.ui.explanation.components.ExplanationAddIntegerAndFractionalContent
+import ru.sandello.binaryconverter.ui.explanation.components.ExplanationFractionalMultiplierContent
 import ru.sandello.binaryconverter.ui.explanation.components.ExplanationTitle
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
@@ -18,8 +18,8 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 fun ExplanationFractional(from: NumberSystem, to: NumberSystem) {
     Column {
         ExplanationTitle(stringResource(R.string.fractional_part))
-        ExplanationFractionalMultiplier(from = from, to = to)
-        ExplanationAddIntegerAndFractional(to = to)
+        ExplanationFractionalMultiplierContent(from = from, to = to)
+        ExplanationAddIntegerAndFractionalContent(to = to)
     }
 }
 

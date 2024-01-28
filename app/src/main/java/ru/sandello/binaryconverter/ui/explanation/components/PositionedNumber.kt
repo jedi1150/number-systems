@@ -10,12 +10,13 @@ import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
+import ru.sandello.binaryconverter.ui.theme.RobotoMonoFamily
 
 @Composable
 fun positionedNumber(number: Int, position: Int): AnnotatedString {
     return buildAnnotatedString {
         append(number.toString())
-        withStyle(style = MaterialTheme.typography.labelMedium.toSpanStyle().copy(baselineShift = BaselineShift.Superscript)) {
+        withStyle(style = MaterialTheme.typography.labelMedium.copy(fontFamily = RobotoMonoFamily, baselineShift = BaselineShift.Superscript).toSpanStyle()) {
             append(position.toString())
         }
     }

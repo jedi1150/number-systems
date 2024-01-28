@@ -49,6 +49,7 @@ import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -245,7 +246,7 @@ fun NumberSystemsApp(
                         exit = scaleOut(transformOrigin = TransformOrigin(0f, 0f)) + fadeOut() + shrinkOut(shrinkTowards = Alignment.TopStart),
                     ) {
                         ExtendedFloatingActionButton(
-                            text = { Text(text = stringResource(id = R.string.explanation)) },
+                            text = { Text(text = stringResource(id = R.string.explanation), fontWeight = FontWeight.Normal) },
                             icon = { Icon(painter = painterResource(R.drawable.ic_explanation), contentDescription = stringResource(id = R.string.explanation)) },
                             onClick = {
                                 if (currentTopLevelDestination == CONVERTER) {

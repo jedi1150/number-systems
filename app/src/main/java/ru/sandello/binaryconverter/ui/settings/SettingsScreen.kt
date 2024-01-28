@@ -47,7 +47,6 @@ import ru.sandello.binaryconverter.model.data.ThemeType
 import ru.sandello.binaryconverter.ui.settings.components.SettingsLanguageDialog
 import ru.sandello.binaryconverter.ui.settings.components.SettingsThemeDialog
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
-import ru.sandello.binaryconverter.ui.theme.Typography
 import ru.sandello.binaryconverter.utils.GITHUB_URL
 import ru.sandello.binaryconverter.utils.PRIVACY_POLICY_URL
 import java.util.Locale
@@ -199,7 +198,7 @@ fun SettingsScreen(
                 Text(
                     text = appVersion,
                     modifier = Modifier.padding(16.dp),
-                    style = Typography.bodySmall,
+                    style = MaterialTheme.typography.bodySmall,
                 )
             }
         }

@@ -13,14 +13,15 @@ import numsys.model.NumberSystem
 import numsys.model.Radix
 import numsys.model.pretty
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
+import ru.sandello.binaryconverter.ui.theme.RobotoMonoFamily
 
 @Composable
-fun numberSystem(numberSystem: NumberSystem): AnnotatedString {
-    return buildAnnotatedString {
+fun numberSystem(numberSystem: NumberSystem): AnnotatedString = buildAnnotatedString {
+    withStyle(MaterialTheme.typography.bodyMedium.copy(fontFamily = RobotoMonoFamily).toSpanStyle()) {
         append(numberSystem.pretty())
-        withStyle(style = MaterialTheme.typography.labelMedium.toSpanStyle().copy(baselineShift = BaselineShift.Subscript)) {
-            append(numberSystem.radix.value.toString())
-        }
+    }
+    withStyle(style = MaterialTheme.typography.labelSmall.copy(fontFamily = RobotoMonoFamily, baselineShift = BaselineShift.Subscript).toSpanStyle()) {
+        append(numberSystem.radix.value.toString())
     }
 }
 

@@ -9,25 +9,21 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @Composable
 fun ExplanationTitle(
     text: String,
-    contentPaddingValues: PaddingValues = PaddingValues(horizontal = 16.dp, vertical = 4.dp),
+    contentPaddingValues: PaddingValues = PaddingValues(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 16.dp),
 ) {
     Text(
         text = text,
         modifier = Modifier
             .fillMaxWidth()
             .padding(contentPaddingValues),
-        color = MaterialTheme.colorScheme.onSurface,
-        fontSize = 24.sp,
-        fontWeight = FontWeight.Medium,
+        style = MaterialTheme.typography.titleLarge,
     )
 }
 

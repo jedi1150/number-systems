@@ -9,7 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import numsys.model.NumberSystem
 import numsys.model.Radix
 import ru.sandello.binaryconverter.R
-import ru.sandello.binaryconverter.ui.explanation.components.ExplanationIntegerDivision
+import ru.sandello.binaryconverter.ui.explanation.components.ExplanationIntegerDivisionContent
 import ru.sandello.binaryconverter.ui.explanation.components.ExplanationTitle
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
@@ -17,7 +17,7 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 fun ExplanationInteger(from: NumberSystem, to: NumberSystem) {
     Column {
         ExplanationTitle(stringResource(R.string.integer_part))
-        ExplanationIntegerDivision(from = from, to = to)
+        ExplanationIntegerDivisionContent(from = from, to = to)
     }
 }
 

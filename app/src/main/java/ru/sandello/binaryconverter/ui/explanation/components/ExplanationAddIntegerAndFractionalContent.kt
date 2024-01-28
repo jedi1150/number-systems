@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,11 +24,12 @@ import numsys.model.NumberSystem
 import numsys.model.Radix
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
+import ru.sandello.binaryconverter.ui.theme.RobotoMonoFamily
 import ru.sandello.binaryconverter.utils.NS_DELIMITER
 import ru.sandello.binaryconverter.utils.getFractional
 
 @Composable
-fun ExplanationAddIntegerAndFractional(to: NumberSystem) {
+fun ExplanationAddIntegerAndFractionalContent(to: NumberSystem) {
     val integerPart: String = to.value.substringBefore(NS_DELIMITER)
     val fractionalPart: String = getFractional(to.value)
 
@@ -35,7 +37,7 @@ fun ExplanationAddIntegerAndFractional(to: NumberSystem) {
     val decimalFractional = NumberSystem(value = fractionalPart, radix = to.radix)
 
     Column(
-        modifier = Modifier.padding(vertical = 8.dp),
+        modifier = Modifier.padding(bottom = 8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         ExplanationDescription(stringResource(id = R.string.explanation_convert_combine_integer_and_fractional_parts))
@@ -58,6 +60,8 @@ fun ExplanationAddIntegerAndFractional(to: NumberSystem) {
                     }
                     append(numberSystem(numberSystem = to))
                 },
+                fontFamily = RobotoMonoFamily,
+                style = MaterialTheme.typography.bodyMedium,
             )
         }
     }
@@ -69,7 +73,7 @@ fun ExplanationAddIntegerAndFractional(to: NumberSystem) {
 fun PreviewExplanationCombineParts() {
     NumberSystemsTheme {
         Surface {
-            ExplanationAddIntegerAndFractional(to = NumberSystem(value = "A.B4", Radix.HEX))
+            ExplanationAddIntegerAndFractionalContent(to = NumberSystem(value = "A.B4", Radix.HEX))
         }
     }
 }

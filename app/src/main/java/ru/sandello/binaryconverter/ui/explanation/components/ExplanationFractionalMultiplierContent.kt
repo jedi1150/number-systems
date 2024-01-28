@@ -26,7 +26,7 @@ import ru.sandello.binaryconverter.utils.getFractional
 import java.math.BigDecimal
 
 @Composable
-fun ExplanationFractionalMultiplier(from: NumberSystem, to: NumberSystem) {
+fun ExplanationFractionalMultiplierContent(from: NumberSystem, to: NumberSystem) {
     val fromFractional = getFractional(from.value)
     var iterations = 0
     val maxIterations = 12
@@ -43,7 +43,7 @@ fun ExplanationFractionalMultiplier(from: NumberSystem, to: NumberSystem) {
     } while (fractionMultiplierList.last().product.toBigDecimal().scale() > 0 && (iterations < getFractional(NumberSystem(fromFractional, from.radix).toRadix(Radix.DEC).value).toBigDecimal().scale() && iterations < maxIterations))
 
     Column(
-        modifier = Modifier.padding(vertical = 8.dp),
+        modifier = Modifier.padding(bottom = 8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         ExplanationDescription(stringResource(id = R.string.explanation_convert_fractional))
@@ -73,9 +73,7 @@ fun ExplanationFractionalMultiplier(from: NumberSystem, to: NumberSystem) {
                 .padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             content = {
-                Text(
-                    text = numberSystem(numberSystem = NumberSystem(value = "0." + to.value.substringAfter(NS_DELIMITER), radix = to.radix)),
-                )
+                Text(text = numberSystem(numberSystem = NumberSystem(value = "0." + to.value.substringAfter(NS_DELIMITER), radix = to.radix)))
             },
         )
     }
@@ -99,7 +97,7 @@ private fun fractionMultiplier(multiplier: String, multiplicand: Int): FractionM
 private fun PreviewExplanationFractionalMultiplier() {
     NumberSystemsTheme {
         Surface {
-            ExplanationFractionalMultiplier(NumberSystem("10.703125", Radix.DEC), NumberSystem("A.B4", Radix.HEX))
+            ExplanationFractionalMultiplierContent(NumberSystem("10.703125", Radix.DEC), NumberSystem("A.B4", Radix.HEX))
         }
     }
 }

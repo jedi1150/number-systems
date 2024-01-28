@@ -121,6 +121,7 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.numsys)
+    implementation(libs.androidx.compose.ui.text.google.fonts)
 
     // Firebase
     implementation(platform(libs.google.firebase.bom))

@@ -1,12 +1,26 @@
 package ru.sandello.binaryconverter.ui.components
 
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import numsys.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
+import ru.sandello.binaryconverter.ui.theme.RobotoMonoFamily
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,6 +48,7 @@ fun RadixExposedDropdown(
                 modifier = Modifier.menuAnchor(),
                 enabled = false,
                 readOnly = true,
+                textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                 trailingIcon = trailingIcon,
                 singleLine = true,
                 shape = shape,
@@ -51,6 +66,7 @@ fun RadixExposedDropdown(
                 modifier = Modifier.menuAnchor(),
                 enabled = false,
                 readOnly = true,
+                textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                 label = {},
                 trailingIcon = trailingIcon,
                 singleLine = true,
@@ -70,7 +86,7 @@ fun RadixExposedDropdown(
             radixes.forEach { radix ->
                 DropdownMenuItem(
                     text = {
-                        Text(text = radix.value.toString())
+                        Text(text = radix.value.toString(), fontFamily = RobotoMonoFamily)
                     },
                     onClick = { onRadixClicked(radix) },
                 )

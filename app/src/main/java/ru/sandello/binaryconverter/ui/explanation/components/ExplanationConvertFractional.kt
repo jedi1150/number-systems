@@ -1,5 +1,6 @@
 package ru.sandello.binaryconverter.ui.explanation.components
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -11,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import ru.sandello.binaryconverter.model.FractionMultiplier
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
+import ru.sandello.binaryconverter.ui.theme.RobotoMonoFamily
 import ru.sandello.binaryconverter.utils.NS_DELIMITER
 
 @Composable
@@ -25,7 +27,7 @@ fun ExplanationConvertFractional(fractionMultiplier: FractionMultiplier) {
             withStyle(SpanStyle(letterSpacing = 6.sp)) {
                 append("=")
             }
-            withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+            withStyle(SpanStyle(fontWeight = FontWeight.Medium)) {
                 append(fractionMultiplier.product.substringBefore(NS_DELIMITER))
             }
             if (fractionMultiplier.product.contains(NS_DELIMITER)) {
@@ -36,11 +38,13 @@ fun ExplanationConvertFractional(fractionMultiplier: FractionMultiplier) {
                 withStyle(SpanStyle(letterSpacing = 6.sp)) {
                     append("=")
                 }
-                withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+                withStyle(SpanStyle(fontWeight = FontWeight.Medium)) {
                     append(convertedProduct.uppercase())
                 }
             }
         },
+        fontFamily = RobotoMonoFamily,
+        style = MaterialTheme.typography.bodyMedium,
     )
 }
 

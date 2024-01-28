@@ -40,12 +40,11 @@ fun ExplanationResult(from: NumberSystem, to: NumberSystem) {
             arrowRightId,
             InlineTextContent(
                 Placeholder(
-                    width = 12.sp,
-                    height = 12.sp,
-                    placeholderVerticalAlign = PlaceholderVerticalAlign.AboveBaseline,
+                    width = 16.sp,
+                    height = 16.sp,
+                    placeholderVerticalAlign = PlaceholderVerticalAlign.TextCenter,
                 )
             ) {
-                // TODO (Oleg): Set horizontal paddings bigger
                 Icon(painterResource(R.drawable.ic_arrow_right), null)
             },
         )
