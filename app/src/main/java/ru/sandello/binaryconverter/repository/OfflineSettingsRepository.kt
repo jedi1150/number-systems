@@ -15,4 +15,6 @@ class OfflineSettingsRepository @Inject constructor(
 
     override suspend fun setLocale(locale: Locale) = settingsDataSource.setLocale(locale)
 
+    override suspend fun incrementAppLaunchCounter() = settingsDataSource.incrementAppLaunchCounter()
+
 }

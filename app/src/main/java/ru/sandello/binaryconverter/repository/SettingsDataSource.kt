@@ -23,6 +23,7 @@ class SettingsDataSource @Inject constructor(
                 null -> ThemeType.SYSTEM
             },
             locale = Locale(settings.languageTag),
+            appLaunchCounter = settings.appLaunchCounter,
         )
     }
 
@@ -42,6 +43,14 @@ class SettingsDataSource @Inject constructor(
         settingsDataStore.updateData { settings ->
             settings.copy {
                 this.languageTag = locale.language
+            }
+        }
+    }
+
+    suspend fun incrementAppLaunchCounter() {
+        settingsDataStore.updateData { settings ->
+            settings.copy {
+                appLaunchCounter++
             }
         }
     }

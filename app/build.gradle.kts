@@ -122,6 +122,7 @@ dependencies {
     ksp(libs.hilt.compiler)
     implementation(libs.numsys)
     implementation(libs.androidx.compose.ui.text.google.fonts)
+    implementation(libs.android.play.review.ktx)
 
     // Firebase
     implementation(platform(libs.google.firebase.bom))

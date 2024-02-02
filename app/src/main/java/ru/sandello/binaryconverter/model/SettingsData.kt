@@ -22,4 +22,5 @@ import java.util.Locale
 data class SettingsData(
     val themeType: ThemeType = ThemeType.SYSTEM,
     val locale: Locale = Locale.ROOT,
+    val appLaunchCounter: Int = 0,
 )

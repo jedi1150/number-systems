@@ -22,6 +22,7 @@ kotlin = "1.9.22"
 ksp = "1.9.22-1.0.16"
 protobuf = "3.25.1"
 protobufPlugin = "0.9.4"
+reviewKtx = "2.0.1"
 
 [libraries]
 android-material = { group = "com.google.android.material", name = "material", version.ref = "androidMaterial" }
@@ -53,6 +54,7 @@ protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-
 numsys = { group = "com.github.jedi1150", name = "numsys", version.ref = "numsys" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
 androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "androidxBrowser" }
+android-play-review-ktx = { module = "com.google.android.play:review-ktx", version.ref = "reviewKtx" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "androidGradlePlugin" }

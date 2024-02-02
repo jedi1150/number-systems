@@ -55,6 +55,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        if (uiState is MainUiState.Success && (uiState as MainUiState.Success).settings.appLaunchCounter >= 10) {
+            lifecycleScope.launch {
+                viewModel.requestReview(this@MainActivity)
+            }
+        }
+
         setContent {
             val darkTheme = shouldUseDarkTheme(uiState)
 

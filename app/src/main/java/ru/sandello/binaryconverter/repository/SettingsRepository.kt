@@ -12,4 +12,6 @@ interface SettingsRepository {
 
     suspend fun setLocale(locale: Locale)
 
+    suspend fun incrementAppLaunchCounter()
+
 }
