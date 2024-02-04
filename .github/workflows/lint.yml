@@ -20,7 +20,6 @@ jobs:
           distribution: 'temurin'
 
       - uses: gradle/actions/setup-gradle@v3
-        id: setup-gradle
 
       - name: Create google-services.json file
         run: |
