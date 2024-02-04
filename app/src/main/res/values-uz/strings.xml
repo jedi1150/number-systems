@@ -29,4 +29,6 @@
     <string name="locale_system">Tizim tili</string>
     <string name="settings_contribute_description">Ilovaga hissa qo\'shing</string>
     <string name="remainder">qolgan</string>
+    <string name="invert_convertible_values">O\'zgartirilgan qiymatlarni o\'zgartiring</string>
+    <string name="clear_values">Qiymatlarni tozalash</string>
 </resources>

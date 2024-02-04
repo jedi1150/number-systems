@@ -236,7 +236,7 @@ fun NumberSystemsApp(
                             modifier = Modifier.padding(vertical = 8.dp),
                             elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 0.dp),
                         ) {
-                            Icon(painter = painterResource(R.drawable.ic_close), contentDescription = null)
+                            Icon(painter = painterResource(R.drawable.ic_close), contentDescription = stringResource(R.string.clear_values))
                         }
                     }
 

@@ -29,4 +29,6 @@
     <string name="locale_system">Жүйе тілі</string>
     <string name="settings_contribute_description">Қолданбаға үлес қосыңыз</string>
     <string name="remainder">қалдық</string>
+    <string name="invert_convertible_values">Түрлендірілген мәндерді инверттеу</string>
+    <string name="clear_values">Мәндерді тазалау</string>
 </resources>

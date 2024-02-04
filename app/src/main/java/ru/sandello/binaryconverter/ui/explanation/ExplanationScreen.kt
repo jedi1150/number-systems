@@ -33,6 +33,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.Wallpapers
 import androidx.compose.ui.unit.dp
@@ -114,7 +115,7 @@ fun ExplanationScreen(
                                     AnimatedImageVector.animatedVectorResource(id = R.drawable.ic_rotate),
                                     atEnd = atEnd,
                                 ),
-                                contentDescription = null,
+                                contentDescription = stringResource(R.string.invert_convertible_values),
                             )
                         }
                         RadixExposedDropdown(

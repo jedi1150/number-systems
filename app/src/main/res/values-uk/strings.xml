@@ -29,4 +29,6 @@
     <string name="locale_system">Мова системи</string>
     <string name="settings_contribute_description">Внесіть свій внесок у додаток</string>
     <string name="remainder">залишок</string>
+    <string name="invert_convertible_values">Інвертувати конвертовані значення</string>
+    <string name="clear_values">Очистити значення</string>
 </resources>

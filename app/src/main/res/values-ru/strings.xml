@@ -29,4 +29,6 @@
     <string name="locale_system">Язык системы</string>
     <string name="settings_contribute_description">Внесите свой вклад в приложение</string>
     <string name="remainder">остаток</string>
+    <string name="invert_convertible_values">Инвертировать конвертируемые значения</string>
+    <string name="clear_values">Очистить значения</string>
 </resources>
