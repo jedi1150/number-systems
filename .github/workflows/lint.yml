@@ -22,6 +22,13 @@ jobs:
       - uses: gradle/actions/setup-gradle@v3
         id: setup-gradle
 
+      - name: Create google-services.json file
+        run: |
+          echo "$GOOGLE_SERVICES_JSON" > app/google-services.json.base64
+          base64 -d -i app/google-services.json.base64 > app/google-services.json
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+
       - name: Check lint
         run: ./gradlew lint
 

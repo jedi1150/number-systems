@@ -33,7 +33,7 @@ jobs:
         run: bundle install
 
       # Decode Secrets
-      - name: Decode Keystore for prod signing
+      - name: Decode secrets
         run: |
           echo "$KEYSTORE_PROD" > app/keystore.jks.base64
           base64 -d -i app/keystore.jks.base64 > app/keystore.jks
