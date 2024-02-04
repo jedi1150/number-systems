@@ -1,4 +1,4 @@
-update_fastlane
+# update_fastlane
 
 default_platform(:android)
 
@@ -8,21 +8,31 @@ platform :android do
         gradle(task: "test")
     end
 
-    desc "Increment version code"
-    lane :increment_vc do
-        increment_version_code(
-            gradle_file_path: "./app/build.gradle.kts",
-        )
+    def latest_google_play_version_code
+      productionVersionCodes = google_play_track_version_codes(track: 'production', json_key: 'app/google-play-distribution.json')
+      betaVersionCodes = google_play_track_version_codes(track: 'beta', json_key: 'app/google-play-distribution.json')
+      # alphaVersionCodes = google_play_track_version_codes(track: 'alpha', json_key: 'app/google-play-distribution.json')
+      internalVersionCodes = google_play_track_version_codes(track: 'internal', json_key: 'app/google-play-distribution.json')
+
+      # puts version codes from all tracks into the same array
+      versionCodes = [
+        productionVersionCodes,
+        betaVersionCodes,
+        internalVersionCodes
+      ].reduce([], :concat)
+
+      # returns the highest version code from array
+      return versionCodes.max
     end
 
     desc "Deploy Beta to the Firebase"
     lane :deploy_firebase do
-        increment_vc
         gradle(
             task: 'bundle',
             flavor: 'Prod',
             build_type: 'Release',
             properties: {
+                "android.injected.version.code" => increment_version_code(version_code: latest_google_play_version_code),
                 "android.injected.signing.store.file" => ENV['SIGNING_KEYSTORE'],
                 "android.injected.signing.store.password" => ENV['SIGNING_STORE_PASSWORD'],
                 "android.injected.signing.key.alias" => ENV['SIGNING_KEY_ALIAS'],
@@ -39,12 +49,13 @@ platform :android do
 
     desc "Deploy release to the Google Play as internal"
     lane :deploy_google_play_internal do
-        increment_vc
+
         gradle(
             task: 'bundle',
             flavor: 'Prod',
             build_type: 'Release',
             properties: {
+                "android.injected.version.code" => increment_version_code(version_code: latest_google_play_version_code),
                 "android.injected.signing.store.file" => ENV['SIGNING_KEYSTORE'],
                 "android.injected.signing.store.password" => ENV['SIGNING_STORE_PASSWORD'],
                 "android.injected.signing.key.alias" => ENV['SIGNING_KEY_ALIAS'],
