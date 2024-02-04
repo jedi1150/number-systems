@@ -1,0 +1,59 @@
+update_fastlane
+
+default_platform(:android)
+
+platform :android do
+    desc "Runs all the tests"
+    lane :test do
+        gradle(task: "test")
+    end
+
+    desc "Increment version code"
+    lane :increment_vc do
+        increment_version_code(
+            gradle_file_path: "./app/build.gradle.kts",
+        )
+    end
+
+    desc "Deploy Beta to the Firebase"
+    lane :deploy_firebase do
+        increment_vc
+        gradle(
+            task: 'bundle',
+            flavor: 'Prod',
+            build_type: 'Release',
+            properties: {
+                "android.injected.signing.store.file" => ENV['KEYSTORE_PATH'],
+                "android.injected.signing.store.password" => ENV['STORE_PASSWORD'],
+                "android.injected.signing.key.alias" => ENV['KEY_ALIAS'],
+                "android.injected.signing.key.password" => ENV['KEY_PASSWORD'],
+            }
+        )
+        firebase_app_distribution(
+            app: ENV["FIREBASE_APP_ID"],
+            android_artifact_type: "AAB",
+            testers: ENV["FIREBASE_TESTER_EMAILS"],
+            service_credentials_file: './app/firebase-app-distribution.json',
+        )
+    end
+
+    desc "Deploy release to the Google Play as internal"
+    lane :deploy_google_play_internal do
+        increment_vc
+        gradle(
+            task: 'bundle',
+            flavor: 'Prod',
+            build_type: 'Release',
+            properties: {
+                "android.injected.signing.store.file" => ENV['KEYSTORE_PATH'],
+                "android.injected.signing.store.password" => ENV['STORE_PASSWORD'],
+                "android.injected.signing.key.alias" => ENV['KEY_ALIAS'],
+                "android.injected.signing.key.password" => ENV['KEY_PASSWORD'],
+            }
+        )
+        upload_to_play_store(
+            track: 'internal',
+            json_key: 'app/google-play-distribution.json'
+        )
+    end
+end

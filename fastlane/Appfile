@@ -1,0 +1,2 @@
+json_key_file("app/google-services.json")
+package_name("ru.sandello.binaryconverter")
