@@ -20,7 +20,7 @@ hilt = "2.50"
 numsys = "0.0.3-rc"
 kotlin = "1.9.22"
 ksp = "1.9.22-1.0.17"
-protobuf = "3.25.1"
+protobuf = "3.25.2"
 protobufPlugin = "0.9.4"
 reviewKtx = "2.0.1"
 
