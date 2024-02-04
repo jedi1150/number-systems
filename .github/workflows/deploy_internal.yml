@@ -52,7 +52,7 @@ jobs:
         base64 -d -i app/google-services.json.base64 > app/google-services.json
       env:
         KEYSTORE_PROD: ${{ secrets.KEYSTORE_PROD }}
-        $GOOGLE_PLAY_DISTRIBUTION_JSON: ${{ secrets.$GOOGLE_PLAY_DISTRIBUTION_JSON }}
+        GOOGLE_PLAY_DISTRIBUTION_JSON: ${{ secrets.$GOOGLE_PLAY_DISTRIBUTION_JSON }}
         GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
 
     #Fastlane: Build production .aab and deploy it
