@@ -27,12 +27,15 @@ platform :android do
 
     desc "Deploy Beta to the Firebase"
     lane :deploy_firebase do
+        increment_version_code(
+            gradle_file_path: "app/build.gradle.kts",
+            version_code: latest_google_play_version_code,
+        )
         gradle(
             task: 'bundle',
             flavor: 'Prod',
             build_type: 'Release',
             properties: {
-                "android.injected.version.code" => increment_version_code(version_code: latest_google_play_version_code),
                 "android.injected.signing.store.file" => ENV['SIGNING_KEYSTORE'],
                 "android.injected.signing.store.password" => ENV['SIGNING_STORE_PASSWORD'],
                 "android.injected.signing.key.alias" => ENV['SIGNING_KEY_ALIAS'],
@@ -49,13 +52,15 @@ platform :android do
 
     desc "Deploy release to the Google Play as internal"
     lane :deploy_google_play_internal do
-
+        increment_version_code(
+            gradle_file_path: "app/build.gradle.kts",
+            version_code: latest_google_play_version_code,
+        )
         gradle(
             task: 'bundle',
             flavor: 'Prod',
             build_type: 'Release',
             properties: {
-                "android.injected.version.code" => increment_version_code(version_code: latest_google_play_version_code),
                 "android.injected.signing.store.file" => ENV['SIGNING_KEYSTORE'],
                 "android.injected.signing.store.password" => ENV['SIGNING_STORE_PASSWORD'],
                 "android.injected.signing.key.alias" => ENV['SIGNING_KEY_ALIAS'],
