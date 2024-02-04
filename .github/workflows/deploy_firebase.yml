@@ -50,6 +50,6 @@ jobs:
       run: bundle exec fastlane deploy_firebase
       env:
         SIGNING_KEYSTORE: ${{ github.workspace }}/app/keystore.jks
-        SIGNING_KEY_ALIAS: echo `echo ${{ secrets.SIGNING_KEY_ALIAS }} | base64 -D`
-        SIGNING_KEY_PASSWORD: echo `echo ${{ secrets.SIGNING_KEY_PASSWORD }} | base64 -D`
-        SIGNING_STORE_PASSWORD: echo `echo ${{ secrets.SIGNING_STORE_PASSWORD }} | base64 -D`
+        SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+        SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+        SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
