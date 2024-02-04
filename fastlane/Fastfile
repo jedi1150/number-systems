@@ -23,10 +23,10 @@ platform :android do
             flavor: 'Prod',
             build_type: 'Release',
             properties: {
-                "android.injected.signing.store.file" => ENV['KEYSTORE_PATH'],
-                "android.injected.signing.store.password" => ENV['STORE_PASSWORD'],
-                "android.injected.signing.key.alias" => ENV['KEY_ALIAS'],
-                "android.injected.signing.key.password" => ENV['KEY_PASSWORD'],
+                "android.injected.signing.store.file" => ENV['SIGNING_KEYSTORE'],
+                "android.injected.signing.store.password" => ENV['SIGNING_STORE_PASSWORD'],
+                "android.injected.signing.key.alias" => ENV['SIGNING_KEY_ALIAS'],
+                "android.injected.signing.key.password" => ENV['SIGNING_KEY_PASSWORD'],
             }
         )
         firebase_app_distribution(
@@ -45,10 +45,10 @@ platform :android do
             flavor: 'Prod',
             build_type: 'Release',
             properties: {
-                "android.injected.signing.store.file" => ENV['KEYSTORE_PATH'],
-                "android.injected.signing.store.password" => ENV['STORE_PASSWORD'],
-                "android.injected.signing.key.alias" => ENV['KEY_ALIAS'],
-                "android.injected.signing.key.password" => ENV['KEY_PASSWORD'],
+                "android.injected.signing.store.file" => ENV['SIGNING_KEYSTORE'],
+                "android.injected.signing.store.password" => ENV['SIGNING_STORE_PASSWORD'],
+                "android.injected.signing.key.alias" => ENV['SIGNING_KEY_ALIAS'],
+                "android.injected.signing.key.password" => ENV['SIGNING_KEY_PASSWORD'],
             }
         )
         upload_to_play_store(

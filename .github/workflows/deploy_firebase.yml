@@ -49,7 +49,7 @@ jobs:
     - name: Build production App Bundle and deploy to Firebase App Tester
       run: bundle exec fastlane deploy_firebase
       env:
-        SIGNIG_KEYSTORE: ${{ github.workspace }}/app/keystore.jks
+        SIGNING_KEYSTORE: ${{ github.workspace }}/app/keystore.jks
         SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
         SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
         SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
