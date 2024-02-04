@@ -29,7 +29,7 @@ platform :android do
     lane :deploy_firebase do
         increment_version_code(
             gradle_file_path: "app/build.gradle.kts",
-            version_code: latest_google_play_version_code,
+            version_code: latest_google_play_version_code + 1,
         )
         gradle(
             task: 'bundle',
@@ -54,7 +54,7 @@ platform :android do
     lane :deploy_google_play_internal do
         increment_version_code(
             gradle_file_path: "app/build.gradle.kts",
-            version_code: latest_google_play_version_code,
+            version_code: latest_google_play_version_code + 1,
         )
         gradle(
             task: 'bundle',
