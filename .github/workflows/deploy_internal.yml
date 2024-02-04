@@ -44,17 +44,16 @@ jobs:
 
     - name: Decode Firebase App Distribution JSON file
       run: |
-        echo "FIREBASE_APP_DISTRIBUTION_JSON" > app/firebase-app-distribution.json.base64
-        base64 -d -i app/firebase-app-distribution.json.base64 > app/firebase-app-distribution.json
-      env:
-        FIREBASE_APP_DISTRIBUTION_JSON: ${{ secrets.FIREBASE_APP_DISTRIBUTION_JSON }}
-
-    - name: Decode Google Play Distribution JSON file
-      run: |
+        echo "$KEYSTORE_PROD" > app/keystore.jks.base64
+        base64 -d -i app/keystore.jks.base64 > app/keystore.jks
         echo "$GOOGLE_PLAY_DISTRIBUTION_JSON" > app/google-play-distribution.json.base64
         base64 -d -i app/google-play-distribution.json.base64 > app/google-play-distribution.json
+        echo "$GOOGLE_SERVICES_JSON" > app/google-services.json.base64
+        base64 -d -i app/google-services.json.base64 > app/google-services.json
       env:
-        GOOGLE_PLAY_DISTRIBUTION_JSON: ${{ secrets.GOOGLE_PLAY_DISTRIBUTION_JSON }}
+        KEYSTORE_PROD: ${{ secrets.KEYSTORE_PROD }}
+        $GOOGLE_PLAY_DISTRIBUTION_JSON: ${{ secrets.$GOOGLE_PLAY_DISTRIBUTION_JSON }}
+        GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
 
     #Fastlane: Build production .aab and deploy it
     - name: Build production App Bundle and deploy to Firebase App Tester

@@ -36,7 +36,7 @@ jobs:
       run: |
         echo "$KEYSTORE_PROD" > app/keystore.jks.base64
         base64 -d -i app/keystore.jks.base64 > app/keystore.jks
-        echo "FIREBASE_APP_DISTRIBUTION_JSON" > app/firebase-app-distribution.json.base64
+        echo "$FIREBASE_APP_DISTRIBUTION_JSON" > app/firebase-app-distribution.json.base64
         base64 -d -i app/firebase-app-distribution.json.base64 > app/firebase-app-distribution.json
         echo "$GOOGLE_SERVICES_JSON" > app/google-services.json.base64
         base64 -d -i app/google-services.json.base64 > app/google-services.json
