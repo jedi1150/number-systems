@@ -25,6 +25,7 @@ import numsys.NumSys
 import numsys.model.NumberSystem
 import numsys.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
+import ru.sandello.binaryconverter.ui.theme.RobotoFamily
 import ru.sandello.binaryconverter.ui.theme.RobotoMonoFamily
 import ru.sandello.binaryconverter.utils.NS_DELIMITER
 
@@ -55,7 +56,13 @@ fun ExplanationToDecimalContent(from: NumberSystem) {
                         append(value)
                         if (value.isLetter()) {
                             val decimalNumber = NumSys.convert(NumberSystem(value = value.toString(), radix = integerPart.radix), toRadix = Radix.DEC).value
-                            append("($decimalNumber)")
+                            withStyle(SpanStyle(fontFamily = RobotoFamily)) {
+                                append("(")
+                            }
+                            append(decimalNumber)
+                            withStyle(SpanStyle(fontFamily = RobotoFamily)) {
+                                append(")")
+                            }
                         }
                         withStyle(SpanStyle(letterSpacing = 4.sp)) { append("×") }
                         append(positionedNumber(number = integerPart.radix.value, position = position - 1 - index))

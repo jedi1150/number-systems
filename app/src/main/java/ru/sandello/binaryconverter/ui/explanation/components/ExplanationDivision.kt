@@ -11,17 +11,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import numsys.model.Radix
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.Division
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.ui.theme.RobotoMonoFamily
+import ru.sandello.binaryconverter.utils.pretty
 
 @Composable
 fun ExplanationDivision(division: Division) {
     Text(
         text = buildAnnotatedString {
             withStyle(SpanStyle(fontFamily = RobotoMonoFamily)) {
-                append(division.dividend.toString())
+                append(division.dividend.toString().pretty(Radix.DEC))
                 withStyle(SpanStyle(letterSpacing = 4.sp)) {
                     append("÷")
                 }
@@ -29,7 +31,7 @@ fun ExplanationDivision(division: Division) {
                 withStyle(SpanStyle(letterSpacing = 6.sp)) {
                     append("=")
                 }
-                append(division.quotient.toString())
+                append(division.quotient.toString().pretty(Radix.DEC))
             }
             append(", ")
             append(stringResource(R.string.remainder))
