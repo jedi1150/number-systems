@@ -55,25 +55,10 @@ jobs:
         GOOGLE_PLAY_DISTRIBUTION_JSON: ${{ secrets.GOOGLE_PLAY_DISTRIBUTION_JSON }}
         GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
 
-    #Fastlane: Build production .aab and deploy it
-    - name: Build production App Bundle and deploy to Firebase App Tester
-      run: bundle exec fastlane deploy_firebase
-      env:
-        SIGNING_KEYSTORE: ${{ github.workspace }}/app/keystore.jks
-        SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
-        SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
-        SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
-
-    - name: Upload App Bundle to GitHub
-      uses: actions/upload-artifact@v4
-      with:
-        name: app-release.aab
-        path: app/build/outputs/bundle/release/app-release.aab
-
     - name: Build App Bundle and deploy to Google Play Internal Testing
       run: bundle exec fastlane deploy_google_play_internal
       env:
-        SIGNIG_KEYSTORE: ${{ github.workspace }}/app/keystore.jks
-        SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
-        SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
-        SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
+        SIGNING_KEYSTORE: ${{ github.workspace }}/app/keystore.jks
+        SIGNING_KEY_ALIAS: echo ${{ secrets.SIGNING_KEY_ALIAS }} | base64 -D
+        SIGNING_KEY_PASSWORD: echo ${{ secrets.SIGNING_KEY_PASSWORD }} | base64 -D
+        SIGNING_STORE_PASSWORD: echo ${{ secrets.SIGNING_STORE_PASSWORD }} | base64 -D
