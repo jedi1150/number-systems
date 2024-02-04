@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -65,7 +65,7 @@ fun ExplanationResult(from: NumberSystem, to: NumberSystem) {
                 inlineContent = inlineContent,
             )
         }
-        Divider(thickness = 1.dp)
+        HorizontalDivider(thickness = 1.dp)
     }
 }
 

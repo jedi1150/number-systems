@@ -5,7 +5,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
@@ -52,7 +52,7 @@ fun ExplanationContent(from: NumberSystem, to: NumberSystem) {
         if (showFromDecimalWithDelimiter) {
             if (showToDecimal) {
                 item {
-                    Divider()
+                    HorizontalDivider()
                 }
             }
             if (showFromDecimal) {
@@ -62,7 +62,7 @@ fun ExplanationContent(from: NumberSystem, to: NumberSystem) {
             }
             if (delimiterExists) {
                 item {
-                    Divider()
+                    HorizontalDivider()
                 }
                 item {
                     ExplanationFractional(from, to)

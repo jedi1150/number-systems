@@ -20,7 +20,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -167,7 +167,7 @@ fun SettingsScreen(
                         )
                     },
                 )
-                Divider()
+                HorizontalDivider()
                 ListItem(
                     headlineContent = {
                         Text(text = stringResource(id = R.string.settings_github))
