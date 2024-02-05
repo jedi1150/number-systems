@@ -6,23 +6,21 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.cancel
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
-import numsys.NumSys
 import numsys.model.NumberSystem
 import numsys.model.Radix
+import ru.sandello.binaryconverter.repository.NumberSystemRepository
 import ru.sandello.binaryconverter.utils.APP_TAG
 import ru.sandello.binaryconverter.utils.CharRegex
 import javax.inject.Inject
 
 @HiltViewModel
-class ConverterViewModel @Inject constructor(private val numSys: NumSys) : ViewModel() {
+class ConverterViewModel @Inject constructor(private val numberSystemRepository: NumberSystemRepository) : ViewModel() {
 
     private var lastNumberSystem: NumberSystem? = null
 
@@ -37,18 +35,20 @@ class ConverterViewModel @Inject constructor(private val numSys: NumSys) : ViewM
     }
 
     private fun convert(from: NumberSystem, toRadixes: Array<Radix>) {
-        Log.d(APP_TAG, "ConverterViewModel::convert: value: ${from.value}, from radix: ${from.radix.value}")
-
         if (from.value.isEmpty()) {
             clear()
             return
         }
 
-        check(from.value.matches(CharRegex().charsRegex(
-            index = from.radix.value,
-            useDelimiterChars = from.value.count { it.toString().contains("[,.]".toRegex()) } <= 1,
-            useNegativeChar = from.value.count { it.toString().contains("-".toRegex()) } <= 1,
-        ))) {
+        check(
+            from.value.matches(
+                CharRegex().charsRegex(
+                    index = from.radix.value,
+                    useDelimiterChars = from.value.count { it.toString().contains("[,.]".toRegex()) } <= 1,
+                    useNegativeChar = false,
+                ),
+            ),
+        ) {
             Log.w(APP_TAG, "ConverterViewModel::convert: Invalid character entered")
 
             when (from.radix) {
@@ -61,64 +61,54 @@ class ConverterViewModel @Inject constructor(private val numSys: NumSys) : ViewM
             return
         }
 
-        lastNumberSystem = from
-
-        if (from.value.contains("-".toRegex())) {
-            from.value = from.value.replace("-", "").replaceRange(0, 0, "-")
-        }
+        resetErrors()
 
         viewModelScope.launch {
-            toRadixes.filter { radix ->
-                (from.radix != radix).also {
-                    if (!it) {
-                        when (radix) {
-                            converterUiState.value.numberSystem2.radix -> {
-                                if (converterUiState.value.numberSystem2.value == from.value) cancel()
-                                _converterUiState.value = converterUiState.value.copy(numberSystem2 = from)
-                            }
+            val convertedResults = toRadixes.mapNotNull { toRadix ->
+                if (from.radix == toRadix) {
+                    when (toRadix) {
+                        converterUiState.value.numberSystem2.radix -> {
+                            if (converterUiState.value.numberSystem2.value == from.value) return@mapNotNull null
+                            _converterUiState.value = converterUiState.value.copy(numberSystem2 = from)
+                        }
 
-                            converterUiState.value.numberSystem8.radix -> {
-                                if (converterUiState.value.numberSystem8.value == from.value) cancel()
-                                _converterUiState.value = converterUiState.value.copy(numberSystem8 = from)
-                            }
+                        converterUiState.value.numberSystem8.radix -> {
+                            if (converterUiState.value.numberSystem8.value == from.value) return@mapNotNull null
+                            _converterUiState.value = converterUiState.value.copy(numberSystem8 = from)
+                        }
 
-                            converterUiState.value.numberSystem10.radix -> {
-                                if (converterUiState.value.numberSystem10.value == from.value) cancel()
-                                _converterUiState.value = converterUiState.value.copy(numberSystem10 = from)
-                            }
+                        converterUiState.value.numberSystem10.radix -> {
+                            if (converterUiState.value.numberSystem10.value == from.value) return@mapNotNull null
+                            _converterUiState.value = converterUiState.value.copy(numberSystem10 = from)
+                        }
 
-                            converterUiState.value.numberSystem16.radix -> {
-                                if (converterUiState.value.numberSystem16.value == from.value) cancel()
-                                _converterUiState.value = converterUiState.value.copy(numberSystem16 = from)
-                            }
+                        converterUiState.value.numberSystem16.radix -> {
+                            if (converterUiState.value.numberSystem16.value == from.value) return@mapNotNull null
+                            _converterUiState.value = converterUiState.value.copy(numberSystem16 = from)
+                        }
 
-                            converterUiState.value.numberSystemCustom.radix -> {
-                                if (converterUiState.value.numberSystemCustom.value == from.value) cancel()
-                                _converterUiState.value = converterUiState.value.copy(numberSystemCustom = from)
-                            }
+                        converterUiState.value.numberSystemCustom.radix -> {
+                            if (converterUiState.value.numberSystemCustom.value == from.value) return@mapNotNull null
+                            _converterUiState.value = converterUiState.value.copy(numberSystemCustom = from)
                         }
                     }
-                }
-            }.map { toRadix ->
-                try {
-                    numSys.convert(value = from, toRadix = toRadix)
-                } catch (exception: IllegalArgumentException) {
-                    cancel()
-                    return@launch
-                }
-            }.asFlow().onCompletion { cause ->
-                if (cause != null) {
-                    Log.e(APP_TAG, "Flow completed exceptionally: $cause")
+                    return@mapNotNull null
+                } else if (from.radix != toRadix) {
+                    return@mapNotNull viewModelScope.async {
+                        numberSystemRepository.convert(from, toRadix)
+                    }
                 } else {
-                    resetErrors()
+                    return@mapNotNull null
                 }
-            }.catch { error -> Log.e(APP_TAG, "ConverterViewModel::convert: catch", error) }.collect { convertedData ->
-                when (convertedData.radix) {
-                    converterUiState.value.numberSystem2.radix -> _converterUiState.value = converterUiState.value.copy(numberSystem2 = convertedData)
-                    converterUiState.value.numberSystem8.radix -> _converterUiState.value = converterUiState.value.copy(numberSystem8 = convertedData)
-                    converterUiState.value.numberSystem10.radix -> _converterUiState.value = converterUiState.value.copy(numberSystem10 = convertedData)
-                    converterUiState.value.numberSystem16.radix -> _converterUiState.value = converterUiState.value.copy(numberSystem16 = convertedData)
-                    converterUiState.value.numberSystemCustom.radix -> _converterUiState.value = converterUiState.value.copy(numberSystemCustom = convertedData)
+            }.awaitAll()
+
+            convertedResults.filterNotNull().forEach { convertedNumberSystem ->
+                when (convertedNumberSystem.radix) {
+                    converterUiState.value.numberSystem2.radix -> _converterUiState.value = converterUiState.value.copy(numberSystem2 = convertedNumberSystem)
+                    converterUiState.value.numberSystem8.radix -> _converterUiState.value = converterUiState.value.copy(numberSystem8 = convertedNumberSystem)
+                    converterUiState.value.numberSystem10.radix -> _converterUiState.value = converterUiState.value.copy(numberSystem10 = convertedNumberSystem)
+                    converterUiState.value.numberSystem16.radix -> _converterUiState.value = converterUiState.value.copy(numberSystem16 = convertedNumberSystem)
+                    converterUiState.value.numberSystemCustom.radix -> _converterUiState.value = converterUiState.value.copy(numberSystemCustom = convertedNumberSystem)
                 }
             }
         }
@@ -154,6 +144,7 @@ class ConverterViewModel @Inject constructor(private val numSys: NumSys) : ViewM
     }
 
     fun clear() {
+        resetErrors()
         _converterUiState.value = ConverterUiState(
             numberSystemCustom = NumberSystem(value = String(), radix = converterUiState.value.numberSystemCustom.radix),
         )
