@@ -51,7 +51,7 @@ jobs:
         run: bundle exec fastlane deploy_firebase
         env:
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
-          FIREBASE_TESTER_EMAILS: ${{ FIREBASE_TESTER_EMAILS }}
+          FIREBASE_TESTER_EMAILS: ${{ vars.FIREBASE_TESTER_EMAILS }}
           SIGNING_KEYSTORE: ${{ github.workspace }}/app/keystore.jks
           SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
