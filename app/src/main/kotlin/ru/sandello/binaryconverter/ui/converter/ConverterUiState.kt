@@ -1,8 +1,8 @@
 package ru.sandello.binaryconverter.ui.converter
 
 import android.annotation.SuppressLint
-import numsys.model.NumberSystem
 import numsys.model.Radix
+import ru.sandello.binaryconverter.model.NumberSystem
 
 data class ConverterUiState(
     val numberSystem2: NumberSystem = NumberSystem(String(), Radix.BIN),
@@ -10,11 +10,6 @@ data class ConverterUiState(
     val numberSystem10: NumberSystem = NumberSystem(String(), Radix.DEC),
     val numberSystem16: NumberSystem = NumberSystem(String(), Radix.HEX),
     val numberSystemCustom: NumberSystem = NumberSystem(String(), Radix(3)),
-    val numberSystem2Error: Boolean = false,
-    val numberSystem8Error: Boolean = false,
-    val numberSystem10Error: Boolean = false,
-    val numberSystem16Error: Boolean = false,
-    val numberSystemCustomError: Boolean = false,
 ) {
     @SuppressLint("Range")
     val radixes: List<Radix> = Array(36) { radix -> Radix(radix + 1) }.filter { radix -> !listOf(Radix(1), numberSystem2.radix, numberSystem8.radix, numberSystem10.radix, numberSystem16.radix).contains(radix) }

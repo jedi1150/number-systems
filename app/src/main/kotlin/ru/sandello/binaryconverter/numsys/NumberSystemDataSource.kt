@@ -5,8 +5,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
 import numsys.NumSys
-import numsys.model.NumberSystem
 import numsys.model.Radix
+import ru.sandello.binaryconverter.model.NumberSystem
+import ru.sandello.binaryconverter.model.asExternalModel
+import ru.sandello.binaryconverter.model.asInternalModel
 import javax.inject.Inject
 
 class NumberSystemDataSource @Inject constructor(
@@ -17,6 +19,6 @@ class NumberSystemDataSource @Inject constructor(
 
         if (from.value.isEmpty()) return@coroutineScope null
 
-        return@coroutineScope withContext(Dispatchers.Default) { numSys.convert(value = from, toRadix = toRadix) }
+        return@coroutineScope withContext(Dispatchers.Default) { numSys.convert(numberSystem = from.asInternalModel(), targetRadix = toRadix).asExternalModel() }
     }
 }

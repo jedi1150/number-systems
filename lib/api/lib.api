@@ -1,0 +1,44 @@
+public final class numsys/NumSys {
+	public static final field INSTANCE Lnumsys/NumSys;
+	public static final fun convert (Ljava/lang/String;II)Ljava/lang/String;
+	public static final fun convert (Lnumsys/model/NumberSystem;Lnumsys/model/Radix;)Lnumsys/model/NumberSystem;
+	public static final fun getFractionalLength ()I
+	public static final fun setFractionalLength (I)V
+	public static final fun toRadix (Lnumsys/model/NumberSystem;Lnumsys/model/Radix;)Lnumsys/model/NumberSystem;
+}
+
+public final class numsys/NumSys$Constants {
+	public static final field Comma C
+	public static final field Delimiter C
+	public static final field GroupSeparator C
+	public static final field INSTANCE Lnumsys/NumSys$Constants;
+}
+
+public final class numsys/model/NumberSystem {
+	public fun <init> (Ljava/lang/String;Lnumsys/model/Radix;)V
+	public final fun getRadix ()Lnumsys/model/Radix;
+	public final fun getValue ()Ljava/lang/String;
+}
+
+public final class numsys/model/NumberSystemKt {
+	public static final fun pretty (Lnumsys/model/NumberSystem;)Ljava/lang/String;
+}
+
+public final class numsys/model/Radix {
+	public static final field BIN Lnumsys/model/Radix;
+	public static final field Companion Lnumsys/model/Radix$Companion;
+	public static final field DEC Lnumsys/model/Radix;
+	public static final field HEX Lnumsys/model/Radix;
+	public static final field OCT Lnumsys/model/Radix;
+	public fun <init> (I)V
+	public final fun getValue ()I
+}
+
+public final class numsys/model/Radix$Companion {
+}
+
+public final class numsys/model/RadixKt {
+	public static final fun groupLength (Lnumsys/model/NumberSystem;)I
+	public static final fun groupLength (Lnumsys/model/Radix;)I
+}
+

@@ -9,9 +9,9 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
-import numsys.model.NumberSystem
 import numsys.model.Radix
-import numsys.model.pretty
+import ru.sandello.binaryconverter.model.NumberSystem
+import ru.sandello.binaryconverter.model.pretty
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.ui.theme.RobotoMonoFamily
 

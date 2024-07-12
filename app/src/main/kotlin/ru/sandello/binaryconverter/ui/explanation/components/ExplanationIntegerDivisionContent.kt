@@ -16,10 +16,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import numsys.NumSys.toRadix
-import numsys.model.NumberSystem
 import numsys.model.Radix
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.Division
+import ru.sandello.binaryconverter.model.NumberSystem
+import ru.sandello.binaryconverter.model.asInternalModel
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.utils.NS_DELIMITER
 import java.math.BigDecimal
@@ -37,7 +38,7 @@ fun ExplanationIntegerDivisionContent(from: NumberSystem, to: NumberSystem) {
 
     do {
         if (divisionList.isEmpty()) {
-            divisionList.add(longDivision(dividend = NumberSystem(fromDecimal, from.radix).toRadix(Radix.DEC).value.toBigDecimal(), divisor = to.radix.value))
+            divisionList.add(longDivision(dividend = NumberSystem(fromDecimal, from.radix).asInternalModel().toRadix(Radix.DEC).value.toBigDecimal(), divisor = to.radix.value))
         } else {
             divisionList.add(longDivision(dividend = divisionList.last().quotient, divisor = divisionList.last().divisor))
         }

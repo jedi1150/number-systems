@@ -4,10 +4,16 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -32,9 +38,9 @@ import androidx.compose.ui.tooling.preview.Wallpapers
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import numsys.model.NumberSystem
 import numsys.model.Radix
 import ru.sandello.binaryconverter.R
+import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.ui.OperandVisualTransformation
 import ru.sandello.binaryconverter.ui.components.RadixExposedDropdown
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
@@ -44,11 +50,13 @@ import ru.sandello.binaryconverter.utils.NS_DELIMITER
 
 @Composable
 fun ConverterRoute(
+    contentPadding: PaddingValues,
     viewModel: ConverterViewModel = hiltViewModel(),
 ) {
     val converterUiState by viewModel.converterUiState.collectAsStateWithLifecycle()
 
     ConverterScreen(
+        contentPadding = contentPadding,
         converterUiState = converterUiState,
         onNumberSystemChanged = viewModel::convertFrom,
         onCustomRadixChanged = viewModel::updateCustomRadix,
@@ -58,6 +66,7 @@ fun ConverterRoute(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConverterScreen(
+    contentPadding: PaddingValues = PaddingValues(),
     converterUiState: ConverterUiState,
     onNumberSystemChanged: (NumberSystem) -> Unit,
     onCustomRadixChanged: (Radix) -> Unit,
@@ -65,12 +74,14 @@ fun ConverterScreen(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
+            .consumeWindowInsets(contentPadding)
+            .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal))
             .imePadding(),
         contentPadding = PaddingValues(
             start = 8.dp,
-            top = 8.dp,
+            top = contentPadding.calculateTopPadding() + 8.dp,
             end = 8.dp,
-            bottom = 72.dp,
+            bottom = contentPadding.calculateBottomPadding() + 72.dp,
         ),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
@@ -82,7 +93,7 @@ fun ConverterScreen(
                 textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                 label = { Text(stringResource(R.string.dec)) },
                 visualTransformation = OperandVisualTransformation(converterUiState.numberSystem10.radix),
-                isError = converterUiState.numberSystem10Error,
+                isError = converterUiState.numberSystem10.isError,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = MaterialTheme.shapes.medium,
             )
@@ -94,7 +105,7 @@ fun ConverterScreen(
                 modifier = Modifier.fillMaxWidth(),
                 textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                 label = { Text(stringResource(R.string.bin)) },
-                isError = converterUiState.numberSystem2Error,
+                isError = converterUiState.numberSystem2.isError,
                 visualTransformation = OperandVisualTransformation(converterUiState.numberSystem2.radix),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = MaterialTheme.shapes.medium,
@@ -107,7 +118,7 @@ fun ConverterScreen(
                 modifier = Modifier.fillMaxWidth(),
                 textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                 label = { Text(stringResource(R.string.oct)) },
-                isError = converterUiState.numberSystem8Error,
+                isError = converterUiState.numberSystem8.isError,
                 visualTransformation = OperandVisualTransformation(converterUiState.numberSystem8.radix),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = MaterialTheme.shapes.medium,
@@ -120,7 +131,7 @@ fun ConverterScreen(
                 modifier = Modifier.fillMaxWidth(),
                 textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                 label = { Text(stringResource(R.string.hex)) },
-                isError = converterUiState.numberSystem16Error,
+                isError = converterUiState.numberSystem16.isError,
                 visualTransformation = OperandVisualTransformation(converterUiState.numberSystem16.radix),
                 keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
                 shape = MaterialTheme.shapes.medium,
@@ -134,7 +145,7 @@ fun ConverterScreen(
                     modifier = Modifier.weight(1f),
                     textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                     label = { Text(stringResource(R.string.radix, converterUiState.numberSystemCustom.radix.value)) },
-                    isError = converterUiState.numberSystemCustomError,
+                    isError = converterUiState.numberSystemCustom.isError,
                     visualTransformation = OperandVisualTransformation(converterUiState.numberSystemCustom.radix),
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
                     shape = MaterialTheme.shapes.medium,

@@ -1,8 +1,8 @@
 package ru.sandello.binaryconverter.ui.explanation
 
 import android.annotation.SuppressLint
-import numsys.model.NumberSystem
 import numsys.model.Radix
+import ru.sandello.binaryconverter.model.NumberSystem
 
 data class ExplanationUiState(
     val state: ExplanationState,

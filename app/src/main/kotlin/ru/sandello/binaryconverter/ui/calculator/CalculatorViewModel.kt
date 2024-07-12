@@ -51,28 +51,19 @@ class CalculatorViewModel @Inject constructor(private val numSys: NumSys) : View
     fun updateRadix(calculatorRadixType: CalculatorRadixType, newRadix: Radix) {
         when (calculatorRadixType) {
             RadixCustom1 -> {
-                calculatorUiState.value.numberSystemCustom1.run {
-                    if (radix == newRadix) return
-                    radix = newRadix
-                }
+                _calculatorUiState.value = _calculatorUiState.value.copy(numberSystemCustom1 = NumberSystem(calculatorUiState.value.numberSystemCustom1.value, newRadix))
                 Log.d(APP_TAG, "CalculatorViewModel::updateRadix: numberSystemCustom1.radix from ${calculatorUiState.value.numberSystemCustom1.radix.value} to ${newRadix.value}")
                 convert(calculatorOperandType = OperandCustom1, from = calculatorUiState.value.numberSystemCustom1, toRadixes = arrayOf(radixCalculation.value))
             }
 
             RadixCustom2 -> {
-                calculatorUiState.value.numberSystemCustom2.run {
-                    if (radix == newRadix) return
-                    radix = newRadix
-                }
+                _calculatorUiState.value = _calculatorUiState.value.copy(numberSystemCustom2 = NumberSystem(calculatorUiState.value.numberSystemCustom2.value, newRadix))
                 Log.d(APP_TAG, "CalculatorViewModel::updateRadix: numberSystemCustom2.radix from ${calculatorUiState.value.numberSystemCustom2.radix.value} to ${newRadix.value}")
                 convert(calculatorOperandType = OperandCustom2, from = calculatorUiState.value.numberSystemCustom2, toRadixes = arrayOf(radixCalculation.value))
             }
 
             RadixResult -> {
-                calculatorUiState.value.numberSystemResult.run {
-                    if (radix == newRadix) return
-                    radix = newRadix
-                }
+                _calculatorUiState.value = _calculatorUiState.value.copy(numberSystemResult = NumberSystem(calculatorUiState.value.numberSystemResult.value, newRadix))
                 Log.d(APP_TAG, "CalculatorViewModel::updateRadix: numberSystemResult.radix from ${calculatorUiState.value.numberSystemResult.radix.value} to ${newRadix.value}")
                 calculate()
             }
@@ -118,7 +109,7 @@ class CalculatorViewModel @Inject constructor(private val numSys: NumSys) : View
         lastValueFrom = from
 
         if (from.value.contains("-".toRegex())) {
-            from.value = from.value.replace("-", "").replaceRange(0, 0, "-")
+            lastValueFrom = NumberSystem(from.value.replace("-", "").replaceRange(0, 0, "-"), from.radix)
         }
 
         viewModelScope.launch {
@@ -127,30 +118,30 @@ class CalculatorViewModel @Inject constructor(private val numSys: NumSys) : View
                     if (!it) {
                         when (calculatorOperandType) {
                             OperandCustom1 -> {
-                                _calculatorUiState.value = calculatorUiState.value.copy(numberSystemCustom1 = calculatorUiState.value.numberSystemCustom1.copy(value = from.value))
-                                numberSystem1Temp.value.value = from.value
+                                _calculatorUiState.value = calculatorUiState.value.copy(numberSystemCustom1 = NumberSystem(from.value, calculatorUiState.value.numberSystemCustom1.radix))
+                                numberSystem1Temp.value = NumberSystem(from.value, from.radix)
                                 cancel()
                             }
 
                             OperandCustom2 -> {
-                                _calculatorUiState.value = calculatorUiState.value.copy(numberSystemCustom2 = calculatorUiState.value.numberSystemCustom2.copy(value = from.value))
-                                numberSystem2Temp.value.value = from.value
+                                _calculatorUiState.value = calculatorUiState.value.copy(numberSystemCustom2 = NumberSystem(from.value, calculatorUiState.value.numberSystemCustom2.radix))
+                                numberSystem2Temp.value = NumberSystem(from.value, from.radix)
                                 cancel()
                             }
 
                             OperandResult -> {
-                                _calculatorUiState.value = calculatorUiState.value.copy(numberSystemResult = calculatorUiState.value.numberSystemResult.copy(value = from.value))
+                                _calculatorUiState.value = calculatorUiState.value.copy(numberSystemResult = NumberSystem(from.value, calculatorUiState.value.numberSystemResult.radix))
                                 cancel()
                             }
                         }
                     } else {
                         when (calculatorOperandType) {
                             OperandCustom1 -> {
-                                _calculatorUiState.value = calculatorUiState.value.copy(numberSystemCustom1 = calculatorUiState.value.numberSystemCustom1.copy(value = from.value))
+                                _calculatorUiState.value = calculatorUiState.value.copy(numberSystemCustom1 = NumberSystem(from.value, calculatorUiState.value.numberSystemCustom1.radix))
                             }
 
                             OperandCustom2 -> {
-                                _calculatorUiState.value = calculatorUiState.value.copy(numberSystemCustom2 = calculatorUiState.value.numberSystemCustom2.copy(value = from.value))
+                                _calculatorUiState.value = calculatorUiState.value.copy(numberSystemCustom2 = NumberSystem(from.value, calculatorUiState.value.numberSystemCustom2.radix))
                             }
 
                             else -> {}
@@ -159,14 +150,14 @@ class CalculatorViewModel @Inject constructor(private val numSys: NumSys) : View
                 }
             }.map { toRadix ->
                 try {
-                    numSys.convert(value = from, toRadix = toRadix)
+                    numSys.convert(numberSystem = from, targetRadix = toRadix)
                 } catch (exception: IllegalArgumentException) {
                     when (calculatorOperandType) {
-                        OperandCustom1 -> numberSystem1Temp.value = numberSystem1Temp.value.copy(value = String())
-                        OperandCustom2 -> numberSystem2Temp.value = numberSystem2Temp.value.copy(value = String())
+                        OperandCustom1 -> numberSystem1Temp.value = NumberSystem(String(), numberSystem1Temp.value.radix)
+                        OperandCustom2 -> numberSystem2Temp.value = NumberSystem(String(), numberSystem2Temp.value.radix)
                         else -> {}
                     }
-                    _calculatorUiState.value = calculatorUiState.value.copy(numberSystemResult = calculatorUiState.value.numberSystemResult.copy(value = String()))
+                    _calculatorUiState.value = calculatorUiState.value.copy(numberSystemResult = NumberSystem(String(), calculatorUiState.value.numberSystemResult.radix))
                     cancel()
                     return@launch
                 }
@@ -189,12 +180,12 @@ class CalculatorViewModel @Inject constructor(private val numSys: NumSys) : View
 
     private fun calculate() {
         if (numberSystem1Temp.value.value.isBlank() || numberSystem2Temp.value.value.isBlank()) {
-            _calculatorUiState.value = calculatorUiState.value.copy(numberSystemResult = calculatorUiState.value.numberSystemResult.copy(value = String()))
+            _calculatorUiState.value = calculatorUiState.value.copy(numberSystemResult = NumberSystem(String(), calculatorUiState.value.numberSystemResult.radix))
             return
         }
         Log.d(APP_TAG, "CalculatorViewModel::calculate")
 
-        numberSystemResultTemp.value.value = when (calculatorUiState.value.selectedArithmetic) {
+        when (calculatorUiState.value.selectedArithmetic) {
             Addition -> (numberSystem1Temp.value.value.toBigDecimal().plus(numberSystem2Temp.value.value.toBigDecimal())).toString()
             Subtraction -> (numberSystem1Temp.value.value.toBigDecimal().minus(numberSystem2Temp.value.value.toBigDecimal())).toString()
             Multiply -> (numberSystem1Temp.value.value.toBigDecimal().multiply(numberSystem2Temp.value.value.toBigDecimal(), DECIMAL128)).toString()
@@ -205,6 +196,8 @@ class CalculatorViewModel @Inject constructor(private val numSys: NumSys) : View
                 }
                 (numberSystem1Temp.value.value.toBigDecimal().divide(numberSystem2Temp.value.value.toBigDecimal(), DECIMAL128)).toString()
             }
+        }.let {
+            numberSystemResultTemp.value = NumberSystem(it, numberSystemResultTemp.value.radix)
         }
 
         convert(calculatorOperandType = OperandResult, from = numberSystemResultTemp.value, toRadixes = arrayOf(calculatorUiState.value.numberSystemResult.radix))
@@ -217,9 +210,9 @@ class CalculatorViewModel @Inject constructor(private val numSys: NumSys) : View
             numberSystemResult = NumberSystem(value = String(), radix = calculatorUiState.value.numberSystemResult.radix),
             selectedArithmetic = calculatorUiState.value.selectedArithmetic,
         )
-        numberSystem1Temp.value.value = String()
-        numberSystem2Temp.value.value = String()
-        numberSystemResultTemp.value.value = String()
+        numberSystem1Temp.value = NumberSystem(String(), numberSystem1Temp.value.radix)
+        numberSystem2Temp.value = NumberSystem(String(), numberSystem2Temp.value.radix)
+        numberSystemResultTemp.value = NumberSystem(String(), numberSystemResultTemp.value.radix)
     }
 
     private fun resetErrors() {

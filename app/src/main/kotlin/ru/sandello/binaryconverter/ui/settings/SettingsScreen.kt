@@ -15,9 +15,18 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
@@ -52,7 +61,7 @@ import ru.sandello.binaryconverter.utils.PRIVACY_POLICY_URL
 import java.util.Locale
 
 @Composable
-fun SettingsRoute(viewModel: SettingsViewModel = hiltViewModel()) {
+fun SettingsRoute(contentPadding: PaddingValues, viewModel: SettingsViewModel = hiltViewModel()) {
     val context = LocalContext.current
     val packageManager = context.packageManager
     val packageName = context.packageName
@@ -67,6 +76,7 @@ fun SettingsRoute(viewModel: SettingsViewModel = hiltViewModel()) {
     val backgroundColor = MaterialTheme.colorScheme.background.toArgb()
 
     SettingsScreen(
+        contentPadding = contentPadding,
         settingsUiState = settingsUiState,
         appVersion = appVersion,
         onChangeThemeType = viewModel::updateThemeType,
@@ -94,6 +104,7 @@ fun SettingsRoute(viewModel: SettingsViewModel = hiltViewModel()) {
 
 @Composable
 fun SettingsScreen(
+    contentPadding: PaddingValues = PaddingValues(),
     settingsUiState: SettingsUiState,
     appVersion: String,
     onChangeThemeType: (ThemeType) -> Unit,
@@ -124,7 +135,12 @@ fun SettingsScreen(
 
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(
-            modifier = Modifier.verticalScroll(rememberScrollState()),
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .statusBarsPadding()
+                .imePadding()
+                .consumeWindowInsets(contentPadding)
+                .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal)),
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
             Column {

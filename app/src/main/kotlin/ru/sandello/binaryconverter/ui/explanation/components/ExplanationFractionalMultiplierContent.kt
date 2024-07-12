@@ -16,10 +16,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import numsys.NumSys.toRadix
-import numsys.model.NumberSystem
 import numsys.model.Radix
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.FractionMultiplier
+import ru.sandello.binaryconverter.model.NumberSystem
+import ru.sandello.binaryconverter.model.asInternalModel
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.utils.NS_DELIMITER
 import ru.sandello.binaryconverter.utils.getFractional
@@ -35,12 +36,12 @@ fun ExplanationFractionalMultiplierContent(from: NumberSystem, to: NumberSystem)
 
     do {
         if (fractionMultiplierList.isEmpty()) {
-            fractionMultiplierList.add(fractionMultiplier(multiplier = getFractional(NumberSystem(fromFractional, from.radix).toRadix(Radix.DEC).value), multiplicand = to.radix.value))
+            fractionMultiplierList.add(fractionMultiplier(multiplier = getFractional(NumberSystem(fromFractional, from.radix).asInternalModel().toRadix(Radix.DEC).value), multiplicand = to.radix.value))
         } else {
             fractionMultiplierList.add(fractionMultiplier(multiplier = getFractional(fractionMultiplierList.last().product), multiplicand = to.radix.value))
         }
         iterations++
-    } while (fractionMultiplierList.last().product.toBigDecimal().scale() > 0 && (iterations < getFractional(NumberSystem(fromFractional, from.radix).toRadix(Radix.DEC).value).toBigDecimal().scale() && iterations < maxIterations))
+    } while (fractionMultiplierList.last().product.toBigDecimal().scale() > 0 && (iterations < getFractional(NumberSystem(fromFractional, from.radix).asInternalModel().toRadix(Radix.DEC).value).toBigDecimal().scale() && iterations < maxIterations))
 
     Column(
         modifier = Modifier.padding(bottom = 8.dp),

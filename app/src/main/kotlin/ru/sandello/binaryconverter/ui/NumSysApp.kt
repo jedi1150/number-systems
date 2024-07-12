@@ -146,18 +146,15 @@ fun NumberSystemsApp(
             Row(
                 Modifier
                     .fillMaxSize()
-                    .padding(contentPadding)
-                    .consumeWindowInsets(contentPadding)
                     .windowInsetsPadding(
-                        WindowInsets.safeDrawing.only(
-                            WindowInsetsSides.Horizontal,
-                        ),
-                    ),
+                        WindowInsets.safeDrawing
+                            .only(
+                                WindowInsetsSides.Horizontal,
+                            ),
+                    )
             ) {
                 if (appState.shouldShowNavRail) {
-                    NavigationRail(
-                        modifier = Modifier,
-                    ) {
+                    NavigationRail {
                         appState.topLevelDestinations.forEach { destination ->
                             NavigationRailItem(
                                 selected = appState.currentDestination.isTopLevelDestinationInHierarchy(destination),
@@ -180,6 +177,7 @@ fun NumberSystemsApp(
                     }
                 }
                 NumSysNavHost(
+                    contentPadding = contentPadding,
                     appState = appState,
                     converterViewModel = converterViewModel,
                     calculatorViewModel = calculatorViewModel,

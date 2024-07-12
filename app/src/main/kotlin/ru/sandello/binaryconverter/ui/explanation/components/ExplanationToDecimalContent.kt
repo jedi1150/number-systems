@@ -22,8 +22,11 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import numsys.NumSys
-import numsys.model.NumberSystem
+import numsys.NumSys.toRadix
 import numsys.model.Radix
+import ru.sandello.binaryconverter.model.NumberSystem
+import ru.sandello.binaryconverter.model.asExternalModel
+import ru.sandello.binaryconverter.model.asInternalModel
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.ui.theme.RobotoFamily
 import ru.sandello.binaryconverter.ui.theme.RobotoMonoFamily
@@ -31,12 +34,12 @@ import ru.sandello.binaryconverter.utils.NS_DELIMITER
 
 @Composable
 fun ExplanationToDecimalContent(from: NumberSystem) {
-    val integerPart: NumberSystem = from.copy(value = from.value.substringBefore(NS_DELIMITER))
+    val integerPart = NumberSystem(value = from.value.substringBefore(NS_DELIMITER), from.radix)
 
     val position = from.value.substringBefore(NS_DELIMITER).length
     val filteredValue = from.value.toList().filterNot { char -> char == NS_DELIMITER }
 
-    val result = NumSys.convert(from, toRadix = Radix.DEC)
+    val result = NumSys.convert(numberSystem = from.asInternalModel(), targetRadix = Radix.DEC)
 
     Column(
         modifier = Modifier.padding(bottom = 8.dp),
@@ -55,7 +58,7 @@ fun ExplanationToDecimalContent(from: NumberSystem) {
                     filteredValue.forEachIndexed { index, value ->
                         append(value)
                         if (value.isLetter()) {
-                            val decimalNumber = NumSys.convert(NumberSystem(value = value.toString(), radix = integerPart.radix), toRadix = Radix.DEC).value
+                            val decimalNumber = NumberSystem(value = value.toString(), radix = integerPart.radix).asInternalModel().toRadix(Radix.DEC).value
                             withStyle(SpanStyle(fontFamily = RobotoFamily)) {
                                 append("(")
                             }
@@ -69,7 +72,7 @@ fun ExplanationToDecimalContent(from: NumberSystem) {
                         if (index != filteredValue.lastIndex) withStyle(SpanStyle(letterSpacing = 6.sp)) { append("+") }
                     }
                     withStyle(SpanStyle(letterSpacing = 6.sp)) { append("=") }
-                    append(numberSystem(numberSystem = result))
+                    append(numberSystem(numberSystem = result.asExternalModel()))
                 },
                 fontFamily = RobotoMonoFamily,
                 style = MaterialTheme.typography.bodyMedium,

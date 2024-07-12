@@ -1,5 +1,6 @@
 package ru.sandello.binaryconverter.ui.navigation
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
@@ -13,6 +14,7 @@ import ru.sandello.binaryconverter.ui.settings.navigation.settingsScreen
 
 @Composable
 fun NumSysNavHost(
+    contentPadding: PaddingValues,
     appState: NumSysAppState,
     converterViewModel: ConverterViewModel = hiltViewModel(),
     calculatorViewModel: CalculatorViewModel = hiltViewModel(),
@@ -22,8 +24,8 @@ fun NumSysNavHost(
         navController = appState.navController,
         startDestination = startDestination,
     ) {
-        converterScreen(viewModel = converterViewModel)
-        calculatorScreen(viewModel = calculatorViewModel)
-        settingsScreen()
+        converterScreen(contentPadding, viewModel = converterViewModel)
+        calculatorScreen(contentPadding, viewModel = calculatorViewModel)
+        settingsScreen(contentPadding)
     }
 }

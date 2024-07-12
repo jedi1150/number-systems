@@ -5,11 +5,17 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -54,11 +60,13 @@ import ru.sandello.binaryconverter.utils.NS_DELIMITER
 
 @Composable
 fun CalculatorRoute(
+    contentPadding: PaddingValues,
     viewModel: CalculatorViewModel = hiltViewModel(),
 ) {
     val calculatorUiState by viewModel.calculatorUiState.collectAsStateWithLifecycle()
 
     CalculatorScreen(
+        contentPadding = contentPadding,
         calculatorUiState = calculatorUiState,
         onNumberSystemChange = viewModel::convertFrom,
         onRadixChange = viewModel::updateRadix,
@@ -69,6 +77,7 @@ fun CalculatorRoute(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CalculatorScreen(
+    contentPadding: PaddingValues = PaddingValues(0.dp),
     calculatorUiState: CalculatorUiState,
     onNumberSystemChange: (CalculatorOperandType, NumberSystem) -> Unit,
     onRadixChange: (CalculatorRadixType, Radix) -> Unit,
@@ -77,12 +86,14 @@ fun CalculatorScreen(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
+            .consumeWindowInsets(contentPadding)
+            .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal))
             .imePadding(),
         contentPadding = PaddingValues(
             start = 8.dp,
-            top = 8.dp,
+            top = contentPadding.calculateTopPadding() + 8.dp,
             end = 8.dp,
-            bottom = 72.dp,
+            bottom = contentPadding.calculateBottomPadding() + 72.dp,
         ),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {

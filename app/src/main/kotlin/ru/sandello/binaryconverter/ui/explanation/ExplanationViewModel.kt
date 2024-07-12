@@ -9,8 +9,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import numsys.NumSys
-import numsys.model.NumberSystem
 import numsys.model.Radix
+import ru.sandello.binaryconverter.model.NumberSystem
+import ru.sandello.binaryconverter.model.asExternalModel
+import ru.sandello.binaryconverter.model.asInternalModel
 import ru.sandello.binaryconverter.utils.APP_TAG
 import ru.sandello.binaryconverter.utils.CharRegex
 import javax.inject.Inject
@@ -46,19 +48,20 @@ class ExplanationViewModel @Inject constructor(private val numSys: NumSys) : Vie
             return
         }
 
-
-        if (from.value.contains("-".toRegex())) {
-            from.value = from.value.replace("-", "").replaceRange(0, 0, "-")
+        val updatedFrom = if (from.value.contains("-".toRegex())) {
+            NumberSystem(from.value.replace("-", "").replaceRange(0, 0, "-"), from.radix)
+        } else {
+            from
         }
 
         viewModelScope.launch {
-            numSys.convert(value = from, toRadix = toRadix).let { convertedData ->
+            numSys.convert(numberSystem = updatedFrom.asInternalModel(), targetRadix = toRadix).let { convertedData ->
                 var finalFrom: NumberSystem = explanationUiState.value.from
                 var finalTo: NumberSystem = explanationUiState.value.to
 
                 when (explanationOperandType) {
-                    ExplanationOperandType.OperandCustom1 -> finalFrom = convertedData
-                    ExplanationOperandType.OperandCustom2 -> finalTo = convertedData
+                    ExplanationOperandType.OperandCustom1 -> finalFrom = convertedData.asExternalModel()
+                    ExplanationOperandType.OperandCustom2 -> finalTo = convertedData.asExternalModel()
                 }
                 _explanationUiState.value = ExplanationUiState(state = ExplanationState.Completed, finalFrom, finalTo)
             }

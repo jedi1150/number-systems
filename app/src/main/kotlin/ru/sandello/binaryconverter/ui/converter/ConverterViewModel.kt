@@ -12,8 +12,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import numsys.model.NumberSystem
 import numsys.model.Radix
+import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.repository.NumberSystemRepository
 import ru.sandello.binaryconverter.utils.APP_TAG
 import ru.sandello.binaryconverter.utils.CharRegex
@@ -52,14 +52,16 @@ class ConverterViewModel @Inject constructor(private val numberSystemRepository:
             Log.w(APP_TAG, "ConverterViewModel::convert: Invalid character entered")
 
             when (from.radix) {
-                converterUiState.value.numberSystem2.radix -> _converterUiState.value = converterUiState.value.copy(numberSystem2Error = true)
-                converterUiState.value.numberSystem8.radix -> _converterUiState.value = converterUiState.value.copy(numberSystem8Error = true)
-                converterUiState.value.numberSystem10.radix -> _converterUiState.value = converterUiState.value.copy(numberSystem10Error = true)
-                converterUiState.value.numberSystem16.radix -> _converterUiState.value = converterUiState.value.copy(numberSystem16Error = true)
-                converterUiState.value.numberSystemCustom.radix -> _converterUiState.value = converterUiState.value.copy(numberSystemCustomError = true)
+                converterUiState.value.numberSystem2.radix -> _converterUiState.value = converterUiState.value.copy(numberSystem2 = _converterUiState.value.numberSystem2.copy(isError = true))
+                converterUiState.value.numberSystem8.radix -> _converterUiState.value = converterUiState.value.copy(numberSystem8 = _converterUiState.value.numberSystem8.copy(isError = true))
+                converterUiState.value.numberSystem10.radix -> _converterUiState.value = converterUiState.value.copy(numberSystem10 = _converterUiState.value.numberSystem10.copy(isError = true))
+                converterUiState.value.numberSystem16.radix -> _converterUiState.value = converterUiState.value.copy(numberSystem16 = _converterUiState.value.numberSystem16.copy(isError = true))
+                converterUiState.value.numberSystemCustom.radix -> _converterUiState.value = converterUiState.value.copy(numberSystemCustom = _converterUiState.value.numberSystemCustom.copy(isError = true))
             }
             return
         }
+
+        lastNumberSystem = from
 
         resetErrors()
 
@@ -144,6 +146,8 @@ class ConverterViewModel @Inject constructor(private val numberSystemRepository:
     }
 
     fun clear() {
+        lastNumberSystem = null
+
         resetErrors()
         _converterUiState.value = ConverterUiState(
             numberSystemCustom = NumberSystem(value = String(), radix = converterUiState.value.numberSystemCustom.radix),
@@ -152,11 +156,11 @@ class ConverterViewModel @Inject constructor(private val numberSystemRepository:
 
     private fun resetErrors() {
         _converterUiState.value = converterUiState.value.copy(
-            numberSystem2Error = false,
-            numberSystem8Error = false,
-            numberSystem10Error = false,
-            numberSystem16Error = false,
-            numberSystemCustomError = false,
+            numberSystem2 = _converterUiState.value.numberSystem2.copy(isError = false),
+            numberSystem8 = _converterUiState.value.numberSystem8.copy(isError = false),
+            numberSystem10 = _converterUiState.value.numberSystem10.copy(isError = false),
+            numberSystem16 = _converterUiState.value.numberSystem16.copy(isError = false),
+            numberSystemCustom = _converterUiState.value.numberSystemCustom.copy(isError = false),
         )
     }
 

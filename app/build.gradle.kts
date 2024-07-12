@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.firebaseCrashlytics)
     alias(libs.plugins.gms)
     alias(libs.plugins.hilt)
-    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.protobuf)
 }
@@ -97,6 +97,8 @@ androidComponents {
 }
 
 dependencies {
+    implementation(project(":lib"))
+
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
@@ -120,7 +122,6 @@ dependencies {
     implementation(libs.protobuf.kotlin.lite)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
-    implementation(libs.numsys)
     implementation(libs.androidx.compose.ui.text.google.fonts)
     implementation(libs.android.play.review.ktx)
 
