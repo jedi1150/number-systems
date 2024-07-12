@@ -8,20 +8,23 @@ public final class numsys/NumSys {
 }
 
 public final class numsys/NumSys$Constants {
-	public static final field Comma C
-	public static final field Delimiter C
-	public static final field GroupSeparator C
+	public static final field COMMA C
+	public static final field DELIMITER C
+	public static final field GROUP_SEPARATOR C
 	public static final field INSTANCE Lnumsys/NumSys$Constants;
 }
 
 public final class numsys/model/NumberSystem {
 	public fun <init> (Ljava/lang/String;Lnumsys/model/Radix;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lnumsys/model/Radix;
+	public final fun copy (Ljava/lang/String;Lnumsys/model/Radix;)Lnumsys/model/NumberSystem;
+	public static synthetic fun copy$default (Lnumsys/model/NumberSystem;Ljava/lang/String;Lnumsys/model/Radix;ILjava/lang/Object;)Lnumsys/model/NumberSystem;
+	public fun equals (Ljava/lang/Object;)Z
 	public final fun getRadix ()Lnumsys/model/Radix;
 	public final fun getValue ()Ljava/lang/String;
-}
-
-public final class numsys/model/NumberSystemKt {
-	public static final fun pretty (Lnumsys/model/NumberSystem;)Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class numsys/model/Radix {
@@ -31,7 +34,13 @@ public final class numsys/model/Radix {
 	public static final field HEX Lnumsys/model/Radix;
 	public static final field OCT Lnumsys/model/Radix;
 	public fun <init> (I)V
+	public final fun component1 ()I
+	public final fun copy (I)Lnumsys/model/Radix;
+	public static synthetic fun copy$default (Lnumsys/model/Radix;IILjava/lang/Object;)Lnumsys/model/Radix;
+	public fun equals (Ljava/lang/Object;)Z
 	public final fun getValue ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class numsys/model/Radix$Companion {
