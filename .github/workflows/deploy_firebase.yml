@@ -1,6 +1,6 @@
 name: Deploy to Firebase App Tester
 
-on: workflow_run
+on: workflow_dispatch
 
 jobs:
   deploy_internal:
