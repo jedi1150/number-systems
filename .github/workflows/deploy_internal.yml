@@ -6,7 +6,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy_internal:
+  deploy_google_play_internal:
+    name: Deploy Google Play Internal
     runs-on: ubuntu-latest
 
     steps:
@@ -18,8 +19,6 @@ jobs:
           distribution: 'temurin'
 
       - uses: gradle/wrapper-validation-action@v2
-
-      - uses: gradle/gradle-build-action@v3
 
       - name: Setup Ruby (for Fastlane)
         uses: ruby/setup-ruby@v1.171.0

@@ -1,4 +1,4 @@
-name: Lint
+name: Checks
 
 on:
   push:
@@ -6,20 +6,18 @@ on:
   pull_request:
 
 jobs:
-  lint:
+  checks:
+    name: Checks
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
-
-      - uses: gradle/wrapper-validation-action@v2
-
       - uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      - uses: gradle/actions/setup-gradle@v3
+      - uses: gradle/wrapper-validation-action@v2
 
       - name: Create google-services.json file
         run: |
@@ -31,45 +29,27 @@ jobs:
       - name: Check lint
         run: ./gradlew lint
 
-      - name: Upload lint reports (HTML)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lint-reports
-          path: '**/build/reports/lint-results-*.html'
+      - name: Check binary compatibility
+        run: ./gradlew :lib:apiCheck
 
-  api_check:
+  unit-tests:
+    name: Unit tests
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
-
-      - uses: gradle/wrapper-validation-action@v2
-
       - uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
-
-      - uses: gradle/actions/setup-gradle@v3
-
-      - name: API Check
-        run: ./gradlew apiCheck
-
-  tests:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: gradle/wrapper-validation-action@v2
-
-      - uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
       - uses: gradle/actions/setup-gradle@v3
 
       - name: Test
-        run: ./gradlew test
+        run: ./gradlew :lib:test
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Unit test reports
+          path: '**/lib/build/reports/tests/test/index.html'
