@@ -72,4 +72,4 @@ jobs:
       - uses: gradle/actions/setup-gradle@v3
 
       - name: Test
-        run: ./gradlew apiCheck
+        run: ./gradlew test
