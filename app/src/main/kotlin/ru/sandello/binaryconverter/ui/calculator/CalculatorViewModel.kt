@@ -150,7 +150,11 @@ class CalculatorViewModel @Inject constructor(private val numSys: NumSys) : View
                 }
             }.map { toRadix ->
                 try {
-                    numSys.convert(numberSystem = from, targetRadix = toRadix)
+                    numSys.convert(
+                        numberSystem = from,
+                        targetRadix = toRadix,
+                        ignoreCase = toRadix.value in Radix.BIN.value..Radix.HEX.value,
+                    )
                 } catch (exception: IllegalArgumentException) {
                     when (calculatorOperandType) {
                         OperandCustom1 -> numberSystem1Temp.value = NumberSystem(String(), numberSystem1Temp.value.radix)

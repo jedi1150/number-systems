@@ -36,12 +36,12 @@ fun ExplanationFractionalMultiplierContent(from: NumberSystem, to: NumberSystem)
 
     do {
         if (fractionMultiplierList.isEmpty()) {
-            fractionMultiplierList.add(fractionMultiplier(multiplier = getFractional(NumberSystem(fromFractional, from.radix).asInternalModel().toRadix(Radix.DEC).value), multiplicand = to.radix.value))
+            fractionMultiplierList.add(fractionMultiplier(multiplier = getFractional(NumberSystem(fromFractional, from.radix).asInternalModel().toRadix(Radix.DEC, ignoreCase = true).value), multiplicand = to.radix.value))
         } else {
             fractionMultiplierList.add(fractionMultiplier(multiplier = getFractional(fractionMultiplierList.last().product), multiplicand = to.radix.value))
         }
         iterations++
-    } while (fractionMultiplierList.last().product.toBigDecimal().scale() > 0 && (iterations < getFractional(NumberSystem(fromFractional, from.radix).asInternalModel().toRadix(Radix.DEC).value).toBigDecimal().scale() && iterations < maxIterations))
+    } while (fractionMultiplierList.last().product.toBigDecimal().scale() > 0 && (iterations < getFractional(NumberSystem(fromFractional, from.radix).asInternalModel().toRadix(Radix.DEC, ignoreCase = true).value).toBigDecimal().scale() && iterations < maxIterations))
 
     Column(
         modifier = Modifier.padding(bottom = 8.dp),

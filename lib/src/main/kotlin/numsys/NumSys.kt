@@ -20,12 +20,12 @@ public object NumSys {
      * @return value of target radix.
      */
     @JvmStatic
-    public fun convert(value: String, sourceRadix: Int, targetRadix: Int): String {
+    public fun convert(value: String, sourceRadix: Int, targetRadix: Int, ignoreCase: Boolean = false): String {
         require(value.isNotBlank()) { "Source value must not be empty" }
         require(value.replace(".", "").all { char -> char.isLetterOrDigit() }) { "Incorrect source value" }
         require(sourceRadix in 2..62 && targetRadix in 2..62) { "Source and target radixes must be in the range from 2 to 62" }
 
-        val parts = value.split(".")
+        val parts = if (ignoreCase) value.lowercase().split(".") else value.split(".")
         val integerPart = parts[0]
         val fractionalPart = if (parts.size > 1) parts[1] else ""
 
@@ -55,16 +55,15 @@ public object NumSys {
      * @see Radix
      */
     @JvmStatic
-    public fun convert(numberSystem: NumberSystem, targetRadix: Radix): NumberSystem {
-        return NumberSystem(
-            value = convert(
-                value = numberSystem.value,
-                sourceRadix = numberSystem.radix.value,
-                targetRadix = targetRadix.value,
-            ),
-            radix = targetRadix,
-        )
-    }
+    public fun convert(numberSystem: NumberSystem, targetRadix: Radix, ignoreCase: Boolean = false): NumberSystem = NumberSystem(
+        value = convert(
+            value = numberSystem.value,
+            sourceRadix = numberSystem.radix.value,
+            targetRadix = targetRadix.value,
+            ignoreCase = ignoreCase,
+        ),
+        radix = targetRadix,
+    )
 
     /**
      * Converts [NumberSystem] to another [NumberSystem].
@@ -75,7 +74,7 @@ public object NumSys {
      * @see Radix
      */
     @JvmStatic
-    public fun NumberSystem.toRadix(value: Radix): NumberSystem = convert(this, value)
+    public fun NumberSystem.toRadix(value: Radix, ignoreCase: Boolean = false): NumberSystem = convert(this, value, ignoreCase)
 
     @JvmStatic
     private fun convertIntegerPart(value: String, sourceRadix: Int, targetRadix: Int): String {
