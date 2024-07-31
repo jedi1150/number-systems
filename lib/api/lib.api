@@ -1,10 +1,13 @@
 public final class numsys/NumSys {
 	public static final field INSTANCE Lnumsys/NumSys;
-	public static final fun convert (Ljava/lang/String;II)Ljava/lang/String;
-	public static final fun convert (Lnumsys/model/NumberSystem;Lnumsys/model/Radix;)Lnumsys/model/NumberSystem;
+	public static final fun convert (Ljava/lang/String;IIZ)Ljava/lang/String;
+	public static final fun convert (Lnumsys/model/NumberSystem;Lnumsys/model/Radix;Z)Lnumsys/model/NumberSystem;
+	public static synthetic fun convert$default (Ljava/lang/String;IIZILjava/lang/Object;)Ljava/lang/String;
+	public static synthetic fun convert$default (Lnumsys/model/NumberSystem;Lnumsys/model/Radix;ZILjava/lang/Object;)Lnumsys/model/NumberSystem;
 	public static final fun getFractionalLength ()I
 	public static final fun setFractionalLength (I)V
-	public static final fun toRadix (Lnumsys/model/NumberSystem;Lnumsys/model/Radix;)Lnumsys/model/NumberSystem;
+	public static final fun toRadix (Lnumsys/model/NumberSystem;Lnumsys/model/Radix;Z)Lnumsys/model/NumberSystem;
+	public static synthetic fun toRadix$default (Lnumsys/model/NumberSystem;Lnumsys/model/Radix;ZILjava/lang/Object;)Lnumsys/model/NumberSystem;
 }
 
 public final class numsys/NumSys$Constants {
