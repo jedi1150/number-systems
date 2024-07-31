@@ -39,7 +39,7 @@ fun ExplanationToDecimalContent(from: NumberSystem) {
     val position = from.value.substringBefore(NS_DELIMITER).length
     val filteredValue = from.value.toList().filterNot { char -> char == NS_DELIMITER }
 
-    val result = NumSys.convert(numberSystem = from.asInternalModel(), targetRadix = Radix.DEC)
+    val result = NumSys.convert(numberSystem = from.asInternalModel(), targetRadix = Radix.DEC, ignoreCase = true)
 
     Column(
         modifier = Modifier.padding(bottom = 8.dp),
@@ -58,7 +58,7 @@ fun ExplanationToDecimalContent(from: NumberSystem) {
                     filteredValue.forEachIndexed { index, value ->
                         append(value)
                         if (value.isLetter()) {
-                            val decimalNumber = NumberSystem(value = value.toString(), radix = integerPart.radix).asInternalModel().toRadix(Radix.DEC).value
+                            val decimalNumber = NumberSystem(value = value.toString(), radix = integerPart.radix).asInternalModel().toRadix(Radix.DEC, ignoreCase = true).value
                             withStyle(SpanStyle(fontFamily = RobotoFamily)) {
                                 append("(")
                             }

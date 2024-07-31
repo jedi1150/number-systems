@@ -19,6 +19,12 @@ class NumberSystemDataSource @Inject constructor(
 
         if (from.value.isEmpty()) return@coroutineScope null
 
-        return@coroutineScope withContext(Dispatchers.Default) { numSys.convert(numberSystem = from.asInternalModel(), targetRadix = toRadix).asExternalModel() }
+        return@coroutineScope withContext(Dispatchers.Default) {
+            numSys.convert(
+                numberSystem = from.asInternalModel(),
+                targetRadix = toRadix,
+                ignoreCase = toRadix.value in Radix.BIN.value..Radix.HEX.value,
+            ).asExternalModel()
+        }
     }
 }

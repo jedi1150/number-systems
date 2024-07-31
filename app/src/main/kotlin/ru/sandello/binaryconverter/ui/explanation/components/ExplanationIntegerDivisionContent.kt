@@ -38,7 +38,7 @@ fun ExplanationIntegerDivisionContent(from: NumberSystem, to: NumberSystem) {
 
     do {
         if (divisionList.isEmpty()) {
-            divisionList.add(longDivision(dividend = NumberSystem(fromDecimal, from.radix).asInternalModel().toRadix(Radix.DEC).value.toBigDecimal(), divisor = to.radix.value))
+            divisionList.add(longDivision(dividend = NumberSystem(fromDecimal, from.radix).asInternalModel().toRadix(Radix.DEC, ignoreCase = true).value.toBigDecimal(), divisor = to.radix.value))
         } else {
             divisionList.add(longDivision(dividend = divisionList.last().quotient, divisor = divisionList.last().divisor))
         }

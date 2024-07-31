@@ -55,7 +55,11 @@ class ExplanationViewModel @Inject constructor(private val numSys: NumSys) : Vie
         }
 
         viewModelScope.launch {
-            numSys.convert(numberSystem = updatedFrom.asInternalModel(), targetRadix = toRadix).let { convertedData ->
+            numSys.convert(
+                numberSystem = updatedFrom.asInternalModel(),
+                targetRadix = toRadix,
+                ignoreCase = toRadix.value in Radix.BIN.value..Radix.HEX.value,
+            ).let { convertedData ->
                 var finalFrom: NumberSystem = explanationUiState.value.from
                 var finalTo: NumberSystem = explanationUiState.value.to
 
