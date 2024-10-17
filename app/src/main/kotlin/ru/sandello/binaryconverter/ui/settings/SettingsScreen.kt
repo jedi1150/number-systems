@@ -70,7 +70,7 @@ fun SettingsRoute(contentPadding: PaddingValues, viewModel: SettingsViewModel = 
     } else {
         packageManager.getPackageInfo(packageName, 0)
     }
-    val appVersion = stringResource(R.string.app_version, packageInfo.versionName, PackageInfoCompat.getLongVersionCode(packageInfo))
+    val appVersion = stringResource(R.string.app_version, packageInfo.versionName.orEmpty(), PackageInfoCompat.getLongVersionCode(packageInfo))
 
     val settingsUiState by viewModel.settingsUiState.collectAsStateWithLifecycle()
     val backgroundColor = MaterialTheme.colorScheme.background.toArgb()

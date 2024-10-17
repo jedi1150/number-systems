@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.compose)
     alias(libs.plugins.firebaseCrashlytics)
     alias(libs.plugins.gms)
     alias(libs.plugins.hilt)
@@ -10,11 +11,11 @@ plugins {
 
 android {
     namespace = "ru.sandello.binaryconverter"
-    compileSdk = 34
+    compileSdk = 35
     defaultConfig {
         applicationId = "ru.sandello.binaryconverter"
         minSdk = 21
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "2.2.4"
     }
@@ -54,11 +55,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
+    kotlinOptions {
+        jvmTarget = "21"
     }
 }
 
