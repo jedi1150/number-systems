@@ -17,7 +17,7 @@ jobs:
           cache: 'gradle'
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
-      - uses: gradle/wrapper-validation-action@v4
+      - uses: gradle/wrapper-validation-action@v3
       - name: Setup Ruby (for Fastlane)
         uses: ruby/setup-ruby@v1
         with:
