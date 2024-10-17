@@ -8,7 +8,7 @@ on:
 jobs:
   deploy_google_play_internal:
     name: Deploy to Google Play Internal
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
