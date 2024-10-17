@@ -20,7 +20,7 @@ jobs:
           cache: 'gradle'
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
-      - uses: gradle/wrapper-validation-action@v3
+      - uses: gradle/actions/wrapper-validation@v4
       - name: Create google-services.json file
         run: |
           echo "$GOOGLE_SERVICES_JSON" > app/google-services.json.base64
