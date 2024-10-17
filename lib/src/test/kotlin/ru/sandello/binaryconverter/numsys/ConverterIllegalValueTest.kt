@@ -1,8 +1,8 @@
-package numsys
+package ru.sandello.binaryconverter.numsys
 
-import numsys.model.NumberSystem
-import numsys.model.Radix
 import org.junit.Test
+import ru.sandello.binaryconverter.numsys.model.NumberSystem
+import ru.sandello.binaryconverter.numsys.model.Radix
 import kotlin.test.assertFailsWith
 
 class ConverterIllegalValueTest {

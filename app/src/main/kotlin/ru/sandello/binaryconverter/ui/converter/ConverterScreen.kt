@@ -38,9 +38,9 @@ import androidx.compose.ui.tooling.preview.Wallpapers
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import numsys.model.Radix
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.NumberSystem
+import ru.sandello.binaryconverter.numsys.model.Radix
 import ru.sandello.binaryconverter.ui.OperandVisualTransformation
 import ru.sandello.binaryconverter.ui.components.RadixExposedDropdown
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme

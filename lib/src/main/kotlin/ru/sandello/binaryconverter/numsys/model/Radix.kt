@@ -1,4 +1,4 @@
-package numsys.model
+package ru.sandello.binaryconverter.numsys.model
 
 public data class Radix(public val value: Int) {
 

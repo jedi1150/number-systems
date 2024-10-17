@@ -8,11 +8,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import numsys.NumSys
-import numsys.model.Radix
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.model.asExternalModel
 import ru.sandello.binaryconverter.model.asInternalModel
+import ru.sandello.binaryconverter.numsys.NumSys
+import ru.sandello.binaryconverter.numsys.model.Radix
 import ru.sandello.binaryconverter.utils.APP_TAG
 import ru.sandello.binaryconverter.utils.CharRegex
 import javax.inject.Inject

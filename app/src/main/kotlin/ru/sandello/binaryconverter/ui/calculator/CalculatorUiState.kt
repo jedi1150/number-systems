@@ -1,8 +1,8 @@
 package ru.sandello.binaryconverter.ui.calculator
 
 import android.annotation.SuppressLint
-import numsys.model.NumberSystem
-import numsys.model.Radix
+import ru.sandello.binaryconverter.numsys.model.NumberSystem
+import ru.sandello.binaryconverter.numsys.model.Radix
 
 enum class CalculatorOperandType { OperandCustom1, OperandCustom2, OperandResult }
 

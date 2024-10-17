@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.android.application)
     alias(libs.plugins.firebaseCrashlytics)
     alias(libs.plugins.gms)
     alias(libs.plugins.hilt)
@@ -16,7 +16,7 @@ android {
         minSdk = 21
         targetSdk = 34
         versionCode = 1
-        versionName = "2.2.3"
+        versionName = "2.2.4"
     }
     buildTypes {
         named("release") {

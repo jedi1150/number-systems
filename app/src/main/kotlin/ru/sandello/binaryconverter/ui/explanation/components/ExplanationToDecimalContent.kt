@@ -21,12 +21,12 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import numsys.NumSys
-import numsys.NumSys.toRadix
-import numsys.model.Radix
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.model.asExternalModel
 import ru.sandello.binaryconverter.model.asInternalModel
+import ru.sandello.binaryconverter.numsys.NumSys
+import ru.sandello.binaryconverter.numsys.NumSys.toRadix
+import ru.sandello.binaryconverter.numsys.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.ui.theme.RobotoFamily
 import ru.sandello.binaryconverter.ui.theme.RobotoMonoFamily

@@ -1,8 +1,8 @@
 package ru.sandello.binaryconverter.repository
 
-import numsys.model.Radix
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.numsys.NumberSystemDataSource
+import ru.sandello.binaryconverter.numsys.model.Radix
 import javax.inject.Inject
 
 class NumberSystemRepository @Inject constructor(

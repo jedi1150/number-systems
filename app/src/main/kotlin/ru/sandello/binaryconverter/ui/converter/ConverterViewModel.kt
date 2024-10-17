@@ -12,8 +12,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import numsys.model.Radix
 import ru.sandello.binaryconverter.model.NumberSystem
+import ru.sandello.binaryconverter.numsys.model.Radix
 import ru.sandello.binaryconverter.repository.NumberSystemRepository
 import ru.sandello.binaryconverter.utils.APP_TAG
 import ru.sandello.binaryconverter.utils.CharRegex

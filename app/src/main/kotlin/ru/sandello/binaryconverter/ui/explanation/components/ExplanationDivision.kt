@@ -11,9 +11,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import numsys.model.Radix
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.Division
+import ru.sandello.binaryconverter.numsys.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.ui.theme.RobotoMonoFamily
 import ru.sandello.binaryconverter.utils.pretty

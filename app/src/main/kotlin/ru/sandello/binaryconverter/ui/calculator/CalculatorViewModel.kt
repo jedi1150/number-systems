@@ -13,9 +13,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
-import numsys.NumSys
-import numsys.model.NumberSystem
-import numsys.model.Radix
+import ru.sandello.binaryconverter.numsys.NumSys
+import ru.sandello.binaryconverter.numsys.model.NumberSystem
+import ru.sandello.binaryconverter.numsys.model.Radix
 import ru.sandello.binaryconverter.ui.calculator.ArithmeticType.Addition
 import ru.sandello.binaryconverter.ui.calculator.ArithmeticType.Divide
 import ru.sandello.binaryconverter.ui.calculator.ArithmeticType.Multiply

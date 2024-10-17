@@ -4,8 +4,8 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
-import numsys.model.Radix
-import numsys.model.groupLength
+import ru.sandello.binaryconverter.numsys.model.Radix
+import ru.sandello.binaryconverter.numsys.model.groupLength
 import ru.sandello.binaryconverter.utils.COMMA
 import ru.sandello.binaryconverter.utils.NS_DELIMITER
 import ru.sandello.binaryconverter.utils.NS_GROUP_SEPARATOR

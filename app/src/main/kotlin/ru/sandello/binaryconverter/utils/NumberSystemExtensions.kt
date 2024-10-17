@@ -1,8 +1,8 @@
 package ru.sandello.binaryconverter.utils
 
-import numsys.NumSys
-import numsys.model.Radix
-import numsys.model.groupLength
+import ru.sandello.binaryconverter.numsys.NumSys
+import ru.sandello.binaryconverter.numsys.model.Radix
+import ru.sandello.binaryconverter.numsys.model.groupLength
 
 fun String.pretty(radix: Radix): String {
     return this.split(NumSys.Constants.DELIMITER).joinToString(separator = NumSys.Constants.DELIMITER.toString()) { part ->

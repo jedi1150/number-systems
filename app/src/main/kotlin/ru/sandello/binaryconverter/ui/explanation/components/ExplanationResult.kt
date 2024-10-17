@@ -22,9 +22,9 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import numsys.model.Radix
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.NumberSystem
+import ru.sandello.binaryconverter.numsys.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @Composable

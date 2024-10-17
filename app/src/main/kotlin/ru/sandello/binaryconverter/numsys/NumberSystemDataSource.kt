@@ -4,11 +4,10 @@ import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
-import numsys.NumSys
-import numsys.model.Radix
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.model.asExternalModel
 import ru.sandello.binaryconverter.model.asInternalModel
+import ru.sandello.binaryconverter.numsys.model.Radix
 import javax.inject.Inject
 
 class NumberSystemDataSource @Inject constructor(

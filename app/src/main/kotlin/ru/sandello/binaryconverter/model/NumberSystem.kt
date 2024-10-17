@@ -1,8 +1,8 @@
 package ru.sandello.binaryconverter.model
 
-import numsys.NumSys
-import numsys.model.Radix
-import numsys.model.groupLength
+import ru.sandello.binaryconverter.numsys.NumSys
+import ru.sandello.binaryconverter.numsys.model.Radix
+import ru.sandello.binaryconverter.numsys.model.groupLength
 
 data class NumberSystem(
     var value: String,
@@ -10,12 +10,12 @@ data class NumberSystem(
     var isError: Boolean = false,
 )
 
-fun numsys.model.NumberSystem.asExternalModel() = NumberSystem(
+fun ru.sandello.binaryconverter.numsys.model.NumberSystem.asExternalModel() = NumberSystem(
     value = value,
     radix = radix,
 )
 
-fun NumberSystem.asInternalModel() = numsys.model.NumberSystem(
+fun NumberSystem.asInternalModel() = ru.sandello.binaryconverter.numsys.model.NumberSystem(
     value,
     radix,
 )

@@ -15,12 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import numsys.NumSys.toRadix
-import numsys.model.Radix
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.FractionMultiplier
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.model.asInternalModel
+import ru.sandello.binaryconverter.numsys.NumSys.toRadix
+import ru.sandello.binaryconverter.numsys.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.utils.NS_DELIMITER
 import ru.sandello.binaryconverter.utils.getFractional
