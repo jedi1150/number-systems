@@ -133,7 +133,12 @@ fun ConverterScreen(
                 label = { Text(stringResource(R.string.hex)) },
                 isError = converterUiState.numberSystem16.isError,
                 visualTransformation = OperandVisualTransformation(converterUiState.numberSystem16.radix),
-                keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
+                keyboardOptions = KeyboardOptions(
+                    capitalization = KeyboardCapitalization.Characters,
+                    autoCorrectEnabled = false,
+                    keyboardType = KeyboardType.Ascii,
+                    imeAction = ImeAction.Done,
+                ),
                 shape = MaterialTheme.shapes.medium,
             )
         }
@@ -147,7 +152,12 @@ fun ConverterScreen(
                     label = { Text(stringResource(R.string.radix, converterUiState.numberSystemCustom.radix.value)) },
                     isError = converterUiState.numberSystemCustom.isError,
                     visualTransformation = OperandVisualTransformation(converterUiState.numberSystemCustom.radix),
-                    keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
+                    keyboardOptions = KeyboardOptions(
+                        capitalization = KeyboardCapitalization.Characters,
+                        autoCorrectEnabled = false,
+                        keyboardType = KeyboardType.Ascii,
+                        imeAction = ImeAction.Done,
+                    ),
                     shape = MaterialTheme.shapes.medium,
                 )
                 var expanded by remember { mutableStateOf(false) }

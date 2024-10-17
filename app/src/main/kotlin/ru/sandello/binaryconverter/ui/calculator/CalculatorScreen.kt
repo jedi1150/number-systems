@@ -114,7 +114,7 @@ fun CalculatorScreen(
                     visualTransformation = OperandVisualTransformation(calculatorUiState.numberSystemCustom1.radix),
                     keyboardOptions = KeyboardOptions(
                         capitalization = KeyboardCapitalization.Characters,
-                        autoCorrect = false,
+                        autoCorrectEnabled = true,
                         keyboardType = KeyboardType.Ascii,
                         imeAction = ImeAction.Done,
                     ),
@@ -188,7 +188,7 @@ fun CalculatorScreen(
                     visualTransformation = OperandVisualTransformation(calculatorUiState.numberSystemCustom2.radix),
                     keyboardOptions = KeyboardOptions(
                         capitalization = KeyboardCapitalization.Characters,
-                        autoCorrect = false,
+                        autoCorrectEnabled = false,
                         keyboardType = KeyboardType.Ascii,
                         imeAction = ImeAction.Done,
                     ),
@@ -224,7 +224,12 @@ fun CalculatorScreen(
                     readOnly = true,
                     label = { Text(stringResource(R.string.radix, calculatorUiState.numberSystemResult.radix.value)) },
                     visualTransformation = OperandVisualTransformation(calculatorUiState.numberSystemResult.radix),
-                    keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrect = false, keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Done),
+                    keyboardOptions = KeyboardOptions(
+                        capitalization = KeyboardCapitalization.Characters,
+                        autoCorrectEnabled = false,
+                        keyboardType = KeyboardType.Ascii,
+                        imeAction = ImeAction.Done,
+                    ),
                     shape = MaterialTheme.shapes.medium,
                 )
                 var expanded by remember { mutableStateOf(false) }
