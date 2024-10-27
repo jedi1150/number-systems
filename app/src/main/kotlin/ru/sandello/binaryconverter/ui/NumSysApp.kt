@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -270,7 +271,7 @@ fun NumberSystemsApp(
                         bottomSheetState.hide()
                     }
                 },
-                modifier = Modifier,
+                modifier = Modifier.statusBarsPadding(),
                 sheetState = bottomSheetState,
             ) {
                 ExplanationScreen(
@@ -283,5 +284,5 @@ fun NumberSystemsApp(
 }
 
 private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLevelDestination) = this?.hierarchy?.any {
-    it.route?.contains(destination.name, true) ?: false
-} ?: false
+    it.route?.contains(destination.name, true) == true
+} == true
