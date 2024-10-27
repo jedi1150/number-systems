@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
@@ -40,7 +41,9 @@ fun ExplanationContent(from: NumberSystem, to: NumberSystem) {
             )
         }
         stickyHeader {
-            Surface {
+            Surface(
+                color = MaterialTheme.colorScheme.surfaceContainerLow
+            ) {
                 ExplanationResult(from = from, to = to)
             }
         }
