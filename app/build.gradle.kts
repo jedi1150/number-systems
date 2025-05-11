@@ -112,7 +112,6 @@ dependencies {
     implementation(libs.androidx.compose.animation.graphics)
     implementation(libs.androidx.runtime.compose)
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.datastore.proto)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.browser)
