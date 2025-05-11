@@ -16,3 +16,6 @@
 #   public *;
 #}
 -keep class * extends com.google.protobuf.GeneratedMessageLite { *; }
+
+-keepattributes SourceFile,LineNumberTable
+-keep public class * extends java.lang.Exception

@@ -1,3 +1,5 @@
+import com.google.firebase.crashlytics.buildtools.gradle.CrashlyticsExtension
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.compose)
@@ -24,6 +26,9 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            configure<CrashlyticsExtension> {
+                nativeSymbolUploadEnabled = true
+            }
         }
     }
     flavorDimensions += listOf("flavor-type")
@@ -119,6 +124,6 @@ dependencies {
 
     // Firebase
     implementation(platform(libs.google.firebase.bom))
-    implementation(libs.google.firebase.crashlytics.ktx)
-    implementation(libs.google.firebase.analytics.ktx)
+    implementation(libs.google.firebase.crashlytics)
+    implementation(libs.google.firebase.analytics)
 }
