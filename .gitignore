@@ -11,6 +11,7 @@
 # Generated files
 bin/
 gen/
+generated/
 out/
 release/
 
@@ -18,6 +19,9 @@ release/
 gradle/wrapper/gradle-wrapper.jar
 .gradle/
 build/
+
+# Kotlin
+.kotlin
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -31,10 +35,19 @@ proguard/
 # Android Studio captures folder
 captures/
 
-# IntelliJ
-.idea/
-# Position of elements in Navigation Editor
-!.idea/navEditor.xml
+# IDEA/Android Studio project files, because
+# the project can be imported from settings.gradle.kts
+*.iml
+.idea/*
+!.idea/copyright
+# Keep the code styles.
+!/.idea/codeStyles
+/.idea/codeStyles/*
+!/.idea/codeStyles/Project.xml
+!/.idea/codeStyles/codeStyleConfig.xml
+
+# Windows thumbnail db
+.DS_Store
 
 # Keystore files
 *.jks
