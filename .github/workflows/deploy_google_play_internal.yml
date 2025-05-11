@@ -53,3 +53,7 @@ jobs:
           SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
           SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
+      - name: Upload Mapping to Crashlytics
+        run: ./gradlew uploadCrashlyticsMappingFileProdRelease
+      - name: Upload Native Symbols to Crashlytics
+        run: ./gradlew uploadCrashlyticsSymbolFileProdRelease
