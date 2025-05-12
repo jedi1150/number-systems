@@ -17,10 +17,13 @@ public object NumSys {
         ignoreCase: Boolean = false,
     ): String {
         require(value.isNotBlank()) { "Source value must not be empty" }
-        require(value.all { it == '.' || it.isLetterOrDigit() }) { "Incorrect source value" }
+        require(value.all { it == '.' || it == '-' || it.isLetterOrDigit() }) { "Incorrect source value" }
         require(sourceRadix in 2..62 && targetRadix in 2..62) { "Source and target radixes must be in the range from 2 to 62" }
 
-        val parts = if (ignoreCase) value.lowercase().split(".") else value.split(".")
+        val isNegative = value.startsWith("-")
+        val absoluteValue = if (isNegative) value.substring(1) else value
+
+        val parts = if (ignoreCase) absoluteValue.lowercase().split(".") else absoluteValue.split(".")
         val integerPart = parts[0]
         val fractionalPart = if (parts.size > 1) parts[1] else ""
 
@@ -28,6 +31,8 @@ public object NumSys {
         val fractionalResult = convertFractionalPart(fractionalPart, sourceRadix, targetRadix)
 
         var result = if (fractionalResult.isEmpty()) integerResult else "$integerResult.$fractionalResult"
+
+        if (isNegative) result = "-$result"
 
         result = result.trimEnd('0').trimEnd('.')
 
@@ -53,84 +58,6 @@ public object NumSys {
         ignoreCase: Boolean = false,
     ): NumberSystem = convert(this, value, ignoreCase)
 
-    public fun convertIntegerPartStepByStep(
-        value: String,
-        sourceRadix: Int,
-        targetRadix: Int,
-    ): Pair<List<String>, String> {
-        val decimal = convertToDecimal(value, sourceRadix)
-        val steps = mutableListOf<String>()
-        var current = decimal
-        val radixBI = targetRadix.toBigInteger()
-        val converted = StringBuilder()
-
-        while (current > BigInteger.ZERO) {
-            val remainder = (current % radixBI).toInt()
-            val char = digitToChar(remainder)
-            steps.add("$current ÷ $targetRadix = ${current / radixBI}, remainder: $remainder ('$char')")
-            converted.insert(0, char)
-            current /= radixBI
-        }
-
-        if (converted.isEmpty()) converted.append("0")
-        return steps to converted.toString()
-    }
-
-    public fun convertFractionalPartStepByStep(
-        value: String,
-        sourceRadix: Int,
-        targetRadix: Int,
-    ): Pair<List<String>, String> {
-        val steps = mutableListOf<String>()
-        var remaining = convertFractionalToDecimal(value, sourceRadix)
-        val bigRadix = targetRadix.toBigDecimal()
-        val result = StringBuilder()
-
-        repeat(fractionalLength) {
-            remaining *= bigRadix
-            val digit = remaining.toInt()
-            val char = digitToChar(digit)
-            steps.add("${remaining.toPlainString()} × $targetRadix = ${remaining.toPlainString()}, digit: $digit ('$char')")
-            result.append(char)
-            remaining -= digit.toBigDecimal()
-        }
-
-        return steps to result.toString().trimEnd('0')
-    }
-
-    public fun convertStepByStep(
-        value: String,
-        sourceRadix: Int,
-        targetRadix: Int,
-        ignoreCase: Boolean = false,
-    ): Pair<List<String>, String> {
-        require(value.isNotBlank()) { "Source value must not be empty" }
-
-        val parts = if (ignoreCase) value.lowercase().split(".") else value.split(".")
-        val integerPart = parts[0]
-        val fractionalPart = if (parts.size > 1) parts[1] else ""
-
-        val integerSteps = convertIntegerPartStepByStep(integerPart, sourceRadix, targetRadix)
-        val fractionalSteps = if (fractionalPart.isNotEmpty()) {
-            convertFractionalPartStepByStep(fractionalPart, sourceRadix, targetRadix)
-        } else null
-
-        val allSteps = mutableListOf<String>()
-        allSteps += integerSteps.first
-
-        if (fractionalSteps != null) {
-            allSteps += fractionalSteps.first
-        }
-
-        val result = if (fractionalSteps != null && fractionalSteps.second.isNotEmpty()) {
-            "${integerSteps.second}.${fractionalSteps.second}"
-        } else {
-            integerSteps.second
-        }
-
-        return allSteps to result
-    }
-
     private fun convertIntegerPart(
         value: String,
         sourceRadix: Int,
@@ -152,6 +79,10 @@ public object NumSys {
     private fun convertToDecimal(value: String, radix: Int): BigInteger {
         var result = BigInteger.ZERO
         value.forEach { char ->
+            if (char == '-') {
+                // Negative sign handled at the top level, ignore here.
+                return@forEach
+            }
             val digit = charToDigit(char)
             require(digit < radix) { "Digit '$char' out of bounds for radix $radix" }
             result = result * radix.toBigInteger() + digit.toBigInteger()
@@ -165,6 +96,10 @@ public object NumSys {
         var divisor = bigRadix
 
         value.forEach { char ->
+            if (char == '-') {
+                // Negative sign handled at the top level, ignore here.
+                return@forEach
+            }
             val digit = charToDigit(char)
             require(digit < radix) { "Digit '$char' out of bounds for radix $radix" }
             result += digit.toBigDecimal().divide(divisor, fractionalLength + 5, RoundingMode.HALF_EVEN)
@@ -177,12 +112,14 @@ public object NumSys {
     private fun convertFromDecimal(value: BigInteger, radix: Int): String {
         var decimalValue = value
         val result = StringBuilder()
+        if (decimalValue == BigInteger.ZERO) return "0"
+
         while (decimalValue > BigInteger.ZERO) {
             val remainder = (decimalValue % radix.toBigInteger()).toInt()
             result.insert(0, digitToChar(remainder))
             decimalValue /= radix.toBigInteger()
         }
-        return if (result.isEmpty()) "0" else result.toString()
+        return result.toString()
     }
 
     private fun convertFractionalFromDecimal(value: BigDecimal, radix: Int): String {

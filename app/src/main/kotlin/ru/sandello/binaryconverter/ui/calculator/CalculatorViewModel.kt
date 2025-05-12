@@ -156,6 +156,7 @@ class CalculatorViewModel @Inject constructor(private val numSys: NumSys) : View
                         ignoreCase = toRadix.value in Radix.BIN.value..Radix.HEX.value,
                     )
                 } catch (exception: IllegalArgumentException) {
+                    Log.e(APP_TAG, "CalculatorViewModel::convert: failed to convert", exception)
                     when (calculatorOperandType) {
                         OperandCustom1 -> numberSystem1Temp.value = NumberSystem(String(), numberSystem1Temp.value.radix)
                         OperandCustom2 -> numberSystem2Temp.value = NumberSystem(String(), numberSystem2Temp.value.radix)
