@@ -22,7 +22,7 @@ class NumberSystemDataSource @Inject constructor(
             numSys.convert(
                 numberSystem = from.asInternalModel(),
                 targetRadix = toRadix,
-                ignoreCase = toRadix.value in Radix.BIN.value..Radix.HEX.value,
+                ignoreCase = from.radix.value in Radix.BIN.value..36,
             ).asExternalModel()
         }
     }
