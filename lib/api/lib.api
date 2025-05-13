@@ -4,10 +4,6 @@ public final class ru/sandello/binaryconverter/numsys/NumSys {
 	public final fun convert (Lru/sandello/binaryconverter/numsys/model/NumberSystem;Lru/sandello/binaryconverter/numsys/model/Radix;Z)Lru/sandello/binaryconverter/numsys/model/NumberSystem;
 	public static synthetic fun convert$default (Lru/sandello/binaryconverter/numsys/NumSys;Ljava/lang/String;IIZILjava/lang/Object;)Ljava/lang/String;
 	public static synthetic fun convert$default (Lru/sandello/binaryconverter/numsys/NumSys;Lru/sandello/binaryconverter/numsys/model/NumberSystem;Lru/sandello/binaryconverter/numsys/model/Radix;ZILjava/lang/Object;)Lru/sandello/binaryconverter/numsys/model/NumberSystem;
-	public final fun convertFractionalPartStepByStep (Ljava/lang/String;II)Lkotlin/Pair;
-	public final fun convertIntegerPartStepByStep (Ljava/lang/String;II)Lkotlin/Pair;
-	public final fun convertStepByStep (Ljava/lang/String;IIZ)Lkotlin/Pair;
-	public static synthetic fun convertStepByStep$default (Lru/sandello/binaryconverter/numsys/NumSys;Ljava/lang/String;IIZILjava/lang/Object;)Lkotlin/Pair;
 	public final fun getFractionalLength ()I
 	public final fun setFractionalLength (I)V
 	public final fun toRadix (Lru/sandello/binaryconverter/numsys/model/NumberSystem;Lru/sandello/binaryconverter/numsys/model/Radix;Z)Lru/sandello/binaryconverter/numsys/model/NumberSystem;
