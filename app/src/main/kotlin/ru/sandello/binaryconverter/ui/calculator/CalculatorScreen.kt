@@ -39,6 +39,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.Wallpapers
 import androidx.compose.ui.unit.dp
@@ -47,7 +48,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.numsys.model.NumberSystem
 import ru.sandello.binaryconverter.numsys.model.Radix
-import ru.sandello.binaryconverter.ui.OperandVisualTransformation
+import ru.sandello.binaryconverter.ui.DigitGroupingVisualTransformation
 import ru.sandello.binaryconverter.ui.calculator.ArithmeticType.Addition
 import ru.sandello.binaryconverter.ui.calculator.ArithmeticType.Divide
 import ru.sandello.binaryconverter.ui.calculator.ArithmeticType.Multiply
@@ -64,10 +65,12 @@ fun CalculatorRoute(
     viewModel: CalculatorViewModel = hiltViewModel(),
 ) {
     val calculatorUiState by viewModel.calculatorUiState.collectAsStateWithLifecycle()
+    val isDigitGroupingEnabled by viewModel.isDigitGroupingEnabled.collectAsStateWithLifecycle(true)
 
     CalculatorScreen(
         contentPadding = contentPadding,
         calculatorUiState = calculatorUiState,
+        isDigitGroupingEnabled = isDigitGroupingEnabled,
         onNumberSystemChange = viewModel::convertFrom,
         onRadixChange = viewModel::updateRadix,
         onArithmeticChange = viewModel::selectArithmetic,
@@ -79,6 +82,7 @@ fun CalculatorRoute(
 fun CalculatorScreen(
     contentPadding: PaddingValues = PaddingValues(0.dp),
     calculatorUiState: CalculatorUiState,
+    isDigitGroupingEnabled: Boolean,
     onNumberSystemChange: (CalculatorOperandType, NumberSystem) -> Unit,
     onRadixChange: (CalculatorRadixType, Radix) -> Unit,
     onArithmeticChange: (ArithmeticType) -> Unit,
@@ -111,7 +115,7 @@ fun CalculatorScreen(
                     textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                     label = { Text(stringResource(R.string.radix, calculatorUiState.numberSystemCustom1.radix.value)) },
                     isError = calculatorUiState.numberSystemCustom1Error,
-                    visualTransformation = OperandVisualTransformation(calculatorUiState.numberSystemCustom1.radix),
+                    visualTransformation = if (isDigitGroupingEnabled) DigitGroupingVisualTransformation(calculatorUiState.numberSystemCustom1.radix) else VisualTransformation.None,
                     keyboardOptions = KeyboardOptions(
                         capitalization = KeyboardCapitalization.Characters,
                         autoCorrectEnabled = true,
@@ -185,7 +189,7 @@ fun CalculatorScreen(
                     textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                     label = { Text(stringResource(R.string.radix, calculatorUiState.numberSystemCustom2.radix.value)) },
                     isError = calculatorUiState.numberSystemCustom2Error,
-                    visualTransformation = OperandVisualTransformation(calculatorUiState.numberSystemCustom2.radix),
+                    visualTransformation = if (isDigitGroupingEnabled) DigitGroupingVisualTransformation(calculatorUiState.numberSystemCustom2.radix) else VisualTransformation.None,
                     keyboardOptions = KeyboardOptions(
                         capitalization = KeyboardCapitalization.Characters,
                         autoCorrectEnabled = false,
@@ -223,7 +227,7 @@ fun CalculatorScreen(
                     textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                     readOnly = true,
                     label = { Text(stringResource(R.string.radix, calculatorUiState.numberSystemResult.radix.value)) },
-                    visualTransformation = OperandVisualTransformation(calculatorUiState.numberSystemResult.radix),
+                    visualTransformation = if (isDigitGroupingEnabled) DigitGroupingVisualTransformation(calculatorUiState.numberSystemResult.radix) else VisualTransformation.None,
                     keyboardOptions = KeyboardOptions(
                         capitalization = KeyboardCapitalization.Characters,
                         autoCorrectEnabled = false,
@@ -263,6 +267,7 @@ fun PreviewCalculatorScreen() {
         Surface {
             CalculatorScreen(
                 calculatorUiState = CalculatorUiState(),
+                isDigitGroupingEnabled = true,
                 onNumberSystemChange = { _, _ -> },
                 onRadixChange = { _, _ -> },
             ) {}

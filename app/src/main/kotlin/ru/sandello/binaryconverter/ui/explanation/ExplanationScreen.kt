@@ -47,6 +47,7 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 @Composable
 fun ExplanationScreen(
     explanationUiState: ExplanationUiState,
+    isDigitGroupingEnabled: Boolean,
     onRadixChanged: (ExplanationRadixType, Radix) -> Unit,
 ) {
     AnimatedContent(
@@ -136,7 +137,11 @@ fun ExplanationScreen(
                             shape = MaterialTheme.shapes.medium,
                         )
                     }
-                    ExplanationContent(from = explanationUiState.from, to = explanationUiState.to)
+                    ExplanationContent(
+                        from = explanationUiState.from,
+                        to = explanationUiState.to,
+                        isDigitGroupingEnabled = isDigitGroupingEnabled,
+                    )
                 }
             }
         }
@@ -157,6 +162,7 @@ private fun PreviewExplanationCompleted() {
         Surface {
             ExplanationScreen(
                 explanationUiState = explanationUiState,
+                isDigitGroupingEnabled = true,
                 onRadixChanged = { _, _ -> },
             )
         }
@@ -171,6 +177,7 @@ private fun PreviewExplanationCalculating() {
         Surface {
             ExplanationScreen(
                 explanationUiState = ExplanationUiState(state = ExplanationState.Calculating),
+                isDigitGroupingEnabled = true,
                 onRadixChanged = { _, _ -> },
             )
         }

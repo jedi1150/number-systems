@@ -31,4 +31,6 @@
     <string name="remainder">қалдық</string>
     <string name="invert_convertible_values">Түрлендірілген мәндерді инверттеу</string>
     <string name="clear_values">Мәндерді тазалау</string>
+    <string name="digit_grouping">Разрядтарды топтастыру</string>
+    <string name="digit_grouping_description">Сандарды бөлгіштермен көрсету</string>
 </resources>

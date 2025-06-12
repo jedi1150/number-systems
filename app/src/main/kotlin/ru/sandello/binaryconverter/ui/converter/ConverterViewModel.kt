@@ -8,19 +8,25 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.numsys.model.Radix
 import ru.sandello.binaryconverter.repository.NumberSystemRepository
+import ru.sandello.binaryconverter.repository.SettingsRepository
 import ru.sandello.binaryconverter.utils.APP_TAG
 import ru.sandello.binaryconverter.utils.CharRegex
 import javax.inject.Inject
 
 @HiltViewModel
-class ConverterViewModel @Inject constructor(private val numberSystemRepository: NumberSystemRepository) : ViewModel() {
+class ConverterViewModel @Inject constructor(
+    private val numberSystemRepository: NumberSystemRepository,
+    settingsRepository: SettingsRepository,
+) : ViewModel() {
 
     private var lastNumberSystem: NumberSystem? = null
 
@@ -29,6 +35,8 @@ class ConverterViewModel @Inject constructor(private val numberSystemRepository:
 
     private val _converterUiState: MutableStateFlow<ConverterUiState> = MutableStateFlow(ConverterUiState())
     val converterUiState: StateFlow<ConverterUiState> = _converterUiState.asStateFlow()
+
+    val isDigitGroupingEnabled: Flow<Boolean> = settingsRepository.settingsData.map { it.isDigitGroupingEnabled }
 
     fun convertFrom(from: NumberSystem) {
         convert(from, toRadixes = arrayOf(converterUiState.value.numberSystem2.radix, converterUiState.value.numberSystem8.radix, converterUiState.value.numberSystem10.radix, converterUiState.value.numberSystem16.radix, converterUiState.value.numberSystemCustom.radix))

@@ -31,4 +31,6 @@
     <string name="remainder">залишок</string>
     <string name="invert_convertible_values">Інвертувати конвертовані значення</string>
     <string name="clear_values">Очистити значення</string>
+    <string name="digit_grouping">Групування розрядів</string>
+    <string name="digit_grouping_description">Відображати числа з роздільниками розрядів</string>
 </resources>

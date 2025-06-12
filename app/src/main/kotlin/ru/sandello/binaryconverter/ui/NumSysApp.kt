@@ -84,6 +84,8 @@ fun NumberSystemsApp(
     val calculatorUiState by calculatorViewModel.calculatorUiState.collectAsStateWithLifecycle()
     val explanationUiState by explanationViewModel.explanationUiState.collectAsStateWithLifecycle()
 
+    val isDigitGroupingEnabled by explanationViewModel.isDigitGroupingEnabled.collectAsStateWithLifecycle(true)
+
     val keyboardController = LocalSoftwareKeyboardController.current
 
     val scope: CoroutineScope = rememberCoroutineScope()
@@ -277,6 +279,7 @@ fun NumberSystemsApp(
                 ExplanationScreen(
                     explanationUiState = explanationUiState,
                     onRadixChanged = explanationViewModel::updateRadix,
+                    isDigitGroupingEnabled = isDigitGroupingEnabled,
                 )
             }
         }

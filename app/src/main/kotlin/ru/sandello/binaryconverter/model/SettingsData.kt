@@ -4,7 +4,9 @@ import ru.sandello.binaryconverter.model.data.ThemeType
 import java.util.Locale
 
 data class SettingsData(
-    val themeType: ThemeType = ThemeType.SYSTEM,
-    val locale: Locale = Locale.ROOT,
-    val appLaunchCounter: Int = 0,
+    val themeType: ThemeType,
+    val locale: Locale,
+    val isDigitGroupingEnabled: Boolean,
+    val isDigitGroupingInitialized: Boolean,
+    val appLaunchCounter: Int,
 )

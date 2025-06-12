@@ -33,6 +33,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.Wallpapers
 import androidx.compose.ui.unit.dp
@@ -41,7 +42,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.numsys.model.Radix
-import ru.sandello.binaryconverter.ui.OperandVisualTransformation
+import ru.sandello.binaryconverter.ui.DigitGroupingVisualTransformation
 import ru.sandello.binaryconverter.ui.components.RadixExposedDropdown
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.ui.theme.RobotoMonoFamily
@@ -54,10 +55,12 @@ fun ConverterRoute(
     viewModel: ConverterViewModel = hiltViewModel(),
 ) {
     val converterUiState by viewModel.converterUiState.collectAsStateWithLifecycle()
+    val isDigitGroupingEnabled by viewModel.isDigitGroupingEnabled.collectAsStateWithLifecycle(true)
 
     ConverterScreen(
         contentPadding = contentPadding,
         converterUiState = converterUiState,
+        isDigitGroupingEnabled = isDigitGroupingEnabled,
         onNumberSystemChanged = viewModel::convertFrom,
         onCustomRadixChanged = viewModel::updateCustomRadix,
     )
@@ -68,6 +71,7 @@ fun ConverterRoute(
 fun ConverterScreen(
     contentPadding: PaddingValues = PaddingValues(),
     converterUiState: ConverterUiState,
+    isDigitGroupingEnabled: Boolean,
     onNumberSystemChanged: (NumberSystem) -> Unit,
     onCustomRadixChanged: (Radix) -> Unit,
 ) {
@@ -92,7 +96,7 @@ fun ConverterScreen(
                 modifier = Modifier.fillMaxWidth(),
                 textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                 label = { Text(stringResource(R.string.dec)) },
-                visualTransformation = OperandVisualTransformation(converterUiState.numberSystem10.radix),
+                visualTransformation = if (isDigitGroupingEnabled) DigitGroupingVisualTransformation(converterUiState.numberSystem10.radix) else VisualTransformation.None,
                 isError = converterUiState.numberSystem10.isError,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = MaterialTheme.shapes.medium,
@@ -106,7 +110,7 @@ fun ConverterScreen(
                 textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                 label = { Text(stringResource(R.string.bin)) },
                 isError = converterUiState.numberSystem2.isError,
-                visualTransformation = OperandVisualTransformation(converterUiState.numberSystem2.radix),
+                visualTransformation = if (isDigitGroupingEnabled) DigitGroupingVisualTransformation(converterUiState.numberSystem2.radix) else VisualTransformation.None,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = MaterialTheme.shapes.medium,
             )
@@ -119,7 +123,7 @@ fun ConverterScreen(
                 textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                 label = { Text(stringResource(R.string.oct)) },
                 isError = converterUiState.numberSystem8.isError,
-                visualTransformation = OperandVisualTransformation(converterUiState.numberSystem8.radix),
+                visualTransformation = if (isDigitGroupingEnabled) DigitGroupingVisualTransformation(converterUiState.numberSystem8.radix) else VisualTransformation.None,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = MaterialTheme.shapes.medium,
             )
@@ -132,7 +136,7 @@ fun ConverterScreen(
                 textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                 label = { Text(stringResource(R.string.hex)) },
                 isError = converterUiState.numberSystem16.isError,
-                visualTransformation = OperandVisualTransformation(converterUiState.numberSystem16.radix),
+                visualTransformation = if (isDigitGroupingEnabled) DigitGroupingVisualTransformation(converterUiState.numberSystem16.radix) else VisualTransformation.None,
                 keyboardOptions = KeyboardOptions(
                     capitalization = KeyboardCapitalization.Characters,
                     autoCorrectEnabled = false,
@@ -151,7 +155,7 @@ fun ConverterScreen(
                     textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                     label = { Text(stringResource(R.string.radix, converterUiState.numberSystemCustom.radix.value)) },
                     isError = converterUiState.numberSystemCustom.isError,
-                    visualTransformation = OperandVisualTransformation(converterUiState.numberSystemCustom.radix),
+                    visualTransformation = if (isDigitGroupingEnabled) DigitGroupingVisualTransformation(converterUiState.numberSystemCustom.radix) else VisualTransformation.None,
                     keyboardOptions = KeyboardOptions(
                         capitalization = KeyboardCapitalization.Characters,
                         autoCorrectEnabled = false,
@@ -191,6 +195,7 @@ private fun PreviewConverterScreen() {
         Surface {
             ConverterScreen(
                 converterUiState = ConverterUiState(),
+                isDigitGroupingEnabled = true,
                 onNumberSystemChanged = {},
             ) {}
         }

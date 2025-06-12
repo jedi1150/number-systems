@@ -10,7 +10,7 @@ import ru.sandello.binaryconverter.utils.COMMA
 import ru.sandello.binaryconverter.utils.NS_DELIMITER
 import ru.sandello.binaryconverter.utils.NS_GROUP_SEPARATOR
 
-class OperandVisualTransformation(radix: Radix) : VisualTransformation {
+class DigitGroupingVisualTransformation(radix: Radix) : VisualTransformation {
     private val groupLength: Int = radix.groupLength()
 
     override fun filter(text: AnnotatedString): TransformedText {

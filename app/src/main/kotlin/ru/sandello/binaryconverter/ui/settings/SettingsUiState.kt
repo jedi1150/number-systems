@@ -4,8 +4,9 @@ import ru.sandello.binaryconverter.model.data.ThemeType
 import java.util.Locale
 
 data class SettingsUiState(
-    var themeType: ThemeType = ThemeType.SYSTEM,
-    var locale: Locale = Locale.ROOT,
+    var themeType: ThemeType,
+    var locale: Locale,
+    val isDigitGroupingEnabled: Boolean,
 ) {
     val availableLocales = listOf(
         Locale.ROOT,

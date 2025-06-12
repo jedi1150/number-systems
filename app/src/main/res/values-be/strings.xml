@@ -31,4 +31,6 @@
     <string name="remainder">астатак</string>
     <string name="invert_convertible_values">Інвертаваць канвертоўныя значэння</string>
     <string name="clear_values">Ачысціць значэння</string>
+    <string name="digit_grouping">Группоўка разрадаў</string>
+    <string name="digit_grouping_description">Адлюстроўваць лікі з раздзяляльнікамі разрадаў</string>
 </resources>

@@ -17,10 +17,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.numsys.model.Radix
-import ru.sandello.binaryconverter.ui.OperandVisualTransformation
+import ru.sandello.binaryconverter.ui.DigitGroupingVisualTransformation
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.ui.theme.RobotoMonoFamily
 import ru.sandello.binaryconverter.utils.COMMA
@@ -32,6 +33,7 @@ fun NumberSystemField(
     radix: Radix,
     modifier: Modifier = Modifier,
     isError: Boolean = false,
+    isGroupingEnabled: Boolean = true,
     onValueChange: (NumberSystem) -> Unit,
 ) {
     var textFieldValueState by remember { mutableStateOf(TextFieldValue(text = value)) }
@@ -62,7 +64,7 @@ fun NumberSystemField(
         modifier = modifier.fillMaxWidth(),
         textStyle = TextStyle(fontFamily = RobotoMonoFamily),
         label = { Text(radix.value.toString()) },
-        visualTransformation = OperandVisualTransformation(radix),
+        visualTransformation = if (isGroupingEnabled) DigitGroupingVisualTransformation(radix) else VisualTransformation.None,
         isError = isError,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
         shape = MaterialTheme.shapes.medium,

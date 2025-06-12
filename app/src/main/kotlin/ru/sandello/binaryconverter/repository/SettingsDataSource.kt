@@ -23,6 +23,8 @@ class SettingsDataSource @Inject constructor(
                 null -> ThemeType.SYSTEM
             },
             locale = Locale(settings.languageTag),
+            isDigitGroupingEnabled = settings.isDigitGroupingEnabled,
+            isDigitGroupingInitialized = settings.isDigitGroupingInitialized,
             appLaunchCounter = settings.appLaunchCounter,
         )
     }
@@ -43,6 +45,22 @@ class SettingsDataSource @Inject constructor(
         settingsDataStore.updateData { settings ->
             settings.copy {
                 this.languageTag = locale.language
+            }
+        }
+    }
+
+    suspend fun setDigitGrouping(isDigitGroupingEnabled: Boolean) {
+        settingsDataStore.updateData { settings ->
+            settings.copy {
+                this.isDigitGroupingEnabled = isDigitGroupingEnabled
+            }
+        }
+    }
+
+    suspend fun setDigitGroupingInitialized(isDigitGroupingInitialized: Boolean) {
+        settingsDataStore.updateData { settings ->
+            settings.copy {
+                this.isDigitGroupingInitialized = isDigitGroupingInitialized
             }
         }
     }
