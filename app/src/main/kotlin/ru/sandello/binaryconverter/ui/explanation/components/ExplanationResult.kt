@@ -28,12 +28,12 @@ import ru.sandello.binaryconverter.numsys.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @Composable
-fun ExplanationResult(from: NumberSystem, to: NumberSystem) {
+fun ExplanationResult(from: NumberSystem, to: NumberSystem, isDigitGroupingEnabled: Boolean) {
     val arrowRightId = "arrowRight"
     val text = buildAnnotatedString {
-        append(numberSystem(from))
+        append(numberSystem(from, isDigitGroupingEnabled = isDigitGroupingEnabled))
         appendInlineContent(arrowRightId, "→")
-        append(numberSystem(to))
+        append(numberSystem(to, isDigitGroupingEnabled = isDigitGroupingEnabled))
     }
     val inlineContent = mapOf(
         Pair(
@@ -74,7 +74,7 @@ fun ExplanationResult(from: NumberSystem, to: NumberSystem) {
 private fun PreviewExplanationResult() {
     NumberSystemsTheme {
         Surface {
-            ExplanationResult(NumberSystem("256", Radix.DEC), (NumberSystem("100", Radix.BIN)))
+            ExplanationResult(NumberSystem("256", Radix.DEC), NumberSystem("100", Radix.BIN), isDigitGroupingEnabled = true)
         }
     }
 }
@@ -84,7 +84,7 @@ private fun PreviewExplanationResult() {
 private fun PreviewExplanationResultDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            ExplanationResult(NumberSystem("256", Radix.DEC), (NumberSystem("100", Radix.BIN)))
+            ExplanationResult(NumberSystem("256", Radix.DEC), NumberSystem("100", Radix.BIN), isDigitGroupingEnabled = true)
         }
     }
 }

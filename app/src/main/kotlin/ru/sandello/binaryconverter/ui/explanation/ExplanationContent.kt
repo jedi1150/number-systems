@@ -25,7 +25,7 @@ import ru.sandello.binaryconverter.utils.NS_DELIMITER
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ExplanationContent(from: NumberSystem, to: NumberSystem) {
+fun ExplanationContent(from: NumberSystem, to: NumberSystem, isDigitGroupingEnabled: Boolean) {
     val showToDecimal = from.radix != Radix.DEC
     val showFromDecimal = to.radix != Radix.DEC
     val delimiterExists = from.value.contains(NS_DELIMITER)
@@ -33,42 +33,54 @@ fun ExplanationContent(from: NumberSystem, to: NumberSystem) {
 
     val lazyListState = rememberLazyListState()
 
-    LazyColumn(state = lazyListState) {
-        stickyHeader {
-            ExplanationTitle(
-                text = stringResource(id = R.string.explanation_result),
-                contentPaddingValues = PaddingValues(start = 16.dp, top = 16.dp, end = 16.dp)
-            )
-        }
-        stickyHeader {
-            Surface(
-                color = MaterialTheme.colorScheme.surfaceContainerLow
-            ) {
-                ExplanationResult(from = from, to = to)
+    Surface(
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
+    ) {
+        LazyColumn(state = lazyListState) {
+            stickyHeader {
+                ExplanationTitle(
+                    text = stringResource(id = R.string.explanation_result),
+                    contentPaddingValues = PaddingValues(start = 16.dp, top = 16.dp, end = 16.dp)
+                )
             }
-        }
-        if (showToDecimal) {
-            item {
-                ExplanationToDecimal(from = from)
+            stickyHeader {
+                Surface(
+                    color = MaterialTheme.colorScheme.surfaceContainerLow,
+                ) {
+                    ExplanationResult(from = from, to = to, isDigitGroupingEnabled = isDigitGroupingEnabled)
+                }
             }
-        }
-        if (showFromDecimalWithDelimiter) {
             if (showToDecimal) {
                 item {
-                    HorizontalDivider()
+                    ExplanationToDecimal(from = from, isDigitGroupingEnabled = isDigitGroupingEnabled)
                 }
             }
-            if (showFromDecimal) {
-                item {
-                    ExplanationInteger(from, to)
+            if (showFromDecimalWithDelimiter) {
+                if (showToDecimal) {
+                    item {
+                        HorizontalDivider()
+                    }
                 }
-            }
-            if (delimiterExists) {
-                item {
-                    HorizontalDivider()
+                if (showFromDecimal) {
+                    item {
+                        ExplanationInteger(
+                            from = from,
+                            to = to,
+                            isDigitGroupingEnabled = isDigitGroupingEnabled,
+                        )
+                    }
                 }
-                item {
-                    ExplanationFractional(from, to)
+                if (delimiterExists) {
+                    item {
+                        HorizontalDivider()
+                    }
+                    item {
+                        ExplanationFractional(
+                            from = from,
+                            to = to,
+                            isDigitGroupingEnabled = isDigitGroupingEnabled,
+                        )
+                    }
                 }
             }
         }
@@ -83,7 +95,11 @@ private fun PreviewExplanationContent(
 ) {
     NumberSystemsTheme {
         Surface {
-            ExplanationContent(from = numberSystem, to = NumberSystem(value = "A.MI", Radix(36)))
+            ExplanationContent(
+                from = numberSystem,
+                to = NumberSystem(value = "A.MI", Radix(36)),
+                isDigitGroupingEnabled = true,
+            )
         }
     }
 }

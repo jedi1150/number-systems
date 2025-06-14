@@ -19,10 +19,10 @@ import ru.sandello.binaryconverter.utils.NS_DELIMITER
 import ru.sandello.binaryconverter.utils.pretty
 
 @Composable
-fun ExplanationConvertFractional(fractionMultiplier: FractionMultiplier) {
+fun ExplanationConvertFractional(fractionMultiplier: FractionMultiplier, isDigitGroupingEnabled: Boolean) {
     Text(
         text = buildAnnotatedString {
-            append(fractionMultiplier.multiplier.pretty(Radix.DEC))
+            append(fractionMultiplier.multiplier.pretty(Radix.DEC, isDigitGroupingEnabled = isDigitGroupingEnabled))
             withStyle(SpanStyle(letterSpacing = 4.sp)) {
                 append("×")
             }
@@ -35,7 +35,7 @@ fun ExplanationConvertFractional(fractionMultiplier: FractionMultiplier) {
             }
             if (fractionMultiplier.product.contains(NS_DELIMITER)) {
                 append(NS_DELIMITER)
-                append(fractionMultiplier.product.substringAfter(NS_DELIMITER).pretty(Radix.DEC))
+                append(fractionMultiplier.product.substringAfter(NS_DELIMITER).pretty(Radix.DEC, isDigitGroupingEnabled = isDigitGroupingEnabled))
             }
             fractionMultiplier.convertedProduct?.let { convertedProduct ->
                 withStyle(SpanStyle(letterSpacing = 6.sp)) {
@@ -57,7 +57,10 @@ fun ExplanationConvertFractional(fractionMultiplier: FractionMultiplier) {
 private fun PreviewExplanationConvertFractional() {
     NumberSystemsTheme {
         Surface {
-            ExplanationConvertFractional(FractionMultiplier(multiplier = "0.703125", multiplicand = 16, product = "11.25", convertedProduct = "B"))
+            ExplanationConvertFractional(
+                FractionMultiplier(multiplier = "0.703125", multiplicand = 16, product = "11.25", convertedProduct = "B"),
+                isDigitGroupingEnabled = true,
+            )
         }
     }
 }

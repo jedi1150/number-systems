@@ -15,11 +15,15 @@ import ru.sandello.binaryconverter.ui.explanation.components.ExplanationTitle
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @Composable
-fun ExplanationFractional(from: NumberSystem, to: NumberSystem) {
+fun ExplanationFractional(
+    from: NumberSystem,
+    to: NumberSystem,
+    isDigitGroupingEnabled: Boolean,
+) {
     Column {
         ExplanationTitle(stringResource(R.string.fractional_part))
-        ExplanationFractionalMultiplierContent(from = from, to = to)
-        ExplanationAddIntegerAndFractionalContent(to = to)
+        ExplanationFractionalMultiplierContent(from = from, to = to, isDigitGroupingEnabled = isDigitGroupingEnabled)
+        ExplanationAddIntegerAndFractionalContent(to = to, isDigitGroupingEnabled = isDigitGroupingEnabled)
     }
 }
 
@@ -29,7 +33,7 @@ fun ExplanationFractional(from: NumberSystem, to: NumberSystem) {
 private fun PreviewExplanationFractional() {
     NumberSystemsTheme {
         Surface {
-            ExplanationFractional(from = NumberSystem(value = "10.5", Radix.DEC), to = NumberSystem(value = "1010.1", Radix.BIN))
+            ExplanationFractional(from = NumberSystem(value = "10.5", Radix.DEC), to = NumberSystem(value = "1010.1", Radix.BIN), isDigitGroupingEnabled = true)
         }
     }
 }

@@ -13,13 +13,13 @@ plugins {
 
 android {
     namespace = "ru.sandello.binaryconverter"
-    compileSdk = 35
+    compileSdk = 36
     defaultConfig {
         applicationId = "ru.sandello.binaryconverter"
         minSdk = 21
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
-        versionName = "2.2.8"
+        versionName = "2.3.0"
     }
     buildTypes {
         named("release") {

@@ -11,10 +11,10 @@ import ru.sandello.binaryconverter.numsys.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @Composable
-fun ExplanationToDecimal(from: NumberSystem) {
+fun ExplanationToDecimal(from: NumberSystem, isDigitGroupingEnabled: Boolean) {
     Column {
         ExplanationTitle(stringResource(id = R.string.explanation_convert_to_decimal))
-        ExplanationToDecimalContent(from = from)
+        ExplanationToDecimalContent(from = from, isDigitGroupingEnabled = isDigitGroupingEnabled)
     }
 }
 
@@ -23,7 +23,7 @@ fun ExplanationToDecimal(from: NumberSystem) {
 private fun ExplanationToDecimalPreview() {
     NumberSystemsTheme {
         Surface {
-            ExplanationToDecimal(from = NumberSystem("1024", Radix.DEC))
+            ExplanationToDecimal(from = NumberSystem("1024", Radix.DEC), isDigitGroupingEnabled = true)
         }
     }
 }

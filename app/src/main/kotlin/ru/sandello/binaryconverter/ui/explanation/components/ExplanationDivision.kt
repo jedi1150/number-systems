@@ -19,11 +19,11 @@ import ru.sandello.binaryconverter.ui.theme.RobotoMonoFamily
 import ru.sandello.binaryconverter.utils.pretty
 
 @Composable
-fun ExplanationDivision(division: Division) {
+fun ExplanationDivision(division: Division, isDigitGroupingEnabled: Boolean) {
     Text(
         text = buildAnnotatedString {
             withStyle(SpanStyle(fontFamily = RobotoMonoFamily)) {
-                append(division.dividend.toString().pretty(Radix.DEC))
+                append(division.dividend.toString().pretty(Radix.DEC, isDigitGroupingEnabled = isDigitGroupingEnabled))
                 withStyle(SpanStyle(letterSpacing = 4.sp)) {
                     append("÷")
                 }
@@ -31,7 +31,7 @@ fun ExplanationDivision(division: Division) {
                 withStyle(SpanStyle(letterSpacing = 6.sp)) {
                     append("=")
                 }
-                append(division.quotient.toString().pretty(Radix.DEC))
+                append(division.quotient.toString().pretty(Radix.DEC, isDigitGroupingEnabled = isDigitGroupingEnabled))
             }
             append(", ")
             append(stringResource(R.string.remainder))
@@ -65,7 +65,8 @@ private fun PreviewExplanationLongDivision() {
                     divisor = 2,
                     quotient = 128.toBigDecimal(),
                     remainder = 0.toBigDecimal(),
-                )
+                ),
+                isDigitGroupingEnabled = true,
             )
         }
     }
@@ -83,7 +84,8 @@ private fun PreviewExplanationLongDivisionDark() {
                     divisor = 2,
                     quotient = 128.toBigDecimal(),
                     remainder = 0.toBigDecimal(),
-                )
+                ),
+                isDigitGroupingEnabled = true,
             )
         }
     }

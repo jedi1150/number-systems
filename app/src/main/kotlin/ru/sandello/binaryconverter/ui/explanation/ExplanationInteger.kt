@@ -14,10 +14,10 @@ import ru.sandello.binaryconverter.ui.explanation.components.ExplanationTitle
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @Composable
-fun ExplanationInteger(from: NumberSystem, to: NumberSystem) {
+fun ExplanationInteger(from: NumberSystem, to: NumberSystem, isDigitGroupingEnabled: Boolean) {
     Column {
         ExplanationTitle(stringResource(R.string.integer_part))
-        ExplanationIntegerDivisionContent(from = from, to = to)
+        ExplanationIntegerDivisionContent(from = from, to = to, isDigitGroupingEnabled = isDigitGroupingEnabled)
     }
 }
 
@@ -27,7 +27,7 @@ fun ExplanationInteger(from: NumberSystem, to: NumberSystem) {
 private fun PreviewExplanationInteger() {
     NumberSystemsTheme {
         Surface {
-            ExplanationInteger(from = NumberSystem(value = "10.5", Radix.DEC), to = NumberSystem(value = "1010.1", Radix.BIN))
+            ExplanationInteger(from = NumberSystem(value = "10.5", Radix.DEC), to = NumberSystem(value = "1010.1", Radix.BIN), isDigitGroupingEnabled = true)
         }
     }
 }

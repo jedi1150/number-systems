@@ -27,7 +27,11 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 @Composable
-fun ExplanationIntegerDivisionContent(from: NumberSystem, to: NumberSystem) {
+fun ExplanationIntegerDivisionContent(
+    from: NumberSystem,
+    to: NumberSystem,
+    isDigitGroupingEnabled: Boolean,
+) {
     val fromDecimal = from.value.substringBefore(NS_DELIMITER)
     var iterations = 0
     val maxIterations = 12
@@ -62,7 +66,7 @@ fun ExplanationIntegerDivisionContent(from: NumberSystem, to: NumberSystem) {
                 verticalArrangement = Arrangement.spacedBy(6.dp),
             ) {
                 divisionList.forEach { longDivision ->
-                    ExplanationDivision(longDivision)
+                    ExplanationDivision(longDivision, isDigitGroupingEnabled = isDigitGroupingEnabled)
                 }
             }
         }
@@ -75,7 +79,7 @@ fun ExplanationIntegerDivisionContent(from: NumberSystem, to: NumberSystem) {
                 .horizontalScroll(rememberScrollState())
                 .padding(horizontal = 16.dp),
         ) {
-            Text(text = numberSystem(numberSystem = NumberSystem(value = to.value.substringBefore(NS_DELIMITER), radix = to.radix)))
+            Text(text = numberSystem(numberSystem = NumberSystem(value = to.value.substringBefore(NS_DELIMITER), radix = to.radix), isDigitGroupingEnabled = isDigitGroupingEnabled))
         }
     }
 
@@ -100,7 +104,7 @@ private fun longDivision(dividend: BigDecimal, divisor: Int): Division {
 private fun PreviewExplanationIntegerDivision() {
     NumberSystemsTheme {
         Surface {
-            ExplanationIntegerDivisionContent(NumberSystem("10.5", Radix.DEC), NumberSystem("1010.1", Radix.BIN))
+            ExplanationIntegerDivisionContent(NumberSystem("10.5", Radix.DEC), NumberSystem("1010.1", Radix.BIN), isDigitGroupingEnabled = true)
         }
     }
 }
@@ -110,7 +114,7 @@ private fun PreviewExplanationIntegerDivision() {
 private fun PreviewExplanationIntegerDivisionDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            ExplanationIntegerDivisionContent(NumberSystem("25", Radix.DEC), NumberSystem("11001", Radix.BIN))
+            ExplanationIntegerDivisionContent(NumberSystem("25", Radix.DEC), NumberSystem("11001", Radix.BIN), isDigitGroupingEnabled = true)
         }
     }
 }

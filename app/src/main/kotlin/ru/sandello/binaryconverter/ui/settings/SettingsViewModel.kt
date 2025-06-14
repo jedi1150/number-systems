@@ -20,11 +20,19 @@ class SettingsViewModel @Inject constructor(
 ) : ViewModel() {
     val settingsUiState: StateFlow<SettingsUiState> =
         settingsRepository.settingsData.map { userData: SettingsData ->
-            SettingsUiState(themeType = userData.themeType, locale = userData.locale)
+            SettingsUiState(
+                themeType = userData.themeType,
+                locale = userData.locale,
+                isDigitGroupingEnabled = userData.isDigitGroupingEnabled,
+            )
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = SettingsUiState(),
+            initialValue = SettingsUiState(
+                themeType = ThemeType.SYSTEM,
+                locale = Locale.ROOT,
+                isDigitGroupingEnabled = true,
+            ),
         )
 
     fun updateThemeType(themeType: ThemeType) {
@@ -36,6 +44,12 @@ class SettingsViewModel @Inject constructor(
     fun updateLocale(locale: Locale) {
         viewModelScope.launch {
             settingsRepository.setLocale(locale)
+        }
+    }
+
+    fun updateDigitGrouping(isDigitGroupingEnabled: Boolean) {
+        viewModelScope.launch {
+            settingsRepository.setDigitGrouping(isDigitGroupingEnabled)
         }
     }
 }

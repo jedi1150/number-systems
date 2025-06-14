@@ -20,6 +20,6 @@ fun NumberSystem.asInternalModel() = ru.sandello.binaryconverter.numsys.model.Nu
     radix,
 )
 
-fun NumberSystem.pretty(): String = value.split(NumSys.Constants.DELIMITER).joinToString(separator = NumSys.Constants.DELIMITER.toString()) { part ->
-    part.reversed().chunked(asInternalModel().groupLength()).joinToString(NumSys.Constants.GROUP_SEPARATOR.toString()).reversed()
+fun NumberSystem.pretty(isDigitGroupingEnabled: Boolean = true): String = value.split(NumSys.Constants.DELIMITER).joinToString(separator = NumSys.Constants.DELIMITER.toString()) { part ->
+    part.reversed().chunked(asInternalModel().groupLength()).joinToString(if (isDigitGroupingEnabled) NumSys.Constants.GROUP_SEPARATOR.toString() else "").reversed()
 }

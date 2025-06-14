@@ -33,7 +33,7 @@ import ru.sandello.binaryconverter.ui.theme.RobotoMonoFamily
 import ru.sandello.binaryconverter.utils.NS_DELIMITER
 
 @Composable
-fun ExplanationToDecimalContent(from: NumberSystem) {
+fun ExplanationToDecimalContent(from: NumberSystem, isDigitGroupingEnabled: Boolean) {
     val integerPart = NumberSystem(value = from.value.substringBefore(NS_DELIMITER), from.radix)
 
     val position = from.value.substringBefore(NS_DELIMITER).length
@@ -53,7 +53,7 @@ fun ExplanationToDecimalContent(from: NumberSystem) {
         ) {
             Text(
                 text = buildAnnotatedString {
-                    append(numberSystem(numberSystem = from))
+                    append(numberSystem(numberSystem = from, isDigitGroupingEnabled = isDigitGroupingEnabled))
                     withStyle(SpanStyle(letterSpacing = 6.sp)) { append("=") }
                     filteredValue.forEachIndexed { index, value ->
                         append(value)
@@ -72,7 +72,7 @@ fun ExplanationToDecimalContent(from: NumberSystem) {
                         if (index != filteredValue.lastIndex) withStyle(SpanStyle(letterSpacing = 6.sp)) { append("+") }
                     }
                     withStyle(SpanStyle(letterSpacing = 6.sp)) { append("=") }
-                    append(numberSystem(numberSystem = result.asExternalModel()))
+                    append(numberSystem(numberSystem = result.asExternalModel(), isDigitGroupingEnabled = isDigitGroupingEnabled))
                 },
                 fontFamily = RobotoMonoFamily,
                 style = MaterialTheme.typography.bodyMedium,
@@ -89,7 +89,7 @@ private fun PreviewExplanationToDecimal(
 ) {
     NumberSystemsTheme {
         Surface {
-            ExplanationToDecimalContent(from = numberSystem)
+            ExplanationToDecimalContent(from = numberSystem, isDigitGroupingEnabled = true)
         }
     }
 }

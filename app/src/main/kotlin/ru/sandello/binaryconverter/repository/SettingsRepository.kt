@@ -12,6 +12,10 @@ interface SettingsRepository {
 
     suspend fun setLocale(locale: Locale)
 
+    suspend fun setDigitGrouping(isDigitGroupingEnabled: Boolean)
+
+    suspend fun setDigitGroupingInitialized(isDigitGroupingInitialized: Boolean)
+
     suspend fun incrementAppLaunchCounter()
 
 }

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -28,6 +29,10 @@ class MainActivityViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
+            if (settingsRepository.settingsData.first().isDigitGroupingInitialized.not()) {
+                settingsRepository.setDigitGrouping(true)
+                settingsRepository.setDigitGroupingInitialized(true)
+            }
             settingsRepository.incrementAppLaunchCounter()
         }
     }

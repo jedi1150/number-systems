@@ -31,4 +31,6 @@
     <string name="remainder">qolgan</string>
     <string name="invert_convertible_values">O\'zgartirilgan qiymatlarni o\'zgartiring</string>
     <string name="clear_values">Qiymatlarni tozalash</string>
+    <string name="digit_grouping">Raqamlar guruhlanishi</string>
+    <string name="digit_grouping_description">Sonlarni ajratkichlar bilan ko‘rsatish</string>
 </resources>
