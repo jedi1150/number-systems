@@ -6,16 +6,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
 import ru.sandello.binaryconverter.numsys.NumSys
 import ru.sandello.binaryconverter.numsys.model.NumberSystem
 import ru.sandello.binaryconverter.numsys.model.Radix
+import ru.sandello.binaryconverter.repository.SettingsRepository
 import ru.sandello.binaryconverter.ui.calculator.ArithmeticType.Addition
 import ru.sandello.binaryconverter.ui.calculator.ArithmeticType.Divide
 import ru.sandello.binaryconverter.ui.calculator.ArithmeticType.Multiply
@@ -33,7 +36,10 @@ import java.math.MathContext.DECIMAL128
 import javax.inject.Inject
 
 @HiltViewModel
-class CalculatorViewModel @Inject constructor(private val numSys: NumSys) : ViewModel() {
+class CalculatorViewModel @Inject constructor(
+    private val numSys: NumSys,
+    settingsRepository: SettingsRepository,
+) : ViewModel() {
     private val radixCalculation = mutableStateOf(Radix.DEC)
     private val numberSystem1Temp = mutableStateOf(NumberSystem(String(), radixCalculation.value))
     private val numberSystem2Temp = mutableStateOf(NumberSystem(String(), radixCalculation.value))
@@ -41,6 +47,8 @@ class CalculatorViewModel @Inject constructor(private val numSys: NumSys) : View
 
     private val _calculatorUiState: MutableStateFlow<CalculatorUiState> = MutableStateFlow(CalculatorUiState())
     val calculatorUiState: StateFlow<CalculatorUiState> = _calculatorUiState.asStateFlow()
+
+    val isDigitGroupingEnabled: Flow<Boolean> = settingsRepository.settingsData.map { it.isDigitGroupingEnabled }
 
     private var lastValueFrom: NumberSystem? = null
 
@@ -92,8 +100,10 @@ class CalculatorViewModel @Inject constructor(private val numSys: NumSys) : View
     private fun convert(calculatorOperandType: CalculatorOperandType, from: NumberSystem, toRadixes: Array<Radix>) {
         Log.d(APP_TAG, "CalculatorViewModel::convert: textFieldVal: ${from.value}, from radix: ${from.radix.value}")
 
-        check(from.value.matches(CharRegex().charsRegex(
-            index = from.radix.value,
+        check(
+            from.value.matches(
+                CharRegex().charsRegex(
+                    index = from.radix.value,
             useDelimiterChars = from.value.count { it.toString().contains("[,.]".toRegex()) } <= 1,
             useNegativeChar = from.value.count { it.toString().contains("-".toRegex()) } <= 1,
         ))) {

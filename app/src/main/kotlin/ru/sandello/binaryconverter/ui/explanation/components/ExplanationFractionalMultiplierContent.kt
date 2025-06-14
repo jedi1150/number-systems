@@ -27,7 +27,7 @@ import ru.sandello.binaryconverter.utils.getFractional
 import java.math.BigDecimal
 
 @Composable
-fun ExplanationFractionalMultiplierContent(from: NumberSystem, to: NumberSystem) {
+fun ExplanationFractionalMultiplierContent(from: NumberSystem, to: NumberSystem, isDigitGroupingEnabled: Boolean) {
     val fromFractional = getFractional(from.value)
     var iterations = 0
     val maxIterations = 12
@@ -60,7 +60,7 @@ fun ExplanationFractionalMultiplierContent(from: NumberSystem, to: NumberSystem)
                 verticalArrangement = Arrangement.spacedBy(6.dp),
             ) {
                 fractionMultiplierList.forEach { fractionMultiplier ->
-                    ExplanationConvertFractional(fractionMultiplier)
+                    ExplanationConvertFractional(fractionMultiplier, isDigitGroupingEnabled = isDigitGroupingEnabled)
                 }
             }
         }
@@ -74,7 +74,7 @@ fun ExplanationFractionalMultiplierContent(from: NumberSystem, to: NumberSystem)
                 .padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             content = {
-                Text(text = numberSystem(numberSystem = NumberSystem(value = "0." + to.value.substringAfter(NS_DELIMITER), radix = to.radix)))
+                Text(text = numberSystem(numberSystem = NumberSystem(value = "0." + to.value.substringAfter(NS_DELIMITER), radix = to.radix), isDigitGroupingEnabled = isDigitGroupingEnabled))
             },
         )
     }
@@ -98,7 +98,7 @@ private fun fractionMultiplier(multiplier: String, multiplicand: Int): FractionM
 private fun PreviewExplanationFractionalMultiplier() {
     NumberSystemsTheme {
         Surface {
-            ExplanationFractionalMultiplierContent(NumberSystem("10.703125", Radix.DEC), NumberSystem("A.B4", Radix.HEX))
+            ExplanationFractionalMultiplierContent(NumberSystem("10.703125", Radix.DEC), NumberSystem("A.B4", Radix.HEX), isDigitGroupingEnabled = true)
         }
     }
 }

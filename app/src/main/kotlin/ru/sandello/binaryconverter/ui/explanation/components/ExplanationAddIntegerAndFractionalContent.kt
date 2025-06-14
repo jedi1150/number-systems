@@ -29,7 +29,7 @@ import ru.sandello.binaryconverter.utils.NS_DELIMITER
 import ru.sandello.binaryconverter.utils.getFractional
 
 @Composable
-fun ExplanationAddIntegerAndFractionalContent(to: NumberSystem) {
+fun ExplanationAddIntegerAndFractionalContent(to: NumberSystem, isDigitGroupingEnabled: Boolean) {
     val integerPart: String = to.value.substringBefore(NS_DELIMITER)
     val fractionalPart: String = getFractional(to.value)
 
@@ -50,15 +50,15 @@ fun ExplanationAddIntegerAndFractionalContent(to: NumberSystem) {
         ) {
             Text(
                 text = buildAnnotatedString {
-                    append(numberSystem(numberSystem = decimalInteger))
+                    append(numberSystem(numberSystem = decimalInteger, isDigitGroupingEnabled = isDigitGroupingEnabled))
                     withStyle(SpanStyle(letterSpacing = 6.sp)) {
                         append("+")
                     }
-                    append(numberSystem(numberSystem = decimalFractional))
+                    append(numberSystem(numberSystem = decimalFractional, isDigitGroupingEnabled = isDigitGroupingEnabled))
                     withStyle(SpanStyle(letterSpacing = 6.sp)) {
                         append("=")
                     }
-                    append(numberSystem(numberSystem = to))
+                    append(numberSystem(numberSystem = to, isDigitGroupingEnabled = isDigitGroupingEnabled))
                 },
                 fontFamily = RobotoMonoFamily,
                 style = MaterialTheme.typography.bodyMedium,
@@ -73,7 +73,7 @@ fun ExplanationAddIntegerAndFractionalContent(to: NumberSystem) {
 fun PreviewExplanationCombineParts() {
     NumberSystemsTheme {
         Surface {
-            ExplanationAddIntegerAndFractionalContent(to = NumberSystem(value = "A.B4", Radix.HEX))
+            ExplanationAddIntegerAndFractionalContent(to = NumberSystem(value = "A.B4", Radix.HEX), isDigitGroupingEnabled = true)
         }
     }
 }

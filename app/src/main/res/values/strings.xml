@@ -37,5 +37,7 @@
     <string name="remainder">remainder</string>
     <string name="invert_convertible_values">Invert convertible values</string>
     <string name="clear_values">Clear values</string>
+    <string name="digit_grouping">Digit grouping</string>
+    <string name="digit_grouping_description">Display numbers with digit separators</string>
 
 </resources>

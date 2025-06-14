@@ -16,9 +16,12 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.ui.theme.RobotoMonoFamily
 
 @Composable
-fun numberSystem(numberSystem: NumberSystem): AnnotatedString = buildAnnotatedString {
+fun numberSystem(
+    numberSystem: NumberSystem,
+    isDigitGroupingEnabled: Boolean,
+): AnnotatedString = buildAnnotatedString {
     withStyle(MaterialTheme.typography.bodyMedium.copy(fontFamily = RobotoMonoFamily).toSpanStyle()) {
-        append(numberSystem.pretty())
+        append(numberSystem.pretty(isDigitGroupingEnabled))
     }
     withStyle(style = MaterialTheme.typography.labelSmall.copy(fontFamily = RobotoMonoFamily, baselineShift = BaselineShift.Subscript).toSpanStyle()) {
         append(numberSystem.radix.value.toString())
@@ -30,7 +33,12 @@ fun numberSystem(numberSystem: NumberSystem): AnnotatedString = buildAnnotatedSt
 private fun PreviewNumberSystem() {
     NumberSystemsTheme {
         Surface {
-            Text(text = numberSystem(numberSystem = NumberSystem("1024", Radix.DEC)))
+            Text(
+                text = numberSystem(
+                    numberSystem = NumberSystem("1024", Radix.DEC),
+                    isDigitGroupingEnabled = false,
+                )
+            )
         }
     }
 }
@@ -40,7 +48,12 @@ private fun PreviewNumberSystem() {
 private fun PreviewNumberSystemDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            Text(text = numberSystem(numberSystem = NumberSystem("11100100", Radix.BIN)))
+            Text(
+                text = numberSystem(
+                    numberSystem = NumberSystem("11100100", Radix.BIN),
+                    isDigitGroupingEnabled = true,
+                )
+            )
         }
     }
 }

@@ -33,6 +33,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -96,6 +97,7 @@ fun SettingsRoute(contentPadding: PaddingValues, viewModel: SettingsViewModel = 
                 }
             }
         },
+        onChangeDigitGrouping = viewModel::updateDigitGrouping,
         onLinkClicked = { url ->
             launchCustomChromeTab(context, Uri.parse(url), backgroundColor)
         },
@@ -109,6 +111,7 @@ fun SettingsScreen(
     appVersion: String,
     onChangeThemeType: (ThemeType) -> Unit,
     onChangeLocale: (Locale) -> Unit,
+    onChangeDigitGrouping: (Boolean) -> Unit,
     onLinkClicked: (String) -> Unit,
 ) {
     var showThemeDialog by rememberSaveable {
@@ -186,6 +189,26 @@ fun SettingsScreen(
                 HorizontalDivider()
                 ListItem(
                     headlineContent = {
+                        Text(stringResource(R.string.digit_grouping))
+                    },
+                    modifier = Modifier.clickable {
+                        onChangeDigitGrouping(settingsUiState.isDigitGroupingEnabled.not())
+                    },
+                    supportingContent = {
+                        Text(stringResource(R.string.digit_grouping_description))
+                    },
+                    trailingContent = {
+                        Switch(
+                            checked = settingsUiState.isDigitGroupingEnabled,
+                            onCheckedChange = {
+                                onChangeDigitGrouping(it)
+                            },
+                        )
+                    },
+                )
+                HorizontalDivider()
+                ListItem(
+                    headlineContent = {
                         Text(text = stringResource(id = R.string.settings_github))
                     },
                     modifier = Modifier.clickable {
@@ -237,10 +260,15 @@ private fun launchCustomChromeTab(context: Context, uri: Uri, @ColorInt toolbarC
 private fun PreviewSettingScreen() {
     NumberSystemsTheme {
         SettingsScreen(
-            settingsUiState = SettingsUiState(),
+            settingsUiState = SettingsUiState(
+                themeType = ThemeType.SYSTEM,
+                locale = Locale.ROOT,
+                isDigitGroupingEnabled = true,
+            ),
             appVersion = "versionName",
             onChangeThemeType = {},
             onChangeLocale = {},
+            onChangeDigitGrouping = {},
             onLinkClicked = {},
         )
     }
