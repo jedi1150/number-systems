@@ -18,7 +18,7 @@ gmsPlugin = "4.4.2"
 hilt = "2.56"
 kotlin = "2.1.20"
 ksp = "2.1.20-2.0.0"
-protobuf = "4.30.2"
+protobuf = "4.31.1"
 protobufPlugin = "0.9.5"
 reviewKtx = "2.0.2"
 
