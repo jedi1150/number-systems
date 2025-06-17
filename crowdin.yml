@@ -1,3 +1,5 @@
 files:
   - source: '*/values*/strings.xml'
     translation: '*/values*/strings.xml'
+bundles:
+  - 2
