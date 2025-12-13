@@ -31,20 +31,18 @@ jobs:
           GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
       - name: Build with Gradle
         run: ./gradlew build
-      - name: Upload workspace artifact
-        uses: actions/upload-artifact@v6
-        with:
-          name: workspace
-          path: .
   checks:
     name: Checks
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Download workspace artifact
-        uses: actions/download-artifact@v7
+      - name: Checkout sources
+        uses: actions/checkout@v6
+      - name: Setup Java
+        uses: actions/setup-java@v5
         with:
-          name: workspace
+          distribution: 'temurin'
+          java-version: '21'
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v5
       - name: Check lint
@@ -64,10 +62,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Download workspace artifact
-        uses: actions/download-artifact@v6
+      - name: Checkout sources
+        uses: actions/checkout@v6
+      - name: Setup Java
+        uses: actions/setup-java@v5
         with:
-          name: workspace
+          distribution: 'temurin'
+          java-version: '21'
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v5
       - name: Test
