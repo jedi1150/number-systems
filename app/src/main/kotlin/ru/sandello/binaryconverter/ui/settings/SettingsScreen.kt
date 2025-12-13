@@ -42,7 +42,7 @@ import androidx.compose.ui.tooling.preview.Wallpapers
 import androidx.compose.ui.unit.dp
 import androidx.core.content.pm.PackageInfoCompat
 import androidx.core.os.LocaleListCompat
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.data.ThemeType
@@ -52,6 +52,7 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.utils.GITHUB_URL
 import ru.sandello.binaryconverter.utils.PRIVACY_POLICY_URL
 import java.util.Locale
+import androidx.core.net.toUri
 
 @Composable
 fun SettingsRoute(contentPadding: PaddingValues, viewModel: SettingsViewModel = hiltViewModel()) {
@@ -91,7 +92,7 @@ fun SettingsRoute(contentPadding: PaddingValues, viewModel: SettingsViewModel = 
         },
         onChangeDigitGrouping = viewModel::updateDigitGrouping,
         onLinkClicked = { url ->
-            launchCustomChromeTab(context, Uri.parse(url), backgroundColor)
+            launchCustomChromeTab(context, url.toUri(), backgroundColor)
         },
     )
 }

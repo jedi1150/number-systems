@@ -63,7 +63,7 @@ class DigitGroupingVisualTransformation(radix: Radix) : VisualTransformation {
             }
 
             override fun transformedToOriginal(offset: Int): Int {
-                val spacesBeforeOffset = if (out.contains(NS_GROUP_SEPARATOR)) out.substring(0, offset).count { it == NS_GROUP_SEPARATOR } else 0
+                val spacesBeforeOffset = if (out.contains(NS_GROUP_SEPARATOR)) out.take(offset).count { it == NS_GROUP_SEPARATOR } else 0
 
                 return offset - spacesBeforeOffset
             }

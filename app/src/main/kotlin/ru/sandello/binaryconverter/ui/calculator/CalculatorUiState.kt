@@ -19,7 +19,7 @@ data class CalculatorUiState(
     val selectedArithmetic: ArithmeticType = ArithmeticType.Addition,
 ) {
     @SuppressLint("Range")
-    val radixes: List<Radix> = Array(36) { radix -> Radix(radix + 1) }.filter { radix -> !listOf(Radix(1)).contains(radix) }
+    val radixes: List<Radix> = (2..36).map { Radix(it) }
 
     val arithmeticTypes = arrayOf(ArithmeticType.Addition, ArithmeticType.Subtraction, ArithmeticType.Multiply, ArithmeticType.Divide)
 
