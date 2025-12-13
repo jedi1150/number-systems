@@ -9,6 +9,7 @@ permissions:
 
 jobs:
   dependency-submission:
+    name: Dependency Submission
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
@@ -17,6 +18,8 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
-          java-version: 17
+          java-version: '21'
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
       - name: Generate and submit dependency graph
         uses: gradle/actions/dependency-submission@v5

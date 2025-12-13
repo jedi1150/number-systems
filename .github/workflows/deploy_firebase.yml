@@ -14,16 +14,13 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-      - name: Setup Gradle
+      - name: Setup Gradle and Cache
         uses: gradle/actions/setup-gradle@v5
       - name: Setup Ruby (for Fastlane)
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3' # Not needed with a .ruby-version file
-          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-      - name: Install Fastlane
-        run: bundle install
-      # Decode Secrets
+          ruby-version: '3.3'
+          bundler-cache: true
       - name: Decode secrets
         run: |
           echo "$KEYSTORE_PROD" > app/keystore.jks.base64
@@ -39,8 +36,7 @@ jobs:
           FIREBASE_APP_DISTRIBUTION_JSON: ${{ secrets.FIREBASE_APP_DISTRIBUTION_JSON }}
           GOOGLE_PLAY_DISTRIBUTION_JSON: ${{ secrets.GOOGLE_PLAY_DISTRIBUTION_JSON }}
           GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
-      #Fastlane: Build .aab and deploy it
-      - name: Build production App Bundle and deploy to Firebase App Tester
+      - name: Build and deploy to Firebase App Tester
         run: bundle exec fastlane deploy_firebase
         env:
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
