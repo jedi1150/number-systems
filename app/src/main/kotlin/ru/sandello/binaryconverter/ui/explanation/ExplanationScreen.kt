@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.foundation.layout.displayCutoutPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
@@ -75,7 +76,7 @@ fun ExplanationScreen(
                             end = WindowInsets.navigationBars
                                 .asPaddingValues()
                                 .calculateEndPadding(LocalLayoutDirection.current),
-                        ),
+                        ).displayCutoutPadding(),
                 ) {
                     Row(
                         modifier = Modifier

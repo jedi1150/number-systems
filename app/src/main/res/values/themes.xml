@@ -3,18 +3,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="NightAdjusted.Theme.NumberSystems" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
     </style>
 
     <style name="PlatformAdjusted.Theme.NumberSystems" parent="NightAdjusted.Theme.NumberSystems">
-        <item name="android:statusBarColor">@color/black</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
     <style name="Theme.NumberSystems" parent="PlatformAdjusted.Theme.NumberSystems" />
 
     <style name="NightAdjusted.Theme.Splash" parent="Theme.SplashScreen">
-        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
     </style>
 

@@ -11,30 +11,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '21'
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-      - uses: gradle/actions/wrapper-validation@v4
+        uses: gradle/actions/setup-gradle@v5
       - name: Setup Ruby (for Fastlane)
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3' # Not needed with a .ruby-version file
-          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-      - name: Install Fastlane
-        run: bundle install
-      # Decode Secrets
+          ruby-version: '3.4'
+          bundler-cache: true
       - name: Decode secrets
-        run: |
-          echo "$KEYSTORE_PROD" > app/keystore.jks.base64
-          base64 -d -i app/keystore.jks.base64 > app/keystore.jks
-        env:
-          KEYSTORE_PROD: ${{ secrets.KEYSTORE_PROD }}
-      - name: Decode Firebase App Distribution JSON file
         run: |
           echo "$KEYSTORE_PROD" > app/keystore.jks.base64
           base64 -d -i app/keystore.jks.base64 > app/keystore.jks
@@ -46,7 +36,7 @@ jobs:
           KEYSTORE_PROD: ${{ secrets.KEYSTORE_PROD }}
           GOOGLE_PLAY_DISTRIBUTION_JSON: ${{ secrets.GOOGLE_PLAY_DISTRIBUTION_JSON }}
           GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
-      - name: Build App Bundle and deploy to Google Play Internal Testing
+      - name: Build and deploy to Google Play Internal
         run: bundle exec fastlane deploy_google_play_internal
         env:
           SIGNING_KEYSTORE: ${{ github.workspace }}/app/keystore.jks

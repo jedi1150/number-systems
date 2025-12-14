@@ -2,7 +2,7 @@ package ru.sandello.binaryconverter.ui.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import ru.sandello.binaryconverter.ui.NumSysAppState
 import ru.sandello.binaryconverter.ui.calculator.CalculatorViewModel

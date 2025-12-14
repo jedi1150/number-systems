@@ -22,7 +22,7 @@ class SettingsDataSource @Inject constructor(
                 ThemeTypeProto.UNRECOGNIZED -> ThemeType.SYSTEM
                 null -> ThemeType.SYSTEM
             },
-            locale = Locale(settings.languageTag),
+            locale = Locale.forLanguageTag(settings.languageTag),
             isDigitGroupingEnabled = settings.isDigitGroupingEnabled,
             isDigitGroupingInitialized = settings.isDigitGroupingInitialized,
             appLaunchCounter = settings.appLaunchCounter,

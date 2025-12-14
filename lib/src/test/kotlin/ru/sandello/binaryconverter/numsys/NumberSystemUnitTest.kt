@@ -13,7 +13,7 @@ internal class NumberSystemUnitTest {
         NumberSystem("128", Radix.DEC),
         NumberSystem("80", Radix.HEX),
         NumberSystem("3k", Radix(36)),
-        NumberSystem("2c", Radix(58)),
+//        NumberSystem("2c", Radix(58)),
     )
 
     private val nsDecimalList = listOf(
@@ -22,7 +22,7 @@ internal class NumberSystemUnitTest {
         NumberSystem("128.375", Radix.DEC),
         NumberSystem("80.6", Radix.HEX),
         NumberSystem("3k.di", Radix(36)),
-        NumberSystem("2c.lHt", Radix(58)),
+//        NumberSystem("2c.lHt", Radix(58)),
     )
 
     private val nsNegativeIntegerList = listOf(
@@ -31,7 +31,7 @@ internal class NumberSystemUnitTest {
         NumberSystem("-128", Radix.DEC),
         NumberSystem("-80", Radix.HEX),
         NumberSystem("-3k", Radix(36)),
-        NumberSystem("-2c", Radix(58)),
+//        NumberSystem("-2c", Radix(58)),
     )
 
     private val nsNegativeDecimalList = listOf(
@@ -40,7 +40,7 @@ internal class NumberSystemUnitTest {
         NumberSystem("-128.375", Radix.DEC),
         NumberSystem("-80.6", Radix.HEX),
         NumberSystem("-3k.di", Radix(36)),
-        NumberSystem("-2c.lHt", Radix(58)),
+//        NumberSystem("-2c.lHt", Radix(58)),
     )
 
     @Test

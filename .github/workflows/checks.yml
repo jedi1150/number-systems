@@ -5,21 +5,23 @@ on:
     branches: [ "main" ]
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '21'
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-      - uses: gradle/actions/wrapper-validation@v4
+        uses: gradle/actions/setup-gradle@v5
       - name: Create google-services.json file
         run: |
           echo "$GOOGLE_SERVICES_JSON" > app/google-services.json.base64
@@ -28,20 +30,20 @@ jobs:
           GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
       - name: Build with Gradle
         run: ./gradlew build
-
   checks:
     name: Checks
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - name: Checkout sources
+        uses: actions/checkout@v6
+      - name: Setup Java
+        uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '21'
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-      - uses: gradle/actions/wrapper-validation@v4
+        uses: gradle/actions/setup-gradle@v5
       - name: Create google-services.json file
         run: |
           echo "$GOOGLE_SERVICES_JSON" > app/google-services.json.base64
@@ -51,34 +53,34 @@ jobs:
       - name: Check lint
         run: ./gradlew lint
       - name: Check binary compatibility
-        run: ./gradlew :lib:apiCheck
+        run: ./gradlew :lib:checkLegacyAbi
       - name: Upload check reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
-          name: Unit test reports
+          name: Check reports
           path: |
             **/app/build/reports/
             **/lib/build/reports/
-
   unit-tests:
     name: Unit tests
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - name: Checkout sources
+        uses: actions/checkout@v6
+      - name: Setup Java
+        uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '21'
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-      - uses: gradle/actions/wrapper-validation@v4
+        uses: gradle/actions/setup-gradle@v5
       - name: Test
         run: ./gradlew :lib:test
       - name: Upload test reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: Unit test reports
           path: '**/lib/build/reports/tests/test/index.html'

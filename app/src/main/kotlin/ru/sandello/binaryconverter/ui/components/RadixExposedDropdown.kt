@@ -2,6 +2,7 @@ package ru.sandello.binaryconverter.ui.components
 
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.MaterialTheme
@@ -45,7 +46,7 @@ fun RadixExposedDropdown(
             OutlinedTextField(
                 value = radix.value.toString(),
                 onValueChange = { },
-                modifier = Modifier.menuAnchor(),
+                modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable),
                 enabled = false,
                 readOnly = true,
                 textStyle = TextStyle(fontFamily = RobotoMonoFamily),
@@ -63,7 +64,7 @@ fun RadixExposedDropdown(
             OutlinedTextField(
                 value = radix.value.toString(),
                 onValueChange = {},
-                modifier = Modifier.menuAnchor(),
+                modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable),
                 enabled = false,
                 readOnly = true,
                 textStyle = TextStyle(fontFamily = RobotoMonoFamily),

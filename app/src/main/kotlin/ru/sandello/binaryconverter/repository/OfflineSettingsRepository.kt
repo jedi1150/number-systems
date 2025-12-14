@@ -17,7 +17,7 @@ class OfflineSettingsRepository @Inject constructor(
 
     override suspend fun setDigitGrouping(isDigitGroupingEnabled: Boolean) = settingsDataSource.setDigitGrouping(isDigitGroupingEnabled)
 
-    override suspend fun setDigitGroupingInitialized(isDigitGroupingEnabled: Boolean) = settingsDataSource.setDigitGroupingInitialized(isDigitGroupingEnabled)
+    override suspend fun setDigitGroupingInitialized(isDigitGroupingInitialized: Boolean) = settingsDataSource.setDigitGroupingInitialized(isDigitGroupingInitialized)
 
     override suspend fun incrementAppLaunchCounter() = settingsDataSource.incrementAppLaunchCounter()
 
