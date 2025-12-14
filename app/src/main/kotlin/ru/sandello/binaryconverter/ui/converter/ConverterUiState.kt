@@ -1,9 +1,7 @@
 package ru.sandello.binaryconverter.ui.converter
 
-import android.annotation.SuppressLint
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.numsys.model.Radix
-import kotlin.collections.contains
 
 data class ConverterUiState(
     val numberSystem2: NumberSystem = NumberSystem(String(), Radix.BIN),

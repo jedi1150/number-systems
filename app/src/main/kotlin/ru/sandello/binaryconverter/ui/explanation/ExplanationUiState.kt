@@ -1,6 +1,5 @@
 package ru.sandello.binaryconverter.ui.explanation
 
-import android.annotation.SuppressLint
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.numsys.model.Radix
 
