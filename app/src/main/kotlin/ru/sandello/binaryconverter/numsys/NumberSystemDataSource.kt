@@ -14,16 +14,21 @@ class NumberSystemDataSource @Inject constructor(
     private val numSys: NumSys,
 ) {
     suspend fun convert(from: NumberSystem, toRadix: Radix): NumberSystem? = coroutineScope {
-        Log.d("ConverterViewModel", "convert: value: ${from.value}, from radix: ${from.radix.value}")
+        Log.d("NumberSystemDataSource", "convert: value: ${from.value}, from radix: ${from.radix.value}")
 
         if (from.value.isEmpty()) return@coroutineScope null
 
         return@coroutineScope withContext(Dispatchers.Default) {
-            numSys.convert(
-                numberSystem = from.asInternalModel(),
-                targetRadix = toRadix,
-                ignoreCase = from.radix.value in Radix.BIN.value..36,
-            ).asExternalModel()
+            try {
+                numSys.convert(
+                    numberSystem = from.asInternalModel(),
+                    targetRadix = toRadix,
+                    ignoreCase = from.radix.value in Radix.BIN.value..36,
+                ).asExternalModel()
+            } catch (e: IllegalArgumentException) {
+                Log.e("NumberSystemDataSource", "Conversion failed: ${e.message}")
+                null
+            }
         }
     }
 }
