@@ -9,6 +9,5 @@ data class ExplanationUiState(
     val from: NumberSystem = NumberSystem(String(), Radix.DEC),
     val to: NumberSystem = NumberSystem(String(), Radix.BIN),
 ) {
-    @SuppressLint("Range")
     val radixes: List<Radix> = (2..36).map { Radix(it) }
 }

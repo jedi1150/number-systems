@@ -18,7 +18,6 @@ data class CalculatorUiState(
     val numberSystemCustom2Error: Boolean = false,
     val selectedArithmetic: ArithmeticType = ArithmeticType.Addition,
 ) {
-    @SuppressLint("Range")
     val radixes: List<Radix> = (2..36).map { Radix(it) }
 
     val arithmeticTypes = arrayOf(ArithmeticType.Addition, ArithmeticType.Subtraction, ArithmeticType.Multiply, ArithmeticType.Divide)
