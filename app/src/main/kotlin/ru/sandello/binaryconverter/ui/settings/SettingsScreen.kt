@@ -133,7 +133,12 @@ fun SettingsScreen(
         Column(
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
-                .padding(contentPadding),
+                .padding(
+                    PaddingValues(
+                        top = contentPadding.calculateTopPadding(),
+                        bottom = contentPadding.calculateBottomPadding(),
+                    ),
+                ),
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
             Column {
