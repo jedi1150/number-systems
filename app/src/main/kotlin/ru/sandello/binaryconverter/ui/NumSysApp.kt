@@ -2,13 +2,14 @@ package ru.sandello.binaryconverter.ui
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.expandIn
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.shrinkOut
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
@@ -43,14 +45,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.TransformOrigin
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -186,15 +193,27 @@ fun NumberSystemsApp(
                     calculatorViewModel = calculatorViewModel,
                 )
             }
-            Box(
+
+            BoxWithConstraints(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(16.dp)
                     .padding(contentPadding)
                     .consumeWindowInsets(contentPadding)
-                    .windowInsetsPadding(WindowInsets.safeDrawing),
+                    .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal))
+                    .imePadding(),
                 contentAlignment = Alignment.BottomEnd,
             ) {
+                val density = LocalDensity.current
+                var fabHeight: Dp by remember { mutableStateOf(Dp.Unspecified) }
+
+                val showFabs by remember(fabHeight, maxHeight) {
+                    derivedStateOf { fabHeight < maxHeight }
+                }
+
+                val alpha: Float by animateFloatAsState(
+                    targetValue = if (showFabs) 1f else 0f,
+                    label = "alphaAnimation"
+                )
                 val currentTopLevelDestination = appState.currentTopLevelDestination
                 val clearFabIsVisible by remember(currentTopLevelDestination, converterUiState, calculatorUiState) {
                     derivedStateOf {
@@ -214,7 +233,17 @@ fun NumberSystemsApp(
                     }
                 }
 
-                Column(horizontalAlignment = Alignment.End) {
+                Column(
+                    modifier = Modifier
+                        .alpha(alpha)
+                        .onSizeChanged {
+                            with(density) {
+                                fabHeight = it.height.toDp()
+                            }
+                        }
+                        .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
+                    horizontalAlignment = Alignment.End,
+                ) {
                     AnimatedVisibility(
                         visible = clearFabIsVisible,
                         enter = scaleIn(transformOrigin = TransformOrigin(0f, 0f)) + fadeIn() + expandIn(expandFrom = Alignment.TopStart),
@@ -262,7 +291,6 @@ fun NumberSystemsApp(
                             elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 0.dp),
                         )
                     }
-
                 }
             }
         }
