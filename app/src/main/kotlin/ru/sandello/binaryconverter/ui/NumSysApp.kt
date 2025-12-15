@@ -9,7 +9,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.shrinkOut
-import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
@@ -42,6 +42,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -52,12 +53,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -194,26 +193,31 @@ fun NumberSystemsApp(
                 )
             }
 
-            BoxWithConstraints(
+            var contentHeight: Int by remember { mutableIntStateOf(0) }
+
+            Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(contentPadding)
                     .consumeWindowInsets(contentPadding)
                     .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal))
-                    .imePadding(),
+                    .imePadding()
+                    .onSizeChanged {
+                        contentHeight = it.height
+                    },
                 contentAlignment = Alignment.BottomEnd,
             ) {
-                val density = LocalDensity.current
-                var fabHeight: Dp by remember { mutableStateOf(Dp.Unspecified) }
+                var fabHeight: Int by remember { mutableIntStateOf(0) }
 
-                val showFabs by remember(fabHeight, maxHeight) {
-                    derivedStateOf { fabHeight < maxHeight }
+                val showFab by remember {
+                    derivedStateOf { fabHeight < contentHeight }
                 }
 
                 val alpha: Float by animateFloatAsState(
-                    targetValue = if (showFabs) 1f else 0f,
+                    targetValue = if (showFab) 1f else 0f,
                     label = "alphaAnimation"
                 )
+
                 val currentTopLevelDestination = appState.currentTopLevelDestination
                 val clearFabIsVisible by remember(currentTopLevelDestination, converterUiState, calculatorUiState) {
                     derivedStateOf {
@@ -237,9 +241,7 @@ fun NumberSystemsApp(
                     modifier = Modifier
                         .alpha(alpha)
                         .onSizeChanged {
-                            with(density) {
-                                fabHeight = it.height.toDp()
-                            }
+                            fabHeight = it.height
                         }
                         .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
                     horizontalAlignment = Alignment.End,
