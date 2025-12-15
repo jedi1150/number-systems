@@ -1,14 +1,7 @@
 package ru.sandello.binaryconverter.ui
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.expandIn
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleIn
-import androidx.compose.animation.scaleOut
-import androidx.compose.animation.shrinkOut
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -24,8 +17,6 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExtendedFloatingActionButton
-import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.NavigationBar
@@ -34,7 +25,6 @@ import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SheetValue
-import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
@@ -51,12 +41,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -64,8 +52,8 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.ui.calculator.CalculatorViewModel
+import ru.sandello.binaryconverter.ui.components.FabStack
 import ru.sandello.binaryconverter.ui.converter.ConverterViewModel
 import ru.sandello.binaryconverter.ui.explanation.ExplanationScreen
 import ru.sandello.binaryconverter.ui.explanation.ExplanationViewModel
@@ -237,63 +225,38 @@ fun NumberSystemsApp(
                     }
                 }
 
-                Column(
+                FabStack(
                     modifier = Modifier
                         .alpha(alpha)
                         .onSizeChanged {
                             fabHeight = it.height
                         }
                         .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
-                    horizontalAlignment = Alignment.End,
-                ) {
-                    AnimatedVisibility(
-                        visible = clearFabIsVisible,
-                        enter = scaleIn(transformOrigin = TransformOrigin(0f, 0f)) + fadeIn() + expandIn(expandFrom = Alignment.TopStart),
-                        exit = scaleOut(transformOrigin = TransformOrigin(0f, 0f)) + fadeOut() + shrinkOut(shrinkTowards = Alignment.TopStart),
-                    ) {
-                        SmallFloatingActionButton(
-                            onClick = {
-                                when (currentTopLevelDestination) {
-                                    CONVERTER -> {
-                                        converterViewModel.clear()
-                                    }
+                    isClearFabVisible = clearFabIsVisible,
+                    isExplanationFabVisible = explanationFabIsVisible,
+                    onClearClicked = {
+                        when (currentTopLevelDestination) {
+                            CONVERTER -> {
+                                converterViewModel.clear()
+                            }
 
-                                    CALCULATOR -> {
-                                        calculatorViewModel.clear()
-                                    }
+                            CALCULATOR -> {
+                                calculatorViewModel.clear()
+                            }
 
-                                    else -> {}
-                                }
-                            },
-                            modifier = Modifier.padding(vertical = 8.dp),
-                            elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 0.dp),
-                        ) {
-                            Icon(painter = painterResource(R.drawable.ic_close), contentDescription = stringResource(R.string.clear_values))
+                            else -> {}
                         }
-                    }
-
-                    AnimatedVisibility(
-                        visible = explanationFabIsVisible,
-                        enter = scaleIn(transformOrigin = TransformOrigin(0f, 0f)) + fadeIn() + expandIn(expandFrom = Alignment.TopStart),
-                        exit = scaleOut(transformOrigin = TransformOrigin(0f, 0f)) + fadeOut() + shrinkOut(shrinkTowards = Alignment.TopStart),
-                    ) {
-                        ExtendedFloatingActionButton(
-                            text = { Text(text = stringResource(id = R.string.explanation), fontWeight = FontWeight.Normal) },
-                            icon = { Icon(painter = painterResource(R.drawable.ic_explanation), contentDescription = stringResource(id = R.string.explanation)) },
-                            onClick = {
-                                if (currentTopLevelDestination == CONVERTER) {
-                                    converterViewModel.showExplanation()
-                                    explanationViewModel.acceptValues(
-                                        from = converterUiState.numberSystem10,
-                                        to = converterUiState.numberSystem2,
-                                    )
-                                }
-                            },
-                            modifier = Modifier.padding(vertical = 8.dp),
-                            elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 0.dp),
-                        )
-                    }
-                }
+                    },
+                    onExplanationClicked = {
+                        if (currentTopLevelDestination == CONVERTER) {
+                            converterViewModel.showExplanation()
+                            explanationViewModel.acceptValues(
+                                from = converterUiState.numberSystem10,
+                                to = converterUiState.numberSystem2,
+                            )
+                        }
+                    },
+                )
             }
         }
         if (bottomSheetState.targetValue != SheetValue.Hidden || bottomSheetState.currentValue != SheetValue.Hidden) {
