@@ -21,6 +21,9 @@ android {
         targetSdk = 36
         versionCode = 1
         versionName = "2.4.0"
+        ndk {
+            debugSymbolLevel = "FULL"
+        }
     }
     buildTypes {
         named("release") {
