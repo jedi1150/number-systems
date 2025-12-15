@@ -1,4 +1,3 @@
-import com.google.firebase.crashlytics.buildtools.gradle.CrashlyticsExtension
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -30,12 +29,6 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            configure<CrashlyticsExtension> {
-                nativeSymbolUploadEnabled = true
-            }
-            ndk {
-                debugSymbolLevel = "FULL"
-            }
         }
     }
     flavorDimensions += listOf("flavor-type")
