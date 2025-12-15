@@ -30,6 +30,9 @@ android {
             configure<CrashlyticsExtension> {
                 nativeSymbolUploadEnabled = true
             }
+            ndk {
+                debugSymbolLevel = "FULL"
+            }
         }
     }
     flavorDimensions += listOf("flavor-type")
