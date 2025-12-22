@@ -18,7 +18,7 @@ hilt = "2.57.2"
 kotlin = "2.2.21"
 ksp = "2.3.3"
 protobuf = "4.33.2"
-protobufPlugin = "0.9.5"
+protobufPlugin = "0.9.6"
 reviewKtx = "2.0.2"
 
 [libraries]
