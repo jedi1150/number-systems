@@ -18,7 +18,7 @@ android {
         minSdk = 23
         targetSdk = 36
         versionCode = 1
-        versionName = "2.4.0"
+        versionName = "2.4.1"
         ndk {
             debugSymbolLevel = "FULL"
         }
