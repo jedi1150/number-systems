@@ -13,7 +13,6 @@ internal class NumberSystemUnitTest {
         NumberSystem("128", Radix.DEC),
         NumberSystem("80", Radix.HEX),
         NumberSystem("3k", Radix(36)),
-//        NumberSystem("2c", Radix(58)),
     )
 
     private val nsDecimalList = listOf(
@@ -22,7 +21,6 @@ internal class NumberSystemUnitTest {
         NumberSystem("128.375", Radix.DEC),
         NumberSystem("80.6", Radix.HEX),
         NumberSystem("3k.di", Radix(36)),
-//        NumberSystem("2c.lHt", Radix(58)),
     )
 
     private val nsNegativeIntegerList = listOf(
@@ -31,7 +29,6 @@ internal class NumberSystemUnitTest {
         NumberSystem("-128", Radix.DEC),
         NumberSystem("-80", Radix.HEX),
         NumberSystem("-3k", Radix(36)),
-//        NumberSystem("-2c", Radix(58)),
     )
 
     private val nsNegativeDecimalList = listOf(
@@ -40,51 +37,61 @@ internal class NumberSystemUnitTest {
         NumberSystem("-128.375", Radix.DEC),
         NumberSystem("-80.6", Radix.HEX),
         NumberSystem("-3k.di", Radix(36)),
-//        NumberSystem("-2c.lHt", Radix(58)),
     )
 
     @Test
-    fun ns_integer_checkAll() {
-        nsIntegerList.forEach { ns ->
-            nsIntegerList.forEach { ns2 ->
-                val result = NumSys.convert(ns2.value, ns2.radix.value, ns.radix.value)
-                println(result)
-                assertEquals(ns.value, result)
+    fun convert_integerBetweenAllBases_preservesValue() {
+        nsIntegerList.forEach { target ->
+            nsIntegerList.forEach { source ->
+                val result = NumSys.convert(source.value, source.radix.value, target.radix.value)
+                assertEquals(target.value, result)
             }
         }
     }
 
     @Test
-    fun ns_decimal_checkAll() {
-        nsDecimalList.forEach { ns ->
-            nsDecimalList.forEach { ns2 ->
-                val result = NumSys.convert(ns2.value, ns2.radix.value, ns.radix.value)
-                println(result)
-                assertEquals(ns.value, result)
+    fun convert_decimalBetweenAllBases_preservesValue() {
+        nsDecimalList.forEach { target ->
+            nsDecimalList.forEach { source ->
+                val result = NumSys.convert(source.value, source.radix.value, target.radix.value)
+                assertEquals(target.value, result)
             }
         }
     }
 
     @Test
-    fun ns_negative_integer_checkAll() {
-        nsNegativeIntegerList.forEach { ns ->
-            nsNegativeIntegerList.forEach { ns2 ->
-                val result = NumSys.convert(ns2.value, ns2.radix.value, ns.radix.value)
-                println(result)
-                assertEquals(ns.value, result)
+    fun convert_negativeIntegerBetweenAllBases_preservesValue() {
+        nsNegativeIntegerList.forEach { target ->
+            nsNegativeIntegerList.forEach { source ->
+                val result = NumSys.convert(source.value, source.radix.value, target.radix.value)
+                assertEquals(target.value, result)
             }
         }
     }
 
     @Test
-    fun ns_negative_decimal_checkAll() {
-        nsNegativeDecimalList.forEach { ns ->
-            nsNegativeDecimalList.forEach { ns2 ->
-                val result = NumSys.convert(ns2.value, ns2.radix.value, ns.radix.value)
-                println(result)
-                assertEquals(ns.value, result)
+    fun convert_negativeDecimalBetweenAllBases_preservesValue() {
+        nsNegativeDecimalList.forEach { target ->
+            nsNegativeDecimalList.forEach { source ->
+                val result = NumSys.convert(source.value, source.radix.value, target.radix.value)
+                assertEquals(target.value, result)
             }
         }
     }
 
+    @Test
+    fun convert_zero_returnsZeroInAnyBase() {
+        listOf(Radix.BIN, Radix.OCT, Radix.DEC, Radix.HEX).forEach { radix ->
+            val result = NumSys.convert("0", radix.value, Radix.DEC.value)
+            assertEquals("0", result)
+        }
+    }
+
+    @Test
+    fun convert_zeroWithFractional_returnsZeroInAnyBase() {
+        listOf(Radix.BIN, Radix.OCT, Radix.DEC, Radix.HEX).forEach { radix ->
+            val result = NumSys.convert("0.0", radix.value, Radix.DEC.value)
+            assertEquals("0", result)
+        }
+    }
 }

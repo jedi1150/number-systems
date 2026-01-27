@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.firebaseCrashlytics)
     alias(libs.plugins.gms)
     alias(libs.plugins.hilt)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.protobuf)
 }
@@ -19,7 +18,7 @@ android {
         minSdk = 23
         targetSdk = 36
         versionCode = 1
-        versionName = "2.4.0"
+        versionName = "2.4.1"
         ndk {
             debugSymbolLevel = "FULL"
         }
@@ -86,14 +85,6 @@ protobuf {
                 }
             }
         }
-    }
-}
-
-androidComponents.beforeVariants {
-    android.sourceSets.register(it.name) {
-        val buildDir = layout.buildDirectory.get().asFile
-        java.srcDir(buildDir.resolve("generated/source/proto/${it.name}/java"))
-        kotlin.srcDir(buildDir.resolve("generated/source/proto/${it.name}/kotlin"))
     }
 }
 
