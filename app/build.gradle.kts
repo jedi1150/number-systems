@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.firebaseCrashlytics)
     alias(libs.plugins.gms)
     alias(libs.plugins.hilt)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.protobuf)
 }
@@ -86,14 +85,6 @@ protobuf {
                 }
             }
         }
-    }
-}
-
-androidComponents.beforeVariants {
-    android.sourceSets.register(it.name) {
-        val buildDir = layout.buildDirectory.get().asFile
-        java.srcDir(buildDir.resolve("generated/source/proto/${it.name}/java"))
-        kotlin.srcDir(buildDir.resolve("generated/source/proto/${it.name}/kotlin"))
     }
 }
 
