@@ -1,81 +1,92 @@
 package ru.sandello.binaryconverter.numsys
 
-import org.junit.Test
 import ru.sandello.binaryconverter.numsys.model.NumberSystem
 import ru.sandello.binaryconverter.numsys.model.Radix
+import kotlin.test.Test
 import kotlin.test.assertFailsWith
 
-class ConverterIllegalValueTest {
-    private val emptyValue = ""
-    private val blankValue = "    "
-    private val dotValue = "."
-    private val commaValue = ","
-    private val dotCommaValue = ".,"
-    private val mixedValue = "-,. "
+internal class ConverterIllegalValueTest {
 
-    private val nsBin = NumberSystem(emptyValue, Radix.BIN)
-    private val nsOct = NumberSystem(blankValue, Radix.OCT)
-    private val nsDec = NumberSystem(dotValue, Radix.DEC)
-    private val nsHex = NumberSystem(mixedValue, Radix.HEX)
+    private val targetRadixes = listOf(Radix.BIN, Radix.OCT, Radix.DEC, Radix.HEX)
 
     @Test
-    fun binToBinTest() {
-        assertFailsWith(IllegalArgumentException::class) { NumSys.convert(numberSystem = nsBin, targetRadix = Radix.BIN) }
+    fun convert_emptyValue_throwsIllegalArgumentException() {
+        val ns = NumberSystem("", Radix.BIN)
+        targetRadixes.forEach { target ->
+            assertFailsWith(IllegalArgumentException::class) {
+                NumSys.convert(numberSystem = ns, targetRadix = target)
+            }
+        }
     }
 
     @Test
-    fun binToOctTest() {
-        assertFailsWith(IllegalArgumentException::class) { NumSys.convert(numberSystem = nsBin, targetRadix = Radix.OCT) }
+    fun convert_blankValue_throwsIllegalArgumentException() {
+        val ns = NumberSystem("    ", Radix.OCT)
+        targetRadixes.forEach { target ->
+            assertFailsWith(IllegalArgumentException::class) {
+                NumSys.convert(numberSystem = ns, targetRadix = target)
+            }
+        }
     }
 
     @Test
-    fun binToDecTest() {
-        assertFailsWith(IllegalArgumentException::class) { NumSys.convert(numberSystem = nsBin, targetRadix = Radix.DEC) }
+    fun convert_invalidCharacters_throwsIllegalArgumentException() {
+        val ns = NumberSystem("-,. ", Radix.HEX)
+        targetRadixes.forEach { target ->
+            assertFailsWith(IllegalArgumentException::class) {
+                NumSys.convert(numberSystem = ns, targetRadix = target)
+            }
+        }
     }
 
     @Test
-    fun binToHexTest() {
-        assertFailsWith(IllegalArgumentException::class) { NumSys.convert(numberSystem = nsBin, targetRadix = Radix.HEX) }
+    fun convertString_emptyValue_throwsIllegalArgumentException() {
+        assertFailsWith(IllegalArgumentException::class) {
+            NumSys.convert("", Radix.DEC.value, Radix.BIN.value)
+        }
     }
 
     @Test
-    fun octToBinTest() {
-        assertFailsWith(IllegalArgumentException::class) { NumSys.convert(numberSystem = nsOct, targetRadix = Radix.BIN) }
+    fun convertString_blankValue_throwsIllegalArgumentException() {
+        assertFailsWith(IllegalArgumentException::class) {
+            NumSys.convert("   ", Radix.DEC.value, Radix.BIN.value)
+        }
     }
 
     @Test
-    fun octToOctTest() {
-        assertFailsWith(IllegalArgumentException::class) { NumSys.convert(numberSystem = nsOct, targetRadix = Radix.OCT) }
+    fun convertString_invalidCharacters_throwsIllegalArgumentException() {
+        assertFailsWith(IllegalArgumentException::class) {
+            NumSys.convert("12,34", Radix.DEC.value, Radix.HEX.value)
+        }
     }
 
     @Test
-    fun octToDecTest() {
-        assertFailsWith(IllegalArgumentException::class) { NumSys.convert(numberSystem = nsOct, targetRadix = Radix.DEC) }
+    fun convertString_sourceRadixOutOfRange_throwsIllegalArgumentException() {
+        assertFailsWith(IllegalArgumentException::class) {
+            NumSys.convert("10", 1, Radix.DEC.value)
+        }
+        assertFailsWith(IllegalArgumentException::class) {
+            NumSys.convert("10", 63, Radix.DEC.value)
+        }
     }
 
     @Test
-    fun octToHexTest() {
-        assertFailsWith(IllegalArgumentException::class) { NumSys.convert(numberSystem = nsOct, targetRadix = Radix.HEX) }
+    fun convertString_targetRadixOutOfRange_throwsIllegalArgumentException() {
+        assertFailsWith(IllegalArgumentException::class) {
+            NumSys.convert("10", Radix.DEC.value, 1)
+        }
+        assertFailsWith(IllegalArgumentException::class) {
+            NumSys.convert("10", Radix.DEC.value, 63)
+        }
     }
 
     @Test
-    fun hexToBinTest() {
-        assertFailsWith(IllegalArgumentException::class) { NumSys.convert(numberSystem = nsHex, targetRadix = Radix.BIN) }
+    fun convert_digitOutOfRangeForRadix_throwsIllegalArgumentException() {
+        assertFailsWith(IllegalArgumentException::class) {
+            NumSys.convert("2", Radix.BIN.value, Radix.DEC.value) // "2" is invalid in binary
+        }
+        assertFailsWith(IllegalArgumentException::class) {
+            NumSys.convert("8", Radix.OCT.value, Radix.DEC.value) // "8" is invalid in octal
+        }
     }
-
-    @Test
-    fun hexToOctTest() {
-        assertFailsWith(IllegalArgumentException::class) { NumSys.convert(numberSystem = nsHex, targetRadix = Radix.OCT) }
-    }
-
-    @Test
-    fun hexToDecTest() {
-        assertFailsWith(IllegalArgumentException::class) { NumSys.convert(numberSystem = nsHex, targetRadix = Radix.DEC) }
-    }
-
-    @Test
-    fun hexToHexTest() {
-        assertFailsWith(IllegalArgumentException::class) { NumSys.convert(numberSystem = nsHex, targetRadix = Radix.HEX) }
-    }
-
 }
