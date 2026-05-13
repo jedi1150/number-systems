@@ -12,11 +12,11 @@ plugins {
 
 android {
     namespace = "ru.sandello.binaryconverter"
-    compileSdk = 36
+    compileSdk = 37
     defaultConfig {
         applicationId = "ru.sandello.binaryconverter"
         minSdk = 23
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 1
         versionName = "2.4.2"
         ndk {
