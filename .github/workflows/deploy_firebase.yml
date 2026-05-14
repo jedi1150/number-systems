@@ -1,42 +1,48 @@
 name: Deploy to Firebase App Tester
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-firebase
+  cancel-in-progress: false
 
 jobs:
-  deploy_firebase_app_tester:
-    name: Deploy to Firebase App Tester
+  deploy:
+    name: Deploy to Firebase
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
         uses: actions/checkout@v6
+
       - name: Setup Java
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '21'
-      - name: Setup Gradle and Cache
-        uses: gradle/actions/setup-gradle@v5
-      - name: Setup Ruby (for Fastlane)
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.4'
           bundler-cache: true
+
       - name: Decode secrets
         run: |
-          echo "$KEYSTORE_PROD" > app/keystore.jks.base64
-          base64 -d -i app/keystore.jks.base64 > app/keystore.jks
-          echo "$FIREBASE_APP_DISTRIBUTION_JSON" > app/firebase-app-distribution.json.base64
-          base64 -d -i app/firebase-app-distribution.json.base64 > app/firebase-app-distribution.json
-          echo "$GOOGLE_PLAY_DISTRIBUTION_JSON" > app/google-play-distribution.json.base64
-          base64 -d -i app/google-play-distribution.json.base64 > app/google-play-distribution.json
-          echo "$GOOGLE_SERVICES_JSON" > app/google-services.json.base64
-          base64 -d -i app/google-services.json.base64 > app/google-services.json
+          echo "$KEYSTORE_PROD" | base64 -d > app/keystore.jks
+          echo "$FIREBASE_APP_DISTRIBUTION_JSON" | base64 -d > app/firebase-app-distribution.json
+          echo "$GOOGLE_PLAY_DISTRIBUTION_JSON" | base64 -d > app/google-play-distribution.json
+          echo "$GOOGLE_SERVICES_JSON" | base64 -d > app/google-services.json
         env:
           KEYSTORE_PROD: ${{ secrets.KEYSTORE_PROD }}
           FIREBASE_APP_DISTRIBUTION_JSON: ${{ secrets.FIREBASE_APP_DISTRIBUTION_JSON }}
           GOOGLE_PLAY_DISTRIBUTION_JSON: ${{ secrets.GOOGLE_PLAY_DISTRIBUTION_JSON }}
           GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
-      - name: Build and deploy to Firebase App Tester
+
+      - name: Build and deploy
         run: bundle exec fastlane deploy_firebase
         env:
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
