@@ -16,6 +16,7 @@ firebaseCrashlyticsPlugin = "3.0.7"
 gmsPlugin = "4.4.4"
 hilt = "2.59.2"
 kotlin = "2.3.21"
+kotlinxSerializationJson = "1.11.0"
 ksp = "2.3.8"
 protobuf = "4.34.1"
 protobufPlugin = "0.10.0"
@@ -50,6 +51,7 @@ protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
 androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "androidxBrowser" }
 android-play-review-ktx = { module = "com.google.android.play:review-ktx", version.ref = "reviewKtx" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
@@ -59,5 +61,6 @@ firebaseCrashlytics = { id = "com.google.firebase.crashlytics", version.ref = "f
 gms = { id = "com.google.gms.google-services", version.ref = "gmsPlugin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }

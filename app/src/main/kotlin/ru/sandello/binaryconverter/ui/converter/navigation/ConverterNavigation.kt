@@ -5,19 +5,16 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import ru.sandello.binaryconverter.ui.converter.ConverterRoute
+import ru.sandello.binaryconverter.ui.converter.ConverterRoute as ConverterRouteScreen
 import ru.sandello.binaryconverter.ui.converter.ConverterViewModel
-
-const val converterRoute = "converter"
+import ru.sandello.binaryconverter.ui.navigation.ConverterRoute
 
 fun NavController.navigateToConverter(navOptions: NavOptions? = null) {
-    this.navigate(converterRoute, navOptions)
+    this.navigate(ConverterRoute, navOptions)
 }
 
 fun NavGraphBuilder.converterScreen(contentPadding: PaddingValues, viewModel: ConverterViewModel) {
-    composable(
-        route = converterRoute,
-    ) {
-        ConverterRoute(contentPadding, viewModel = viewModel)
+    composable<ConverterRoute> {
+        ConverterRouteScreen(contentPadding, viewModel = viewModel)
     }
 }

@@ -5,18 +5,15 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import ru.sandello.binaryconverter.ui.settings.SettingsRoute
-
-const val settingsRoute = "settings"
+import ru.sandello.binaryconverter.ui.navigation.SettingsRoute
+import ru.sandello.binaryconverter.ui.settings.SettingsRoute as SettingsRouteScreen
 
 fun NavController.navigateToSettings(navOptions: NavOptions? = null) {
-    this.navigate(settingsRoute, navOptions)
+    this.navigate(SettingsRoute, navOptions)
 }
 
 fun NavGraphBuilder.settingsScreen(contentPadding: PaddingValues) {
-    composable(
-        route = settingsRoute,
-    ) {
-        SettingsRoute(contentPadding = contentPadding)
+    composable<SettingsRoute> {
+        SettingsRouteScreen(contentPadding = contentPadding)
     }
 }

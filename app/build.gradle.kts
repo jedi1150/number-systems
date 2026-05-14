@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.protobuf)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -115,6 +116,7 @@ dependencies {
     ksp(libs.hilt.compiler)
     implementation(libs.androidx.compose.ui.text.google.fonts)
     implementation(libs.android.play.review.ktx)
+    implementation(libs.kotlinx.serialization.json)
 
     // Firebase
     implementation(platform(libs.google.firebase.bom))

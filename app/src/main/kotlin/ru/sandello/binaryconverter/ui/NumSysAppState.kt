@@ -7,22 +7,23 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavDestination
+import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import kotlinx.coroutines.CoroutineScope
-import ru.sandello.binaryconverter.ui.calculator.navigation.calculatorRoute
 import ru.sandello.binaryconverter.ui.calculator.navigation.navigateToCalculator
-import ru.sandello.binaryconverter.ui.converter.navigation.converterRoute
 import ru.sandello.binaryconverter.ui.converter.navigation.navigateToConverter
+import ru.sandello.binaryconverter.ui.navigation.CalculatorRoute
+import ru.sandello.binaryconverter.ui.navigation.ConverterRoute
+import ru.sandello.binaryconverter.ui.navigation.SettingsRoute
 import ru.sandello.binaryconverter.ui.navigation.TopLevelDestination
 import ru.sandello.binaryconverter.ui.navigation.TopLevelDestination.CALCULATOR
 import ru.sandello.binaryconverter.ui.navigation.TopLevelDestination.CONVERTER
 import ru.sandello.binaryconverter.ui.navigation.TopLevelDestination.SETTINGS
 import ru.sandello.binaryconverter.ui.settings.navigation.navigateToSettings
-import ru.sandello.binaryconverter.ui.settings.navigation.settingsRoute
 
 @Composable
 fun rememberNumSysAppState(
@@ -51,10 +52,10 @@ class NumSysAppState(
         @Composable get() = navController.currentBackStackEntryAsState().value?.destination
 
     val currentTopLevelDestination: TopLevelDestination?
-        @Composable get() = when (currentDestination?.route) {
-            converterRoute -> CONVERTER
-            calculatorRoute -> CALCULATOR
-            settingsRoute -> SETTINGS
+        @Composable get() = when {
+            currentDestination?.hasRoute<ConverterRoute>() == true -> CONVERTER
+            currentDestination?.hasRoute<CalculatorRoute>() == true -> CALCULATOR
+            currentDestination?.hasRoute<SettingsRoute>() == true -> SETTINGS
             else -> null
         }
 

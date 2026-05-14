@@ -91,10 +91,9 @@ fun SettingsRoute(contentPadding: PaddingValues, viewModel: SettingsViewModel = 
             }
         },
         onChangeDigitGrouping = viewModel::updateDigitGrouping,
-        onLinkClicked = { url ->
-            launchCustomChromeTab(context, url.toUri(), backgroundColor)
-        },
-    )
+    ) { url ->
+        launchCustomChromeTab(context, url.toUri(), backgroundColor)
+    }
 }
 
 @Composable
@@ -108,10 +107,10 @@ fun SettingsScreen(
     onLinkClicked: (String) -> Unit,
 ) {
     var showThemeDialog by rememberSaveable {
-        mutableStateOf(false)
+        mutableStateOf(value = false)
     }
     var showLocaleDialog by rememberSaveable {
-        mutableStateOf(false)
+        mutableStateOf(value = false)
     }
 
     if (showThemeDialog) {

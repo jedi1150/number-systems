@@ -55,7 +55,7 @@ fun ConverterRoute(
     viewModel: ConverterViewModel = hiltViewModel(),
 ) {
     val converterUiState by viewModel.converterUiState.collectAsStateWithLifecycle()
-    val isDigitGroupingEnabled by viewModel.isDigitGroupingEnabled.collectAsStateWithLifecycle(true)
+    val isDigitGroupingEnabled by viewModel.isDigitGroupingEnabled.collectAsStateWithLifecycle(initialValue = true)
 
     ConverterScreen(
         contentPadding = contentPadding,

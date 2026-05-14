@@ -65,7 +65,7 @@ fun CalculatorRoute(
     viewModel: CalculatorViewModel = hiltViewModel(),
 ) {
     val calculatorUiState by viewModel.calculatorUiState.collectAsStateWithLifecycle()
-    val isDigitGroupingEnabled by viewModel.isDigitGroupingEnabled.collectAsStateWithLifecycle(true)
+    val isDigitGroupingEnabled by viewModel.isDigitGroupingEnabled.collectAsStateWithLifecycle(initialValue = true)
 
     CalculatorScreen(
         contentPadding = contentPadding,
@@ -124,7 +124,7 @@ fun CalculatorScreen(
                     ),
                     shape = MaterialTheme.shapes.medium,
                 )
-                var expanded by remember { mutableStateOf(false) }
+                var expanded by remember { mutableStateOf(value = false) }
                 RadixExposedDropdown(
                     expanded = expanded,
                     onExpandedChange = { expanded = !expanded },
@@ -198,7 +198,7 @@ fun CalculatorScreen(
                     ),
                     shape = MaterialTheme.shapes.medium,
                 )
-                var expanded by remember { mutableStateOf(false) }
+                var expanded by remember { mutableStateOf(value = false) }
                 RadixExposedDropdown(
                     expanded = expanded,
                     onExpandedChange = { expanded = !expanded },
@@ -236,7 +236,7 @@ fun CalculatorScreen(
                     ),
                     shape = MaterialTheme.shapes.medium,
                 )
-                var expanded by remember { mutableStateOf(false) }
+                var expanded by remember { mutableStateOf(value = false) }
                 RadixExposedDropdown(
                     expanded = expanded,
                     onExpandedChange = { expanded = !expanded },

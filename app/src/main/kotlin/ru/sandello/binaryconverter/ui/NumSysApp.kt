@@ -49,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination
+import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -62,7 +63,7 @@ import ru.sandello.binaryconverter.ui.navigation.TopLevelDestination
 import ru.sandello.binaryconverter.ui.navigation.TopLevelDestination.CALCULATOR
 import ru.sandello.binaryconverter.ui.navigation.TopLevelDestination.CONVERTER
 
-@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun NumberSystemsApp(
     windowSizeClass: WindowSizeClass,
@@ -78,15 +79,15 @@ fun NumberSystemsApp(
     val calculatorUiState by calculatorViewModel.calculatorUiState.collectAsStateWithLifecycle()
     val explanationUiState by explanationViewModel.explanationUiState.collectAsStateWithLifecycle()
 
-    val isDigitGroupingEnabled by explanationViewModel.isDigitGroupingEnabled.collectAsStateWithLifecycle(true)
+    val isDigitGroupingEnabled by explanationViewModel.isDigitGroupingEnabled.collectAsStateWithLifecycle(initialValue = true)
 
     val keyboardController = LocalSoftwareKeyboardController.current
 
     val scope: CoroutineScope = rememberCoroutineScope()
 
-    val skipPartiallyExpanded by remember { mutableStateOf(true) }
+    val skipPartiallyExpanded by remember { mutableStateOf(value = true) }
     val bottomSheetState = rememberModalBottomSheetState(
-        skipPartiallyExpanded = skipPartiallyExpanded
+        skipPartiallyExpanded = skipPartiallyExpanded,
     )
 
     LaunchedEffect(converterViewModel.showExplanation.value) {
@@ -280,5 +281,5 @@ fun NumberSystemsApp(
 }
 
 private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLevelDestination) = this?.hierarchy?.any {
-    it.route?.contains(destination.name, true) == true
+    it.hasRoute(destination.route)
 } == true

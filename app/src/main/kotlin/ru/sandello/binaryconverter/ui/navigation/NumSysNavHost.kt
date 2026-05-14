@@ -8,7 +8,6 @@ import ru.sandello.binaryconverter.ui.NumSysAppState
 import ru.sandello.binaryconverter.ui.calculator.CalculatorViewModel
 import ru.sandello.binaryconverter.ui.calculator.navigation.calculatorScreen
 import ru.sandello.binaryconverter.ui.converter.ConverterViewModel
-import ru.sandello.binaryconverter.ui.converter.navigation.converterRoute
 import ru.sandello.binaryconverter.ui.converter.navigation.converterScreen
 import ru.sandello.binaryconverter.ui.settings.navigation.settingsScreen
 
@@ -18,7 +17,7 @@ fun NumSysNavHost(
     appState: NumSysAppState,
     converterViewModel: ConverterViewModel = hiltViewModel(),
     calculatorViewModel: CalculatorViewModel = hiltViewModel(),
-    startDestination: String = converterRoute,
+    startDestination: Any = ConverterRoute,
 ) {
     NavHost(
         navController = appState.navController,
