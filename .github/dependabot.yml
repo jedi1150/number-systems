@@ -5,7 +5,38 @@
 
 version: 2
 updates:
-  - package-ecosystem: "gradle" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  - package-ecosystem: "gradle"
+    directory: "/"
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "gradle"
+    groups:
+      compose:
+        patterns:
+          - "androidx.compose.*"
+      firebase:
+        patterns:
+          - "com.google.firebase.*"
+      hilt:
+        patterns:
+          - "com.google.dagger:hilt.*"
+      kotlin:
+        patterns:
+          - "org.jetbrains.kotlin.*"
+          - "com.google.devtools.ksp"
+      androidx-core:
+        patterns:
+          - "androidx.core.*"
+          - "androidx.lifecycle.*"
+          - "androidx.navigation.*"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "github-actions"
