@@ -32,7 +32,7 @@ jobs:
         env:
           GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
       - name: Check lint
-        run: ./gradlew lintDebug
+        run: ./gradlew :app:lintProdDebug
       - name: Check binary compatibility
         run: ./gradlew :lib:checkLegacyAbi
       - name: Upload reports
@@ -62,7 +62,7 @@ jobs:
         env:
           GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
       - name: Run tests
-        run: ./gradlew testDebugUnitTest
+        run: ./gradlew :app:testProdDebugUnitTest :lib:test
       - name: Upload reports
         if: always()
         uses: actions/upload-artifact@v7
@@ -90,4 +90,4 @@ jobs:
         env:
           GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
       - name: Assemble Debug
-        run: ./gradlew assembleDebug
+        run: ./gradlew :app:assembleProdDebug
