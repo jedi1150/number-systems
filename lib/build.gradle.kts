@@ -11,9 +11,7 @@ kotlin {
     compilerOptions {
         jvmTarget = JvmTarget.JVM_21
     }
-    abiValidation {
-        enabled = true
-    }
+    abiValidation()
 }
 
 dependencies {
