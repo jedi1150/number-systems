@@ -11,7 +11,8 @@
 # Generated files
 bin/
 gen/
-generated/
+generated/**
+!**/generated/baselineProfiles/
 out/
 release/
 
@@ -57,3 +58,8 @@ credential.properties
 
 # Google Services (e.g. APIs or Firebase)
 **/google-services.json
+
+# Baseline Profiles
+!**/baseline-prof.txt
+!**/baseline-prof-*.txt
+
