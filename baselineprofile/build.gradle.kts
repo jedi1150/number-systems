@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.androidTest)
-    alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.baselineprofile)
 }
 
@@ -20,12 +19,21 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
 
-    kotlinOptions {
-        jvmTarget = "21"
-    }
-
     targetProjectPath = ":app"
     experimentalProperties["android.experimental.self-instrumenting"] = true
+
+    flavorDimensions += listOf("flavor-type")
+    productFlavors {
+        create("prod") {
+            dimension = "flavor-type"
+        }
+        create("beta") {
+            dimension = "flavor-type"
+        }
+        create("dev") {
+            dimension = "flavor-type"
+        }
+    }
 }
 
 dependencies {

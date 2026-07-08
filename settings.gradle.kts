@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "number-systems"
 include(":app")
 include(":lib")
+include(":baselineprofile")
