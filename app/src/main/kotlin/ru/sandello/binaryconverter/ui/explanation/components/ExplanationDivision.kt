@@ -23,7 +23,9 @@ fun ExplanationDivision(division: Division, isDigitGroupingEnabled: Boolean) {
     Text(
         text = buildAnnotatedString {
             withStyle(SpanStyle(fontFamily = RobotoMonoFamily)) {
-                append(division.dividend.toString().pretty(Radix.DEC, isDigitGroupingEnabled = isDigitGroupingEnabled))
+                append(
+                    division.dividend.toString().pretty(Radix.DEC, isDigitGroupingEnabled = isDigitGroupingEnabled),
+                )
                 withStyle(SpanStyle(letterSpacing = 4.sp)) {
                     append("÷")
                 }
@@ -31,7 +33,9 @@ fun ExplanationDivision(division: Division, isDigitGroupingEnabled: Boolean) {
                 withStyle(SpanStyle(letterSpacing = 6.sp)) {
                     append("=")
                 }
-                append(division.quotient.toString().pretty(Radix.DEC, isDigitGroupingEnabled = isDigitGroupingEnabled))
+                append(
+                    division.quotient.toString().pretty(Radix.DEC, isDigitGroupingEnabled = isDigitGroupingEnabled),
+                )
             }
             append(", ")
             append(stringResource(R.string.remainder))
@@ -71,7 +75,6 @@ private fun PreviewExplanationLongDivision() {
         }
     }
 }
-
 
 @Preview
 @Composable

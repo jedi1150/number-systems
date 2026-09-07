@@ -1,7 +1,6 @@
 package ru.sandello.binaryconverter.numsys.model
 
 public data class Radix(public val value: Int) {
-
     init {
         require(value in 2..36) {
             "Radix must be greater than 2 and smaller than 36, but was $value"
@@ -24,8 +23,20 @@ public data class Radix(public val value: Int) {
 }
 
 private val radixes: List<Radix> = (2..36).map { Radix(it) }
-private val groupByThreeNumbers: List<Radix> = radixes.filter { listOf(Radix(3), Radix(7), Radix.OCT, Radix(9), Radix.DEC, Radix(11), Radix(12), Radix(13), Radix(14), Radix(15)).contains(it) }
-private val groupByFourNumbers: List<Radix> = radixes.filter { !listOf(Radix(3), Radix(7), Radix.OCT, Radix(9), Radix.DEC, Radix(11), Radix(12), Radix(13), Radix(14), Radix(15)).contains(it) }
+private val groupByThreeRadixes = listOf(
+    Radix(3),
+    Radix(7),
+    Radix.OCT,
+    Radix(9),
+    Radix.DEC,
+    Radix(11),
+    Radix(12),
+    Radix(13),
+    Radix(14),
+    Radix(15),
+)
+private val groupByThreeNumbers: List<Radix> = radixes.filter { it in groupByThreeRadixes }
+private val groupByFourNumbers: List<Radix> = radixes.filter { it !in groupByThreeRadixes }
 
 public fun Radix.groupLength(): Int = when (this) {
     in groupByThreeNumbers -> 3

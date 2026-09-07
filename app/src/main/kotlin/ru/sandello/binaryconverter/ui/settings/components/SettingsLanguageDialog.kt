@@ -26,9 +26,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import java.util.Locale
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.ui.settings.SettingsUiState
-import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -61,7 +61,9 @@ internal fun SettingsLanguageDialog(
                 ) {
                     settingsUiState.availableLocales.forEach { locale ->
                         val language = if (locale != Locale.ROOT) {
-                            locale.getDisplayLanguage(locale).replaceFirstChar { letter -> if (letter.isLowerCase()) letter.titlecase(locale) else letter.toString() }
+                            locale.getDisplayLanguage(locale).replaceFirstChar { letter ->
+                                if (letter.isLowerCase()) letter.titlecase(locale) else letter.toString()
+                            }
                         } else {
                             stringResource(id = R.string.locale_system)
                         }
@@ -79,7 +81,7 @@ internal fun SettingsLanguageDialog(
                     horizontalArrangement = Arrangement.spacedBy(
                         space = 8.dp,
                         alignment = Alignment.End,
-                    )
+                    ),
                 ) {
                     TextButton(onClick = onDismiss) {
                         Text(text = stringResource(id = android.R.string.cancel))

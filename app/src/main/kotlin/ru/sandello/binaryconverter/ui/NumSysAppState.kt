@@ -17,9 +17,7 @@ import ru.sandello.binaryconverter.ui.navigation.TopLevelDestination.SETTINGS
 import ru.sandello.binaryconverter.ui.navigation.rememberNavigationState
 
 @Composable
-fun rememberNumSysAppState(
-    windowSizeClass: WindowSizeClass,
-): NumSysAppState {
+fun rememberNumSysAppState(windowSizeClass: WindowSizeClass): NumSysAppState {
     val navigationState = rememberNavigationState(
         startRoute = ConverterRoute,
         topLevelRoutes = setOf(ConverterRoute, CalculatorRoute, SettingsRoute),

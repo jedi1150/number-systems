@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>CyclomaticComplexMethod:CalculatorViewModel.kt:CalculatorViewModel$private fun convert</ID>
+    <ID>CyclomaticComplexMethod:ConverterViewModel.kt:ConverterViewModel$private fun convert</ID>
+    <ID>CyclomaticComplexMethod:NumSysApp.kt:@OptIn(ExperimentalMaterial3Api::class) @Composable fun NumberSystemsApp</ID>
+    <ID>LongMethod:CalculatorViewModel.kt:CalculatorViewModel$fun updateRadix</ID>
+    <ID>LongMethod:CalculatorViewModel.kt:CalculatorViewModel$private fun convert</ID>
+    <ID>LongMethod:ConverterViewModel.kt:ConverterViewModel$private fun convert</ID>
+    <ID>MagicNumber:ConverterUiState.kt:ConverterUiState$3</ID>
+    <ID>MagicNumber:ExplanationContent.kt:36</ID>
+    <ID>MagicNumber:ExplanationFractionalMultiplierContent.kt:12</ID>
+    <ID>MagicNumber:ExplanationIntegerDivisionContent.kt:10</ID>
+    <ID>MagicNumber:ExplanationIntegerDivisionContent.kt:12</ID>
+    <ID>MagicNumber:MainActivity.kt:MainActivity$0x1b</ID>
+    <ID>MagicNumber:MainActivity.kt:MainActivity$0x80</ID>
+    <ID>MagicNumber:MainActivity.kt:MainActivity$0xFF</ID>
+    <ID>MagicNumber:MainActivity.kt:MainActivity$0xe6</ID>
+    <ID>MagicNumber:MainActivity.kt:MainActivity$10</ID>
+    <ID>MaxLineLength:CalculatorViewModel.kt:CalculatorViewModel$"CalculatorViewModel::updateRadix: numberSystemCustom1.radix from ${calculatorUiState.value.numberSystemCustom1.radix.value} to ${newRadix.value}"</ID>
+    <ID>MaxLineLength:CalculatorViewModel.kt:CalculatorViewModel$"CalculatorViewModel::updateRadix: numberSystemCustom2.radix from ${calculatorUiState.value.numberSystemCustom2.radix.value} to ${newRadix.value}"</ID>
+    <ID>MaxLineLength:CalculatorViewModel.kt:CalculatorViewModel$"CalculatorViewModel::updateRadix: numberSystemResult.radix from ${calculatorUiState.value.numberSystemResult.radix.value} to ${newRadix.value}"</ID>
+    <ID>MaxLineLength:CalculatorViewModel.kt:CalculatorViewModel$"CalculatorViewModel::updateRadix: radixCalculation.value from ${radixCalculation.value.value} to ${newRadix.value}"</ID>
+    <ID>MaxLineLength:DigitGroupingVisualTransformation.kt:DigitGroupingVisualTransformation.&lt;no name provided&gt;$(offset + (groupLength - lastGroupBeforeDelimiterLength - delimiterLength) - 1)</ID>
+    <ID>MaxLineLength:ExplanationViewModel.kt:ExplanationViewModel$"ExplanationViewModel::updateRadix: from.radix from ${explanationUiState.value.from.radix.value} to ${newRadix.value}"</ID>
+    <ID>MaxLineLength:ExplanationViewModel.kt:ExplanationViewModel$"ExplanationViewModel::updateRadix: to.radix from ${explanationUiState.value.to.radix.value} to ${newRadix.value}"</ID>
+  </CurrentIssues>
+</SmellBaseline>

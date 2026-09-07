@@ -43,11 +43,11 @@ fun ExplanationResult(from: NumberSystem, to: NumberSystem, isDigitGroupingEnabl
                     width = 16.sp,
                     height = 16.sp,
                     placeholderVerticalAlign = PlaceholderVerticalAlign.TextCenter,
-                )
+                ),
             ) {
                 Icon(painterResource(R.drawable.ic_arrow_right), null)
             },
-        )
+        ),
     )
 
     Column(
@@ -74,7 +74,11 @@ fun ExplanationResult(from: NumberSystem, to: NumberSystem, isDigitGroupingEnabl
 private fun PreviewExplanationResult() {
     NumberSystemsTheme {
         Surface {
-            ExplanationResult(NumberSystem("256", Radix.DEC), NumberSystem("100", Radix.BIN), isDigitGroupingEnabled = true)
+            ExplanationResult(
+                NumberSystem("256", Radix.DEC),
+                NumberSystem("100", Radix.BIN),
+                isDigitGroupingEnabled = true,
+            )
         }
     }
 }
@@ -84,7 +88,11 @@ private fun PreviewExplanationResult() {
 private fun PreviewExplanationResultDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            ExplanationResult(NumberSystem("256", Radix.DEC), NumberSystem("100", Radix.BIN), isDigitGroupingEnabled = true)
+            ExplanationResult(
+                NumberSystem("256", Radix.DEC),
+                NumberSystem("100", Radix.BIN),
+                isDigitGroupingEnabled = true,
+            )
         }
     }
 }

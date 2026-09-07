@@ -27,6 +27,8 @@ updates:
         patterns:
           - "org.jetbrains.kotlin.*"
           - "com.google.devtools.ksp"
+          - "io.github.ktlint.core"
+          - "dev.detekt"
       androidx-core:
         patterns:
           - "androidx.core.*"

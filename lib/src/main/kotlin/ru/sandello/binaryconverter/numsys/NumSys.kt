@@ -1,24 +1,21 @@
 package ru.sandello.binaryconverter.numsys
 
-import ru.sandello.binaryconverter.numsys.model.NumberSystem
-import ru.sandello.binaryconverter.numsys.model.Radix
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.RoundingMode
+import ru.sandello.binaryconverter.numsys.model.NumberSystem
+import ru.sandello.binaryconverter.numsys.model.Radix
 
 public object NumSys {
     public var fractionalLength: Int = 12
     private const val DIGITS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-    public fun convert(
-        value: String,
-        sourceRadix: Int,
-        targetRadix: Int,
-        ignoreCase: Boolean = false,
-    ): String {
+    public fun convert(value: String, sourceRadix: Int, targetRadix: Int, ignoreCase: Boolean = false): String {
         require(value.isNotBlank()) { "Source value must not be empty" }
         require(value.all { it == '.' || it == '-' || it.isLetterOrDigit() }) { "Incorrect source value" }
-        require(sourceRadix in 2..62 && targetRadix in 2..62) { "Source and target radixes must be in the range from 2 to 62" }
+        require(
+            sourceRadix in 2..62 && targetRadix in 2..62,
+        ) { "Source and target radixes must be in the range from 2 to 62" }
 
         val isNegative = value.startsWith("-")
         val absoluteValue = if (isNegative) value.substring(1) else value
@@ -39,11 +36,7 @@ public object NumSys {
         return result
     }
 
-    public fun convert(
-        numberSystem: NumberSystem,
-        targetRadix: Radix,
-        ignoreCase: Boolean = false,
-    ): NumberSystem = NumberSystem(
+    public fun convert(numberSystem: NumberSystem, targetRadix: Radix, ignoreCase: Boolean = false): NumberSystem = NumberSystem(
         value = convert(
             value = numberSystem.value,
             sourceRadix = numberSystem.radix.value,
@@ -53,25 +46,14 @@ public object NumSys {
         radix = targetRadix,
     )
 
-    public fun NumberSystem.toRadix(
-        value: Radix,
-        ignoreCase: Boolean = false,
-    ): NumberSystem = convert(this, value, ignoreCase)
+    public fun NumberSystem.toRadix(value: Radix, ignoreCase: Boolean = false): NumberSystem = convert(this, value, ignoreCase)
 
-    private fun convertIntegerPart(
-        value: String,
-        sourceRadix: Int,
-        targetRadix: Int,
-    ): String {
+    private fun convertIntegerPart(value: String, sourceRadix: Int, targetRadix: Int): String {
         val decimalValue = convertToDecimal(value, sourceRadix)
         return convertFromDecimal(decimalValue, targetRadix)
     }
 
-    private fun convertFractionalPart(
-        value: String,
-        sourceRadix: Int,
-        targetRadix: Int,
-    ): String {
+    private fun convertFractionalPart(value: String, sourceRadix: Int, targetRadix: Int): String {
         val decimalValue = convertFractionalToDecimal(value, sourceRadix)
         return convertFractionalFromDecimal(decimalValue, targetRadix)
     }

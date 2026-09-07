@@ -29,7 +29,6 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
     private val viewModel: MainActivityViewModel by viewModels()
 
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
@@ -44,8 +43,7 @@ class MainActivity : AppCompatActivity() {
                 viewModel.uiState
                     .onEach { state ->
                         uiState = state
-                    }
-                    .collect()
+                    }.collect()
             }
         }
 
@@ -96,17 +94,19 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 }
 
 @Composable
-private fun shouldUseDarkTheme(
-    uiState: MainUiState,
-): Boolean = when (uiState) {
-    MainUiState.Loading -> isSystemInDarkTheme()
-    is MainUiState.Success -> when (uiState.settings.themeType) {
-        ThemeType.SYSTEM -> isSystemInDarkTheme()
-        ThemeType.LIGHT -> false
-        ThemeType.DARK -> true
+private fun shouldUseDarkTheme(uiState: MainUiState): Boolean = when (uiState) {
+    MainUiState.Loading -> {
+        isSystemInDarkTheme()
+    }
+
+    is MainUiState.Success -> {
+        when (uiState.settings.themeType) {
+            ThemeType.SYSTEM -> isSystemInDarkTheme()
+            ThemeType.LIGHT -> false
+            ThemeType.DARK -> true
+        }
     }
 }

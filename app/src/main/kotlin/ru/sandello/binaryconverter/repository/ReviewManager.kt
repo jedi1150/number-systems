@@ -24,5 +24,4 @@ class ReviewManager @Inject constructor(@ApplicationContext context: Context) {
             }
         }
     }
-
 }

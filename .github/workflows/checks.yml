@@ -37,6 +37,8 @@ jobs:
         run: ./gradlew :lib:checkLegacyAbi
       - name: Check detekt
         run: ./gradlew detekt
+      - name: Check ktlint
+        run: ./gradlew ktlintCheck
       - name: Upload reports
         if: always()
         uses: actions/upload-artifact@v7

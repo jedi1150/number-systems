@@ -10,9 +10,6 @@ import ru.sandello.binaryconverter.repository.SettingsRepository
 @Module
 @InstallIn(SingletonComponent::class)
 interface DataModule {
-
     @Binds
-    fun bindsSettingsDataRepository(
-        settingsRepository: OfflineSettingsRepository,
-    ): SettingsRepository
+    fun bindsSettingsDataRepository(settingsRepository: OfflineSettingsRepository): SettingsRepository
 }

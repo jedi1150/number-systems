@@ -10,8 +10,14 @@ data class ConverterUiState(
     val numberSystem16: NumberSystem = NumberSystem(String(), Radix.HEX),
     val numberSystemCustom: NumberSystem = NumberSystem(String(), Radix(3)),
 ) {
-    val radixes: List<Radix> = (2..36).map { Radix(it) }.filterNot { it in setOf(numberSystem2.radix, numberSystem8.radix, numberSystem10.radix, numberSystem16.radix) }
+    val radixes: List<Radix> = (2..36).map { Radix(it) }.filterNot {
+        it in
+            setOf(numberSystem2.radix, numberSystem8.radix, numberSystem10.radix, numberSystem16.radix)
+    }
 
     val hasData: Boolean
-        get() = numberSystem10.value.isNotBlank() || numberSystem2.value.isNotBlank() || numberSystem8.value.isNotBlank() || numberSystem16.value.isNotBlank() || numberSystemCustom.value.isNotBlank()
+        get() = numberSystem10.value.isNotBlank() || numberSystem2.value.isNotBlank() ||
+            numberSystem8.value.isNotBlank() ||
+            numberSystem16.value.isNotBlank() ||
+            numberSystemCustom.value.isNotBlank()
 }

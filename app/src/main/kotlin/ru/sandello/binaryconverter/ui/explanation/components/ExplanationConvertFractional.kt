@@ -35,7 +35,12 @@ fun ExplanationConvertFractional(fractionMultiplier: FractionMultiplier, isDigit
             }
             if (fractionMultiplier.product.contains(NS_DELIMITER)) {
                 append(NS_DELIMITER)
-                append(fractionMultiplier.product.substringAfter(NS_DELIMITER).pretty(Radix.DEC, isDigitGroupingEnabled = isDigitGroupingEnabled))
+                append(
+                    fractionMultiplier.product
+                        .substringAfter(
+                            NS_DELIMITER,
+                        ).pretty(Radix.DEC, isDigitGroupingEnabled = isDigitGroupingEnabled),
+                )
             }
             fractionMultiplier.convertedProduct?.let { convertedProduct ->
                 withStyle(SpanStyle(letterSpacing = 6.sp)) {
@@ -58,7 +63,12 @@ private fun PreviewExplanationConvertFractional() {
     NumberSystemsTheme {
         Surface {
             ExplanationConvertFractional(
-                FractionMultiplier(multiplier = "0.703125", multiplicand = 16, product = "11.25", convertedProduct = "B"),
+                FractionMultiplier(
+                    multiplier = "0.703125",
+                    multiplicand = 16,
+                    product = "11.25",
+                    convertedProduct = "B",
+                ),
                 isDigitGroupingEnabled = true,
             )
         }

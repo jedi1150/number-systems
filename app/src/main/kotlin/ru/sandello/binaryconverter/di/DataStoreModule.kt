@@ -9,21 +9,19 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import ru.sandello.binaryconverter.Settings
 import ru.sandello.binaryconverter.repository.SettingsSerializer
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object DataStoreModule {
-
     @Provides
     @Singleton
     fun providesSettingsDataStore(
         @ApplicationContext context: Context,
         settingsSerializer: SettingsSerializer,
-    ): DataStore<Settings> =
-        DataStoreFactory.create(serializer = settingsSerializer) {
-            context.dataStoreFile("settings.pb")
-        }
+    ): DataStore<Settings> = DataStoreFactory.create(serializer = settingsSerializer) {
+        context.dataStoreFile("settings.pb")
+    }
 }

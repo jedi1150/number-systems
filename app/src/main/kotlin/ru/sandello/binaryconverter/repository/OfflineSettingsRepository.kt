@@ -1,10 +1,10 @@
 package ru.sandello.binaryconverter.repository
 
+import java.util.Locale
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import ru.sandello.binaryconverter.model.SettingsData
 import ru.sandello.binaryconverter.model.data.ThemeType
-import java.util.Locale
-import javax.inject.Inject
 
 class OfflineSettingsRepository @Inject constructor(
     private val settingsDataSource: SettingsDataSource,
@@ -20,5 +20,4 @@ class OfflineSettingsRepository @Inject constructor(
     override suspend fun setDigitGroupingInitialized(isDigitGroupingInitialized: Boolean) = settingsDataSource.setDigitGroupingInitialized(isDigitGroupingInitialized)
 
     override suspend fun incrementAppLaunchCounter() = settingsDataSource.incrementAppLaunchCounter()
-
 }

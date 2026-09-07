@@ -13,12 +13,16 @@ import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.ui.theme.RobotoMonoFamily
 
 @Composable
-fun positionedNumber(number: Int, position: Int): AnnotatedString {
-    return buildAnnotatedString {
-        append(number.toString())
-        withStyle(style = MaterialTheme.typography.labelMedium.copy(fontFamily = RobotoMonoFamily, baselineShift = BaselineShift.Superscript).toSpanStyle()) {
-            append(position.toString())
-        }
+fun positionedNumber(number: Int, position: Int): AnnotatedString = buildAnnotatedString {
+    append(number.toString())
+    withStyle(
+        style = MaterialTheme.typography.labelMedium
+            .copy(
+                fontFamily = RobotoMonoFamily,
+                baselineShift = BaselineShift.Superscript,
+            ).toSpanStyle(),
+    ) {
+        append(position.toString())
     }
 }
 

@@ -1,6 +1,7 @@
 package ru.sandello.binaryconverter.numsys
 
 import android.util.Log
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
@@ -8,11 +9,8 @@ import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.model.asExternalModel
 import ru.sandello.binaryconverter.model.asInternalModel
 import ru.sandello.binaryconverter.numsys.model.Radix
-import javax.inject.Inject
 
-class NumberSystemDataSource @Inject constructor(
-    private val numSys: NumSys,
-) {
+class NumberSystemDataSource @Inject constructor(private val numSys: NumSys) {
     suspend fun convert(from: NumberSystem, toRadix: Radix): NumberSystem? = coroutineScope {
         Log.d("NumberSystemDataSource", "convert: value: ${from.value}, from radix: ${from.radix.value}")
 
@@ -20,11 +18,12 @@ class NumberSystemDataSource @Inject constructor(
 
         return@coroutineScope withContext(Dispatchers.Default) {
             try {
-                numSys.convert(
-                    numberSystem = from.asInternalModel(),
-                    targetRadix = toRadix,
-                    ignoreCase = from.radix.value in Radix.BIN.value..36,
-                ).asExternalModel()
+                numSys
+                    .convert(
+                        numberSystem = from.asInternalModel(),
+                        targetRadix = toRadix,
+                        ignoreCase = from.radix.value in Radix.BIN.value..36,
+                    ).asExternalModel()
             } catch (e: IllegalArgumentException) {
                 Log.e("NumberSystemDataSource", "Conversion failed: ${e.message}")
                 null

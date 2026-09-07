@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import java.math.BigDecimal
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.FractionMultiplier
 import ru.sandello.binaryconverter.model.NumberSystem
@@ -24,7 +25,6 @@ import ru.sandello.binaryconverter.numsys.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.utils.NS_DELIMITER
 import ru.sandello.binaryconverter.utils.getFractional
-import java.math.BigDecimal
 
 @Composable
 fun ExplanationFractionalMultiplierContent(from: NumberSystem, to: NumberSystem, isDigitGroupingEnabled: Boolean) {
@@ -36,12 +36,42 @@ fun ExplanationFractionalMultiplierContent(from: NumberSystem, to: NumberSystem,
 
     do {
         if (fractionMultiplierList.isEmpty()) {
-            fractionMultiplierList.add(fractionMultiplier(multiplier = getFractional(NumberSystem(fromFractional, from.radix).asInternalModel().toRadix(Radix.DEC, ignoreCase = true).value), multiplicand = to.radix.value))
+            fractionMultiplierList.add(
+                fractionMultiplier(
+                    multiplier = getFractional(
+                        NumberSystem(
+                            fromFractional,
+                            from.radix,
+                        ).asInternalModel().toRadix(Radix.DEC, ignoreCase = true).value,
+                    ),
+                    multiplicand = to.radix.value,
+                ),
+            )
         } else {
-            fractionMultiplierList.add(fractionMultiplier(multiplier = getFractional(fractionMultiplierList.last().product), multiplicand = to.radix.value))
+            fractionMultiplierList.add(
+                fractionMultiplier(
+                    multiplier = getFractional(fractionMultiplierList.last().product),
+                    multiplicand = to.radix.value,
+                ),
+            )
         }
         iterations++
-    } while (fractionMultiplierList.last().product.toBigDecimal().scale() > 0 && (iterations < getFractional(NumberSystem(fromFractional, from.radix).asInternalModel().toRadix(Radix.DEC, ignoreCase = true).value).toBigDecimal().scale() && iterations < maxIterations))
+    } while (fractionMultiplierList
+            .last()
+            .product
+            .toBigDecimal()
+            .scale() > 0 &&
+        (
+            iterations <
+                getFractional(
+                    NumberSystem(
+                        fromFractional,
+                        from.radix,
+                    ).asInternalModel().toRadix(Radix.DEC, ignoreCase = true).value,
+                ).toBigDecimal().scale() &&
+                iterations < maxIterations
+            )
+    )
 
     Column(
         modifier = Modifier.padding(bottom = 8.dp),
@@ -53,7 +83,7 @@ fun ExplanationFractionalMultiplierContent(from: NumberSystem, to: NumberSystem,
             modifier = Modifier
                 .fillMaxWidth()
                 .horizontalScroll(rememberScrollState())
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = 16.dp),
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -74,7 +104,15 @@ fun ExplanationFractionalMultiplierContent(from: NumberSystem, to: NumberSystem,
                 .padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             content = {
-                Text(text = numberSystem(numberSystem = NumberSystem(value = "0." + to.value.substringAfter(NS_DELIMITER), radix = to.radix), isDigitGroupingEnabled = isDigitGroupingEnabled))
+                Text(
+                    text = numberSystem(
+                        numberSystem = NumberSystem(
+                            value = "0." + to.value.substringAfter(NS_DELIMITER),
+                            radix = to.radix,
+                        ),
+                        isDigitGroupingEnabled = isDigitGroupingEnabled,
+                    ),
+                )
             },
         )
     }
@@ -82,7 +120,13 @@ fun ExplanationFractionalMultiplierContent(from: NumberSystem, to: NumberSystem,
 
 private fun fractionMultiplier(multiplier: String, multiplicand: Int): FractionMultiplier {
     val product: BigDecimal = multiplier.toBigDecimal().multiply(multiplicand.toBigDecimal()).stripTrailingZeros()
-    val convertedProduct: String? = if (product.toBigInteger() > 10.toBigInteger()) product.toBigInteger().toString(multiplicand).uppercase() else null
+    val convertedProduct: String? = if (product.toBigInteger() >
+        10.toBigInteger()
+    ) {
+        product.toBigInteger().toString(multiplicand).uppercase()
+    } else {
+        null
+    }
 
     return FractionMultiplier(
         multiplier = multiplier,
@@ -98,8 +142,11 @@ private fun fractionMultiplier(multiplier: String, multiplicand: Int): FractionM
 private fun PreviewExplanationFractionalMultiplier() {
     NumberSystemsTheme {
         Surface {
-            ExplanationFractionalMultiplierContent(NumberSystem("10.703125", Radix.DEC), NumberSystem("A.B4", Radix.HEX), isDigitGroupingEnabled = true)
+            ExplanationFractionalMultiplierContent(
+                NumberSystem("10.703125", Radix.DEC),
+                NumberSystem("A.B4", Radix.HEX),
+                isDigitGroupingEnabled = true,
+            )
         }
     }
 }
-

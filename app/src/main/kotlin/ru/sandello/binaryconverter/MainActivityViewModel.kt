@@ -4,6 +4,7 @@ import android.app.Activity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
@@ -12,24 +13,28 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import ru.sandello.binaryconverter.repository.OfflineSettingsRepository
 import ru.sandello.binaryconverter.repository.ReviewManager
-import javax.inject.Inject
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
     private val settingsRepository: OfflineSettingsRepository,
     private val reviewManager: ReviewManager,
 ) : ViewModel() {
-    val uiState: StateFlow<MainUiState> = settingsRepository.settingsData.map { settingsData ->
-        MainUiState.Success(settingsData)
-    }.stateIn(
-        scope = viewModelScope,
-        initialValue = MainUiState.Loading,
-        started = SharingStarted.WhileSubscribed(5_000)
-    )
+    val uiState: StateFlow<MainUiState> = settingsRepository.settingsData
+        .map { settingsData ->
+            MainUiState.Success(settingsData)
+        }.stateIn(
+            scope = viewModelScope,
+            initialValue = MainUiState.Loading,
+            started = SharingStarted.WhileSubscribed(5_000),
+        )
 
     init {
         viewModelScope.launch {
-            if (settingsRepository.settingsData.first().isDigitGroupingInitialized.not()) {
+            if (settingsRepository.settingsData
+                    .first()
+                    .isDigitGroupingInitialized
+                    .not()
+            ) {
                 settingsRepository.setDigitGrouping(true)
                 settingsRepository.setDigitGroupingInitialized(true)
             }
@@ -40,5 +45,4 @@ class MainActivityViewModel @Inject constructor(
     fun requestReview(activity: Activity) {
         reviewManager.requestReview(activity)
     }
-
 }

@@ -1,13 +1,9 @@
 package ru.sandello.binaryconverter.ui.settings
 
-import ru.sandello.binaryconverter.model.data.ThemeType
 import java.util.Locale
+import ru.sandello.binaryconverter.model.data.ThemeType
 
-data class SettingsUiState(
-    var themeType: ThemeType,
-    var locale: Locale,
-    val isDigitGroupingEnabled: Boolean,
-) {
+data class SettingsUiState(var themeType: ThemeType, var locale: Locale, val isDigitGroupingEnabled: Boolean) {
     val availableLocales = listOf(
         Locale.ROOT,
         Locale.forLanguageTag("en"),

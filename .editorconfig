@@ -7,8 +7,22 @@ indent_size = 4
 indent_style = space
 insert_final_newline = true
 trim_trailing_whitespace = true
-max_line_length = 120
 
 [*.{kt,kts}]
+ktlint_code_style = android_studio
+ktlint_function_naming_ignore_when_annotated_with = Composable
+ktlint_standard_filename = disabled
+ktlint_standard_multiline-expression-wrapping = disabled
+ktlint_standard_class-signature = disabled
+ktlint_standard_binary-expression-wrapping = disabled
+ktlint_standard_max-line-length = disabled
+max_line_length = 120
 ij_kotlin_allow_trailing_comma = true
 ij_kotlin_allow_trailing_comma_on_call_site = true
+
+[*.{yml,yaml}]
+indent_size = 2
+trim_trailing_whitespace = true
+
+[*.md]
+trim_trailing_whitespace = false

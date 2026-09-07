@@ -44,26 +44,37 @@ class DigitGroupingVisualTransformation(radix: Radix) : VisualTransformation {
                 val formattedBeforeDelimiter = out.substringBefore(NS_DELIMITER)
                 val formattedAfterDelimiter = out.substringAfter(NS_DELIMITER, "")
                 val delimiterLength = if (delimiterExists) 1 else 0
-                val lastGroupBeforeDelimiterLength = formattedBeforeDelimiter.substringBefore(NS_GROUP_SEPARATOR).length
+                val lastGroupBeforeDelimiterLength =
+                    formattedBeforeDelimiter.substringBefore(NS_GROUP_SEPARATOR).length
                 return when {
                     offset > 0 && offset <= beforeDelimiter.length -> {
-                        offset + (offset + (groupLength - lastGroupBeforeDelimiterLength) - 1).floorDiv(groupLength)
+                        val extraGroups =
+                            (offset + (groupLength - lastGroupBeforeDelimiterLength) - 1).floorDiv(groupLength)
+                        offset + extraGroups
                     }
+
                     offset > 0 && offset == beforeDelimiter.length + delimiterLength -> {
-                        offset + (offset + (groupLength - lastGroupBeforeDelimiterLength - delimiterLength) - 1).floorDiv(groupLength)
+                        val extraGroups = (
+                            offset + (groupLength - lastGroupBeforeDelimiterLength - delimiterLength) - 1
+                            ).floorDiv(groupLength)
+                        offset + extraGroups
                     }
+
                     offset > 0 && offset > beforeDelimiter.length + delimiterLength -> {
                         val lastGroupLength = formattedAfterDelimiter.substringBefore(NS_GROUP_SEPARATOR).length
-                        offset + (offset + (groupLength - lastGroupBeforeDelimiterLength - delimiterLength - lastGroupLength) - 1).floorDiv(groupLength)
+                        val extraGroups = (
+                            offset +
+                                (groupLength - lastGroupBeforeDelimiterLength - delimiterLength - lastGroupLength) - 1
+                            ).floorDiv(groupLength)
+                        offset + extraGroups
                     }
-                    else -> {
-                        offset
-                    }
+
+                    else -> offset
                 }
             }
 
             override fun transformedToOriginal(offset: Int): Int {
-                val spacesBeforeOffset = if (out.contains(NS_GROUP_SEPARATOR)) out.take(offset).count { it == NS_GROUP_SEPARATOR } else 0
+                val spacesBeforeOffset = out.take(offset).count { it == NS_GROUP_SEPARATOR }
 
                 return offset - spacesBeforeOffset
             }

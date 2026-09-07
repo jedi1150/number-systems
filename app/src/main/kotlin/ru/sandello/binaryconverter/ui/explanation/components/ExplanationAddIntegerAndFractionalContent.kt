@@ -50,11 +50,21 @@ fun ExplanationAddIntegerAndFractionalContent(to: NumberSystem, isDigitGroupingE
         ) {
             Text(
                 text = buildAnnotatedString {
-                    append(numberSystem(numberSystem = decimalInteger, isDigitGroupingEnabled = isDigitGroupingEnabled))
+                    append(
+                        numberSystem(
+                            numberSystem = decimalInteger,
+                            isDigitGroupingEnabled = isDigitGroupingEnabled,
+                        ),
+                    )
                     withStyle(SpanStyle(letterSpacing = 6.sp)) {
                         append("+")
                     }
-                    append(numberSystem(numberSystem = decimalFractional, isDigitGroupingEnabled = isDigitGroupingEnabled))
+                    append(
+                        numberSystem(
+                            numberSystem = decimalFractional,
+                            isDigitGroupingEnabled = isDigitGroupingEnabled,
+                        ),
+                    )
                     withStyle(SpanStyle(letterSpacing = 6.sp)) {
                         append("=")
                     }
@@ -73,7 +83,10 @@ fun ExplanationAddIntegerAndFractionalContent(to: NumberSystem, isDigitGroupingE
 fun PreviewExplanationCombineParts() {
     NumberSystemsTheme {
         Surface {
-            ExplanationAddIntegerAndFractionalContent(to = NumberSystem(value = "A.B4", Radix.HEX), isDigitGroupingEnabled = true)
+            ExplanationAddIntegerAndFractionalContent(
+                to = NumberSystem(value = "A.B4", Radix.HEX),
+                isDigitGroupingEnabled = true,
+            )
         }
     }
 }

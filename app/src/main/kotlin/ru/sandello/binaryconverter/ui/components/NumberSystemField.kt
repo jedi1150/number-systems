@@ -58,13 +58,21 @@ fun NumberSystemField(
             lastTextValue = newTextFieldValueState.text
 
             if (stringChangedSinceLastInvocation) {
-                onValueChange(NumberSystem(value = newTextFieldValueState.text.replace(COMMA, NS_DELIMITER), radix = radix))
+                onValueChange(
+                    NumberSystem(value = newTextFieldValueState.text.replace(COMMA, NS_DELIMITER), radix = radix),
+                )
             }
         },
         modifier = modifier.fillMaxWidth(),
         textStyle = TextStyle(fontFamily = RobotoMonoFamily),
         label = { Text(radix.value.toString()) },
-        visualTransformation = if (isGroupingEnabled) DigitGroupingVisualTransformation(radix) else VisualTransformation.None,
+        visualTransformation = if (isGroupingEnabled) {
+            DigitGroupingVisualTransformation(
+                radix,
+            )
+        } else {
+            VisualTransformation.None
+        },
         isError = isError,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
         shape = MaterialTheme.shapes.medium,

@@ -149,8 +149,18 @@ fun ExplanationScreen(
     }
 }
 
-@Preview(group = "Completed", device = "spec:width=411dp,height=891dp", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE)
-@Preview(group = "Completed", device = "spec:width=411dp,height=891dp", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE)
+@Preview(
+    group = "Completed",
+    device = "spec:width=411dp,height=891dp",
+    uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL,
+    wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE,
+)
+@Preview(
+    group = "Completed",
+    device = "spec:width=411dp,height=891dp",
+    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL,
+    wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE,
+)
 @Composable
 private fun PreviewExplanationCompleted() {
     val explanationUiState = ExplanationUiState(
@@ -170,8 +180,18 @@ private fun PreviewExplanationCompleted() {
     }
 }
 
-@Preview(group = "Calculating", device = "spec:width=411dp,height=891dp", uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL, wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE)
-@Preview(group = "Calculating", device = "spec:width=411dp,height=891dp", uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL, wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE)
+@Preview(
+    group = "Calculating",
+    device = "spec:width=411dp,height=891dp",
+    uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL,
+    wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE,
+)
+@Preview(
+    group = "Calculating",
+    device = "spec:width=411dp,height=891dp",
+    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL,
+    wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE,
+)
 @Composable
 private fun PreviewExplanationCalculating() {
     NumberSystemsTheme {

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,9 +19,9 @@ import ru.sandello.binaryconverter.numsys.model.Radix
 import ru.sandello.binaryconverter.repository.SettingsRepository
 import ru.sandello.binaryconverter.utils.APP_TAG
 import ru.sandello.binaryconverter.utils.CharRegex
-import javax.inject.Inject
 
 enum class ExplanationOperandType { OperandCustom1, OperandCustom2 }
+
 enum class ExplanationRadixType { RadixCustom1, RadixCustom2 }
 
 @HiltViewModel
@@ -28,8 +29,8 @@ class ExplanationViewModel @Inject constructor(
     private val numSys: NumSys,
     settingsRepository: SettingsRepository,
 ) : ViewModel() {
-
-    private val _explanationUiState: MutableStateFlow<ExplanationUiState> = MutableStateFlow(ExplanationUiState(state = ExplanationState.Calculating))
+    private val _explanationUiState: MutableStateFlow<ExplanationUiState> =
+        MutableStateFlow(ExplanationUiState(state = ExplanationState.Calculating))
     val explanationUiState: StateFlow<ExplanationUiState> = _explanationUiState.asStateFlow()
 
     val isDigitGroupingEnabled: Flow<Boolean> = settingsRepository.settingsData.map { it.isDigitGroupingEnabled }
@@ -63,20 +64,22 @@ class ExplanationViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            numSys.convert(
-                numberSystem = updatedFrom.asInternalModel(),
-                targetRadix = toRadix,
-                ignoreCase = toRadix.value in Radix.BIN.value..Radix.HEX.value,
-            ).let { convertedData ->
-                var finalFrom: NumberSystem = explanationUiState.value.from
-                var finalTo: NumberSystem = explanationUiState.value.to
+            numSys
+                .convert(
+                    numberSystem = updatedFrom.asInternalModel(),
+                    targetRadix = toRadix,
+                    ignoreCase = toRadix.value in Radix.BIN.value..Radix.HEX.value,
+                ).let { convertedData ->
+                    var finalFrom: NumberSystem = explanationUiState.value.from
+                    var finalTo: NumberSystem = explanationUiState.value.to
 
-                when (explanationOperandType) {
-                    ExplanationOperandType.OperandCustom1 -> finalFrom = convertedData.asExternalModel()
-                    ExplanationOperandType.OperandCustom2 -> finalTo = convertedData.asExternalModel()
+                    when (explanationOperandType) {
+                        ExplanationOperandType.OperandCustom1 -> finalFrom = convertedData.asExternalModel()
+                        ExplanationOperandType.OperandCustom2 -> finalTo = convertedData.asExternalModel()
+                    }
+                    _explanationUiState.value =
+                        ExplanationUiState(state = ExplanationState.Completed, finalFrom, finalTo)
                 }
-                _explanationUiState.value = ExplanationUiState(state = ExplanationState.Completed, finalFrom, finalTo)
-            }
         }
     }
 
@@ -85,15 +88,28 @@ class ExplanationViewModel @Inject constructor(
 
         when (explanationRadixType) {
             ExplanationRadixType.RadixCustom1 -> {
-                Log.d(APP_TAG, "ExplanationViewModel::updateRadix: from.radix from ${explanationUiState.value.from.radix.value} to ${newRadix.value}")
-                convert(explanationOperandType = ExplanationOperandType.OperandCustom1, from = explanationUiState.value.from, toRadix = newRadix)
+                Log.d(
+                    APP_TAG,
+                    "ExplanationViewModel::updateRadix: from.radix from ${explanationUiState.value.from.radix.value} to ${newRadix.value}",
+                )
+                convert(
+                    explanationOperandType = ExplanationOperandType.OperandCustom1,
+                    from = explanationUiState.value.from,
+                    toRadix = newRadix,
+                )
             }
 
             ExplanationRadixType.RadixCustom2 -> {
-                Log.d(APP_TAG, "ExplanationViewModel::updateRadix: to.radix from ${explanationUiState.value.to.radix.value} to ${newRadix.value}")
-                convert(explanationOperandType = ExplanationOperandType.OperandCustom2, from = explanationUiState.value.to, toRadix = newRadix)
+                Log.d(
+                    APP_TAG,
+                    "ExplanationViewModel::updateRadix: to.radix from ${explanationUiState.value.to.radix.value} to ${newRadix.value}",
+                )
+                convert(
+                    explanationOperandType = ExplanationOperandType.OperandCustom2,
+                    from = explanationUiState.value.to,
+                    toRadix = newRadix,
+                )
             }
         }
     }
-
 }

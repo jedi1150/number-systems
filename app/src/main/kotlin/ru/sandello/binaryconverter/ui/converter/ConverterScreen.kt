@@ -45,10 +45,7 @@ import ru.sandello.binaryconverter.utils.COMMA
 import ru.sandello.binaryconverter.utils.NS_DELIMITER
 
 @Composable
-fun ConverterRoute(
-    contentPadding: PaddingValues,
-    viewModel: ConverterViewModel = hiltViewModel(),
-) {
+fun ConverterRoute(contentPadding: PaddingValues, viewModel: ConverterViewModel = hiltViewModel()) {
     val converterUiState by viewModel.converterUiState.collectAsStateWithLifecycle()
     val isDigitGroupingEnabled by viewModel.isDigitGroupingEnabled.collectAsStateWithLifecycle(initialValue = true)
 
@@ -86,11 +83,24 @@ fun ConverterScreen(
         item {
             OutlinedTextField(
                 value = converterUiState.numberSystem10.value,
-                onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue.replace(COMMA, NS_DELIMITER), radix = converterUiState.numberSystem10.radix)) },
+                onValueChange = { textFieldValue ->
+                    onNumberSystemChanged(
+                        NumberSystem(
+                            value = textFieldValue.replace(COMMA, NS_DELIMITER),
+                            radix = converterUiState.numberSystem10.radix,
+                        ),
+                    )
+                },
                 modifier = Modifier.fillMaxWidth(),
                 textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                 label = { Text(stringResource(R.string.dec)) },
-                visualTransformation = if (isDigitGroupingEnabled) DigitGroupingVisualTransformation(converterUiState.numberSystem10.radix) else VisualTransformation.None,
+                visualTransformation = if (isDigitGroupingEnabled) {
+                    DigitGroupingVisualTransformation(
+                        converterUiState.numberSystem10.radix,
+                    )
+                } else {
+                    VisualTransformation.None
+                },
                 isError = converterUiState.numberSystem10.isError,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = MaterialTheme.shapes.medium,
@@ -99,12 +109,25 @@ fun ConverterScreen(
         item {
             OutlinedTextField(
                 value = converterUiState.numberSystem2.value,
-                onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue.replace(COMMA, NS_DELIMITER), radix = converterUiState.numberSystem2.radix)) },
+                onValueChange = { textFieldValue ->
+                    onNumberSystemChanged(
+                        NumberSystem(
+                            value = textFieldValue.replace(COMMA, NS_DELIMITER),
+                            radix = converterUiState.numberSystem2.radix,
+                        ),
+                    )
+                },
                 modifier = Modifier.fillMaxWidth(),
                 textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                 label = { Text(stringResource(R.string.bin)) },
                 isError = converterUiState.numberSystem2.isError,
-                visualTransformation = if (isDigitGroupingEnabled) DigitGroupingVisualTransformation(converterUiState.numberSystem2.radix) else VisualTransformation.None,
+                visualTransformation = if (isDigitGroupingEnabled) {
+                    DigitGroupingVisualTransformation(
+                        converterUiState.numberSystem2.radix,
+                    )
+                } else {
+                    VisualTransformation.None
+                },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = MaterialTheme.shapes.medium,
             )
@@ -112,12 +135,25 @@ fun ConverterScreen(
         item {
             OutlinedTextField(
                 value = converterUiState.numberSystem8.value,
-                onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue.replace(COMMA, NS_DELIMITER), converterUiState.numberSystem8.radix)) },
+                onValueChange = { textFieldValue ->
+                    onNumberSystemChanged(
+                        NumberSystem(
+                            value = textFieldValue.replace(COMMA, NS_DELIMITER),
+                            converterUiState.numberSystem8.radix,
+                        ),
+                    )
+                },
                 modifier = Modifier.fillMaxWidth(),
                 textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                 label = { Text(stringResource(R.string.oct)) },
                 isError = converterUiState.numberSystem8.isError,
-                visualTransformation = if (isDigitGroupingEnabled) DigitGroupingVisualTransformation(converterUiState.numberSystem8.radix) else VisualTransformation.None,
+                visualTransformation = if (isDigitGroupingEnabled) {
+                    DigitGroupingVisualTransformation(
+                        converterUiState.numberSystem8.radix,
+                    )
+                } else {
+                    VisualTransformation.None
+                },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Done),
                 shape = MaterialTheme.shapes.medium,
             )
@@ -125,12 +161,25 @@ fun ConverterScreen(
         item {
             OutlinedTextField(
                 value = converterUiState.numberSystem16.value,
-                onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue.replace(COMMA, NS_DELIMITER), radix = converterUiState.numberSystem16.radix)) },
+                onValueChange = { textFieldValue ->
+                    onNumberSystemChanged(
+                        NumberSystem(
+                            value = textFieldValue.replace(COMMA, NS_DELIMITER),
+                            radix = converterUiState.numberSystem16.radix,
+                        ),
+                    )
+                },
                 modifier = Modifier.fillMaxWidth(),
                 textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                 label = { Text(stringResource(R.string.hex)) },
                 isError = converterUiState.numberSystem16.isError,
-                visualTransformation = if (isDigitGroupingEnabled) DigitGroupingVisualTransformation(converterUiState.numberSystem16.radix) else VisualTransformation.None,
+                visualTransformation = if (isDigitGroupingEnabled) {
+                    DigitGroupingVisualTransformation(
+                        converterUiState.numberSystem16.radix,
+                    )
+                } else {
+                    VisualTransformation.None
+                },
                 keyboardOptions = KeyboardOptions(
                     capitalization = KeyboardCapitalization.Characters,
                     autoCorrectEnabled = false,
@@ -144,12 +193,25 @@ fun ConverterScreen(
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedTextField(
                     value = converterUiState.numberSystemCustom.value,
-                    onValueChange = { textFieldValue -> onNumberSystemChanged(NumberSystem(value = textFieldValue.replace(COMMA, NS_DELIMITER), radix = converterUiState.numberSystemCustom.radix)) },
+                    onValueChange = { textFieldValue ->
+                        onNumberSystemChanged(
+                            NumberSystem(
+                                value = textFieldValue.replace(COMMA, NS_DELIMITER),
+                                radix = converterUiState.numberSystemCustom.radix,
+                            ),
+                        )
+                    },
                     modifier = Modifier.weight(1f),
                     textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                     label = { Text(stringResource(R.string.radix, converterUiState.numberSystemCustom.radix.value)) },
                     isError = converterUiState.numberSystemCustom.isError,
-                    visualTransformation = if (isDigitGroupingEnabled) DigitGroupingVisualTransformation(converterUiState.numberSystemCustom.radix) else VisualTransformation.None,
+                    visualTransformation = if (isDigitGroupingEnabled) {
+                        DigitGroupingVisualTransformation(
+                            converterUiState.numberSystemCustom.radix,
+                        )
+                    } else {
+                        VisualTransformation.None
+                    },
                     keyboardOptions = KeyboardOptions(
                         capitalization = KeyboardCapitalization.Characters,
                         autoCorrectEnabled = false,
@@ -181,8 +243,16 @@ fun ConverterScreen(
     }
 }
 
-@Preview(device = "spec:width=411dp,height=891dp", wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE, uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL)
-@Preview(device = "spec:width=411dp,height=891dp", wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE, uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL)
+@Preview(
+    device = "spec:width=411dp,height=891dp",
+    wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE,
+    uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL,
+)
+@Preview(
+    device = "spec:width=411dp,height=891dp",
+    wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE,
+    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL,
+)
 @Composable
 private fun PreviewConverterScreen() {
     NumberSystemsTheme {

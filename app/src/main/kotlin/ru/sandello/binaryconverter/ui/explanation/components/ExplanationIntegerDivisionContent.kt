@@ -15,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import java.math.BigDecimal
+import java.math.RoundingMode
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.Division
 import ru.sandello.binaryconverter.model.NumberSystem
@@ -23,15 +25,9 @@ import ru.sandello.binaryconverter.numsys.NumSys.toRadix
 import ru.sandello.binaryconverter.numsys.model.Radix
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.utils.NS_DELIMITER
-import java.math.BigDecimal
-import java.math.RoundingMode
 
 @Composable
-fun ExplanationIntegerDivisionContent(
-    from: NumberSystem,
-    to: NumberSystem,
-    isDigitGroupingEnabled: Boolean,
-) {
+fun ExplanationIntegerDivisionContent(from: NumberSystem, to: NumberSystem, isDigitGroupingEnabled: Boolean) {
     val fromDecimal = from.value.substringBefore(NS_DELIMITER)
     var iterations = 0
     val maxIterations = 12
@@ -42,9 +38,19 @@ fun ExplanationIntegerDivisionContent(
 
     do {
         if (divisionList.isEmpty()) {
-            divisionList.add(longDivision(dividend = NumberSystem(fromDecimal, from.radix).asInternalModel().toRadix(Radix.DEC, ignoreCase = true).value.toBigDecimal(), divisor = to.radix.value))
+            divisionList.add(
+                longDivision(
+                    dividend = NumberSystem(
+                        fromDecimal,
+                        from.radix,
+                    ).asInternalModel().toRadix(Radix.DEC, ignoreCase = true).value.toBigDecimal(),
+                    divisor = to.radix.value,
+                ),
+            )
         } else {
-            divisionList.add(longDivision(dividend = divisionList.last().quotient, divisor = divisionList.last().divisor))
+            divisionList.add(
+                longDivision(dividend = divisionList.last().quotient, divisor = divisionList.last().divisor),
+            )
         }
         iterations++
     } while (divisionList.last().quotient > BigDecimal("0") && iterations < maxIterations)
@@ -59,7 +65,7 @@ fun ExplanationIntegerDivisionContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .horizontalScroll(rememberScrollState())
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = 16.dp),
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -79,10 +85,14 @@ fun ExplanationIntegerDivisionContent(
                 .horizontalScroll(rememberScrollState())
                 .padding(horizontal = 16.dp),
         ) {
-            Text(text = numberSystem(numberSystem = NumberSystem(value = to.value.substringBefore(NS_DELIMITER), radix = to.radix), isDigitGroupingEnabled = isDigitGroupingEnabled))
+            Text(
+                text = numberSystem(
+                    numberSystem = NumberSystem(value = to.value.substringBefore(NS_DELIMITER), radix = to.radix),
+                    isDigitGroupingEnabled = isDigitGroupingEnabled,
+                ),
+            )
         }
     }
-
 }
 
 private fun longDivision(dividend: BigDecimal, divisor: Int): Division {
@@ -104,7 +114,11 @@ private fun longDivision(dividend: BigDecimal, divisor: Int): Division {
 private fun PreviewExplanationIntegerDivision() {
     NumberSystemsTheme {
         Surface {
-            ExplanationIntegerDivisionContent(NumberSystem("10.5", Radix.DEC), NumberSystem("1010.1", Radix.BIN), isDigitGroupingEnabled = true)
+            ExplanationIntegerDivisionContent(
+                NumberSystem("10.5", Radix.DEC),
+                NumberSystem("1010.1", Radix.BIN),
+                isDigitGroupingEnabled = true,
+            )
         }
     }
 }
@@ -114,7 +128,11 @@ private fun PreviewExplanationIntegerDivision() {
 private fun PreviewExplanationIntegerDivisionDark() {
     NumberSystemsTheme(darkTheme = true) {
         Surface {
-            ExplanationIntegerDivisionContent(NumberSystem("25", Radix.DEC), NumberSystem("11001", Radix.BIN), isDigitGroupingEnabled = true)
+            ExplanationIntegerDivisionContent(
+                NumberSystem("25", Radix.DEC),
+                NumberSystem("11001", Radix.BIN),
+                isDigitGroupingEnabled = true,
+            )
         }
     }
 }

@@ -75,7 +75,9 @@ kotlin {
 
 protobuf {
     protoc {
-        artifact = libs.protobuf.protoc.get().toString()
+        artifact = libs.protobuf.protoc
+            .get()
+            .toString()
     }
     generateProtoTasks {
         all().forEach { task ->

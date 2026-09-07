@@ -83,7 +83,7 @@ internal fun SettingsThemeDialog(
                     horizontalArrangement = Arrangement.spacedBy(
                         space = 8.dp,
                         alignment = Alignment.End,
-                    )
+                    ),
                 ) {
                     TextButton(onClick = onDismiss) {
                         Text(text = stringResource(id = android.R.string.cancel))

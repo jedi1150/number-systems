@@ -1,12 +1,11 @@
 package ru.sandello.binaryconverter.numsys
 
-import ru.sandello.binaryconverter.numsys.model.NumberSystem
-import ru.sandello.binaryconverter.numsys.model.Radix
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import ru.sandello.binaryconverter.numsys.model.NumberSystem
+import ru.sandello.binaryconverter.numsys.model.Radix
 
 internal class NumberSystemUnitTest {
-
     private val nsIntegerList = listOf(
         NumberSystem("10000000", Radix.BIN),
         NumberSystem("200", Radix.OCT),

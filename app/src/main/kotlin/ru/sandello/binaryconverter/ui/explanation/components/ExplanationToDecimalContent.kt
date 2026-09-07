@@ -58,7 +58,10 @@ fun ExplanationToDecimalContent(from: NumberSystem, isDigitGroupingEnabled: Bool
                     filteredValue.forEachIndexed { index, value ->
                         append(value)
                         if (value.isLetter()) {
-                            val decimalNumber = NumberSystem(value = value.toString(), radix = integerPart.radix).asInternalModel().toRadix(Radix.DEC, ignoreCase = true).value
+                            val decimalNumber = NumberSystem(
+                                value = value.toString(),
+                                radix = integerPart.radix,
+                            ).asInternalModel().toRadix(Radix.DEC, ignoreCase = true).value
                             withStyle(SpanStyle(fontFamily = RobotoFamily)) {
                                 append("(")
                             }
@@ -69,10 +72,17 @@ fun ExplanationToDecimalContent(from: NumberSystem, isDigitGroupingEnabled: Bool
                         }
                         withStyle(SpanStyle(letterSpacing = 4.sp)) { append("×") }
                         append(positionedNumber(number = integerPart.radix.value, position = position - 1 - index))
-                        if (index != filteredValue.lastIndex) withStyle(SpanStyle(letterSpacing = 6.sp)) { append("+") }
+                        if (index != filteredValue.lastIndex) {
+                            withStyle(SpanStyle(letterSpacing = 6.sp)) { append("+") }
+                        }
                     }
                     withStyle(SpanStyle(letterSpacing = 6.sp)) { append("=") }
-                    append(numberSystem(numberSystem = result.asExternalModel(), isDigitGroupingEnabled = isDigitGroupingEnabled))
+                    append(
+                        numberSystem(
+                            numberSystem = result.asExternalModel(),
+                            isDigitGroupingEnabled = isDigitGroupingEnabled,
+                        ),
+                    )
                 },
                 fontFamily = RobotoMonoFamily,
                 style = MaterialTheme.typography.bodyMedium,

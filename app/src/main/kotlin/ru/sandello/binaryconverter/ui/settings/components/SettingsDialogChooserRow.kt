@@ -15,11 +15,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 
 @Composable
-internal fun SettingsDialogThemeChooserRow(
-    text: String,
-    selected: Boolean,
-    onClick: () -> Unit,
-) {
+internal fun SettingsDialogThemeChooserRow(text: String, selected: Boolean, onClick: () -> Unit) {
     Row(
         Modifier
             .fillMaxWidth()
@@ -27,8 +23,7 @@ internal fun SettingsDialogThemeChooserRow(
                 selected = selected,
                 role = Role.RadioButton,
                 onClick = onClick,
-            )
-            .padding(horizontal = 16.dp, vertical = 12.dp),
+            ).padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         RadioButton(

@@ -70,7 +70,9 @@ fun NumberSystemsApp(
     val calculatorUiState by calculatorViewModel.calculatorUiState.collectAsStateWithLifecycle()
     val explanationUiState by explanationViewModel.explanationUiState.collectAsStateWithLifecycle()
 
-    val isDigitGroupingEnabled by explanationViewModel.isDigitGroupingEnabled.collectAsStateWithLifecycle(initialValue = true)
+    val isDigitGroupingEnabled by explanationViewModel.isDigitGroupingEnabled.collectAsStateWithLifecycle(
+        initialValue = true,
+    )
 
     val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -192,7 +194,7 @@ fun NumberSystemsApp(
 
                 val alpha: Float by animateFloatAsState(
                     targetValue = if (showFab) 1f else 0f,
-                    label = "alphaAnimation"
+                    label = "alphaAnimation",
                 )
 
                 val currentTopLevelDestination = appState.currentTopLevelDestination
@@ -205,7 +207,11 @@ fun NumberSystemsApp(
                         }
                     }
                 }
-                val explanationFabIsVisible by remember(currentTopLevelDestination, converterUiState, calculatorUiState) {
+                val explanationFabIsVisible by remember(
+                    currentTopLevelDestination,
+                    converterUiState,
+                    calculatorUiState,
+                ) {
                     derivedStateOf {
                         return@derivedStateOf when (currentTopLevelDestination) {
                             CONVERTER -> converterUiState.hasData
@@ -219,8 +225,7 @@ fun NumberSystemsApp(
                         .alpha(alpha)
                         .onSizeChanged {
                             fabHeight = it.height
-                        }
-                        .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
+                        }.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
                     isClearFabVisible = clearFabIsVisible,
                     isExplanationFabVisible = explanationFabIsVisible,
                     onClearClicked = {

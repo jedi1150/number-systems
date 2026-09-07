@@ -1,12 +1,11 @@
 package ru.sandello.binaryconverter.numsys
 
-import ru.sandello.binaryconverter.numsys.model.NumberSystem
-import ru.sandello.binaryconverter.numsys.model.Radix
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
+import ru.sandello.binaryconverter.numsys.model.NumberSystem
+import ru.sandello.binaryconverter.numsys.model.Radix
 
 internal class ConverterIllegalValueTest {
-
     private val targetRadixes = listOf(Radix.BIN, Radix.OCT, Radix.DEC, Radix.HEX)
 
     @Test

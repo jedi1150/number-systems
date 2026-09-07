@@ -40,7 +40,6 @@ private val lightColorScheme = lightColorScheme(
     surfaceTint = md_theme_light_surfaceTint,
 )
 
-
 private val darkColorScheme = darkColorScheme(
     primary = md_theme_dark_primary,
     onPrimary = md_theme_dark_onPrimary,
@@ -84,6 +83,7 @@ fun NumberSystemsTheme(
         }
 
         darkTheme -> darkColorScheme
+
         else -> lightColorScheme
     }
 

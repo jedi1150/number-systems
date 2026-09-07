@@ -19,7 +19,12 @@ data class CalculatorUiState(
 ) {
     val radixes: List<Radix> = (2..36).map { Radix(it) }
 
-    val arithmeticTypes = arrayOf(ArithmeticType.Addition, ArithmeticType.Subtraction, ArithmeticType.Multiply, ArithmeticType.Divide)
+    val arithmeticTypes = arrayOf(
+        ArithmeticType.Addition,
+        ArithmeticType.Subtraction,
+        ArithmeticType.Multiply,
+        ArithmeticType.Divide,
+    )
 
     val hasData: Boolean
         get() = numberSystemCustom1.value.isNotBlank() || numberSystemCustom2.value.isNotBlank()

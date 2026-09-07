@@ -55,10 +55,7 @@ import ru.sandello.binaryconverter.utils.COMMA
 import ru.sandello.binaryconverter.utils.NS_DELIMITER
 
 @Composable
-fun CalculatorRoute(
-    contentPadding: PaddingValues,
-    viewModel: CalculatorViewModel = hiltViewModel(),
-) {
+fun CalculatorRoute(contentPadding: PaddingValues, viewModel: CalculatorViewModel = hiltViewModel()) {
     val calculatorUiState by viewModel.calculatorUiState.collectAsStateWithLifecycle()
     val isDigitGroupingEnabled by viewModel.isDigitGroupingEnabled.collectAsStateWithLifecycle(initialValue = true)
 
@@ -102,14 +99,23 @@ fun CalculatorScreen(
                     onValueChange = { textFieldValue ->
                         onNumberSystemChange(
                             CalculatorOperandType.OperandCustom1,
-                            NumberSystem(value = textFieldValue.replace(COMMA, NS_DELIMITER), radix = calculatorUiState.numberSystemCustom1.radix),
+                            NumberSystem(
+                                value = textFieldValue.replace(COMMA, NS_DELIMITER),
+                                radix = calculatorUiState.numberSystemCustom1.radix,
+                            ),
                         )
                     },
                     modifier = Modifier.weight(1f),
                     textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                     label = { Text(stringResource(R.string.radix, calculatorUiState.numberSystemCustom1.radix.value)) },
                     isError = calculatorUiState.numberSystemCustom1Error,
-                    visualTransformation = if (isDigitGroupingEnabled) DigitGroupingVisualTransformation(calculatorUiState.numberSystemCustom1.radix) else VisualTransformation.None,
+                    visualTransformation = if (isDigitGroupingEnabled) {
+                        DigitGroupingVisualTransformation(
+                            calculatorUiState.numberSystemCustom1.radix,
+                        )
+                    } else {
+                        VisualTransformation.None
+                    },
                     keyboardOptions = KeyboardOptions(
                         capitalization = KeyboardCapitalization.Characters,
                         autoCorrectEnabled = true,
@@ -149,7 +155,10 @@ fun CalculatorScreen(
                     calculatorUiState.arithmeticTypes.forEachIndexed { index, arithmeticType ->
                         val checked = calculatorUiState.selectedArithmetic == arithmeticType
                         SegmentedButton(
-                            shape = SegmentedButtonDefaults.itemShape(index = index, count = calculatorUiState.arithmeticTypes.size),
+                            shape = SegmentedButtonDefaults.itemShape(
+                                index = index,
+                                count = calculatorUiState.arithmeticTypes.size,
+                            ),
                             onClick = { onArithmeticChange(arithmeticType) },
                             selected = checked,
                             icon = {},
@@ -176,14 +185,23 @@ fun CalculatorScreen(
                     onValueChange = { textFieldValue ->
                         onNumberSystemChange(
                             CalculatorOperandType.OperandCustom2,
-                            NumberSystem(value = textFieldValue.replace(COMMA, NS_DELIMITER), radix = calculatorUiState.numberSystemCustom2.radix),
+                            NumberSystem(
+                                value = textFieldValue.replace(COMMA, NS_DELIMITER),
+                                radix = calculatorUiState.numberSystemCustom2.radix,
+                            ),
                         )
                     },
                     modifier = Modifier.weight(1f),
                     textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                     label = { Text(stringResource(R.string.radix, calculatorUiState.numberSystemCustom2.radix.value)) },
                     isError = calculatorUiState.numberSystemCustom2Error,
-                    visualTransformation = if (isDigitGroupingEnabled) DigitGroupingVisualTransformation(calculatorUiState.numberSystemCustom2.radix) else VisualTransformation.None,
+                    visualTransformation = if (isDigitGroupingEnabled) {
+                        DigitGroupingVisualTransformation(
+                            calculatorUiState.numberSystemCustom2.radix,
+                        )
+                    } else {
+                        VisualTransformation.None
+                    },
                     keyboardOptions = KeyboardOptions(
                         capitalization = KeyboardCapitalization.Characters,
                         autoCorrectEnabled = false,
@@ -221,7 +239,13 @@ fun CalculatorScreen(
                     textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                     readOnly = true,
                     label = { Text(stringResource(R.string.radix, calculatorUiState.numberSystemResult.radix.value)) },
-                    visualTransformation = if (isDigitGroupingEnabled) DigitGroupingVisualTransformation(calculatorUiState.numberSystemResult.radix) else VisualTransformation.None,
+                    visualTransformation = if (isDigitGroupingEnabled) {
+                        DigitGroupingVisualTransformation(
+                            calculatorUiState.numberSystemResult.radix,
+                        )
+                    } else {
+                        VisualTransformation.None
+                    },
                     keyboardOptions = KeyboardOptions(
                         capitalization = KeyboardCapitalization.Characters,
                         autoCorrectEnabled = false,
@@ -253,8 +277,16 @@ fun CalculatorScreen(
     }
 }
 
-@Preview(device = "spec:width=411dp,height=891dp", wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE, uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL)
-@Preview(device = "spec:width=411dp,height=891dp", wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE, uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL)
+@Preview(
+    device = "spec:width=411dp,height=891dp",
+    wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE,
+    uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL,
+)
+@Preview(
+    device = "spec:width=411dp,height=891dp",
+    wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE,
+    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL,
+)
 @Composable
 fun PreviewCalculatorScreen() {
     NumberSystemsTheme {

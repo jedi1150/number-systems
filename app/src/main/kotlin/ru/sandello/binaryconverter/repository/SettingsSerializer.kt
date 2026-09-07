@@ -3,13 +3,12 @@ package ru.sandello.binaryconverter.repository
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.Serializer
 import com.google.protobuf.InvalidProtocolBufferException
-import ru.sandello.binaryconverter.Settings
 import java.io.InputStream
 import java.io.OutputStream
 import javax.inject.Inject
+import ru.sandello.binaryconverter.Settings
 
 class SettingsSerializer @Inject constructor() : Serializer<Settings> {
-
     override val defaultValue: Settings = Settings.getDefaultInstance()
 
     override suspend fun readFrom(input: InputStream): Settings {

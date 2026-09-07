@@ -40,26 +40,38 @@ fun FabStack(
     ) {
         AnimatedVisibility(
             visible = isClearFabVisible,
-            enter = scaleIn(transformOrigin = TransformOrigin(0f, 0f)) + fadeIn() + expandIn(expandFrom = Alignment.TopStart),
-            exit = scaleOut(transformOrigin = TransformOrigin(0f, 0f)) + fadeOut() + shrinkOut(shrinkTowards = Alignment.TopStart),
+            enter = scaleIn(transformOrigin = TransformOrigin(0f, 0f)) + fadeIn() +
+                expandIn(expandFrom = Alignment.TopStart),
+            exit = scaleOut(transformOrigin = TransformOrigin(0f, 0f)) + fadeOut() +
+                shrinkOut(shrinkTowards = Alignment.TopStart),
         ) {
             SmallFloatingActionButton(
                 onClick = onClearClicked,
                 modifier = Modifier.padding(vertical = 8.dp),
                 elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 0.dp),
             ) {
-                Icon(painter = painterResource(R.drawable.ic_close), contentDescription = stringResource(R.string.clear_values))
+                Icon(
+                    painter = painterResource(R.drawable.ic_close),
+                    contentDescription = stringResource(R.string.clear_values),
+                )
             }
         }
 
         AnimatedVisibility(
             visible = isExplanationFabVisible,
-            enter = scaleIn(transformOrigin = TransformOrigin(0f, 0f)) + fadeIn() + expandIn(expandFrom = Alignment.TopStart),
-            exit = scaleOut(transformOrigin = TransformOrigin(0f, 0f)) + fadeOut() + shrinkOut(shrinkTowards = Alignment.TopStart),
+            enter = scaleIn(transformOrigin = TransformOrigin(0f, 0f)) + fadeIn() +
+                expandIn(expandFrom = Alignment.TopStart),
+            exit = scaleOut(transformOrigin = TransformOrigin(0f, 0f)) + fadeOut() +
+                shrinkOut(shrinkTowards = Alignment.TopStart),
         ) {
             ExtendedFloatingActionButton(
                 text = { Text(text = stringResource(id = R.string.explanation), fontWeight = FontWeight.Normal) },
-                icon = { Icon(painter = painterResource(R.drawable.ic_explanation), contentDescription = stringResource(id = R.string.explanation)) },
+                icon = {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_explanation),
+                        contentDescription = stringResource(id = R.string.explanation),
+                    )
+                },
                 onClick = onExplanationClicked,
                 modifier = Modifier.padding(vertical = 8.dp),
                 elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 0.dp),

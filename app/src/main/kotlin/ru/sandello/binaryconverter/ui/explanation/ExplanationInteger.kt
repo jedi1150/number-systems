@@ -27,7 +27,11 @@ fun ExplanationInteger(from: NumberSystem, to: NumberSystem, isDigitGroupingEnab
 private fun PreviewExplanationInteger() {
     NumberSystemsTheme {
         Surface {
-            ExplanationInteger(from = NumberSystem(value = "10.5", Radix.DEC), to = NumberSystem(value = "1010.1", Radix.BIN), isDigitGroupingEnabled = true)
+            ExplanationInteger(
+                from = NumberSystem(value = "10.5", Radix.DEC),
+                to = NumberSystem(value = "1010.1", Radix.BIN),
+                isDigitGroupingEnabled = true,
+            )
         }
     }
 }

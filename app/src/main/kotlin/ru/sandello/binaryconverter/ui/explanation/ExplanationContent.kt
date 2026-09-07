@@ -40,7 +40,7 @@ fun ExplanationContent(from: NumberSystem, to: NumberSystem, isDigitGroupingEnab
             stickyHeader {
                 ExplanationTitle(
                     text = stringResource(id = R.string.explanation_result),
-                    contentPaddingValues = PaddingValues(start = 16.dp, top = 16.dp, end = 16.dp)
+                    contentPaddingValues = PaddingValues(start = 16.dp, top = 16.dp, end = 16.dp),
                 )
             }
             stickyHeader {
