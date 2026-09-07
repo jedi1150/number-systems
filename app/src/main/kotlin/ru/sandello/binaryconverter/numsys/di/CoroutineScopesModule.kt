@@ -20,5 +20,6 @@ internal object CoroutineScopesModule {
     @Provides
     @Singleton
     @ApplicationScope
-    fun providesCoroutineScope(dispatcher: CoroutineDispatcher): CoroutineScope = CoroutineScope(SupervisorJob() + dispatcher)
+    fun providesCoroutineScope(dispatcher: CoroutineDispatcher): CoroutineScope =
+        CoroutineScope(SupervisorJob() + dispatcher)
 }

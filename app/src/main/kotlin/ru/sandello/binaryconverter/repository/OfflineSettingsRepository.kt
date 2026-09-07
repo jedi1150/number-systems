@@ -15,9 +15,11 @@ class OfflineSettingsRepository @Inject constructor(
 
     override suspend fun setLocale(locale: Locale) = settingsDataSource.setLocale(locale)
 
-    override suspend fun setDigitGrouping(isDigitGroupingEnabled: Boolean) = settingsDataSource.setDigitGrouping(isDigitGroupingEnabled)
+    override suspend fun setDigitGrouping(isDigitGroupingEnabled: Boolean) =
+        settingsDataSource.setDigitGrouping(isDigitGroupingEnabled)
 
-    override suspend fun setDigitGroupingInitialized(isDigitGroupingInitialized: Boolean) = settingsDataSource.setDigitGroupingInitialized(isDigitGroupingInitialized)
+    override suspend fun setDigitGroupingInitialized(isDigitGroupingInitialized: Boolean) =
+        settingsDataSource.setDigitGroupingInitialized(isDigitGroupingInitialized)
 
     override suspend fun incrementAppLaunchCounter() = settingsDataSource.incrementAppLaunchCounter()
 }

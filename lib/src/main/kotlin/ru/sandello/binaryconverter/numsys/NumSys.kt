@@ -36,7 +36,11 @@ public object NumSys {
         return result
     }
 
-    public fun convert(numberSystem: NumberSystem, targetRadix: Radix, ignoreCase: Boolean = false): NumberSystem = NumberSystem(
+    public fun convert(
+        numberSystem: NumberSystem,
+        targetRadix: Radix,
+        ignoreCase: Boolean = false,
+    ): NumberSystem = NumberSystem(
         value = convert(
             value = numberSystem.value,
             sourceRadix = numberSystem.radix.value,
@@ -46,7 +50,10 @@ public object NumSys {
         radix = targetRadix,
     )
 
-    public fun NumberSystem.toRadix(value: Radix, ignoreCase: Boolean = false): NumberSystem = convert(this, value, ignoreCase)
+    public fun NumberSystem.toRadix(
+        value: Radix,
+        ignoreCase: Boolean = false,
+    ): NumberSystem = convert(this, value, ignoreCase)
 
     private fun convertIntegerPart(value: String, sourceRadix: Int, targetRadix: Int): String {
         val decimalValue = convertToDecimal(value, sourceRadix)

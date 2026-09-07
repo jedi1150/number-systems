@@ -8,5 +8,6 @@ import ru.sandello.binaryconverter.numsys.model.Radix
 class NumberSystemRepository @Inject constructor(
     private val numberSystemDataSource: NumberSystemDataSource,
 ) {
-    suspend fun convert(value: NumberSystem, toRadix: Radix): NumberSystem? = numberSystemDataSource.convert(value, toRadix)
+    suspend fun convert(value: NumberSystem, toRadix: Radix): NumberSystem? =
+        numberSystemDataSource.convert(value, toRadix)
 }
