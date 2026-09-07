@@ -18,14 +18,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: Setup Java
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v6
         with:
           distribution: 'temurin'
           java-version: '21'
+          cache-jdk: true
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
       - name: Create google-services.json file
         run: |
           echo "$GOOGLE_SERVICES_JSON" | base64 -d > app/google-services.json
@@ -44,22 +49,30 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: lint-reports
-          path: '**/build/reports/lint-results-*'
+          path: |
+            **/build/reports/lint-results-*
+            **/build/reports/detekt/
           if-no-files-found: warn
+          include-hidden-files: false
 
   unit-tests:
     name: Unit Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: Setup Java
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v6
         with:
           distribution: 'temurin'
           java-version: '21'
+          cache-jdk: true
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
       - name: Create google-services.json file
         run: |
           echo "$GOOGLE_SERVICES_JSON" | base64 -d > app/google-services.json
@@ -74,20 +87,26 @@ jobs:
           name: test-reports
           path: '**/build/reports/tests/'
           if-no-files-found: warn
+          include-hidden-files: false
 
   build-verification:
     name: Build Verification
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: Setup Java
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v6
         with:
           distribution: 'temurin'
           java-version: '21'
+          cache-jdk: true
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
       - name: Create google-services.json file
         run: |
           echo "$GOOGLE_SERVICES_JSON" | base64 -d > app/google-services.json
