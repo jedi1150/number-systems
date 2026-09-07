@@ -1,7 +1,6 @@
-package ru.sandello.binaryconverter.ui
+package ru.sandello.binaryconverter.baselineprofile
 
-object TestTags {
-    const val NAV_CONVERTER = "nav_converter"
+internal object BenchmarkTags {
     const val NAV_CALCULATOR = "nav_calculator"
     const val NAV_SETTINGS = "nav_settings"
     const val CONVERTER_LIST = "converter_list"

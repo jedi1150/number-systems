@@ -3,6 +3,7 @@ package ru.sandello.binaryconverter
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.SystemBarStyle
+import androidx.activity.compose.ReportDrawnWhen
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -88,6 +89,7 @@ class MainActivity : AppCompatActivity() {
             NumberSystemsTheme(
                 darkTheme = darkTheme,
             ) {
+                ReportDrawnWhen { uiState is MainUiState.Success }
                 NumberSystemsApp(
                     windowSizeClass = calculateWindowSizeClass(this),
                 )

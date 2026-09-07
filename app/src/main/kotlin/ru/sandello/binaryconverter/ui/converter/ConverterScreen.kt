@@ -73,7 +73,8 @@ fun ConverterScreen(
         modifier = Modifier
             .fillMaxSize()
             .consumeWindowInsets(contentPadding)
-            .imePadding(),
+            .imePadding()
+            .testTag(TestTags.CONVERTER_LIST),
         contentPadding = PaddingValues(
             start = 8.dp,
             top = contentPadding.calculateTopPadding() + 8.dp,

@@ -1,0 +1,96 @@
+name: Baseline Profile
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * 1"
+
+concurrency:
+  group: baseline-profile
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  generate:
+    name: Generate prod baseline profile
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v7
+
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Setup Java
+        uses: actions/setup-java@v6
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache-jdk: true
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
+      - name: Create google-services.json file
+        run: |
+          echo "$GOOGLE_SERVICES_JSON" | base64 -d > app/google-services.json
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+
+      - name: Generate Baseline Profile
+        run: |
+          cat >> gradle.properties <<'EOF'
+          android.testoptions.manageddevices.emulator.gpu=swiftshader_indirect
+          android.experimental.testOptions.managedDevices.maxConcurrentDevices=1
+          android.experimental.testOptions.managedDevices.setupTimeoutMinutes=20
+          EOF
+          ./gradlew :app:generateProdReleaseBaselineProfile -Pbaselineprofile.managedDevice=true
+
+      - name: Upload profiles
+        uses: actions/upload-artifact@v7
+        with:
+          name: prod-baseline-profiles
+          path: app/src/prodRelease/generated/baselineProfiles/
+          if-no-files-found: error
+
+      - name: Open pull request
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B ci/baseline-profile-prod
+          git add app/src/prodRelease/generated/baselineProfiles/
+          if git diff --cached --quiet; then
+            echo "Baseline profiles are unchanged"
+            exit 0
+          fi
+          git commit -m "$(cat <<'EOF'
+          Update prod baseline and startup profiles.
+
+          EOF
+          )"
+          git push -u origin ci/baseline-profile-prod --force
+          if gh pr view ci/baseline-profile-prod --json number --jq .number >/dev/null 2>&1; then
+            echo "Pull request already exists"
+          else
+            gh pr create --title "Update prod baseline profiles" --body "$(cat <<'EOF'
+          ## Summary
+          - Regenerated `prodRelease` baseline and startup profiles on a Gradle Managed Device (Pixel 6, API 34).
+
+          ## Test plan
+          - [ ] Review profile diff size
+          - [ ] Merge before the next Play upload
+          EOF
+          )"
+          fi

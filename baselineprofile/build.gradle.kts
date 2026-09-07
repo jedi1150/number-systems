@@ -14,6 +14,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
@@ -22,16 +26,67 @@ android {
     targetProjectPath = ":app"
     experimentalProperties["android.experimental.self-instrumenting"] = true
 
+    testOptions {
+        managedDevices {
+            localDevices {
+                create("ciPixel6Api34") {
+                    device = "Pixel 6"
+                    apiLevel = 34
+                    systemImageSource = "aosp"
+                }
+            }
+        }
+    }
+
     flavorDimensions += listOf("flavor-type")
     productFlavors {
         create("prod") {
             dimension = "flavor-type"
+            buildConfigField("String", "APP_PACKAGE_NAME", "\"ru.sandello.binaryconverter\"")
         }
         create("beta") {
             dimension = "flavor-type"
+            buildConfigField("String", "APP_PACKAGE_NAME", "\"ru.sandello.binaryconverter.beta\"")
         }
         create("dev") {
             dimension = "flavor-type"
+            buildConfigField("String", "APP_PACKAGE_NAME", "\"ru.sandello.binaryconverter.dev\"")
+        }
+    }
+}
+
+baselineProfile {
+    val useManagedDevice = providers.gradleProperty("baselineprofile.managedDevice")
+        .map { it.equals("true", ignoreCase = true) }
+        .orElse(false)
+    if (useManagedDevice.get()) {
+        managedDevices += "ciPixel6Api34"
+        useConnectedDevices = false
+    } else {
+        useConnectedDevices = true
+    }
+}
+
+androidComponents {
+    onVariants { variant ->
+        val runnerArguments = variant.instrumentationRunnerArguments
+        when (variant.buildType) {
+            "nonMinifiedRelease" -> {
+                runnerArguments.put(
+                    "notClass",
+                    listOf(
+                        "ru.sandello.binaryconverter.baselineprofile.StartupBenchmark",
+                        "ru.sandello.binaryconverter.baselineprofile.ScrollBenchmark",
+                    ).joinToString(","),
+                )
+            }
+
+            "benchmark" -> {
+                runnerArguments.put(
+                    "notClass",
+                    "ru.sandello.binaryconverter.baselineprofile.BaselineProfileGenerator",
+                )
+            }
         }
     }
 }
