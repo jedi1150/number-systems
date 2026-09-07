@@ -81,4 +81,3 @@ protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 baselineprofile = { id = "androidx.baselineprofile", version.ref = "baselineprofilePlugin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 androidTest = { id = "com.android.test", version.ref = "androidGradlePlugin" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
