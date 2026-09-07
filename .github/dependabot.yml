@@ -31,7 +31,8 @@ updates:
         patterns:
           - "androidx.core.*"
           - "androidx.lifecycle.*"
-          - "androidx.navigation.*"
+          - "androidx.navigation3.*"
+          - "androidx.navigationevent.*"
 
   - package-ecosystem: "github-actions"
     directory: "/"

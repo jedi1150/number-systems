@@ -5,57 +5,50 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.navigation.NavDestination
-import androidx.navigation.NavDestination.Companion.hasRoute
-import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navOptions
-import kotlinx.coroutines.CoroutineScope
-import ru.sandello.binaryconverter.ui.calculator.navigation.navigateToCalculator
-import ru.sandello.binaryconverter.ui.converter.navigation.navigateToConverter
 import ru.sandello.binaryconverter.ui.navigation.CalculatorRoute
 import ru.sandello.binaryconverter.ui.navigation.ConverterRoute
+import ru.sandello.binaryconverter.ui.navigation.NavigationState
+import ru.sandello.binaryconverter.ui.navigation.Navigator
 import ru.sandello.binaryconverter.ui.navigation.SettingsRoute
 import ru.sandello.binaryconverter.ui.navigation.TopLevelDestination
 import ru.sandello.binaryconverter.ui.navigation.TopLevelDestination.CALCULATOR
 import ru.sandello.binaryconverter.ui.navigation.TopLevelDestination.CONVERTER
 import ru.sandello.binaryconverter.ui.navigation.TopLevelDestination.SETTINGS
-import ru.sandello.binaryconverter.ui.settings.navigation.navigateToSettings
+import ru.sandello.binaryconverter.ui.navigation.rememberNavigationState
 
 @Composable
 fun rememberNumSysAppState(
     windowSizeClass: WindowSizeClass,
-    coroutineScope: CoroutineScope = rememberCoroutineScope(),
-    navController: NavHostController = rememberNavController(),
 ): NumSysAppState {
+    val navigationState = rememberNavigationState(
+        startRoute = ConverterRoute,
+        topLevelRoutes = setOf(ConverterRoute, CalculatorRoute, SettingsRoute),
+    )
+    val navigator = remember { Navigator(navigationState) }
     return remember(
-        navController,
-        coroutineScope,
+        navigationState,
+        navigator,
         windowSizeClass,
     ) {
         NumSysAppState(
-            navController,
-            windowSizeClass,
+            navigationState = navigationState,
+            navigator = navigator,
+            windowSizeClass = windowSizeClass,
         )
     }
 }
 
 @Stable
 class NumSysAppState(
-    val navController: NavHostController,
+    val navigationState: NavigationState,
+    val navigator: Navigator,
     private val windowSizeClass: WindowSizeClass,
 ) {
-    val currentDestination: NavDestination?
-        @Composable get() = navController.currentBackStackEntryAsState().value?.destination
-
     val currentTopLevelDestination: TopLevelDestination?
-        @Composable get() = when {
-            currentDestination?.hasRoute<ConverterRoute>() == true -> CONVERTER
-            currentDestination?.hasRoute<CalculatorRoute>() == true -> CALCULATOR
-            currentDestination?.hasRoute<SettingsRoute>() == true -> SETTINGS
+        get() = when (navigationState.topLevelRoute) {
+            ConverterRoute -> CONVERTER
+            CalculatorRoute -> CALCULATOR
+            SettingsRoute -> SETTINGS
             else -> null
         }
 
@@ -66,19 +59,7 @@ class NumSysAppState(
         get() = !shouldShowBottomBar
 
     fun navigateToTopLevelDestination(topLevelDestination: TopLevelDestination) {
-        val topLevelNavOptions = navOptions {
-            popUpTo(navController.graph.findStartDestination().id) {
-                saveState = true
-            }
-            launchSingleTop = true
-            restoreState = true
-        }
-
-        when (topLevelDestination) {
-            CONVERTER -> navController.navigateToConverter(topLevelNavOptions)
-            CALCULATOR -> navController.navigateToCalculator(topLevelNavOptions)
-            SETTINGS -> navController.navigateToSettings(topLevelNavOptions)
-        }
+        navigator.navigate(topLevelDestination.route)
     }
 
     val topLevelDestinations: List<TopLevelDestination> = TopLevelDestination.entries

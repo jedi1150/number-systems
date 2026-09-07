@@ -1,12 +1,13 @@
 package ru.sandello.binaryconverter.ui.navigation
 
+import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
 
 @Serializable
-object ConverterRoute
+data object ConverterRoute : NavKey
 
 @Serializable
-object CalculatorRoute
+data object CalculatorRoute : NavKey
 
 @Serializable
-object SettingsRoute
+data object SettingsRoute : NavKey

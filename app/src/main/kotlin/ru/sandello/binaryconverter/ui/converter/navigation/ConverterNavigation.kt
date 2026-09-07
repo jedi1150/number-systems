@@ -1,20 +1,17 @@
 package ru.sandello.binaryconverter.ui.converter.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.navigation.NavController
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavOptions
-import androidx.navigation.compose.composable
-import ru.sandello.binaryconverter.ui.converter.ConverterRoute as ConverterRouteScreen
+import androidx.navigation3.runtime.EntryProviderScope
+import androidx.navigation3.runtime.NavKey
 import ru.sandello.binaryconverter.ui.converter.ConverterViewModel
+import ru.sandello.binaryconverter.ui.converter.ConverterRoute as ConverterRouteScreen
 import ru.sandello.binaryconverter.ui.navigation.ConverterRoute
 
-fun NavController.navigateToConverter(navOptions: NavOptions? = null) {
-    this.navigate(ConverterRoute, navOptions)
-}
-
-fun NavGraphBuilder.converterScreen(contentPadding: PaddingValues, viewModel: ConverterViewModel) {
-    composable<ConverterRoute> {
+fun EntryProviderScope<NavKey>.converterScreen(
+    contentPadding: PaddingValues,
+    viewModel: ConverterViewModel,
+) {
+    entry<ConverterRoute> {
         ConverterRouteScreen(contentPadding, viewModel = viewModel)
     }
 }

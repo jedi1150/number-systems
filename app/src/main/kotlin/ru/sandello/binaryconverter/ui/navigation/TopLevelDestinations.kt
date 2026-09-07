@@ -1,26 +1,26 @@
 package ru.sandello.binaryconverter.ui.navigation
 
+import androidx.navigation3.runtime.NavKey
 import ru.sandello.binaryconverter.R
-import kotlin.reflect.KClass
 
 enum class TopLevelDestination(
     val iconId: Int,
     val titleTextId: Int,
-    val route: KClass<*>,
+    val route: NavKey,
 ) {
     CONVERTER(
         iconId = R.drawable.ic_converter,
         titleTextId = R.string.screen_converter,
-        route = ConverterRoute::class,
+        route = ConverterRoute,
     ),
     CALCULATOR(
         iconId = R.drawable.ic_calculator,
         titleTextId = R.string.screen_calculator,
-        route = CalculatorRoute::class,
+        route = CalculatorRoute,
     ),
     SETTINGS(
         iconId = R.drawable.ic_settings,
         titleTextId = R.string.screen_settings,
-        route = SettingsRoute::class,
+        route = SettingsRoute,
     ),
 }

@@ -1,5 +1,6 @@
 package ru.sandello.binaryconverter
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
@@ -61,6 +62,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        enableEdgeToEdge()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            window.isNavigationBarContrastEnforced = false
+        }
+
         setContent {
             val darkTheme = shouldUseDarkTheme(uiState)
 
@@ -75,6 +81,9 @@ class MainActivity : AppCompatActivity() {
                         android.graphics.Color.argb(0x80, 0x1b, 0x1b, 0x1b),
                     ) { darkTheme },
                 )
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    window.isNavigationBarContrastEnforced = false
+                }
                 onDispose {}
             }
 

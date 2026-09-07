@@ -1,21 +1,14 @@
 package ru.sandello.binaryconverter.ui
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
@@ -38,7 +31,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.layout.onSizeChanged
@@ -48,9 +40,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavDestination
-import androidx.navigation.NavDestination.Companion.hasRoute
-import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigationevent.NavigationEventInfo
+import androidx.navigationevent.compose.NavigationBackHandler
+import androidx.navigationevent.compose.rememberNavigationEventState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import ru.sandello.binaryconverter.ui.calculator.CalculatorViewModel
@@ -59,11 +51,10 @@ import ru.sandello.binaryconverter.ui.converter.ConverterViewModel
 import ru.sandello.binaryconverter.ui.explanation.ExplanationScreen
 import ru.sandello.binaryconverter.ui.explanation.ExplanationViewModel
 import ru.sandello.binaryconverter.ui.navigation.NumSysNavHost
-import ru.sandello.binaryconverter.ui.navigation.TopLevelDestination
 import ru.sandello.binaryconverter.ui.navigation.TopLevelDestination.CALCULATOR
 import ru.sandello.binaryconverter.ui.navigation.TopLevelDestination.CONVERTER
 
-@OptIn(ExperimentalComposeUiApi::class, ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NumberSystemsApp(
     windowSizeClass: WindowSizeClass,
@@ -89,6 +80,8 @@ fun NumberSystemsApp(
     val bottomSheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = skipPartiallyExpanded,
     )
+    val isBottomSheetVisible = bottomSheetState.targetValue != SheetValue.Hidden
+    val explanationBackState = rememberNavigationEventState(currentInfo = NavigationEventInfo.None)
 
     LaunchedEffect(converterViewModel.showExplanation.value) {
         if (converterViewModel.showExplanation.value) {
@@ -109,9 +102,13 @@ fun NumberSystemsApp(
         }
     }
 
-    BackHandler(bottomSheetState.targetValue != SheetValue.Hidden) {
-        converterViewModel.hideExplanation()
-    }
+    NavigationBackHandler(
+        state = explanationBackState,
+        isBackEnabled = isBottomSheetVisible,
+        onBackCompleted = {
+            converterViewModel.hideExplanation()
+        },
+    )
 
     Column {
         Scaffold(
@@ -120,7 +117,7 @@ fun NumberSystemsApp(
                     NavigationBar {
                         appState.topLevelDestinations.forEach { destination ->
                             NavigationBarItem(
-                                selected = appState.currentDestination.isTopLevelDestinationInHierarchy(destination),
+                                selected = destination.route == appState.navigationState.topLevelRoute,
                                 onClick = {
                                     appState.navigateToTopLevelDestination(destination)
                                 },
@@ -141,21 +138,12 @@ fun NumberSystemsApp(
                 }
             },
         ) { contentPadding ->
-            Row(
-                Modifier
-                    .fillMaxSize()
-                    .windowInsetsPadding(
-                        WindowInsets.safeDrawing
-                            .only(
-                                WindowInsetsSides.Horizontal,
-                            ),
-                    )
-            ) {
+            Row(Modifier.fillMaxSize()) {
                 if (appState.shouldShowNavRail) {
                     NavigationRail {
                         appState.topLevelDestinations.forEach { destination ->
                             NavigationRailItem(
-                                selected = appState.currentDestination.isTopLevelDestinationInHierarchy(destination),
+                                selected = destination.route == appState.navigationState.topLevelRoute,
                                 onClick = {
                                     appState.navigateToTopLevelDestination(destination)
                                 },
@@ -176,7 +164,8 @@ fun NumberSystemsApp(
                 }
                 NumSysNavHost(
                     contentPadding = contentPadding,
-                    appState = appState,
+                    navigationState = appState.navigationState,
+                    navigator = appState.navigator,
                     converterViewModel = converterViewModel,
                     calculatorViewModel = calculatorViewModel,
                 )
@@ -189,7 +178,6 @@ fun NumberSystemsApp(
                     .fillMaxSize()
                     .padding(contentPadding)
                     .consumeWindowInsets(contentPadding)
-                    .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal))
                     .imePadding()
                     .onSizeChanged {
                         contentHeight = it.height
@@ -279,7 +267,3 @@ fun NumberSystemsApp(
         }
     }
 }
-
-private fun NavDestination?.isTopLevelDestinationInHierarchy(destination: TopLevelDestination) = this?.hierarchy?.any {
-    it.hasRoute(destination.route)
-} == true

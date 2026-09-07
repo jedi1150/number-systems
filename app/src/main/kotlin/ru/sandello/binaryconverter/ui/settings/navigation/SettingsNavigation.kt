@@ -1,19 +1,13 @@
 package ru.sandello.binaryconverter.ui.settings.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.navigation.NavController
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavOptions
-import androidx.navigation.compose.composable
+import androidx.navigation3.runtime.EntryProviderScope
+import androidx.navigation3.runtime.NavKey
 import ru.sandello.binaryconverter.ui.navigation.SettingsRoute
 import ru.sandello.binaryconverter.ui.settings.SettingsRoute as SettingsRouteScreen
 
-fun NavController.navigateToSettings(navOptions: NavOptions? = null) {
-    this.navigate(SettingsRoute, navOptions)
-}
-
-fun NavGraphBuilder.settingsScreen(contentPadding: PaddingValues) {
-    composable<SettingsRoute> {
+fun EntryProviderScope<NavKey>.settingsScreen(contentPadding: PaddingValues) {
+    entry<SettingsRoute> {
         SettingsRouteScreen(contentPadding = contentPadding)
     }
 }
