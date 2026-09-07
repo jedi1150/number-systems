@@ -80,12 +80,16 @@ jobs:
           GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
       - name: Run tests
         run: ./gradlew :app:testProdDebugUnitTest :lib:test
+      - name: Validate Compose screenshots
+        run: ./gradlew :app:validateProdDebugScreenshotTest
       - name: Upload reports
         if: always()
         uses: actions/upload-artifact@v7
         with:
           name: test-reports
-          path: '**/build/reports/tests/'
+          path: |
+            **/build/reports/tests/
+            **/build/reports/screenshotTest/
           if-no-files-found: warn
           include-hidden-files: false
 

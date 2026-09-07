@@ -25,6 +25,7 @@ kotlinxSerializationJson = "1.11.0"
 ksp = "2.3.11"
 ktlint = "2.0.0-ALPHA-4"
 nav3Core = "1.1.7"
+screenshot = "0.0.1-alpha15"
 navigationevent = "1.1.2"
 profileinstaller = "1.4.1"
 protobuf = "4.36.1"
@@ -73,6 +74,7 @@ kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 ktlint-cli = { module = "io.github.ktlint.core:ktlint-cli", version.ref = "ktlint" }
 protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-lite", version.ref = "protobuf" }
 protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protobuf" }
+screenshot-validation-api = { group = "com.android.tools.screenshot", name = "screenshot-validation-api", version.ref = "screenshot" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
@@ -88,3 +90,4 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
+screenshot = { id = "com.android.compose.screenshot", version.ref = "screenshot" }

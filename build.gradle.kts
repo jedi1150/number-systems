@@ -12,6 +12,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.baselineprofile) apply false
+    alias(libs.plugins.screenshot) apply false
     alias(libs.plugins.androidTest) apply false
     alias(libs.plugins.detekt) apply false
 }
