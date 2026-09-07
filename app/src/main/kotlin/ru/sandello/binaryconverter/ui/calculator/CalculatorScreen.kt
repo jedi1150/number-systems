@@ -29,6 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
@@ -44,6 +45,7 @@ import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.numsys.model.NumberSystem
 import ru.sandello.binaryconverter.numsys.model.Radix
 import ru.sandello.binaryconverter.ui.DigitGroupingVisualTransformation
+import ru.sandello.binaryconverter.ui.TestTags
 import ru.sandello.binaryconverter.ui.calculator.ArithmeticType.Addition
 import ru.sandello.binaryconverter.ui.calculator.ArithmeticType.Divide
 import ru.sandello.binaryconverter.ui.calculator.ArithmeticType.Multiply
@@ -105,7 +107,9 @@ fun CalculatorScreen(
                             ),
                         )
                     },
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier
+                        .weight(1f)
+                        .testTag(TestTags.CALCULATOR_OPERAND_1),
                     textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                     label = { Text(stringResource(R.string.radix, calculatorUiState.numberSystemCustom1.radix.value)) },
                     isError = calculatorUiState.numberSystemCustom1Error,

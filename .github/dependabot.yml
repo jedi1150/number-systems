@@ -23,6 +23,7 @@ updates:
       hilt:
         patterns:
           - "com.google.dagger:hilt.*"
+          - "androidx.hilt:*"
       kotlin:
         patterns:
           - "org.jetbrains.kotlin.*"

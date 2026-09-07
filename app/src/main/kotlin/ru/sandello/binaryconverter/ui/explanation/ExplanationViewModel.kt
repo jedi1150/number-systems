@@ -1,6 +1,5 @@
 package ru.sandello.binaryconverter.ui.explanation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,6 +17,7 @@ import ru.sandello.binaryconverter.numsys.NumSys
 import ru.sandello.binaryconverter.numsys.model.Radix
 import ru.sandello.binaryconverter.repository.SettingsRepository
 import ru.sandello.binaryconverter.utils.APP_TAG
+import ru.sandello.binaryconverter.utils.AppLog
 import ru.sandello.binaryconverter.utils.CharRegex
 
 enum class ExplanationOperandType { OperandCustom1, OperandCustom2 }
@@ -41,7 +41,7 @@ class ExplanationViewModel @Inject constructor(
     }
 
     private fun convert(explanationOperandType: ExplanationOperandType, from: NumberSystem, toRadix: Radix) {
-        Log.d(APP_TAG, "ExplanationViewModel::convert: value: ${from.value}, from radix: ${from.radix.value}")
+        AppLog.d(APP_TAG, "ExplanationViewModel::convert: value: ${from.value}, from radix: ${from.radix.value}")
 
         check(
             from.value.matches(
@@ -52,7 +52,7 @@ class ExplanationViewModel @Inject constructor(
                 ),
             ),
         ) {
-            Log.w(APP_TAG, "ExplanationViewModel::convert: Invalid character entered")
+            AppLog.w(APP_TAG, "ExplanationViewModel::convert: Invalid character entered")
             // TODO(oleg): Add crashlytics report
             return
         }
@@ -88,7 +88,7 @@ class ExplanationViewModel @Inject constructor(
 
         when (explanationRadixType) {
             ExplanationRadixType.RadixCustom1 -> {
-                Log.d(
+                AppLog.d(
                     APP_TAG,
                     "ExplanationViewModel::updateRadix: from.radix from ${explanationUiState.value.from.radix.value} to ${newRadix.value}",
                 )
@@ -100,7 +100,7 @@ class ExplanationViewModel @Inject constructor(
             }
 
             ExplanationRadixType.RadixCustom2 -> {
-                Log.d(
+                AppLog.d(
                     APP_TAG,
                     "ExplanationViewModel::updateRadix: to.radix from ${explanationUiState.value.to.radix.value} to ${newRadix.value}",
                 )

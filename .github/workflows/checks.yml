@@ -114,3 +114,5 @@ jobs:
           GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
       - name: Assemble Debug
         run: ./gradlew :app:assembleProdDebug
+      - name: Minify release
+        run: ./gradlew :app:minifyProdReleaseWithR8

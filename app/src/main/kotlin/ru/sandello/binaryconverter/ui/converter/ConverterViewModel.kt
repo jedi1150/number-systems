@@ -1,6 +1,5 @@
 package ru.sandello.binaryconverter.ui.converter
 
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -20,6 +19,7 @@ import ru.sandello.binaryconverter.numsys.model.Radix
 import ru.sandello.binaryconverter.repository.NumberSystemRepository
 import ru.sandello.binaryconverter.repository.SettingsRepository
 import ru.sandello.binaryconverter.utils.APP_TAG
+import ru.sandello.binaryconverter.utils.AppLog
 import ru.sandello.binaryconverter.utils.CharRegex
 
 @HiltViewModel
@@ -65,7 +65,7 @@ class ConverterViewModel @Inject constructor(
                 ),
             ),
         ) {
-            Log.w(APP_TAG, "ConverterViewModel::convert: Invalid character entered")
+            AppLog.w(APP_TAG, "ConverterViewModel::convert: Invalid character entered")
 
             when (from.radix) {
                 converterUiState.value.numberSystem2.radix -> {
@@ -183,7 +183,7 @@ class ConverterViewModel @Inject constructor(
     }
 
     fun updateCustomRadix(newRadix: Radix) {
-        Log.d(
+        AppLog.d(
             APP_TAG,
             "ConverterViewModel::updateCustomRadix ${converterUiState.value.numberSystemCustom.radix} to $newRadix",
         )

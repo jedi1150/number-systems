@@ -1,22 +1,25 @@
 package ru.sandello.binaryconverter.numsys
 
-import android.util.Log
 import javax.inject.Inject
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.model.asExternalModel
 import ru.sandello.binaryconverter.model.asInternalModel
 import ru.sandello.binaryconverter.numsys.model.Radix
+import ru.sandello.binaryconverter.utils.AppLog
 
-class NumberSystemDataSource @Inject constructor(private val numSys: NumSys) {
+class NumberSystemDataSource @Inject constructor(
+    private val numSys: NumSys,
+    private val defaultDispatcher: CoroutineDispatcher,
+) {
     suspend fun convert(from: NumberSystem, toRadix: Radix): NumberSystem? = coroutineScope {
-        Log.d("NumberSystemDataSource", "convert: value: ${from.value}, from radix: ${from.radix.value}")
+        AppLog.d("NumberSystemDataSource", "convert: value: ${from.value}, from radix: ${from.radix.value}")
 
         if (from.value.isEmpty()) return@coroutineScope null
 
-        return@coroutineScope withContext(Dispatchers.Default) {
+        return@coroutineScope withContext(defaultDispatcher) {
             try {
                 numSys
                     .convert(
@@ -25,7 +28,7 @@ class NumberSystemDataSource @Inject constructor(private val numSys: NumSys) {
                         ignoreCase = from.radix.value in Radix.BIN.value..36,
                     ).asExternalModel()
             } catch (e: IllegalArgumentException) {
-                Log.e("NumberSystemDataSource", "Conversion failed: ${e.message}")
+                AppLog.e("NumberSystemDataSource", "Conversion failed: ${e.message}")
                 null
             }
         }

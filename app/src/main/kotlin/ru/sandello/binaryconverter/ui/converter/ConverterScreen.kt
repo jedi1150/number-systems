@@ -23,6 +23,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
@@ -38,6 +39,7 @@ import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.NumberSystem
 import ru.sandello.binaryconverter.numsys.model.Radix
 import ru.sandello.binaryconverter.ui.DigitGroupingVisualTransformation
+import ru.sandello.binaryconverter.ui.TestTags
 import ru.sandello.binaryconverter.ui.components.RadixExposedDropdown
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
 import ru.sandello.binaryconverter.ui.theme.RobotoMonoFamily
@@ -91,7 +93,9 @@ fun ConverterScreen(
                         ),
                     )
                 },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag(TestTags.CONVERTER_DEC),
                 textStyle = TextStyle(fontFamily = RobotoMonoFamily),
                 label = { Text(stringResource(R.string.dec)) },
                 visualTransformation = if (isDigitGroupingEnabled) {
@@ -231,7 +235,9 @@ fun ConverterScreen(
                     },
                     radix = converterUiState.numberSystemCustom.radix,
                     radixes = converterUiState.radixes,
-                    modifier = Modifier.width(96.dp),
+                    modifier = Modifier
+                        .width(96.dp)
+                        .testTag(TestTags.CONVERTER_CUSTOM_RADIX),
                     isCompact = false,
                     trailingIcon = {
                         ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)

@@ -4,30 +4,11 @@ import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.googlefonts.Font
-import androidx.compose.ui.text.googlefonts.GoogleFont
 import androidx.compose.ui.unit.sp
-import ru.sandello.binaryconverter.R
 
-private val provider = GoogleFont.Provider(
-    providerAuthority = "com.google.android.gms.fonts",
-    providerPackage = "com.google.android.gms",
-    certificates = R.array.com_google_android_gms_fonts_certs,
-)
+val RobotoFamily: FontFamily = FontFamily.SansSerif
 
-val Roboto = GoogleFont("Roboto")
-
-val RobotoMono = GoogleFont("Roboto Mono")
-
-val RobotoFamily = FontFamily(
-    Font(googleFont = Roboto, fontProvider = provider),
-    Font(googleFont = Roboto, fontProvider = provider, weight = FontWeight.Medium),
-)
-
-val RobotoMonoFamily = FontFamily(
-    Font(googleFont = RobotoMono, fontProvider = provider),
-    Font(googleFont = RobotoMono, fontProvider = provider, weight = FontWeight.Medium),
-)
+val RobotoMonoFamily: FontFamily = FontFamily.Monospace
 
 val Typography = Typography(
     displayLarge = TextStyle(

@@ -1,6 +1,5 @@
 package ru.sandello.binaryconverter.ui.calculator
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -33,6 +32,7 @@ import ru.sandello.binaryconverter.ui.calculator.CalculatorRadixType.RadixCustom
 import ru.sandello.binaryconverter.ui.calculator.CalculatorRadixType.RadixCustom2
 import ru.sandello.binaryconverter.ui.calculator.CalculatorRadixType.RadixResult
 import ru.sandello.binaryconverter.utils.APP_TAG
+import ru.sandello.binaryconverter.utils.AppLog
 import ru.sandello.binaryconverter.utils.CharRegex
 
 @HiltViewModel
@@ -65,7 +65,7 @@ class CalculatorViewModel @Inject constructor(
                         newRadix,
                     ),
                 )
-                Log.d(
+                AppLog.d(
                     APP_TAG,
                     "CalculatorViewModel::updateRadix: numberSystemCustom1.radix from ${calculatorUiState.value.numberSystemCustom1.radix.value} to ${newRadix.value}",
                 )
@@ -83,7 +83,7 @@ class CalculatorViewModel @Inject constructor(
                         newRadix,
                     ),
                 )
-                Log.d(
+                AppLog.d(
                     APP_TAG,
                     "CalculatorViewModel::updateRadix: numberSystemCustom2.radix from ${calculatorUiState.value.numberSystemCustom2.radix.value} to ${newRadix.value}",
                 )
@@ -101,7 +101,7 @@ class CalculatorViewModel @Inject constructor(
                         newRadix,
                     ),
                 )
-                Log.d(
+                AppLog.d(
                     APP_TAG,
                     "CalculatorViewModel::updateRadix: numberSystemResult.radix from ${calculatorUiState.value.numberSystemResult.radix.value} to ${newRadix.value}",
                 )
@@ -113,7 +113,7 @@ class CalculatorViewModel @Inject constructor(
                     if (value == newRadix) return
                     value = newRadix
                 }
-                Log.d(
+                AppLog.d(
                     APP_TAG,
                     "CalculatorViewModel::updateRadix: radixCalculation.value from ${radixCalculation.value.value} to ${newRadix.value}",
                 )
@@ -123,7 +123,7 @@ class CalculatorViewModel @Inject constructor(
     }
 
     fun selectArithmetic(arithmeticType: ArithmeticType) {
-        Log.d(APP_TAG, "CalculatorViewModel::selectArithmetic: arithmeticType: $arithmeticType")
+        AppLog.d(APP_TAG, "CalculatorViewModel::selectArithmetic: arithmeticType: $arithmeticType")
 
         calculatorUiState.value.selectedArithmetic.run {
             if (this == arithmeticType) return
@@ -133,7 +133,7 @@ class CalculatorViewModel @Inject constructor(
     }
 
     private fun convert(calculatorOperandType: CalculatorOperandType, from: NumberSystem, toRadixes: Array<Radix>) {
-        Log.d(APP_TAG, "CalculatorViewModel::convert: textFieldVal: ${from.value}, from radix: ${from.radix.value}")
+        AppLog.d(APP_TAG, "CalculatorViewModel::convert: textFieldVal: ${from.value}, from radix: ${from.radix.value}")
 
         check(
             from.value.matches(
@@ -144,7 +144,7 @@ class CalculatorViewModel @Inject constructor(
                 ),
             ),
         ) {
-            Log.w(APP_TAG, "CalculatorViewModel::convert: Invalid character entered")
+            AppLog.w(APP_TAG, "CalculatorViewModel::convert: Invalid character entered")
             when (calculatorOperandType) {
                 OperandCustom1 -> {
                     _calculatorUiState.value = calculatorUiState.value.copy(numberSystemCustom1Error = true)
@@ -235,7 +235,7 @@ class CalculatorViewModel @Inject constructor(
                             ignoreCase = toRadix.value in Radix.BIN.value..Radix.HEX.value,
                         )
                     } catch (exception: IllegalArgumentException) {
-                        Log.e(APP_TAG, "CalculatorViewModel::convert: failed to convert", exception)
+                        AppLog.e(APP_TAG, "CalculatorViewModel::convert: failed to convert", exception)
                         when (calculatorOperandType) {
                             OperandCustom1 -> {
                                 numberSystem1Temp.value = NumberSystem(String(), numberSystem1Temp.value.radix)
@@ -259,12 +259,12 @@ class CalculatorViewModel @Inject constructor(
                 }.asFlow()
                 .onCompletion { cause ->
                     if (cause != null) {
-                        Log.d(APP_TAG, "Flow completed exceptionally")
+                        AppLog.d(APP_TAG, "Flow completed exceptionally")
                     } else {
                         resetErrors()
                         if (calculatorOperandType != OperandResult) calculate()
                     }
-                }.catch { error -> Log.e(APP_TAG, "CalculatorViewModel::convert: catch", error) }
+                }.catch { error -> AppLog.e(APP_TAG, "CalculatorViewModel::convert: catch", error) }
                 .collect { convertedData ->
                     when (calculatorOperandType) {
                         OperandCustom1 -> {
@@ -290,7 +290,7 @@ class CalculatorViewModel @Inject constructor(
             )
             return
         }
-        Log.d(APP_TAG, "CalculatorViewModel::calculate")
+        AppLog.d(APP_TAG, "CalculatorViewModel::calculate")
 
         when (calculatorUiState.value.selectedArithmetic) {
             Addition -> {

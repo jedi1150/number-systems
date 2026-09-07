@@ -37,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.Wallpapers
@@ -49,6 +50,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import java.util.Locale
 import ru.sandello.binaryconverter.R
 import ru.sandello.binaryconverter.model.data.ThemeType
+import ru.sandello.binaryconverter.ui.TestTags
 import ru.sandello.binaryconverter.ui.settings.components.SettingsLanguageDialog
 import ru.sandello.binaryconverter.ui.settings.components.SettingsThemeDialog
 import ru.sandello.binaryconverter.ui.theme.NumberSystemsTheme
@@ -139,7 +141,8 @@ fun SettingsScreen(
             modifier = Modifier
                 .consumeWindowInsets(contentPadding)
                 .verticalScroll(rememberScrollState())
-                .padding(contentPadding),
+                .padding(contentPadding)
+                .testTag(TestTags.SETTINGS_LIST),
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
             Column {
