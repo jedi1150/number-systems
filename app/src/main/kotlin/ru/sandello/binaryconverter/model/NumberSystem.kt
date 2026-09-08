@@ -16,10 +16,11 @@ fun NumberSystem.asInternalModel() = ru.sandello.binaryconverter.numsys.model.Nu
     radix,
 )
 
-fun NumberSystem.pretty(isDigitGroupingEnabled: Boolean = true): String =
-    value.split(NumSys.Constants.DELIMITER).joinToString(
-        separator = NumSys.Constants.DELIMITER.toString(),
-    ) { part ->
+fun NumberSystem.pretty(
+    isDigitGroupingEnabled: Boolean = true,
+): String = value.split(NumSys.Constants.DELIMITER).joinToString(
+    separator = NumSys.Constants.DELIMITER.toString(),
+) { part ->
     part
         .reversed()
         .chunked(
